@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Identity Reference Guide — MKT 315</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #F2EFE9;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: #1C1C1C;
+    color: #fff;
+    padding: 30px 48px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+  header h1 strong { font-size: 26px; display: block; font-weight: bold; letter-spacing: -0.3px; }
+  .hdr-right { text-align: right; }
+  .semester-tag {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    background: #333;
+    color: #aaa;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .hdr-note {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #666;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    background: #fff;
+    border-bottom: 2px solid #E5E1DB;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  nav::-webkit-scrollbar { height: 3px; }
+  nav::-webkit-scrollbar-thumb { background: #ccc; }
+  .nav-btn {
+    padding: 0 28px;
+    height: 60px;
+    border: none;
+    background: transparent;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #777;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.3px;
+  }
+  .nav-btn:hover { color: #1a1a1a; background: #fafafa; }
+  .nav-btn.active { color: #1a1a1a; border-bottom-color: var(--brand-color); }
+  .nav-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--brand-color);
+    flex-shrink: 0;
+    border: 1.5px solid rgba(0,0,0,0.12);
+  }
+
+  /* ── PANEL ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── HERO BAND ── */
+  .brand-hero {
+    background: var(--brand-color);
+    color: var(--brand-text);
+    padding: 40px 48px 36px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .brand-logo-box {
+    width: 100px;
+    height: 100px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.25);
+  }
+  .brand-logo-box svg { width: 68px; height: 68px; }
+  .brand-hero-info h2 {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .brand-hero-info .ticker {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    background: rgba(0,0,0,0.2);
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+  }
+  .brand-hero-info .tagline {
+    margin-top: 10px;
+    font-size: 15px;
+    opacity: 0.85;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* ── CONTENT GRID ── */
+  .content-area {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 36px 32px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* ── SECTION CARD ── */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+  .card-header {
+    padding: 16px 24px;
+    background: var(--brand-color);
+    color: var(--brand-text);
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .card-body { padding: 24px; }
+
+  /* ── COLOR SWATCHES ── */
+  .swatch-row { display: flex; flex-wrap: wrap; gap: 16px; }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 90px;
+  }
+  .swatch-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .swatch-name {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: #333;
+  }
+  .swatch-hex {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    background: #f4f4f4;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TYPOGRAPHY SAMPLES ── */
+  .type-samples { display: flex; flex-direction: column; gap: 20px; }
+  .type-sample { border-left: 3px solid var(--brand-color); padding-left: 16px; }
+  .type-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 4px;
+  }
+  .type-demo { font-size: 22px; color: #1a1a1a; line-height: 1.2; }
+  .type-detail {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  /* ── BRAND VOICE ── */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .voice-card {
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #eee;
+  }
+  .voice-card h4 {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--brand-color);
+    margin-bottom: 8px;
+  }
+  .voice-card p, .voice-card ul { font-size: 13px; color: #444; line-height: 1.6; }
+  .voice-card ul { padding-left: 16px; }
+  .voice-card ul li { margin-bottom: 4px; }
+
+  /* ── DO / DON'T ── */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .do-box, .dont-box {
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .do-box { background: #F0FAF0; border: 1.5px solid #B8DFB8; }
+  .dont-box { background: #FFF0F0; border: 1.5px solid #F0BBBB; }
+  .do-box strong, .dont-box strong {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .do-box strong { color: #2A7A2A; }
+  .dont-box strong { color: #A02020; }
+  .do-box ul, .dont-box ul { padding-left: 18px; color: #444; }
+  .do-box ul li, .dont-box ul li { margin-bottom: 4px; }
+
+  /* ── PPT QUICK REF ── */
+  .ppt-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ppt-table th {
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #999;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid #eee;
+    background: #fafafa;
+  }
+  .ppt-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    line-height: 1.5;
+    color: #333;
+  }
+  .ppt-table td:first-child {
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: #555;
+    white-space: nowrap;
+    width: 160px;
+  }
+  .ppt-table tr:last-child td { border-bottom: none; }
+
+  /* ── POSITIONING BLOCK ── */
+  .position-block {
+    background: linear-gradient(135deg, var(--brand-color) 0%, var(--brand-dark) 100%);
+    color: var(--brand-text);
+    padding: 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .position-block cite {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.5px;
+    opacity: 0.75;
+    text-transform: uppercase;
+  }
+
+  /* ── INTRO CALLOUT ── */
+  .intro-callout {
+    background: #FDFAF5;
+    border: 1.5px solid #E8E0D0;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #444;
+  }
+  .intro-callout strong { color: #1a1a1a; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #999;
+    padding: 24px 16px;
+    border-top: 1px solid #E5E1DB;
+    background: #ECEAE5;
+    letter-spacing: 0.3px;
+  }
+
+  .download-btn {
+    color: #444 !important;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    margin: 10px 16px !important;
+    height: 40px !important;
+    padding: 0 18px !important;
+    font-size: 12px !important;
+    background: #f7f7f7 !important;
+    gap: 7px !important;
+    transition: all 0.2s;
+  }
+  .download-btn:hover {
+    background: #1C1C1C !important;
+    color: #fff !important;
+    border-color: #1C1C1C !important;
+  }
+  .download-btn svg { flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    header { padding: 20px 20px; flex-direction: column; align-items: flex-start; }
+    .hdr-right { text-align: left; }
+    .brand-hero { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
+    .content-area { padding: 24px 16px 48px; }
+    .voice-grid, .do-dont { grid-template-columns: 1fr; }
+    .ppt-table td:first-child { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ HEADER -->
+<header>
+  <div>
+    <h1>MKT 315 · Principles of Marketing<strong>Brand Identity Reference Guide</strong></h1>
+    <div style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:6px;">Grand Canyon University</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-note">For educational use only &nbsp;·&nbsp; All trademarks belong to their respective owners</div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════ NAV -->
+<nav>
+  <button class="nav-btn active" style="--brand-color:#E20010;" onclick="show('lulu',this)">
+    <span class="nav-color-dot" style="--brand-color:#E20010;"></span> lululemon
+  </button>
+  <button class="nav-btn" style="--brand-color:#AC2318;" onclick="show('chipotle',this)">
+    <span class="nav-color-dot" style="--brand-color:#AC2318;"></span> Chipotle
+  </button>
+  <button class="nav-btn" style="--brand-color:#58CC02;" onclick="show('duolingo',this)">
+    <span class="nav-color-dot" style="--brand-color:#58CC02;"></span> Duolingo
+  </button>
+  <button class="nav-btn" style="--brand-color:#003DA5;" onclick="show('dutchbros',this)">
+    <span class="nav-color-dot" style="--brand-color:#003DA5;"></span> Dutch Bros
+  </button>
+  <button class="nav-btn" style="--brand-color:#1A1A1A;" onclick="show('coach',this)">
+    <span class="nav-color-dot" style="--brand-color:#1A1A1A;"></span> Coach / Tapestry
+  </button>
+  <button class="nav-btn download-btn" onclick="downloadGuide()" title="Save this guide to your computer" style="margin-left:auto; --brand-color:#555;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Guide
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PANEL 1 — LULULEMON
+═══════════════════════════════════════════════════════════════ -->
+<div class="panel active" id="panel-lulu" style="--brand-color:#E20010;--brand-dark:#9A000A;--brand-text:#fff;">
+
+  <div class="brand-hero" style="--brand-color:#E20010;--brand-text:#fff;">
+    <div class="brand-logo-box">
+      <!-- lululemon accurate "A" horseshoe mark -->
+      <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- The lululemon logo is the stylized "A" — an upside-down omega/horseshoe with two small feet -->
+        <!-- Outer horseshoe arch -->
+        <path d="M34 10
+                 C19 10, 8 21, 8 35
+                 C8 46, 15 55, 25 58
+                 L25 58 L21 64 L29 64
+                 C30.5 61, 32 59, 34 59
+                 C36 59, 37.5 61, 39 64
+                 L47 64 L43 58
+                 C53 55, 60 46, 60 35
+                 C60 21, 49 10, 34 10Z"
+              fill="white"/>
+        <!-- Inner cutout to create the horseshoe ring shape -->
+        <path d="M34 18
+                 C23 18, 16 26, 16 35
+                 C16 43, 21 49, 28 52
+                 L28 52 L30 56
+                 C31 54.5, 32.5 53.5, 34 53.5
+                 C35.5 53.5, 37 54.5, 38 56
+                 L40 52
+                 C47 49, 52 43, 52 35
+                 C52 26, 45 18, 34 18Z"
+              fill="#E20010"/>
+      </svg>
+    </div>
+    <div class="brand-hero-info">
+      <h2>lululemon athletica</h2>
+      <span class="ticker">NASDAQ: LULU &nbsp;·&nbsp; Founded 1998 &nbsp;·&nbsp; Vancouver, BC</span>
+      <p class="tagline">"Living the sweatlife" — premium athletic apparel rooted in mindfulness and community</p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="intro-callout">
+      <strong>Why lululemon for MKT 315?</strong> lululemon is a masterclass in premium brand positioning, community-driven marketing, and product-as-lifestyle strategy. The brand has no traditional advertising budget — growth has come almost entirely from grassroots community events, ambassador programs, and word-of-mouth. Your analysis will reveal how a company can build a $50B brand without a single TV commercial.
+    </div>
+
+    <!-- COLORS -->
+    <div class="card">
+      <div class="card-header">Brand Color Palette</div>
+      <div class="card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#E20010;"></div>
+            <div class="swatch-name">Lululemon Red</div>
+            <div class="swatch-hex">#E20010</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#000000; border-color:#ccc;"></div>
+            <div class="swatch-name">Black</div>
+            <div class="swatch-hex">#000000</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFFFFF; border-color:#ccc;"></div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#F5F5F5; border-color:#ccc;"></div>
+            <div class="swatch-name">Light Gray</div>
+            <div class="swatch-hex">#F5F5F5</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#3D3D3D;"></div>
+            <div class="swatch-name">Charcoal</div>
+            <div class="swatch-hex">#3D3D3D</div>
+          </div>
+        </div>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:16px;">The palette is intentionally minimal. Red is used sparingly as an accent — black and white carry the vast majority of brand communications, creating a clean, premium feel.</p>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="card">
+      <div class="card-header">Typography</div>
+      <div class="card-body">
+        <div class="type-samples">
+          <div class="type-sample" style="--brand-color:#E20010;">
+            <div class="type-label">Wordmark / Brand Name</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:300;letter-spacing:2px;text-transform:lowercase;">lululemon athletica</div>
+            <div class="type-detail">Custom sans-serif, all lowercase. Approachable yet refined. Never capitalize the brand name.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#E20010;">
+            <div class="type-label">Headlines (Presentations)</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:700;letter-spacing:-0.5px;">Be Present. Be Bold.</div>
+            <div class="type-detail">Bold sans-serif. Short, active, motivational phrasing. Use Helvetica Neue Bold or Arial Bold as a substitute.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#E20010;">
+            <div class="type-label">Body / Supporting Text</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:400;font-size:16px;color:#444;">Designed for people who want to live a life they love.</div>
+            <div class="type-detail">Clean sans-serif at regular weight. Never use decorative or script fonts.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VOICE -->
+    <div class="card">
+      <div class="card-header">Brand Voice &amp; Personality</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#E20010;">
+            <h4>Tone</h4>
+            <ul>
+              <li>Aspirational but accessible</li>
+              <li>Motivating without being preachy</li>
+              <li>Warm, community-focused</li>
+              <li>Confident, never arrogant</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#E20010;">
+            <h4>Personality Pillars</h4>
+            <ul>
+              <li>Mindfulness &amp; intentional living</li>
+              <li>Community over competition</li>
+              <li>Technical performance + style</li>
+              <li>Personal growth &amp; "sweatlife"</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#E20010;">
+            <h4>Core Positioning</h4>
+            <p>Premium athleisure that bridges performance and lifestyle. The brand sells an identity — belonging to a community of health-conscious, purpose-driven people — not just leggings.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#E20010;">
+            <h4>Target Market</h4>
+            <p>Originally "Super Girls" (32-year-old yoga-practicing professionals). Now expanded to men (LULU men's = 23% revenue), Gen Z, and international markets. Core remains affluent, health-conscious consumers ages 22–45.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONING STATEMENT -->
+    <div class="card">
+      <div class="card-header">Brand Positioning</div>
+      <div class="card-body">
+        <div class="position-block" style="--brand-color:#E20010;--brand-dark:#9A000A;--brand-text:#fff;">
+          "For health-conscious, active individuals who want performance apparel that supports their entire lifestyle, lululemon is the premium athletic brand that makes technical gear feel like a personal identity — built on community, not advertising."
+          <cite>Synthesized from lululemon investor materials &amp; brand guidelines</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT QUICK REF -->
+    <div class="card">
+      <div class="card-header">PowerPoint Presentation Quick Reference</div>
+      <div class="card-body">
+        <table class="ppt-table">
+          <tr><th>Element</th><th>Guideline</th></tr>
+          <tr><td>Slide background</td><td>White (#FFFFFF) for content; black (#000000) for hero/impact slides. Red (#E20010) only as a rare accent, never as a full background.</td></tr>
+          <tr><td>Text color</td><td>Black on white. White on black. Never red text — too hard to read at a distance.</td></tr>
+          <tr><td>Headline font</td><td>Arial Bold or Helvetica Neue Bold. All caps or sentence case. Never title case in a quirky script.</td></tr>
+          <tr><td>Imagery style</td><td>Clean, aspirational, active people in real settings. Bright natural light. Never busy or cluttered. Lots of white space.</td></tr>
+          <tr><td>Graphic elements</td><td>Thin lines, minimal geometry. Let the product photography and white space carry the visual weight.</td></tr>
+          <tr><td>Overall feel</td><td>Premium, clean, purposeful. Think yoga studio aesthetic, not gym locker room.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <div class="card-header">Do's &amp; Don'ts</div>
+      <div class="card-body">
+        <div class="do-dont">
+          <div class="do-box">
+            <strong>✓ DO</strong>
+            <ul>
+              <li>Use "lululemon" — always lowercase, even at sentence start</li>
+              <li>Lead with community, lifestyle, and mindfulness themes</li>
+              <li>Use generous white space — never crowd the design</li>
+              <li>Emphasize technical innovation alongside aesthetic appeal</li>
+              <li>Reference the ambassador/community marketing model</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <strong>✗ DON'T</strong>
+            <ul>
+              <li>Capitalize to "Lululemon" — this is a brand violation</li>
+              <li>Use red as a background or dominant color</li>
+              <li>Compare directly to Nike/Adidas in a bargain-hunting way</li>
+              <li>Use busy, colorful, cluttered designs</li>
+              <li>Use script fonts or decorative typefaces</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /lulu panel -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PANEL 2 — CHIPOTLE
+═══════════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-chipotle" style="--brand-color:#AC2318;--brand-dark:#441500;--brand-text:#fff;">
+
+  <div class="brand-hero" style="--brand-color:#AC2318;--brand-text:#fff;">
+    <div class="brand-logo-box">
+      <!-- Chipotle accurate wordmark -->
+      <svg viewBox="0 0 100 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Chipotle uses a bold serif wordmark, all caps, with a distinctive chunky letterform -->
+        <text x="50" y="30"
+              font-family="Georgia, 'Times New Roman', serif"
+              font-size="15"
+              font-weight="bold"
+              fill="white"
+              text-anchor="middle"
+              letter-spacing="1">CHIPOTLE</text>
+        <!-- Underline accent bar in Chipotle brown/foil style -->
+        <rect x="10" y="34" width="80" height="2.5" fill="white" opacity="0.6" rx="1"/>
+        <text x="50" y="50"
+              font-family="Georgia, 'Times New Roman', serif"
+              font-size="8.5"
+              font-weight="normal"
+              fill="white"
+              text-anchor="middle"
+              letter-spacing="2"
+              opacity="0.85">MEXICAN GRILL</text>
+      </svg>
+    </div>
+    <div class="brand-hero-info">
+      <h2>Chipotle Mexican Grill</h2>
+      <span class="ticker">NYSE: CMG &nbsp;·&nbsp; Founded 1993 &nbsp;·&nbsp; Denver, CO</span>
+      <p class="tagline">"Food With Integrity" — fast-casual dining built on sourcing transparency and customization</p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="intro-callout">
+      <strong>Why Chipotle for MKT 315?</strong> Chipotle is one of the most studied brands in fast-casual marketing — a rare case where a company disrupted an entire industry category through ethical sourcing, minimal-menu strategy, and digital loyalty programs. Its 2025 campaign directly attacking McDonald's with guerrilla marketing tactics earned 21% same-store sales growth. Rich for every topic in this course.
+    </div>
+
+    <!-- COLORS -->
+    <div class="card">
+      <div class="card-header">Brand Color Palette</div>
+      <div class="card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#AC2318;"></div>
+            <div class="swatch-name">Chipotle Red</div>
+            <div class="swatch-hex">#AC2318</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#441500;"></div>
+            <div class="swatch-name">Chipotle Brown</div>
+            <div class="swatch-hex">#441500</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFFFFF; border-color:#ccc;"></div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#C8A96E;"></div>
+            <div class="swatch-name">Warm Tan</div>
+            <div class="swatch-hex">#C8A96E</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#F5F0E8; border-color:#ccc;"></div>
+            <div class="swatch-name">Cream</div>
+            <div class="swatch-hex">#F5F0E8</div>
+          </div>
+        </div>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:16px;">Warm, earthy tones reinforce "Food With Integrity" — the palette signals real ingredients, not artificial brightness. This intentionally contrasts with McDonald's bright yellow/red.</p>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="card">
+      <div class="card-header">Typography</div>
+      <div class="card-body">
+        <div class="type-samples">
+          <div class="type-sample" style="--brand-color:#AC2318;">
+            <div class="type-label">Wordmark</div>
+            <div class="type-demo" style="font-family:Georgia,serif;font-weight:700;letter-spacing:1px;color:#AC2318;">CHIPOTLE</div>
+            <div class="type-detail">Custom modified Gotham Bold with a unique low-midbar "E." Use Gotham Bold or Georgia Bold as presentation substitute.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#AC2318;">
+            <div class="type-label">Headlines</div>
+            <div class="type-demo" style="font-family:Georgia,serif;font-weight:700;">Cultivate a Better World.</div>
+            <div class="type-detail">Serif headlines reinforce craft and authenticity — differentiating Chipotle from fast-food chains that use sans-serif. Short, values-driven statements.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#AC2318;">
+            <div class="type-label">Body / Subheads</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-size:15px;color:#555;">Responsibly sourced. Transparently prepared.</div>
+            <div class="type-detail">Clean sans-serif at supporting hierarchy level. The contrast of serif headline + sans body is intentional and part of the brand system.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VOICE -->
+    <div class="card">
+      <div class="card-header">Brand Voice &amp; Personality</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#AC2318;">
+            <h4>Tone</h4>
+            <ul>
+              <li>Authentic, no-nonsense, transparent</li>
+              <li>Occasionally playful and bold</li>
+              <li>Mission-driven without being sanctimonious</li>
+              <li>Direct: "We charge more because we pay more for better food"</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#AC2318;">
+            <h4>Personality Pillars</h4>
+            <ul>
+              <li>Food integrity &amp; ethical sourcing</li>
+              <li>Radical customization (the "burrito you build")</li>
+              <li>Transparency about ingredients &amp; process</li>
+              <li>Social &amp; environmental responsibility</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#AC2318;">
+            <h4>Core Positioning</h4>
+            <p>The fast-casual brand that refuses to compromise — on ingredients, sourcing, or principles. "Fast food" without the stigma, premium quality without full-service prices. A third category.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#AC2318;">
+            <h4>Target Market</h4>
+            <p>Millennials and Gen Z consumers (ages 18–35) who care about what they eat but don't want to pay fine-dining prices. Health-conscious, value-driven, skeptical of corporate "greenwashing."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONING -->
+    <div class="card">
+      <div class="card-header">Brand Positioning</div>
+      <div class="card-body">
+        <div class="position-block" style="--brand-color:#AC2318;--brand-dark:#441500;--brand-text:#fff;">
+          "For conscious consumers who refuse to choose between fast and good, Chipotle is the fast-casual restaurant that proves you don't have to compromise — on ingredients, on ethics, or on flavor."
+          <cite>Synthesized from Chipotle investor materials &amp; 'Food With Integrity' platform</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT QUICK REF -->
+    <div class="card">
+      <div class="card-header">PowerPoint Presentation Quick Reference</div>
+      <div class="card-body">
+        <table class="ppt-table">
+          <tr><th>Element</th><th>Guideline</th></tr>
+          <tr><td>Slide background</td><td>Cream (#F5F0E8) or white for content slides. Chipotle Red (#AC2318) for hero/section dividers. Chipotle Brown (#441500) for dark-mode slides.</td></tr>
+          <tr><td>Text color</td><td>Brown (#441500) on cream/white. White on red or brown. Never red text on a white background — hard to read.</td></tr>
+          <tr><td>Headline font</td><td>Georgia Bold or a serif font. Reinforce the craft/artisanal positioning with typography choice.</td></tr>
+          <tr><td>Imagery style</td><td>Real food, real people, warm light. Avoid stock-photo perfection — authenticity over polish. Earthy, warm tones in all photography.</td></tr>
+          <tr><td>Graphic elements</td><td>Hand-drawn or organic shapes reference the brand's artisanal positioning. Avoid sterile corporate geometry.</td></tr>
+          <tr><td>Overall feel</td><td>Warm, honest, grounded. Think a well-designed farmers market, not a tech startup or a fast-food joint.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <div class="card-header">Do's &amp; Don'ts</div>
+      <div class="card-body">
+        <div class="do-dont">
+          <div class="do-box">
+            <strong>✓ DO</strong>
+            <ul>
+              <li>Lead with "Food With Integrity" as the brand anchor</li>
+              <li>Use warm, earthy tones throughout your presentation</li>
+              <li>Highlight the supply chain ethics and sourcing story</li>
+              <li>Reference the digital loyalty program and data strategy</li>
+              <li>Note the contrast with traditional fast food — this is a category disruptor</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <strong>✗ DON'T</strong>
+            <ul>
+              <li>Use bright primary colors (red + yellow) — that's McDonald's</li>
+              <li>Position as a "cheap" option — it's a premium fast-casual brand</li>
+              <li>Use cool blues or corporate grays — wrong brand temperature</li>
+              <li>Ignore the controversies (E. coli outbreaks, price criticism) — they're real case study material</li>
+              <li>Use sans-serif headlines — serif is intentional and brand-correct</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /chipotle panel -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PANEL 3 — DUOLINGO
+═══════════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-duolingo" style="--brand-color:#58CC02;--brand-dark:#3A8C00;--brand-text:#fff;">
+
+  <div class="brand-hero" style="--brand-color:#58CC02;--brand-text:#1a1a1a;">
+    <div class="brand-logo-box" style="background:rgba(0,0,0,0.15);">
+      <!-- Duolingo accurate Duo owl mark -->
+      <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body / rounded base -->
+        <ellipse cx="34" cy="42" rx="19" ry="16" fill="white"/>
+        <!-- Head — larger rounded top -->
+        <ellipse cx="34" cy="28" rx="19" ry="17" fill="white"/>
+        <!-- Ear tufts — rounded bumps -->
+        <ellipse cx="22" cy="14" rx="6" ry="8" fill="white" transform="rotate(-15 22 14)"/>
+        <ellipse cx="46" cy="14" rx="6" ry="8" fill="white" transform="rotate(15 46 14)"/>
+        <!-- Eye whites -->
+        <circle cx="25" cy="28" r="8" fill="#58CC02"/>
+        <circle cx="43" cy="28" r="8" fill="#58CC02"/>
+        <!-- Eye pupils -->
+        <circle cx="25" cy="28" r="5" fill="white"/>
+        <circle cx="43" cy="28" r="5" fill="white"/>
+        <circle cx="25" cy="28" r="3" fill="#1a1a1a"/>
+        <circle cx="43" cy="28" r="3" fill="#1a1a1a"/>
+        <!-- Eye shine -->
+        <circle cx="26.5" cy="26.5" r="1.2" fill="white"/>
+        <circle cx="44.5" cy="26.5" r="1.2" fill="white"/>
+        <!-- Beak -->
+        <path d="M29 36 Q34 41 39 36 Q34 38.5 29 36Z" fill="#FFA500"/>
+        <!-- Belly patch -->
+        <ellipse cx="34" cy="48" rx="11" ry="7" fill="#D7F5A0"/>
+        <!-- Belly dividing line (wing fold) -->
+        <path d="M20 38 Q34 44 48 38" stroke="#cce8a0" stroke-width="1.5" fill="none"/>
+        <!-- Feet -->
+        <path d="M27 57 L24 61 M27 57 L27 62 M27 57 L30 61" stroke="#FFA500" stroke-width="2" stroke-linecap="round"/>
+        <path d="M41 57 L38 61 M41 57 L41 62 M41 57 L44 61" stroke="#FFA500" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="brand-hero-info" style="color:#1a1a1a;">
+      <h2 style="color:#1a1a1a;">Duolingo</h2>
+      <span class="ticker" style="background:rgba(0,0,0,0.15);color:#1a1a1a;">NASDAQ: DUOL &nbsp;·&nbsp; Founded 2011 &nbsp;·&nbsp; Pittsburgh, PA</span>
+      <p class="tagline" style="color:#2a2a2a;">"The world's best way to learn a language" — gamified education with a memorably chaotic brand personality</p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="intro-callout">
+      <strong>Why Duolingo for MKT 315?</strong> Duolingo is one of the most distinctive digital marketing case studies of the 2020s. The brand built a massive social media following by giving its mascot (Duo the owl) a darkly humorous, meme-driven personality that no other edtech company would dare attempt. It is also a textbook example of freemium pricing, data-driven product design, and conversion funnel optimization through gamification.
+    </div>
+
+    <!-- COLORS -->
+    <div class="card">
+      <div class="card-header">Brand Color Palette</div>
+      <div class="card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#58CC02;"></div>
+            <div class="swatch-name">Duo Green</div>
+            <div class="swatch-hex">#58CC02</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#1CB0F6;"></div>
+            <div class="swatch-name">Sky Blue</div>
+            <div class="swatch-hex">#1CB0F6</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFC200;"></div>
+            <div class="swatch-name">Streak Yellow</div>
+            <div class="swatch-hex">#FFC200</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FF4B4B;"></div>
+            <div class="swatch-name">Heart Red</div>
+            <div class="swatch-hex">#FF4B4B</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#8549BA;"></div>
+            <div class="swatch-name">XP Purple</div>
+            <div class="swatch-hex">#8549BA</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#1a1a1a;"></div>
+            <div class="swatch-name">Off Black</div>
+            <div class="swatch-hex">#1A1A1A</div>
+          </div>
+        </div>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:16px;">Each color in the product palette has a purpose: green = progress, yellow = streaks, red = lives/hearts, blue = trust and learning, purple = premium/Super. Use this systematically — colors communicate meaning.</p>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="card">
+      <div class="card-header">Typography</div>
+      <div class="card-body">
+        <div class="type-samples">
+          <div class="type-sample" style="--brand-color:#58CC02;">
+            <div class="type-label">Primary Brand Font</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:900;color:#58CC02;font-size:26px;letter-spacing:-1px;">DIN Round Pro</div>
+            <div class="type-detail">Rounded, friendly, bold. Use Impact or Arial Black as presentation substitute. The rounded letterforms signal approachability and playfulness.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#58CC02;">
+            <div class="type-label">Headlines &amp; CTAs</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:900;color:#1a1a1a;">Learn for free. Forever.</div>
+            <div class="type-detail">Ultra-bold, short, punchy. Duolingo headlines are never more than 5–6 words. Always direct. Often slightly cheeky.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#58CC02;">
+            <div class="type-label">Body &amp; UI Text</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:700;font-size:15px;color:#444;">You're on a 7-day streak. Don't blow it.</div>
+            <div class="type-detail">Bold body text with a conversational, slightly taunting tone. The brand speaks directly to users — no corporate distance.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VOICE -->
+    <div class="card">
+      <div class="card-header">Brand Voice &amp; Personality</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#58CC02;">
+            <h4>Tone</h4>
+            <ul>
+              <li>Playful, witty, occasionally threatening</li>
+              <li>Self-aware and meme-literate</li>
+              <li>Encouraging but with mock urgency ("Don't break your streak")</li>
+              <li>Personality-forward: Duo the owl IS the brand</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#58CC02;">
+            <h4>Personality Pillars</h4>
+            <ul>
+              <li>Gamification of learning (streaks, XP, leagues)</li>
+              <li>Accessibility — free forever for core product</li>
+              <li>Data-driven personalization</li>
+              <li>Humor as a marketing differentiator</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#58CC02;">
+            <h4>Core Positioning</h4>
+            <p>The only language-learning app that makes you actually come back every day — through a combination of gamification, social accountability, and a mascot that guilt-trips you in ways you weirdly enjoy.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#58CC02;">
+            <h4>Target Market</h4>
+            <p>Gen Z and Millennials (16–35) globally. Casual learners and language hobbyists, not serious academics. People who've "always wanted to learn Spanish" but need motivation, not a classroom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONING -->
+    <div class="card">
+      <div class="card-header">Brand Positioning</div>
+      <div class="card-body">
+        <div class="position-block" style="--brand-color:#58CC02;--brand-dark:#3A8C00;--brand-text:#fff;">
+          "For people who want to learn a language but struggle with consistency, Duolingo is the free, gamified app that turns daily practice into a habit — through progress systems, social competition, and a green owl that will not leave you alone."
+          <cite>Synthesized from Duolingo brand &amp; product strategy</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT QUICK REF -->
+    <div class="card">
+      <div class="card-header">PowerPoint Presentation Quick Reference</div>
+      <div class="card-body">
+        <table class="ppt-table">
+          <tr><th>Element</th><th>Guideline</th></tr>
+          <tr><td>Slide background</td><td>White for content. Duo Green (#58CC02) for hero/opener. Off-black for dark-mode data slides. Use the product color system (blue, yellow, red) to organize content sections.</td></tr>
+          <tr><td>Text color</td><td>Dark (#1A1A1A) on white or green. White on dark. Always high contrast — the brand is designed for mobile readability.</td></tr>
+          <tr><td>Headline font</td><td>Impact, Arial Black, or any ultra-bold rounded sans-serif. Bold, chunky, legible at a glance.</td></tr>
+          <tr><td>Imagery style</td><td>Bright, saturated, flat illustration style. The product UI screenshots. Duo the owl (reference only — don't reproduce the trademarked character). Avoid moody or subtle photography.</td></tr>
+          <tr><td>Graphic elements</td><td>Rounded rectangles, bold icons, progress bars. The gamification UI aesthetic works as a design system for your slides.</td></tr>
+          <tr><td>Overall feel</td><td>Fun, energetic, slightly absurd. This is not a conservative brand — your presentation should have personality.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <div class="card-header">Do's &amp; Don'ts</div>
+      <div class="card-body">
+        <div class="do-dont">
+          <div class="do-box">
+            <strong>✓ DO</strong>
+            <ul>
+              <li>Use vibrant, bold colors throughout — this is a high-energy brand</li>
+              <li>Lean into the freemium model as a core business strategy discussion</li>
+              <li>Reference the social media / TikTok brand strategy as a marketing case study</li>
+              <li>Use the gamification elements (streaks, hearts, leaderboards) in your IMC analysis</li>
+              <li>Discuss the brand's data analytics depth — it tracks everything</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <strong>✗ DON'T</strong>
+            <ul>
+              <li>Use dull, corporate, or muted colors — totally wrong brand register</li>
+              <li>Position Duolingo as an academic/educational "serious" brand</li>
+              <li>Use thin or light-weight fonts — bold is the entire brand's typographic identity</li>
+              <li>Reproduce Duo the owl as if it were a simple clip-art element — he's a complex IP asset</li>
+              <li>Ignore the tension between free product and paid Super Duolingo conversion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /duolingo panel -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PANEL 4 — DUTCH BROS
+═══════════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-dutchbros" style="--brand-color:#003DA5;--brand-dark:#002270;--brand-text:#fff;">
+
+  <div class="brand-hero" style="--brand-color:#003DA5;--brand-text:#fff;">
+    <div class="brand-logo-box">
+      <!-- Dutch Bros accurate pinwheel/windmill logo mark -->
+      <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- The Dutch Bros logo is a stylized 4-blade pinwheel/windmill in a circle -->
+        <!-- Outer circle background -->
+        <circle cx="34" cy="34" r="28" fill="white"/>
+        <!-- Blade 1 — top-right (blue) -->
+        <path d="M34 34 C34 34, 38 22, 50 18 C50 18, 46 30, 34 34Z" fill="#003DA5"/>
+        <!-- Blade 2 — bottom-right (yellow) -->
+        <path d="M34 34 C34 34, 46 38, 50 50 C50 50, 38 46, 34 34Z" fill="#FFD100"/>
+        <!-- Blade 3 — bottom-left (blue) -->
+        <path d="M34 34 C34 34, 30 46, 18 50 C18 50, 22 38, 34 34Z" fill="#003DA5"/>
+        <!-- Blade 4 — top-left (yellow) -->
+        <path d="M34 34 C34 34, 22 30, 18 18 C18 18, 30 22, 34 34Z" fill="#FFD100"/>
+        <!-- Center hub circle -->
+        <circle cx="34" cy="34" r="4" fill="white"/>
+        <circle cx="34" cy="34" r="2.5" fill="#003DA5"/>
+      </svg>
+    </div>
+    <div class="brand-hero-info">
+      <h2>Dutch Bros Coffee</h2>
+      <span class="ticker">NYSE: BROS &nbsp;·&nbsp; Founded 1992 &nbsp;·&nbsp; Grants Pass, OR</span>
+      <p class="tagline">"Speed of Service, Quality of Life" — community-first drive-thru coffee culture from the Pacific Northwest</p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="intro-callout">
+      <strong>Why Dutch Bros for MKT 315?</strong> Dutch Bros is the anti-Starbucks story — a brand built not on premium positioning but on radical human connection. With almost no traditional advertising, it grew from a single pushcart to 900+ locations through community events, employee culture, and a loyalty app. The founders' openly faith-driven values make it a rare case for the Christian worldview element in your Topic 8 presentation.
+    </div>
+
+    <!-- COLORS -->
+    <div class="card">
+      <div class="card-header">Brand Color Palette</div>
+      <div class="card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#003DA5;"></div>
+            <div class="swatch-name">Dutch Blue</div>
+            <div class="swatch-hex">#003DA5</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFD100;"></div>
+            <div class="swatch-name">Tulip Yellow</div>
+            <div class="swatch-hex">#FFD100</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#E35205;"></div>
+            <div class="swatch-name">Dutch Orange</div>
+            <div class="swatch-hex">#E35205</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFFFFF; border-color:#ccc;"></div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#DA262E;"></div>
+            <div class="swatch-name">Dutch Red</div>
+            <div class="swatch-hex">#DA262E</div>
+          </div>
+        </div>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:16px;">The tricolor stripe (yellow, orange/red, blue) references Dutch tulip fields and the Netherlands flag — connecting the brand to the Boersma brothers' heritage. Blue is the dominant brand color for trust and reliability.</p>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="card">
+      <div class="card-header">Typography</div>
+      <div class="card-body">
+        <div class="type-samples">
+          <div class="type-sample" style="--brand-color:#003DA5;">
+            <div class="type-label">Brand Wordmark</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:900;color:#003DA5;letter-spacing:2px;text-transform:uppercase;">DUTCH BROS</div>
+            <div class="type-detail">Bold condensed uppercase block letters in blue. The brand name is always in caps. "Coffee" appears in a looser, warmer treatment beneath — contrast between bold corporate and friendly script.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#003DA5;">
+            <div class="type-label">Headlines</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:900;color:#1a1a1a;text-transform:uppercase;">MAKE IT COUNT.</div>
+            <div class="type-detail">Bold, uppercase, action-oriented. Dutch Bros headlines are energetic and community-focused. Use Arial Black or Impact as substitutes.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#003DA5;">
+            <div class="type-label">Supporting Voice</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-size:15px;color:#555;">Good people making great drinks — and making your day a little better.</div>
+            <div class="type-detail">Warm, conversational body copy. The brand speaks like a friend, not a corporation. Never formal or stiff.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VOICE -->
+    <div class="card">
+      <div class="card-header">Brand Voice &amp; Personality</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#003DA5;">
+            <h4>Tone</h4>
+            <ul>
+              <li>High-energy, positive, genuinely warm</li>
+              <li>Community-focused — "broista" culture is the brand</li>
+              <li>Fun without being performative</li>
+              <li>Faith-influenced: service, generosity, caring for others</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#003DA5;">
+            <h4>Personality Pillars</h4>
+            <ul>
+              <li>Speed + human connection (not a contradiction)</li>
+              <li>Community giving &amp; fundraiser days</li>
+              <li>Highly customized drinks ("secret menu")</li>
+              <li>Employee culture as brand identity</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#003DA5;">
+            <h4>Core Positioning</h4>
+            <p>The coffee chain where the experience is the product. You can get a good drink anywhere — Dutch Bros sells a connection. Every interaction is designed to make the customer's day better, not just faster.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#003DA5;">
+            <h4>Target Market</h4>
+            <p>Gen Z and younger Millennials (16–30), primarily in Western U.S. markets. Value-seekers who still want variety and customization. Brand loyalists drawn to the community energy and employee-customer relationship.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONING -->
+    <div class="card">
+      <div class="card-header">Brand Positioning</div>
+      <div class="card-body">
+        <div class="position-block" style="--brand-color:#003DA5;--brand-dark:#002270;--brand-text:#fff;">
+          "For coffee lovers who want more than a transaction, Dutch Bros is the drive-thru brand that treats every customer like a regular — built on genuine human connection, community generosity, and drinks you can make uniquely yours."
+          <cite>Synthesized from Dutch Bros investor materials &amp; brand mission</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT QUICK REF -->
+    <div class="card">
+      <div class="card-header">PowerPoint Presentation Quick Reference</div>
+      <div class="card-body">
+        <table class="ppt-table">
+          <tr><th>Element</th><th>Guideline</th></tr>
+          <tr><td>Slide background</td><td>White for content slides. Dutch Blue (#003DA5) for hero/opener and section headers. Use the tricolor stripe (yellow/orange/blue) as a design accent element.</td></tr>
+          <tr><td>Text color</td><td>White on blue. Dark navy or charcoal on white. Yellow (#FFD100) as an accent/highlight — never as body text color.</td></tr>
+          <tr><td>Headline font</td><td>Arial Black or Impact in uppercase. Bold, block, energetic. Reflects the brand's high-energy culture.</td></tr>
+          <tr><td>Imagery style</td><td>Real people, real smiles, real community events. Drive-thru interactions, fundraiser events, colorful specialty drinks. Authentic over polished.</td></tr>
+          <tr><td>Graphic elements</td><td>The windmill icon, the tricolor stripe bar, bold block shapes. Keep it bold and clean — the brand is not subtle.</td></tr>
+          <tr><td>Overall feel</td><td>High energy but warm. Think a West Coast summer block party, not a coffee shop quiet corner.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <div class="card-header">Do's &amp; Don'ts</div>
+      <div class="card-body">
+        <div class="do-dont">
+          <div class="do-box">
+            <strong>✓ DO</strong>
+            <ul>
+              <li>Lead with community and human connection — this is the brand's core differentiator</li>
+              <li>Use the Dutch heritage (windmill, tulip colors) as a visual anchor</li>
+              <li>Note the faith-founded values when addressing the Christian worldview element</li>
+              <li>Discuss the loyalty app and data strategy for the analytics topic</li>
+              <li>Compare and contrast with Starbucks — same category, totally different brand strategy</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <strong>✗ DON'T</strong>
+            <ul>
+              <li>Use a quiet, minimal, coffee-shop aesthetic — that's Starbucks territory</li>
+              <li>Position Dutch Bros as a premium luxury brand — it's accessible and value-positive</li>
+              <li>Underestimate the "broista culture" — employee experience IS the marketing strategy</li>
+              <li>Use dark, moody photography — the brand lives in bright, warm, energetic spaces</li>
+              <li>Ignore the rapid national expansion story — it's central to the distribution analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /dutchbros panel -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PANEL 5 — COACH / TAPESTRY
+═══════════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-coach" style="--brand-color:#1A1A1A;--brand-dark:#000;--brand-text:#fff;">
+
+  <div class="brand-hero" style="background:linear-gradient(135deg, #1A1A1A 0%, #3A2A1E 100%);--brand-text:#fff;">
+    <div class="brand-logo-box" style="background:rgba(255,255,255,0.1);">
+      <!-- Coach accurate horse-and-carriage crest mark -->
+      <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- COACH wordmark at top -->
+        <text x="34" y="12"
+              font-family="Georgia,'Times New Roman',serif"
+              font-size="9"
+              font-weight="bold"
+              fill="white"
+              text-anchor="middle"
+              letter-spacing="3">COACH</text>
+        <!-- Carriage body — rounded rectangular coach -->
+        <rect x="18" y="22" width="26" height="17" rx="3" fill="none" stroke="white" stroke-width="1.8"/>
+        <!-- Two carriage windows -->
+        <rect x="21" y="25" width="8" height="9" rx="1.5" fill="none" stroke="white" stroke-width="1.2"/>
+        <rect x="33" y="25" width="8" height="9" rx="1.5" fill="none" stroke="white" stroke-width="1.2"/>
+        <!-- Carriage door handle -->
+        <path d="M29 30 L33 30" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <!-- Carriage undercarriage / axle bar -->
+        <line x1="18" y1="39" x2="44" y2="39" stroke="white" stroke-width="1.2"/>
+        <!-- Left wheel -->
+        <circle cx="22" cy="44" r="6" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="22" cy="44" r="1.8" fill="white"/>
+        <line x1="22" y1="38" x2="22" y2="50" stroke="white" stroke-width="0.8"/>
+        <line x1="16" y1="44" x2="28" y2="44" stroke="white" stroke-width="0.8"/>
+        <!-- Right wheel -->
+        <circle cx="40" cy="44" r="6" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="40" cy="44" r="1.8" fill="white"/>
+        <line x1="40" y1="38" x2="40" y2="50" stroke="white" stroke-width="0.8"/>
+        <line x1="34" y1="44" x2="46" y2="44" stroke="white" stroke-width="0.8"/>
+        <!-- Coachman on top -->
+        <circle cx="50" cy="19" r="3.5" fill="white"/>
+        <line x1="50" y1="22.5" x2="50" y2="30" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Reins from coachman to front -->
+        <path d="M47 27 Q38 20 30 23" stroke="white" stroke-width="1" stroke-linecap="round" fill="none"/>
+        <!-- Whip -->
+        <path d="M52 15 L55 10" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <!-- Coachman bench platform -->
+        <rect x="45" y="22" width="10" height="2" rx="1" fill="white" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="brand-hero-info">
+      <h2>Coach &nbsp;<span style="font-size:18px;font-weight:normal;opacity:0.7">/ Tapestry, Inc.</span></h2>
+      <span class="ticker">NYSE: TPR &nbsp;·&nbsp; Coach est. 1941 &nbsp;·&nbsp; New York, NY</span>
+      <p class="tagline">"New York style. Global reach." — accessible luxury accessories brand undergoing a Gen Z transformation</p>
+    </div>
+  </div>
+
+  <div class="content-area">
+
+    <div class="intro-callout">
+      <strong>Why Coach / Tapestry for MKT 315?</strong> Coach is a brand management case study unlike any other on this list. As one of three brands under the Tapestry umbrella (alongside Kate Spade and Stuart Weitzman), it gives you the rare opportunity to analyze how a parent company manages multiple distinct brand identities simultaneously. Coach's "Amplify Plan" to win Gen Z shoppers, its Coachtopia sustainability sub-brand, and its comeback from a decade of brand dilution make it rich material for every topic in the course.
+    </div>
+
+    <!-- COLORS -->
+    <div class="card">
+      <div class="card-header">Brand Color Palette — Coach</div>
+      <div class="card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#1A1A1A;"></div>
+            <div class="swatch-name">Coach Black</div>
+            <div class="swatch-hex">#1A1A1A</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#8B6914;"></div>
+            <div class="swatch-name">Saddle Tan</div>
+            <div class="swatch-hex">#8B6914</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#C4A265;"></div>
+            <div class="swatch-name">Natural Leather</div>
+            <div class="swatch-hex">#C4A265</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#FFFFFF; border-color:#ccc;"></div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-circle" style="background:#2C1810;"></div>
+            <div class="swatch-name">Deep Brown</div>
+            <div class="swatch-hex">#2C1810</div>
+          </div>
+        </div>
+        <p style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin-top:16px;">Coach's palette is rooted in leather craft heritage — saddle tans and natural hides communicate the brand's origin as a Manhattan leather workshop. Black grounds everything in New York sophistication. Recent campaigns introduce seasonal accent colors, but the core never strays from this foundation.</p>
+      </div>
+    </div>
+
+    <!-- TAPESTRY PARENT NOTE -->
+    <div class="card">
+      <div class="card-header">Understanding the Tapestry Brand Portfolio</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Coach</h4>
+            <p>The flagship brand. Accessible luxury handbags, accessories, and ready-to-wear. Gen Z pivot underway. 900+ stores globally. The "big sister" brand.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Kate Spade New York</h4>
+            <p>Colorful, optimistic, playful luxury. Targets women 25–40. Distinctive spade logo. More affordable price point than Coach. Strong gift and occasion purchasing.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Stuart Weitzman</h4>
+            <p>Luxury footwear. Smallest of the three brands. Celebrity-worn. Targets affluent women 30–55. Known for the stretch-fit boot innovation.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Why This Matters for MKT 315</h4>
+            <p>Tapestry demonstrates brand portfolio management — how one parent company maintains three distinct identities without cannibalizing each other. This is core brand management curriculum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="card">
+      <div class="card-header">Typography</div>
+      <div class="card-body">
+        <div class="type-samples">
+          <div class="type-sample" style="--brand-color:#1A1A1A;">
+            <div class="type-label">Brand Wordmark</div>
+            <div class="type-demo" style="font-family:Georgia,serif;font-weight:bold;letter-spacing:6px;text-transform:uppercase;font-size:24px;">COACH</div>
+            <div class="type-detail">Wide-tracked uppercase serif. The stencil-quality letterforms reference the brand's heritage as a luggage and travel goods maker. Regal and timeless.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#1A1A1A;">
+            <div class="type-label">Headlines</div>
+            <div class="type-demo" style="font-family:Georgia,serif;font-weight:400;font-style:italic;font-size:22px;">Crafted in New York since 1941.</div>
+            <div class="type-detail">Elegant serif, often italic for editorial use. Headlines can be long and poetic — this brand has a luxury pace, not a fast-food urgency.</div>
+          </div>
+          <div class="type-sample" style="--brand-color:#1A1A1A;">
+            <div class="type-label">Modern Campaign Voice (Gen Z Pivot)</div>
+            <div class="type-demo" style="font-family:Arial,sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">The Lil Nas X Bag. Your Rules.</div>
+            <div class="type-detail">For Gen Z campaigns, Coach introduces bolder sans-serif language and celebrity/artist collaborations. The brand is intentionally bridging its heritage voice with a younger register.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VOICE -->
+    <div class="card">
+      <div class="card-header">Brand Voice &amp; Personality</div>
+      <div class="card-body">
+        <div class="voice-grid">
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Tone</h4>
+            <ul>
+              <li>Confident, crafted, New York cool</li>
+              <li>Heritage-proud but culturally current</li>
+              <li>Warm and inclusive — "accessible luxury"</li>
+              <li>Recently: collaborations with artists and Gen Z icons</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Personality Pillars</h4>
+            <ul>
+              <li>Craftsmanship — every product has a heritage story</li>
+              <li>American luxury (not European pretension)</li>
+              <li>Inclusivity and self-expression ("Coachtopia")</li>
+              <li>Cultural relevance through artist collaborations</li>
+            </ul>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Core Positioning</h4>
+            <p>The accessible luxury brand that lets you own a piece of New York craftsmanship — refined enough for boardrooms, contemporary enough for culture, and priced between fast fashion and true luxury.</p>
+          </div>
+          <div class="voice-card" style="--brand-color:#1A1A1A;">
+            <h4>Target Market</h4>
+            <p>Historically: women 25–45, aspirational middle-to-upper class. Current pivot: Gen Z (18–25) as new customer acquisition priority. Per Tapestry's 2025 report, 2/3 of new North American customers are Gen Z.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSITIONING -->
+    <div class="card">
+      <div class="card-header">Brand Positioning</div>
+      <div class="card-body">
+        <div class="position-block" style="background:linear-gradient(135deg, #1A1A1A 0%, #3A2A1E 100%);color:white;">
+          "For individuals who want to express their identity through quality craftsmanship, Coach is the New York-born accessible luxury brand that bridges heritage and culture — offering beautifully made accessories that feel earned, not exclusive."
+          <cite>Synthesized from Coach / Tapestry investor materials &amp; 2025 Amplify Plan</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- PPT QUICK REF -->
+    <div class="card">
+      <div class="card-header">PowerPoint Presentation Quick Reference</div>
+      <div class="card-body">
+        <table class="ppt-table">
+          <tr><th>Element</th><th>Guideline</th></tr>
+          <tr><td>Slide background</td><td>Black (#1A1A1A) for hero/title slides — New York elegance. White or off-white (#FAFAF8) for content slides. Saddle tan as a warm accent.</td></tr>
+          <tr><td>Text color</td><td>White on black. Coach Black on white. Gold/tan as a highlight accent. Never bright colors — this is a luxury brand.</td></tr>
+          <tr><td>Headline font</td><td>Georgia Bold or Times New Roman Bold. Wide letter-spacing, uppercase. The stencil serif feel is the brand's DNA.</td></tr>
+          <tr><td>Imagery style</td><td>High-quality editorial photography. Product close-ups showing leather grain and stitching. For Gen Z slides: artist collaborations and street-style imagery. Always polished.</td></tr>
+          <tr><td>Graphic elements</td><td>The horse-and-carriage mark, the leather "C" monogram pattern (reference only). Clean lines and generous white space. Luxury is about restraint.</td></tr>
+          <tr><td>Overall feel</td><td>Elevated, confident, timeless. Like an editorial spread in a fashion magazine — not a product catalog.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- DO / DON'T -->
+    <div class="card">
+      <div class="card-header">Do's &amp; Don'ts</div>
+      <div class="card-body">
+        <div class="do-dont">
+          <div class="do-box">
+            <strong>✓ DO</strong>
+            <ul>
+              <li>Distinguish between Coach (brand) and Tapestry, Inc. (parent company) clearly</li>
+              <li>Analyze the Gen Z pivot as a brand repositioning case study</li>
+              <li>Discuss the brand portfolio management challenge — three brands, one parent</li>
+              <li>Use the failed Capri/Versace merger attempt as a strategic decision-making example</li>
+              <li>Reference the Coachtopia circular sub-brand for the ethics/sustainability discussion</li>
+            </ul>
+          </div>
+          <div class="dont-box">
+            <strong>✗ DON'T</strong>
+            <ul>
+              <li>Confuse Coach with ultra-luxury (Louis Vuitton, Hermès) — it is accessible luxury</li>
+              <li>Use bright, fun colors — Coach is sophisticated and restrained in its palette</li>
+              <li>Ignore the brand dilution period (2010s discount strategy) — it's critical context</li>
+              <li>Use generic stock photos — imagery quality signals brand quality in presentations</li>
+              <li>Overlook the Kate Spade and Stuart Weitzman brands when discussing brand portfolio strategy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /coach panel -->
+
+
+<!-- ══════════════════════════════════════════════════════════════ FOOTER -->
+<footer>
+  GCU · MKT 315 — Principles of Marketing &nbsp;|&nbsp;
+  All brand names, logos, colors, and trademarks are the property of their respective owners &nbsp;|&nbsp;
+  This guide is for educational reference only and is not affiliated with any listed company
+</footer>
+
+<script>
+  function show(brand, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + brand).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function downloadGuide() {
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'MKT315-Brand-Identity-Guide.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>
