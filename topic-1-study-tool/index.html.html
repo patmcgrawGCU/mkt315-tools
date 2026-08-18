@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Chapter 1 Study Tool</title>
+<style>
+  /* ── FONTS ── */
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  /* ── TOKENS ── */
+  :root {
+    --navy:      #1E3A5F;
+    --navy-deep: #0D2137;
+    --gold:      #C8973A;
+    --gold-lt:   #FDF3E3;
+    --gold-mid:  #E8D5A3;
+    --teal:      #028090;
+    --red:       #B22222;
+    --green:     #1A5C3A;
+    --white:     #FFFFFF;
+    --off-white: #F4F7FB;
+    --gray-lt:   #EDF2F7;
+    --gray-mid:  #8899AA;
+    --gray-dk:   #5A6A7A;
+    --text:      #1A1A2E;
+    --radius:    10px;
+    --shadow:    0 4px 18px rgba(30,58,95,.13);
+    --shadow-sm: 0 2px 8px rgba(30,58,95,.09);
+  }
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: .75rem;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .progress-pill {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(200,151,58,.4);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: .78rem;
+    color: var(--gold-mid);
+    white-space: nowrap;
+  }
+  .progress-pill span { color: var(--white); font-weight: 600; }
+
+  /* ── CLASS TABS ── */
+  .class-tabs {
+    background: var(--navy-deep);
+    border-bottom: 3px solid var(--gold);
+  }
+  .class-tabs-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+  }
+  .class-tab {
+    flex: 1;
+    padding: 14px 12px 11px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--gray-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: all .2s;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    position: relative;
+  }
+  .class-tab:hover { color: var(--gold-mid); }
+  .class-tab.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(200,151,58,.07);
+  }
+  .class-tab .tab-label { display: block; font-size: .95rem; font-weight: 600; color: inherit; }
+  .class-tab .tab-topics { display: block; font-size: .67rem; color: var(--gray-mid); margin-top: 2px; font-weight: 400; letter-spacing: .02em; }
+  .class-tab.active .tab-topics { color: rgba(200,151,58,.7); }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+  }
+
+  /* ── CLASS PANEL ── */
+  .class-panel { display: none; }
+  .class-panel.active { display: block; }
+
+  .panel-intro {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 22px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .panel-intro-badge {
+    background: var(--gold);
+    color: var(--white);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .panel-intro-text h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 5px;
+  }
+  .panel-intro-text p { font-size: .87rem; color: rgba(202,220,252,.8); line-height: 1.6; }
+  .topics-covered {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+  }
+  .topic-tag {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(200,151,58,.35);
+    color: var(--gold-mid);
+    font-size: .72rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── MODULE TABS ── */
+  .module-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .mod-tab {
+    padding: 9px 20px;
+    border-radius: 22px;
+    border: 2px solid var(--gray-lt);
+    background: var(--white);
+    color: var(--gray-dk);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .mod-tab:hover { border-color: var(--gold); color: var(--gold); }
+  .mod-tab.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+  .mod-tab .mod-count {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: .7rem;
+    margin-left: 6px;
+  }
+  .mod-tab:not(.active) .mod-count {
+    background: var(--off-white);
+    color: var(--gray-dk);
+  }
+
+  /* ── MODULE PANEL ── */
+  .module-panel { display: none; }
+  .module-panel.active { display: block; }
+
+  /* ══════════════════════════════════════
+     FLASHCARDS
+  ══════════════════════════════════════ */
+  .flashcard-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .fc-counter {
+    font-size: .82rem;
+    color: var(--gray-dk);
+    font-weight: 500;
+  }
+  .fc-counter strong { color: var(--navy); }
+  .fc-nav-btn {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .fc-nav-btn:hover { background: var(--teal); }
+  .fc-nav-btn:disabled { background: var(--gray-lt); color: var(--gray-mid); cursor: default; }
+
+  .flashcard-scene {
+    perspective: 1200px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  .flashcard {
+    width: 100%;
+    min-height: 280px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.4,0,.2,1);
+    border-radius: var(--radius);
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 40px;
+    box-shadow: var(--shadow);
+  }
+  .fc-front {
+    background: var(--navy);
+    border: 2px solid rgba(200,151,58,.3);
+  }
+  .fc-back {
+    background: var(--white);
+    border: 2px solid var(--gold);
+    transform: rotateY(180deg);
+  }
+  .fc-label {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .fc-front .fc-label { color: var(--gold); }
+  .fc-back .fc-label { color: var(--teal); }
+  .fc-front .fc-question {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.45rem;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.45;
+  }
+  .fc-back .fc-answer {
+    font-size: 1.0rem;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.65;
+  }
+  .fc-back .fc-example {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--gold-lt);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    font-size: .82rem;
+    color: var(--text);
+    line-height: 1.55;
+    text-align: left;
+    width: 100%;
+  }
+  .fc-back .fc-example strong { color: var(--gold); }
+  .fc-flip-hint {
+    font-size: .72rem;
+    color: var(--gray-mid);
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .fc-progress-bar {
+    height: 4px;
+    background: var(--gray-lt);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .fc-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width .3s ease;
+  }
+
+  /* ══════════════════════════════════════
+     SCENARIO QUESTIONS
+  ══════════════════════════════════════ */
+  .scenario-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .scenario-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    border: 1px solid var(--gray-lt);
+  }
+  .scenario-header {
+    background: var(--navy);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scenario-num {
+    background: var(--gold);
+    color: var(--white);
+    font-size: .72rem;
+    font-weight: 700;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scenario-concept {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .scenario-body { padding: 20px 22px; }
+  .scenario-prompt {
+    font-size: .95rem;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .scenario-prompt strong { color: var(--navy); }
+
+  .answer-options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+  .answer-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid var(--gray-lt);
+    background: var(--off-white);
+    cursor: pointer;
+    transition: all .15s;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .88rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .answer-opt:hover { border-color: var(--navy); background: var(--white); }
+  .answer-opt.correct { border-color: var(--green); background: #E8F5EE; color: var(--green); }
+  .answer-opt.incorrect { border-color: var(--red); background: #FDF0F0; color: var(--red); }
+  .answer-opt.revealed-correct { border-color: var(--green); background: #E8F5EE; color: var(--green); }
+  .answer-opt:disabled { cursor: default; }
+  .opt-letter {
+    font-weight: 700;
+    font-size: .8rem;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--gray-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-dk);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .answer-opt.correct .opt-letter { background: var(--green); color: var(--white); }
+  .answer-opt.incorrect .opt-letter { background: var(--red); color: var(--white); }
+  .answer-opt.revealed-correct .opt-letter { background: var(--green); color: var(--white); }
+
+  .scenario-feedback {
+    display: none;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: .86rem;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+  .scenario-feedback.correct-fb {
+    background: #E8F5EE;
+    border-left: 4px solid var(--green);
+    color: #0F3D24;
+  }
+  .scenario-feedback.incorrect-fb {
+    background: #FDF0F0;
+    border-left: 4px solid var(--red);
+    color: #6B1010;
+  }
+  .scenario-feedback.show { display: block; }
+  .scenario-feedback strong { font-weight: 700; }
+
+  /* ══════════════════════════════════════
+     QUICK CHECK QUIZ
+  ══════════════════════════════════════ */
+  .quiz-container { max-width: 760px; }
+  .quiz-q {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    border: 1px solid var(--gray-lt);
+  }
+  .quiz-q-text {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .quiz-q-num {
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    padding: 10px 14px;
+    border-radius: 7px;
+    border: 2px solid var(--gray-lt);
+    background: var(--off-white);
+    cursor: pointer;
+    transition: all .13s;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .87rem;
+    color: var(--text);
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .quiz-opt:hover { border-color: var(--navy); background: var(--white); }
+  .quiz-opt.q-correct { border-color: var(--green); background: #E8F5EE; color: var(--green); font-weight: 600; }
+  .quiz-opt.q-wrong { border-color: var(--red); background: #FDF0F0; color: var(--red); }
+  .quiz-opt.q-reveal { border-color: var(--green); background: #E8F5EE; color: var(--green); }
+  .quiz-opt-letter {
+    font-weight: 700;
+    font-size: .78rem;
+    color: var(--gray-dk);
+    min-width: 18px;
+    margin-top: 1px;
+  }
+  .quiz-opt.q-correct .quiz-opt-letter,
+  .quiz-opt.q-reveal .quiz-opt-letter { color: var(--green); }
+  .quiz-opt.q-wrong .quiz-opt-letter { color: var(--red); }
+
+  .quiz-explain {
+    display: none;
+    margin-top: 10px;
+    padding: 11px 14px;
+    border-radius: 7px;
+    font-size: .83rem;
+    line-height: 1.58;
+  }
+  .quiz-explain.show { display: block; }
+  .quiz-explain.expl-correct { background: #E8F5EE; border-left: 3px solid var(--green); color: #0F3D24; }
+  .quiz-explain.expl-wrong { background: #FDF0F0; border-left: 3px solid var(--red); color: #6B1010; }
+
+  .quiz-score-bar {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    box-shadow: var(--shadow-sm);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    border: 1px solid var(--gray-lt);
+  }
+  .quiz-score-label { font-size: .85rem; color: var(--gray-dk); }
+  .quiz-score-value { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--navy); }
+  .quiz-reset-btn {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .quiz-reset-btn:hover { background: var(--teal); }
+
+  /* ── UTILITY ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 18px;
+  }
+  .section-divider-line { flex: 1; height: 1px; background: var(--gray-lt); }
+  .section-divider-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .class-tab .tab-topics { display: none; }
+    .module-tabs { flex-wrap: wrap; }
+    .fc-front .fc-question { font-size: 1.15rem; }
+    .fc-face { padding: 24px 20px; }
+    .flashcard { min-height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ SITE HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-title">MKT 315 — Chapter 1 Study Tool</div>
+      <div class="header-sub">Introduction to Marketing · Grand Canyon University</div>
+    </div>
+    <div class="progress-pill">Midterm Prep · <span id="global-score">0</span> questions answered</div>
+  </div>
+</header>
+
+<!-- ══ CLASS TABS ══ -->
+<nav class="class-tabs" role="tablist">
+  <div class="class-tabs-inner">
+    <button class="class-tab active" onclick="switchClass(0)" role="tab">
+      <span class="tab-label">Class 1</span>
+      <span class="tab-topics">AMA Definition · Four Eras · 4Ps</span>
+    </button>
+    <button class="class-tab" onclick="switchClass(1)" role="tab">
+      <span class="tab-label">Class 2</span>
+      <span class="tab-topics">Macro/Micro · Strategy · Marketing Plan</span>
+    </button>
+    <button class="class-tab" onclick="switchClass(2)" role="tab">
+      <span class="tab-label">Class 3</span>
+      <span class="tab-topics">7 Categories · Org Structure · Mission/Vision</span>
+    </button>
+    <button class="class-tab" onclick="switchClass(3)" role="tab">
+      <span class="tab-label">Class 4</span>
+      <span class="tab-topics">Ethics · Digital Marketing · Contemporary Issues</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+<!-- ████████████████████████████████████
+     CLASS 1
+████████████████████████████████████ -->
+<div class="class-panel active" id="class-0">
+  <div class="panel-intro">
+    <div class="panel-intro-badge">Class 1</div>
+    <div class="panel-intro-text">
+      <h2>What Is Marketing? History, Evolution & the 4Ps</h2>
+      <p>These tools cover every concept from your first class session. Start with flashcards to build your vocabulary, then test yourself with scenario questions and the quick check quiz.</p>
+      <div class="topics-covered">
+        <span class="topic-tag">AMA Definition</span>
+        <span class="topic-tag">Marketing ≠ Advertising</span>
+        <span class="topic-tag">Four Marketing Eras</span>
+        <span class="topic-tag">Marketing Concept</span>
+        <span class="topic-tag">Societal Marketing</span>
+        <span class="topic-tag">Products vs. Services</span>
+        <span class="topic-tag">The 4Ps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-tabs">
+    <button class="mod-tab active" onclick="switchModule(0,'fc')">Flashcards <span class="mod-count">10</span></button>
+    <button class="mod-tab" onclick="switchModule(0,'sc')">Scenarios <span class="mod-count">5</span></button>
+    <button class="mod-tab" onclick="switchModule(0,'qz')">Quick Check <span class="mod-count">8</span></button>
+  </div>
+
+  <!-- FLASHCARDS — Class 1 -->
+  <div class="module-panel active" id="c0-fc">
+    <div class="flashcard-nav">
+      <button class="fc-nav-btn" id="c0-prev" onclick="fcNav(0,-1)" disabled>← Prev</button>
+      <div>
+        <div class="fc-counter">Card <strong id="c0-cur">1</strong> of <strong>10</strong></div>
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="c0-bar" style="width:10%"></div></div>
+      </div>
+      <button class="fc-nav-btn" id="c0-next" onclick="fcNav(0,1)">Next →</button>
+    </div>
+
+    <div class="flashcard-scene" onclick="flipCard(0)">
+      <div class="flashcard" id="c0-card">
+        <div class="fc-face fc-front">
+          <div class="fc-label">Term / Concept</div>
+          <div class="fc-question" id="c0-q">Loading...</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-label">Definition + Example</div>
+          <div class="fc-answer" id="c0-a"></div>
+          <div class="fc-example" id="c0-ex"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-flip-hint">Click the card to flip it</div>
+  </div>
+
+  <!-- SCENARIOS — Class 1 -->
+  <div class="module-panel" id="c0-sc">
+    <div class="scenario-list" id="c0-scenarios"></div>
+  </div>
+
+  <!-- QUIZ — Class 1 -->
+  <div class="module-panel" id="c0-qz">
+    <div class="quiz-container">
+      <div id="c0-quiz-questions"></div>
+      <div class="quiz-score-bar">
+        <div>
+          <div class="quiz-score-label">Your score</div>
+          <div class="quiz-score-value"><span id="c0-score">0</span> / 8</div>
+        </div>
+        <button class="quiz-reset-btn" onclick="resetQuiz(0)">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /class-0 -->
+
+
+<!-- ████████████████████████████████████
+     CLASS 2
+████████████████████████████████████ -->
+<div class="class-panel" id="class-1">
+  <div class="panel-intro">
+    <div class="panel-intro-badge">Class 2</div>
+    <div class="panel-intro-text">
+      <h2>Macro & Micro Marketing · Strategy vs. Tactics · The Marketing Plan</h2>
+      <p>This section covers the strategic frameworks introduced in your second session. Focus on understanding the distinctions — the midterm tests your ability to apply these concepts to new situations.</p>
+      <div class="topics-covered">
+        <span class="topic-tag">Macromarketing</span>
+        <span class="topic-tag">Micromarketing</span>
+        <span class="topic-tag">Strategy vs. Tactics</span>
+        <span class="topic-tag">Environmental Scanning</span>
+        <span class="topic-tag">Marketing Plan Components</span>
+        <span class="topic-tag">SWOT Analysis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-tabs">
+    <button class="mod-tab active" onclick="switchModule(1,'fc')">Flashcards <span class="mod-count">10</span></button>
+    <button class="mod-tab" onclick="switchModule(1,'sc')">Scenarios <span class="mod-count">5</span></button>
+    <button class="mod-tab" onclick="switchModule(1,'qz')">Quick Check <span class="mod-count">8</span></button>
+  </div>
+
+  <div class="module-panel active" id="c1-fc">
+    <div class="flashcard-nav">
+      <button class="fc-nav-btn" id="c1-prev" onclick="fcNav(1,-1)" disabled>← Prev</button>
+      <div>
+        <div class="fc-counter">Card <strong id="c1-cur">1</strong> of <strong>10</strong></div>
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="c1-bar" style="width:10%"></div></div>
+      </div>
+      <button class="fc-nav-btn" id="c1-next" onclick="fcNav(1,1)">Next →</button>
+    </div>
+    <div class="flashcard-scene" onclick="flipCard(1)">
+      <div class="flashcard" id="c1-card">
+        <div class="fc-face fc-front">
+          <div class="fc-label">Term / Concept</div>
+          <div class="fc-question" id="c1-q">Loading...</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-label">Definition + Example</div>
+          <div class="fc-answer" id="c1-a"></div>
+          <div class="fc-example" id="c1-ex"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-flip-hint">Click the card to flip it</div>
+  </div>
+
+  <div class="module-panel" id="c1-sc">
+    <div class="scenario-list" id="c1-scenarios"></div>
+  </div>
+
+  <div class="module-panel" id="c1-qz">
+    <div class="quiz-container">
+      <div id="c1-quiz-questions"></div>
+      <div class="quiz-score-bar">
+        <div>
+          <div class="quiz-score-label">Your score</div>
+          <div class="quiz-score-value"><span id="c1-score">0</span> / 8</div>
+        </div>
+        <button class="quiz-reset-btn" onclick="resetQuiz(1)">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /class-1 -->
+
+
+<!-- ████████████████████████████████████
+     CLASS 3
+████████████████████████████████████ -->
+<div class="class-panel" id="class-2">
+  <div class="panel-intro">
+    <div class="panel-intro-badge">Class 3</div>
+    <div class="panel-intro-text">
+      <h2>What Can Be Marketed · Org Structure · Mission, Vision & Values</h2>
+      <p>Marketing applies far beyond products. This section tests whether you can extend the frameworks to non-traditional categories and understand how organizational structure shapes marketing decisions.</p>
+      <div class="topics-covered">
+        <span class="topic-tag">7 Marketing Categories</span>
+        <span class="topic-tag">Products vs. Services</span>
+        <span class="topic-tag">Functional Structure</span>
+        <span class="topic-tag">Divisional Structure</span>
+        <span class="topic-tag">Matrix Structure</span>
+        <span class="topic-tag">Mission Statement</span>
+        <span class="topic-tag">Vision Statement</span>
+        <span class="topic-tag">Core Values</span>
+        <span class="topic-tag">KPIs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-tabs">
+    <button class="mod-tab active" onclick="switchModule(2,'fc')">Flashcards <span class="mod-count">10</span></button>
+    <button class="mod-tab" onclick="switchModule(2,'sc')">Scenarios <span class="mod-count">5</span></button>
+    <button class="mod-tab" onclick="switchModule(2,'qz')">Quick Check <span class="mod-count">8</span></button>
+  </div>
+
+  <div class="module-panel active" id="c2-fc">
+    <div class="flashcard-nav">
+      <button class="fc-nav-btn" id="c2-prev" onclick="fcNav(2,-1)" disabled>← Prev</button>
+      <div>
+        <div class="fc-counter">Card <strong id="c2-cur">1</strong> of <strong>10</strong></div>
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="c2-bar" style="width:10%"></div></div>
+      </div>
+      <button class="fc-nav-btn" id="c2-next" onclick="fcNav(2,1)">Next →</button>
+    </div>
+    <div class="flashcard-scene" onclick="flipCard(2)">
+      <div class="flashcard" id="c2-card">
+        <div class="fc-face fc-front">
+          <div class="fc-label">Term / Concept</div>
+          <div class="fc-question" id="c2-q">Loading...</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-label">Definition + Example</div>
+          <div class="fc-answer" id="c2-a"></div>
+          <div class="fc-example" id="c2-ex"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-flip-hint">Click the card to flip it</div>
+  </div>
+
+  <div class="module-panel" id="c2-sc">
+    <div class="scenario-list" id="c2-scenarios"></div>
+  </div>
+
+  <div class="module-panel" id="c2-qz">
+    <div class="quiz-container">
+      <div id="c2-quiz-questions"></div>
+      <div class="quiz-score-bar">
+        <div>
+          <div class="quiz-score-label">Your score</div>
+          <div class="quiz-score-value"><span id="c2-score">0</span> / 8</div>
+        </div>
+        <button class="quiz-reset-btn" onclick="resetQuiz(2)">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /class-2 -->
+
+
+<!-- ████████████████████████████████████
+     CLASS 4
+████████████████████████████████████ -->
+<div class="class-panel" id="class-3">
+  <div class="panel-intro">
+    <div class="panel-intro-badge">Class 4</div>
+    <div class="panel-intro-text">
+      <h2>Marketing Ethics · Digital Transformation · Contemporary Issues</h2>
+      <p>The final class session covers the live frontiers of marketing — ethical practice, digital evolution, and data-driven decision making. These topics appear on the midterm and run through the entire course.</p>
+      <div class="topics-covered">
+        <span class="topic-tag">AMA Ethics Norms</span>
+        <span class="topic-tag">Do No Harm</span>
+        <span class="topic-tag">Transparency</span>
+        <span class="topic-tag">Digital Transformation</span>
+        <span class="topic-tag">SEO / SEM</span>
+        <span class="topic-tag">Data-Driven Marketing</span>
+        <span class="topic-tag">Omnichannel</span>
+        <span class="topic-tag">Brand Authenticity</span>
+        <span class="topic-tag">Consumer Journey</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-tabs">
+    <button class="mod-tab active" onclick="switchModule(3,'fc')">Flashcards <span class="mod-count">10</span></button>
+    <button class="mod-tab" onclick="switchModule(3,'sc')">Scenarios <span class="mod-count">5</span></button>
+    <button class="mod-tab" onclick="switchModule(3,'qz')">Quick Check <span class="mod-count">8</span></button>
+  </div>
+
+  <div class="module-panel active" id="c3-fc">
+    <div class="flashcard-nav">
+      <button class="fc-nav-btn" id="c3-prev" onclick="fcNav(3,-1)" disabled>← Prev</button>
+      <div>
+        <div class="fc-counter">Card <strong id="c3-cur">1</strong> of <strong>10</strong></div>
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="c3-bar" style="width:10%"></div></div>
+      </div>
+      <button class="fc-nav-btn" id="c3-next" onclick="fcNav(3,1)">Next →</button>
+    </div>
+    <div class="flashcard-scene" onclick="flipCard(3)">
+      <div class="flashcard" id="c3-card">
+        <div class="fc-face fc-front">
+          <div class="fc-label">Term / Concept</div>
+          <div class="fc-question" id="c3-q">Loading...</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-label">Definition + Example</div>
+          <div class="fc-answer" id="c3-a"></div>
+          <div class="fc-example" id="c3-ex"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-flip-hint">Click the card to flip it</div>
+  </div>
+
+  <div class="module-panel" id="c3-sc">
+    <div class="scenario-list" id="c3-scenarios"></div>
+  </div>
+
+  <div class="module-panel" id="c3-qz">
+    <div class="quiz-container">
+      <div id="c3-quiz-questions"></div>
+      <div class="quiz-score-bar">
+        <div>
+          <div class="quiz-score-label">Your score</div>
+          <div class="quiz-score-value"><span id="c3-score">0</span> / 8</div>
+        </div>
+        <button class="quiz-reset-btn" onclick="resetQuiz(3)">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /class-3 -->
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  DATA — All content defined here, no external dependencies
+// ══════════════════════════════════════════════════════════════
+
+const DATA = [
+
+// ── CLASS 1 ──────────────────────────────────────────────────
+{
+  flashcards: [
+    {
+      q: "What is Marketing?",
+      a: "The activity, set of institutions, and processes for creating, communicating, delivering, and exchanging offerings that have value for customers, clients, partners, and society at large.",
+      ex: "Example: Nike doesn't just make shoes — it researches what runners need, prices them strategically, distributes through select channels, and promotes a 'Just Do It' identity. That whole system is marketing."
+    },
+    {
+      q: "What is the most important distinction between Marketing and Advertising?",
+      a: "Advertising is one tool within Promotion — which is itself just one of the four Ps. Marketing is the complete system: Product, Price, Place, AND Promotion working together.",
+      ex: "Example: A Super Bowl ad is advertising. Deciding what product to sell, at what price, in which stores, with what message — that entire process is marketing."
+    },
+    {
+      q: "What was the central problem of the Production Era — and what caused it?",
+      a: "Overproduction. The Industrial Revolution enabled mass production far beyond what consumers needed or wanted. Companies made what was efficient to manufacture, not what customers actually demanded.",
+      ex: "Example: Henry Ford's assembly line could produce thousands of Model Ts — but early autos were sold to whoever would buy them, not built around consumer research."
+    },
+    {
+      q: "What problem did the Sales Era solve — and what new problem did it create?",
+      a: "It solved overproduction by hiring salespeople to push surplus goods. But it created a new problem: no feedback loop. Companies still didn't know what consumers actually wanted — they just pushed harder.",
+      ex: "Example: Door-to-door salespeople pushing encyclopedias to households who didn't need them. Sales effort replaced consumer insight."
+    },
+    {
+      q: "What is the Marketing Concept?",
+      a: "The idea that creating genuine value and satisfying consumer needs is the overarching goal of business. It inverts the production mindset: instead of 'find customers for our products,' it asks 'find the right products for our customers.'",
+      ex: "Example: Netflix surveys viewing habits before investing billions in content — it builds what audiences want, not just what's cheap to produce."
+    },
+    {
+      q: "What is the Societal Marketing Era and why is it contested?",
+      a: "An approach that requires companies to balance satisfying consumer short-term wants with long-term societal and environmental welfare. It's contested because profitability and societal welfare sometimes directly conflict.",
+      ex: "Example: Patagonia tells customers 'Don't Buy This Jacket' to reduce consumption — even though their revenue depends on sales. That's Societal Marketing in practice."
+    },
+    {
+      q: "What are the 4Ps of the Marketing Mix?",
+      a: "Product (what you sell), Price (what you charge), Place (where/how it reaches customers), and Promotion (how you communicate about it). The 4Ps are an integrated system — each P affects the others.",
+      ex: "Example: A $300 luxury skincare product (Price) would be undermined by selling it at Dollar Tree (Place) — the Ps would contradict each other and confuse consumers."
+    },
+    {
+      q: "What is the key difference between a Product and a Service?",
+      a: "Products are tangible goods — you can touch, own, and sample them. Services are intangible — they're performed for you and coproduced with the consumer. Most real offerings contain both.",
+      ex: "Example: A Starbucks latte is both. The coffee is a product (tangible). The preparation, personalized cup, and cafe ambiance are services (intangible, coproduced)."
+    },
+    {
+      q: "What does the AMA include in its definition that most students miss?",
+      a: "The words 'exchanging' and 'society at large.' Marketing is about exchange of value — not just selling. And it explicitly includes impact on society, not just customers and companies.",
+      ex: "Example: A pharmaceutical company that sells a beneficial drug but conceals side effects is satisfying customers but failing 'society at large' — violating the full AMA definition."
+    },
+    {
+      q: "Why did the Marketing Era give way to the Societal Marketing Era?",
+      a: "The Marketing Era was excellent at satisfying consumer wants but ignored environmental damage and broader social costs. As pollution, resource depletion, and consumer health concerns grew, a new framework was needed.",
+      ex: "Example: Fast-food companies successfully marketed convenient, cheap food (Marketing Era) — but ignored obesity, packaging waste, and labor conditions. Societal pressure eventually forced change."
+    }
+  ],
+
+  scenarios: [
+    {
+      concept: "Marketing vs. Advertising",
+      prompt: "A startup founder says: 'We don't need a marketing team yet — we just need someone to run our Instagram ads.' A marketing consultant pushes back. What's the most accurate response the consultant should give?",
+      opts: [
+        "Instagram ads are the most important part of marketing for a startup.",
+        "Advertising is one component of Promotion, which is one of four Ps — the startup also needs product, pricing, and distribution decisions that are all part of marketing.",
+        "The startup should focus on social media first, then worry about the rest of marketing later.",
+        "Marketing and advertising are the same thing, so the founder is correct."
+      ],
+      correct: 1,
+      feedback: "Correct. Advertising falls under Promotion, which is just one of the 4Ps. A company that only focuses on advertising while ignoring product development, pricing strategy, and distribution channels is managing one-quarter of its marketing system. The consultant is right to push back — the startup needs all four Ps working together, not just paid ads."
+    },
+    {
+      concept: "The Four Marketing Eras",
+      prompt: "Bluewave Beverages produces a new sparkling water. Their internal process: the R&D team creates flavors the founders personally enjoy, manufacturing produces as many units as efficiently as possible, and then they call the sales team to 'figure out how to move the product.' Which marketing era does this behavior most closely resemble — and what is the business risk?",
+      opts: [
+        "Marketing Era — they are consumer-focused and will succeed.",
+        "Societal Marketing Era — they are ignoring environmental concerns.",
+        "Production Era — they are making what's efficient to produce rather than what consumers want, risking overproduction of unwanted goods.",
+        "Sales Era — they are using salespeople effectively."
+      ],
+      correct: 2,
+      feedback: "Correct. Bluewave is in the Production Era mindset — making what the founders like and what's efficient, then tasking sales with moving it. This is the exact pattern that defined the Production Era: supply-driven rather than demand-driven. The risk is overproducing flavors consumers don't want, wasting resources, and losing shelf space to competitors who started with consumer research."
+    },
+    {
+      concept: "The Marketing Concept",
+      prompt: "Two competing bookstores are in the same city. BookFirst builds its inventory based on what the purchasing manager personally finds interesting and orders titles in bulk for efficiency. PageTurn surveys customers monthly, tracks which genres sell, and orders based on demand data. A new genre trend — BookTok recommendations — emerges. Which store is more likely to respond successfully, and why?",
+      opts: [
+        "BookFirst, because bulk ordering is more cost-efficient.",
+        "PageTurn, because it applies the marketing concept — starting with consumer needs — which enables it to detect and respond to the BookTok trend faster.",
+        "BookFirst, because personal curation creates a stronger brand identity.",
+        "Both stores will respond equally well."
+      ],
+      correct: 1,
+      feedback: "Correct. PageTurn applies the marketing concept: it starts with what consumers want, tracks demand data, and has the feedback mechanisms to detect a shift like BookTok. BookFirst is operating in the Production Era — curating based on internal preferences rather than consumer research. When a trend emerges, PageTurn has the data to respond. BookFirst won't even know it's missing the trend until sales drop."
+    },
+    {
+      concept: "Societal Marketing Era",
+      prompt: "A beverage company introduces a 100% recyclable bottle and runs a campaign promoting its environmental commitment. An investigative report later reveals that fewer than 10% of the bottles are actually recycled due to inadequate local infrastructure, and the company knew this before launching the campaign. This is best described as:",
+      opts: [
+        "Successful societal marketing — the company used recyclable materials.",
+        "Greenwashing — making environmental claims that aren't supported by real impact, violating the societal marketing principle of genuine welfare consideration.",
+        "Acceptable marketing — the company can't control recycling infrastructure.",
+        "A Sales Era tactic — they are pushing product through environmental messaging."
+      ],
+      correct: 1,
+      feedback: "Correct. This is greenwashing — making environmental claims that create the impression of societal benefit without genuine impact. The company knew the recycling rate was negligible but promoted it anyway. Societal Marketing requires actual alignment between consumer welfare, societal welfare, and business practices — not just communication strategies that imply alignment. The deception also violates AMA ethics norms covered in Class 4."
+    },
+    {
+      concept: "The 4Ps as a System",
+      prompt: "A new outdoor gear brand sells high-performance hiking boots with proprietary waterproofing technology (Product). They price them at $185 (Price). They distribute exclusively through REI and their own website (Place). Their promotion features sponsored posts from professional trail runners on Instagram and YouTube (Promotion). A competitor offers similar boots for $89 at Walmart with TV ads featuring discounts. Which brand has a more coherent marketing mix — and why?",
+      opts: [
+        "The competitor — lower price reaches more customers.",
+        "The new brand — all four Ps point in the same strategic direction: premium positioning, performance focus, and outdoor enthusiast targeting. Each P reinforces the others.",
+        "Neither brand has a coherent mix.",
+        "The competitor — TV advertising reaches a wider audience."
+      ],
+      correct: 1,
+      feedback: "Correct. The new brand's 4Ps form a coherent system: the premium product earns the $185 price, the premium price requires premium placement (REI, not Walmart), and the promotion targets performance-oriented outdoor enthusiasts who will understand and value the product. Every P points in the same direction. The competitor's Ps are also coherent — just for a different strategy (mass market, value positioning). The key concept is that a marketing mix works when all four Ps align with the same strategic intent."
+    }
+  ],
+
+  quiz: [
+    {
+      q: "A footwear company produces high-quality hiking boots, sets prices to reflect their premium materials, distributes exclusively through outdoor specialty retailers, and runs campaigns through adventure-focused media. Which statement BEST explains why this is marketing rather than just advertising?",
+      opts: ["Because the campaigns appear in specialized outdoor media instead of mass channels.", "Because all four elements — product, price, distribution, and promotion — are working as an integrated system designed around a specific target consumer.", "Because the company is using digital platforms to reach customers.", "Because the company has a dedicated marketing team that manages the campaigns."],
+      correct: 1,
+      explain: "Marketing is the complete system — Product, Price, Place, and Promotion — all coordinated around creating and delivering value to a target customer. Advertising (promotion) is just one of four components. This scenario illustrates all four Ps working together: premium product, premium price, selective distribution, and targeted media. That integration is what distinguishes marketing as a discipline from advertising as a tactic."
+    },
+    {
+      q: "A craft brewery makes the beers the founders love, produces as many as possible, and then asks the sales team to sell them. Which era does this behavior represent?",
+      opts: ["Marketing Era","Sales Era","Production Era","Societal Marketing Era"],
+      correct: 2,
+      explain: "Production Era thinking: make what's efficient or preferred internally, then figure out selling later. The defining characteristic is that supply drives decisions, not consumer demand. The Sales Era is when you've already overproduced and are now pushing — this company is still at the production phase."
+    },
+    {
+      q: "The Marketing Concept is best described as:",
+      opts: ["Finding the right customers for your existing products","Finding the right products for your customers' actual needs","Advertising as much as possible to drive awareness","Minimizing production costs to maximize profit margins"],
+      correct: 1,
+      explain: "The marketing concept INVERTS the production mindset. Instead of starting with what the company makes and finding buyers, it starts with what customers genuinely need and builds products accordingly. 'Find the right products for the customers' is the key phrase."
+    },
+    {
+      q: "What is the fundamental difference between a product and a service?",
+      opts: ["Products cost more than services","Products are tangible and can involve change of ownership; services are intangible and coproduced with the consumer","Services are only provided by large companies","Products can only be marketed to consumers, not businesses"],
+      correct: 1,
+      explain: "The tangible/intangible distinction is core. Products you can touch, own, and evaluate before buying. Services are performed for you, created in the moment of delivery, and coproduced with your participation (you bring your hair to the hair salon; your car to the mechanic). Most real-world offerings contain both product and service elements."
+    },
+    {
+      q: "A $250 luxury perfume is sold exclusively at Saks Fifth Avenue and Nordstrom, marketed through fashion magazine editorials and influencer partnerships. Which of the following statements best explains why this marketing mix is coherent?",
+      opts: ["The price is too high for most consumers","Each element — premium product, high price, prestige placement, and aspirational promotion — reinforces the same brand positioning","The promotion strategy reaches the widest possible audience","Luxury products always have coherent marketing mixes"],
+      correct: 1,
+      explain: "A coherent marketing mix is one where all 4Ps point in the same direction. The premium product justifies the premium price; the price signals quality that matches prestige retail channels; the editorial promotion targets aspirational buyers rather than bargain seekers. Coherence means each P amplifies the others — changing one P (say, selling it at CVS) would immediately break the system."
+    },
+    {
+      q: "A regional appliance manufacturer in 1955 has warehouses full of refrigerators built ahead of demand. Leadership responds: hire 50 salespeople, offer dealer incentives, and run radio ads. What is the fundamental FLAW in this approach?",
+      opts: ["No flaw — this is textbook Marketing Concept thinking applied correctly.", "The problem is spending on radio ads when print would be more effective for 1955.", "The strategy starts from surplus inventory, not consumer need — push-selling products that weren't built around what buyers actually wanted.", "The company failed to use SWOT analysis before developing their product strategy."],
+      correct: 2,
+      explain: "This is Sales Era thinking in practice. The company built more than demand could absorb (overproduction — a holdover from the Production Era), then responded with salespeople and promotions to push the surplus. The defining flaw: the starting point was still what the company produced, not what consumers needed. Piling on sales effort doesn't fix a misalignment between supply and demand — it just delays the reckoning. The Marketing Concept Era would later correct this by putting consumer need FIRST."
+    },
+    {
+      q: "Which statement most accurately describes why the Societal Marketing Era is 'contested'?",
+      opts: ["It hasn't been officially recognized by the AMA","Satisfying consumer short-term wants and protecting long-term societal welfare sometimes directly conflict — making it difficult to do both profitably","It only applies to non-profit organizations","Most companies are already fully committed to societal marketing"],
+      correct: 1,
+      explain: "The core tension: consumers often WANT things that harm society (cheap single-use plastics, energy-dense processed food, fast fashion). Satisfying those wants is profitable in the short term. Societal Marketing asks companies to account for longer-term societal costs — which may reduce short-term profits. This creates genuine strategic conflict that has no clean resolution, which is why the era is still contested."
+    },
+    {
+      q: "Advertising is best understood as:",
+      opts: ["A synonym for marketing","The entire promotional strategy of a company","One specific tool within the Promotion component of the marketing mix","The most important of the four Ps"],
+      correct: 2,
+      explain: "Advertising is one tool within Promotion — which is one of four Ps. Marketing students who equate marketing with advertising are missing 75% of the discipline. Product development, pricing strategy, and distribution decisions are all marketing activities that have nothing to do with advertising."
+    }
+  ]
+},
+
+// ── CLASS 2 ──────────────────────────────────────────────────
+{
+  flashcards: [
+    {
+      q: "What is Macromarketing?",
+      a: "An approach that examines the effects of marketing in the context of the organization's strengths/weaknesses AND the opportunities/threats in the external environment (economy, regulation, technology, social forces).",
+      ex: "Example: A home builder studying mortgage interest rate trends and demographic shifts before deciding what types of housing to develop — that's macro thinking applied to a strategic decision."
+    },
+    {
+      q: "What is Micromarketing?",
+      a: "The process of developing and executing specific tactics to market and sell products or services to very specific, narrow segments. It focuses on time-bound, measurable actions with defined costs and expected outcomes.",
+      ex: "Example: That same home builder running Instagram ads targeting Gen Z professionals in the urban corridor, advertising specific condo units at specific price points. Micro = the specific action."
+    },
+    {
+      q: "What is the critical difference between a Strategy and a Tactic?",
+      a: "A strategy is an overarching direction — what you want to achieve and how you'll position yourself. A tactic is a specific, time-bound action that implements the strategy. Tactics must serve a named strategy or they waste money.",
+      ex: "Example: 'Become the premium option in the Phoenix coffee market' is a strategy. 'Run a free latte promotion on Tuesdays in January' is a tactic. The tactic only makes sense in service of the strategy."
+    },
+    {
+      q: "What is the difference between a Marketing Strategy and a Marketing Plan?",
+      a: "A strategy describes WHAT the business wants to achieve. A plan details HOW — with specific tactics, timelines, budgets, and measurement criteria. The plan is the operational document that implements the strategy.",
+      ex: "Example: Strategy: 'Capture 15% market share in women's athletic wear by 2026.' Plan: 'Q1: launch women's running line; Q2: influencer campaign; Q3: retail expansion to 50 new locations. Budget: $4.2M.'"
+    },
+    {
+      q: "What is Environmental Scanning?",
+      a: "The formal process of continuously monitoring the external environment to identify opportunities and threats — including competitive, regulatory, technological, economic, and social factors. It's how macromarketing happens operationally.",
+      ex: "Example: A streaming service tracking the rise of short-form video (TikTok), competitor content investments, and subscriber data to inform its strategy. Scanning turns external noise into strategic signal."
+    },
+    {
+      q: "What is a SWOT Analysis and where does it fit in a Marketing Plan?",
+      a: "SWOT stands for Strengths, Weaknesses (internal/controllable) and Opportunities, Threats (external/uncontrollable). It belongs in the Situation Analysis section of the marketing plan — not the objectives section.",
+      ex: "Example: A regional pizza chain's SWOT: Strength = loyal customer base. Weakness = outdated mobile app. Opportunity = food delivery growth. Threat = national chains expanding locally."
+    },
+    {
+      q: "What are the five core components of a Marketing Plan?",
+      a: "1) Situation Analysis (SWOT + environment), 2) Marketing Objectives + Target Market Strategy, 3) Tactics tied to objectives, 4) Budget and Timeline, 5) Measurement/Control Plan. The Executive Summary is written last but appears first.",
+      ex: "Example: A plan for a new protein bar: SWOT analysis → 'Capture 5% of Phoenix health food market' → influencer + gym promotions → $200K budget, Q1-Q4 → track sell-through rate monthly."
+    },
+    {
+      q: "What are the 4Ps of the Marketing Strategy according to the AMA?",
+      a: "The AMA defines marketing strategy as involving the marketing mix (4Ps), target market selection, positioning, and marketing-related expenses — all working together toward a defined objective.",
+      ex: "Example: Apple's strategy involves a premium product mix, pricing above competitors, selective distribution (own stores + select retailers), and aspirational brand promotion. All four Ps implement the same strategy."
+    },
+    {
+      q: "What does 'fluid strategy' actually mean in marketing practice?",
+      a: "It means monitoring the environment continuously and updating strategy when conditions meaningfully change — NOT changing direction every quarter. Fluid ≠ unstable. Well-managed companies revisit strategy annually; adjust tactics quarterly.",
+      ex: "Example: Netflix's core strategy (become the world's leading entertainment service) has been consistent for years. But its tactics — from DVD mail to streaming to original content to ad-supported tiers — have shifted dramatically in response to environmental change."
+    },
+    {
+      q: "Why is the Executive Summary written LAST but placed FIRST in a marketing plan?",
+      a: "Because it is a summary of the entire plan — objectives, strategies, tactics, budget, and expected results. You cannot summarize what you haven't written yet. It's placed first so a busy executive can grasp the full plan quickly without reading every section.",
+      ex: "Example: A marketing VP reads the executive summary before approving the plan. If the summary is written before the plan, it will be inaccurate — the actual numbers and tactics will differ from what was assumed at the outset."
+    }
+  ],
+
+  scenarios: [
+    {
+      concept: "Macro vs. Micro Marketing",
+      prompt: "A regional gym chain is considering whether to open a new location. The CEO reviews population growth data, competitive density, local unemployment rates, and zoning regulations for three potential neighborhoods. The marketing director then designs a six-week pre-launch social media campaign targeting fitness-motivated adults aged 25–45 within a 5-mile radius of the chosen site. Which describes the CEO's work and which describes the marketing director's work?",
+      opts: [
+        "Both are doing micromarketing.",
+        "CEO = macromarketing (scanning the external environment to inform a strategic location decision); Marketing Director = micromarketing (specific tactic targeting a narrow segment).",
+        "CEO = micromarketing; Marketing Director = macromarketing.",
+        "Both are doing macromarketing."
+      ],
+      correct: 1,
+      feedback: "Correct. The CEO is doing macromarketing — evaluating the external environment (population, competition, economy, regulation) to make a strategic decision. The marketing director is doing micromarketing — executing a specific, time-bound tactic targeting a defined audience segment. Macromarketing shapes the strategic direction; micromarketing implements it."
+    },
+    {
+      concept: "Strategy vs. Tactic",
+      prompt: "A coffee brand's leadership team writes: 'Establish our brand as the premium local alternative to Starbucks in the Phoenix market.' Their marketing team then develops: (1) a loyalty app with double points on Tuesdays, (2) local artist collaborations for limited-edition cup designs, and (3) a 'No Starbucks for 30 Days' social media challenge. Which level of decision is each?",
+      opts: [
+        "All three are strategies.",
+        "The brand positioning statement is a strategy; the loyalty app, artist collaborations, and social media challenge are all tactics implementing that strategy.",
+        "The loyalty app is a strategy; the challenge is a tactic.",
+        "All three are tactics with no strategy behind them."
+      ],
+      correct: 1,
+      feedback: "Correct. The positioning statement ('premium local alternative to Starbucks') is the strategy — it defines direction and competitive positioning. The three items — loyalty app, artist collaborations, and social challenge — are all tactics that implement this strategy. Each one makes sense specifically because of the strategic direction. Without the strategy, a '30 Days No Starbucks' challenge would seem random."
+    },
+    {
+      concept: "Marketing Plan Components",
+      prompt: "A student writing a marketing plan for her company project lists the following items: (A) total projected revenue for the year, (B) which competitor's market share will be targeted, (C) a SWOT analysis showing internal strengths and external opportunities, (D) a month-by-month promotional calendar with assigned budget per channel, (E) a brief one-page overview of the entire plan's key findings. In which section does each item belong?",
+      opts: [
+        "All items belong in the Situation Analysis.",
+        "(A) Financial Projections, (B) Marketing Objectives, (C) Situation Analysis, (D) Tactics/Timeline, (E) Executive Summary — written last, placed first.",
+        "(A) and (D) belong together in the budget section.",
+        "(E) should be written before all other sections to guide the planning process."
+      ],
+      correct: 1,
+      feedback: "Correct. Each item maps to a distinct plan section: SWOT goes in Situation Analysis (external/internal environment assessment); targeting a competitor's share is an Objective; revenue projections go in Financial Projections; the promotional calendar belongs in Tactics and Timeline; and the one-page overview is the Executive Summary — written after everything else, placed at the beginning. Students who mix these sections will score Approaching on the marketing plan assignment."
+    },
+    {
+      concept: "Environmental Scanning",
+      prompt: "A regional bank is noticing that its customers increasingly use mobile apps to deposit checks, check balances, and transfer funds — but rarely visit branches. Meanwhile, fintech startups are offering higher-yield savings accounts with no fees. Senior leadership convenes a task force to analyze mobile banking adoption rates, competitor fintech offerings, regulatory changes in digital banking, and demographic shifts in customer age. This process is best described as:",
+      opts: [
+        "Micromarketing — they are focusing on specific customer behaviors.",
+        "A SWOT analysis only.",
+        "Environmental scanning — continuously monitoring the external environment to identify strategic opportunities and threats before making strategic decisions.",
+        "A marketing audit — reviewing internal performance data."
+      ],
+      correct: 2,
+      feedback: "Correct. Environmental scanning is the ongoing process of monitoring the external environment — competitor activity, technology shifts, regulatory changes, demographic trends — to inform strategic decision-making. The bank is doing exactly this. Note: a SWOT analysis would USE the data collected through scanning (it would appear in the external 'Opportunities' and 'Threats' quadrants) — but scanning is the ongoing intelligence-gathering process, not the framework itself."
+    },
+    {
+      concept: "Strategy vs. Tactic Alignment",
+      prompt: "A premium outdoor apparel brand has a stated strategy: 'be the most trusted environmental brand in outdoor clothing.' Their marketing team proposes four new initiatives: (1) a fast-fashion budget line for college students, (2) a lifetime repair guarantee program for all products, (3) a supply chain transparency report published annually, (4) a 'one garment, one tree' reforestation program. Which initiative(s) do NOT align with the strategy?",
+      opts: [
+        "None — all four align with the strategy.",
+        "Initiative 1 (budget fast-fashion line) directly contradicts the environmental strategy — fast fashion is the antithesis of environmental trust.",
+        "Initiatives 2 and 3 are too expensive to implement.",
+        "All four initiatives contradict the strategy."
+      ],
+      correct: 1,
+      feedback: "Correct. Initiatives 2 (repair guarantee), 3 (transparency report), and 4 (reforestation) all align with and strengthen the 'most trusted environmental brand' strategy. Initiative 1 — a fast-fashion budget line — directly contradicts it. Fast fashion is characterized by high volume, low price, and short product lifespan, which creates enormous environmental impact. Launching it would undermine the brand strategy it's supposed to serve, no matter how the marketing frames it. This is the classic 'good tactic, wrong strategy' error."
+    }
+  ],
+
+  quiz: [
+    {
+      q: "A marketing director at a national shoe brand reviews data on changing consumer preferences for sustainable materials, upcoming FTC regulations on environmental claims, and competitor launches in the eco-friendly footwear segment. This activity is best described as:",
+      opts: ["Micromarketing","Environmental scanning","A SWOT analysis","Tactical planning"],
+      correct: 1,
+      explain: "Environmental scanning is the continuous process of monitoring the external environment for opportunities and threats — competitor moves, regulatory changes, consumer trend shifts. The marketing director is gathering macro-level intelligence to inform strategic decisions. SWOT analysis would USE this data; scanning is the gathering process."
+    },
+    {
+      q: "Which of the following is a STRATEGY rather than a tactic?",
+      opts: ["Run 20% off promotions every Friday in Q4","Post three times per week on LinkedIn through June","Become the preferred financial services provider for small businesses in Arizona","Send a welcome email sequence to new subscribers"],
+      correct: 2,
+      explain: "A strategy is an overarching direction — it defines what the company wants to achieve and its competitive positioning. 'Become the preferred provider for small businesses in Arizona' is strategic direction. The other three options are all specific, time-bound, measurable actions — tactics. Strategies answer 'where are we going and why'; tactics answer 'what specifically are we doing and when.'"
+    },
+    {
+      q: "What is the difference between macromarketing and micromarketing?",
+      opts: ["Macromarketing is for large companies; micromarketing is for small companies","Macromarketing examines the external environment to inform strategy; micromarketing executes specific tactics for narrow market segments","Macromarketing focuses on domestic markets; micromarketing focuses on local markets","Macromarketing is strategic planning; micromarketing is customer service"],
+      correct: 1,
+      explain: "Macro/micro is about SCOPE OF ANALYSIS, not company size. A one-person consulting firm can do macromarketing (scanning the competitive landscape). A Fortune 500 executes micromarketing tactics targeted at specific zip codes. The distinction is external-environment thinking (macro) vs. specific segment-action thinking (micro)."
+    },
+    {
+      q: "In a marketing plan, where does the SWOT analysis belong?",
+      opts: ["Marketing Objectives section","Executive Summary","Situation Analysis section","Tactics and Timeline section"],
+      correct: 2,
+      explain: "The SWOT analysis belongs in the Situation Analysis — the section that assesses where the organization stands before setting objectives. Strengths and weaknesses are internal (within the company's control); opportunities and threats are external (from environmental scanning). Students who put SWOT in the objectives section have confused diagnosis with prescription."
+    },
+    {
+      q: "A regional coffee chain's leadership team drafted three documents. Document A: 'Partner with Phoenix-area offices to offer employee coffee subscriptions.' Document B: 'Become the go-to workplace coffee provider in the Phoenix metro by delivering a premium but affordable experience.' Document C: 'Increase revenue from corporate accounts by 40% within 18 months.' How should A, B, and C be correctly classified?",
+      opts: ["A = Objective, B = Strategy, C = Tactic", "A = Tactic, B = Strategy, C = Objective", "A = Strategy, B = Objective, C = Tactic", "All three are tactics — none qualify independently as objective or strategy."],
+      correct: 1,
+      explain: "A (partner with local offices) = TACTIC — specific, executable, day-to-day action. B (become the go-to workplace coffee provider) = STRATEGY — directional, describes HOW the company will compete, guides decisions without prescribing every step. C (increase revenue by 40% in 18 months) = OBJECTIVE — specific, measurable, time-bound outcome. The flow runs: set the objective (C), define the strategy to get there (B), execute via tactics (A). Confusing these three levels is one of the most common midterm errors."
+    },
+    {
+      q: "The Executive Summary of a marketing plan should be:",
+      opts: ["Written first to guide the rest of the planning process","The longest section of the plan","Written last and placed first — it summarizes what the full plan contains","An optional section for shorter plans"],
+      correct: 2,
+      explain: "The Executive Summary is written LAST because it summarizes the complete plan — objectives, strategies, budget, timeline, and expected results. You cannot accurately summarize a plan you haven't written yet. It's placed FIRST because busy executives read it to grasp the full plan without reading every page. Students who write the summary first will produce inaccurate summaries."
+    },
+    {
+      q: "Which of the following best illustrates strategy-tactic misalignment?",
+      opts: ["A premium brand running ads in luxury magazines","A budget airline launching a frequent-flyer rewards program targeting frequent business travelers","A premium brand launching a budget product line targeting value shoppers","A fast-food chain opening a new location in a high-traffic urban area"],
+      correct: 2,
+      explain: "A premium brand launching a budget product line is the clearest strategy-tactic misalignment. The strategy (premium positioning) and the tactic (budget product line) directly contradict each other. Budget products signal value-for-money — which undermines the premium brand signals that justify higher prices for the core line. The other options show brands making decisions consistent with their positioning."
+    },
+    {
+      q: "'Fluid strategy' in marketing means:",
+      opts: ["Changing the company's strategic direction every quarter to stay competitive","Continuously monitoring the environment and updating strategy when conditions meaningfully change — while maintaining core strategic consistency","Having no fixed strategy so the company can respond to any market condition","Avoiding long-term planning in favor of short-term tactical responses"],
+      correct: 1,
+      explain: "Fluid strategy means staying responsive without being unstable. Well-managed companies revisit strategy annually and adjust tactics quarterly. The core strategic direction (what kind of company we are, who we serve, how we compete) stays consistent for years. What changes: the tactics that implement it, in response to environmental shifts. 'Fluid' does not mean constantly reinventing the strategy — that's strategic chaos, not agility."
+    }
+  ]
+},
+
+// ── CLASS 3 ──────────────────────────────────────────────────
+{
+  flashcards: [
+    {
+      q: "What are the seven categories of things that can be marketed?",
+      a: "Goods, Services, Events, Experiences, People, Places, Information, and Ideas. Marketing applies to all of them — not just physical products.",
+      ex: "Example: Taylor Swift is marketed as a Person. The Eras Tour is marketed as an Event. The concert experience (immersive, multi-sensory) is marketed as an Experience. Her music is a Good. Each requires different marketing strategies."
+    },
+    {
+      q: "What is the product-service continuum?",
+      a: "The idea that most real-world offerings contain both product (tangible) and service (intangible) elements simultaneously. Very few offerings are purely one or the other.",
+      ex: "Example: A restaurant meal is a product (the food) AND a service (preparation, serving, atmosphere). A car is a product, but dealer financing, maintenance programs, and over-the-air software updates are services. Marketing must address both dimensions."
+    },
+    {
+      q: "What is a Functional organizational structure?",
+      a: "An org structure where employees are grouped by their functional discipline (marketing, finance, HR, operations). Everyone in marketing reports to a Chief Marketing Officer. Clear roles, efficient communication within functions.",
+      ex: "Example: Most startups and single-product companies use functional structure. The marketing team handles all brands/products from one centralized group."
+    },
+    {
+      q: "What is a Divisional organizational structure?",
+      a: "An org structure where the company is divided by product line, brand, or geographic region rather than job function. Each division may have its own marketing team, allowing brand-specific expertise.",
+      ex: "Example: Procter & Gamble has separate brand teams for Tide, Pampers, and Gillette — each with its own marketing budget and strategy. The divisions operate semi-independently."
+    },
+    {
+      q: "What is a Matrix organizational structure?",
+      a: "A hybrid structure that combines functional and divisional elements. Cross-functional teams come together around a project (a product launch, a market entry) and include members from marketing, finance, operations, and other functions.",
+      ex: "Example: Amazon frequently assembles matrix teams for new product categories — a team might include marketers, engineers, supply chain specialists, and finance analysts working together on a single launch."
+    },
+    {
+      q: "What is a Mission Statement and how does it differ from a Vision Statement?",
+      a: "A mission statement defines the organization's PURPOSE today — what it does, for whom, and how. A vision statement describes the ASPIRATIONAL FUTURE STATE — what the company ultimately strives to become. Mission = now; Vision = aspirational future.",
+      ex: "Example: GCU Mission: serve others in ways that promote human flourishing (current purpose). LinkedIn Vision: create economic opportunity for every member of the global workforce (aspirational end state). Mission is operational; vision is directional."
+    },
+    {
+      q: "What are Core Values in an organizational context?",
+      a: "The foundational principles that define and guide an organization's culture and behavior. According to Lencioni, they are the 'cultural cornerstones' of the organization — they must be authentic and reflected in actual decisions, not just declared.",
+      ex: "Example: Google's 10 Things (including 'do no evil') are stated core values. The test of whether they're real: do Google's actual business decisions reflect them? Stated values that don't match behavior create a values-authenticity gap."
+    },
+    {
+      q: "What is Return on Investment (ROI) as a marketing KPI?",
+      a: "A measure of how much sales revenue a marketing campaign generates per dollar spent. Calculated as: (Revenue Generated − Marketing Cost) / Marketing Cost. It measures the financial return of marketing activities.",
+      ex: "Example: A $10,000 digital campaign that generates $40,000 in new sales has an ROI of 300%. But ROI in isolation is misleading — a 500% ROI on a $1,000 campaign may be less valuable than a 150% ROI on a $500,000 campaign in absolute dollar terms."
+    },
+    {
+      q: "What is the difference between Cost per Lead and Cost per Win as KPIs?",
+      a: "Cost per Lead measures how efficiently marketing attracts potential customers (top of funnel). Cost per Win measures how efficiently sales closes those leads (bottom of funnel). A low CPL + high CPW means marketing is working but sales is failing — and vice versa.",
+      ex: "Example: A software company spends $50 per lead but only closes 2% of leads. CPL is efficient; CPW is high because the sales process is broken. Fixing the wrong problem (spending more on marketing) won't solve it."
+    },
+    {
+      q: "What is the values-authenticity gap, and why does it matter for marketing?",
+      a: "The gap between a company's STATED values (on the website, in advertising) and its ACTUAL behavior (operations, supply chain, HR decisions). A large gap destroys consumer trust when exposed — and is increasingly impossible to hide.",
+      ex: "Example: A company that claims 'people first' as a core value but has widespread reports of toxic workplace culture has a values-authenticity gap. When exposed (Glassdoor, media), the gap damages brand credibility more severely than if the values had never been stated."
+    }
+  ],
+
+  scenarios: [
+    {
+      concept: "7 Categories — Applying the Framework",
+      prompt: "Match each of the following to the correct marketing category: (A) a city of Phoenix campaign to attract tech companies to relocate, (B) a TEDx talk on AI ethics available on YouTube, (C) a Coldplay concert at State Farm Stadium, (D) a 'reduce your carbon footprint' public awareness campaign, (E) a weekend at a wellness retreat in Sedona.",
+      opts: [
+        "All five are Services.",
+        "(A) Place, (B) Information/Ideas, (C) Event, (D) Idea, (E) Experience — each requires distinct marketing approaches despite none being a traditional physical product.",
+        "(A) and (D) are the same category; (B) and (E) are the same category.",
+        "Only Events and Experiences can be marketed without a physical product."
+      ],
+      correct: 1,
+      feedback: "Correct. (A) is Place marketing — marketing Phoenix as a destination for business investment. (B) is Information/Ideas — the TEDx talk communicates a concept or data point. (C) is an Event — a discrete, time-bound occurrence. (D) is Idea marketing — changing behavior through concept promotion. (E) is an Experience — a curated, immersive multi-sensory offering. Understanding these distinctions matters because each category requires different strategies: a city uses economic data; an idea campaign focuses on behavior change; an experience markets emotion."
+    },
+    {
+      concept: "Organizational Structure",
+      prompt: "TechCorp has a single marketing department that handles campaigns for all five of its product lines. MegaBrand has a separate marketing team for each of its five brands, each with its own P&L. StartupX assembles a temporary cross-functional team of marketers, engineers, and finance staff to launch each new product, then dissolves the team after launch. Which structure does each company use?",
+      opts: [
+        "All three use functional structure.",
+        "TechCorp = Functional; MegaBrand = Divisional; StartupX = Matrix",
+        "TechCorp = Divisional; MegaBrand = Matrix; StartupX = Functional",
+        "Matrix structure is only used by very large corporations."
+      ],
+      correct: 1,
+      feedback: "Correct. TechCorp's centralized department handling all product lines is Functional — grouped by discipline. MegaBrand's separate team per brand (each with its own budget and strategy) is Divisional — grouped by product/brand. StartupX's temporary cross-disciplinary project teams are Matrix — combining functional expertise around a project, then disbanding. Note that company size does NOT determine structure: small startups can use matrix teams; large companies can run functional structures."
+    },
+    {
+      concept: "Mission vs. Vision vs. Values",
+      prompt: "A consumer technology company publishes the following: (A) 'We make premium devices that simplify everyday life.' (B) 'A world where technology removes barriers between people and their full potential.' (C) Listed on their website: Integrity, Innovation, Customer First, Sustainability. Six months later, an investigation reveals the company suppressed internal research showing one of its devices caused eye strain in children. Which of the following best analyzes this situation?",
+      opts: [
+        "The company has a strong values-authenticity gap: 'Customer First' and 'Integrity' are directly contradicted by suppressing consumer safety research.",
+        "The company's mission and vision are misaligned.",
+        "The investigation shows the company should update its mission statement.",
+        "Core values are aspirational goals, so the gap is expected and acceptable."
+      ],
+      correct: 0,
+      feedback: "Correct. This is a textbook values-authenticity gap. 'Customer First' and 'Integrity' are stated core values. Suppressing health research about a product's effect on children directly contradicts both. Lencioni's argument is that core values must be authentic — woven into every decision — not decorative. When exposed, values-behavior gaps cause severe brand damage because the company has explicitly promised what it then demonstrably violated. Statement (C) that values are 'just aspirational' is wrong — that's exactly the reasoning that produces greenwashing and ethics scandals."
+    },
+    {
+      concept: "KPIs and Marketing Measurement",
+      prompt: "A software company's marketing team runs two campaigns. Campaign A: spends $5,000 and generates 500 leads (CPL = $10). Campaign B: spends $50,000 and generates 1,000 leads (CPL = $50). Of those leads, Campaign A closes 2% into customers; Campaign B closes 25%. Which campaign produced better marketing outcomes and why?",
+      opts: [
+        "Campaign A — it has a lower Cost per Lead.",
+        "Campaign B — despite higher CPL, the 25% close rate means far more customers and revenue generated per dollar spent on total acquisition cost.",
+        "They are equal because one has better CPL and the other has better close rate.",
+        "Campaign A because spending less is always better."
+      ],
+      correct: 1,
+      feedback: "Correct. Campaign A: 500 leads × 2% close = 10 customers. Campaign B: 1,000 leads × 25% = 250 customers. Campaign B generated 25x more customers despite 10x higher spend — a dramatically better overall return. CPL is an efficiency metric for lead generation, but it doesn't measure lead QUALITY. This is exactly why Cost per Lead and Cost per Win must be analyzed together — a cheap lead that never converts is worth less than an expensive lead that reliably closes."
+    },
+    {
+      concept: "Product-Service Continuum",
+      prompt: "A luxury hotel brand argues it's a 'pure service business' and doesn't need product marketing strategies. A marketing consultant disagrees. Which is the most persuasive counterargument the consultant should make?",
+      opts: [
+        "Hotels are actually pure product businesses because they sell rooms.",
+        "Most hospitality offerings sit on the product-service continuum — the physical room, amenities, and food are product elements; check-in, concierge, and housekeeping are service elements. Both require distinct marketing strategies.",
+        "Service marketing is simpler than product marketing, so the hotel is correct.",
+        "The 7Ps only apply to pure service businesses."
+      ],
+      correct: 1,
+      explain: "The product-service continuum argument is the consultant's strongest tool. The hotel's physical room (product: tangible, consistent, can be photographed and described), its restaurant food (product), and its spa treatments (services) sit across the spectrum. Meanwhile, the front desk interaction, concierge recommendations, and valet parking are services — intangible, coproduced with the guest, variable in quality. Marketing strategies for each dimension differ: product marketing for the room (showcase features, standardize experience) vs. service marketing for staff interactions (train for consistency, manage expectations, capture evidence of quality through reviews and ratings).",
+      feedback: "The product-service continuum argument is the consultant's strongest tool. The hotel's physical room (product: tangible, consistent, can be photographed and described), its restaurant food (product), and its spa treatments (services) sit across the spectrum. Meanwhile, the front desk interaction, concierge recommendations, and valet parking are services — intangible, coproduced with the guest, variable in quality. Marketing strategies for each dimension differ: product marketing for the room (showcase features, standardize experience) vs. service marketing for staff interactions (train for consistency, manage expectations, capture evidence of quality through reviews and ratings)."
+    }
+  ],
+
+  quiz: [
+    {
+      q: "A campaign marketing Phoenix, Arizona as a destination for corporate headquarters relocation falls into which marketing category?",
+      opts: ["Goods","Service","Place","Experience"],
+      correct: 2,
+      explain: "Place marketing applies the principles of marketing to geographic locations — cities, states, countries, or regions — that want to attract businesses, tourists, or residents. Phoenix marketing itself as a business destination is place marketing. Cities use economic incentives, workforce quality data, and quality-of-life messaging to 'sell' themselves to corporate decision-makers."
+    },
+    {
+      q: "What is the core distinction between a Mission Statement and a Vision Statement?",
+      opts: ["Mission is about future aspirations; Vision is about current operations","Mission describes current purpose — what, for whom, and how; Vision describes the aspirational future state the company strives to become","They are interchangeable terms for the same concept","Vision statements are only required for non-profit organizations"],
+      correct: 1,
+      explain: "Mission = NOW (what we do today, for whom, and how we do it). Vision = ASPIRATIONAL FUTURE (what we ultimately want to become). GCU's mission describes its current purpose as a Christ-centered university serving students. LinkedIn's vision ('economic opportunity for every member of the global workforce') describes a future end state they're working toward. Students frequently reverse these — know the time-horizon difference."
+    },
+    {
+      q: "A company that states 'People First' as a core value but consistently implements cost-cutting measures that harm employee welfare is exhibiting:",
+      opts: ["A strong organizational culture","A values-authenticity gap — where stated values don't match actual behavior","Normal business practice — values are aspirational, not operational","A divisional organizational structure challenge"],
+      correct: 1,
+      explain: "Lencioni's concept of core values as 'cultural cornerstones' requires that they be reflected in actual decisions, not just stated on a website. When stated values and actual behavior diverge significantly, the result is a values-authenticity gap — which is more damaging than having no stated values at all, because it signals hypocrisy. In marketing terms: this brand has made a promise it's visibly breaking."
+    },
+    {
+      q: "Which organizational structure groups employees by product line or geographic region rather than functional discipline?",
+      opts: ["Functional structure","Divisional structure","Matrix structure","Hierarchical structure"],
+      correct: 1,
+      explain: "Divisional structure organizes around products, brands, or regions — each division may have its own marketing, finance, and operations functions. P&G's brand management model (separate teams for each brand) is the classic example. The advantage: brand-specific expertise and accountability. The risk: duplication of resources and potential inconsistency in corporate brand identity across divisions."
+    },
+    {
+      q: "A company's advertising generated 1,000 leads at $15 each, but only 1% became paying customers. Its competitor spent $50 per lead but converted 30%. Which metric reveals the problem with the first company's performance?",
+      opts: ["Cost per Lead — their CPL is too high","Cost per Win — low conversion reveals a breakdown between marketing lead quality and sales process effectiveness","Return on Investment — they need to calculate total ROI","Incremental Sales — they should track sales lift from the campaign"],
+      correct: 1,
+      explain: "Cost per Lead measures top-of-funnel efficiency — the first company is generating leads cheaply ($15 each). The problem is Cost per Win: 1% of 1,000 leads = 10 customers. At $15,000 total spend, that's $1,500 per customer acquired. The competitor at $50/lead × 30% close = a much lower cost per customer. Low CPL + low conversion = either poor lead quality from marketing OR a broken sales process. CPL alone hides this problem."
+    },
+    {
+      q: "An MBA student doing a campus tour is experiencing which marketing category?",
+      opts: ["Goods","Service","Event","Experience"],
+      correct: 3,
+      explain: "A campus tour is an Experience — a curated, immersive encounter designed to shape perceptions and emotional connection. Unlike an Event (discrete occurrence) or a Service (performed for you), an Experience is designed to be multi-sensory, memorable, and identity-affirming. GCU's campus tour is designed to make prospective students imagine themselves as students there — that's experience marketing."
+    },
+    {
+      q: "Which of the following best describes a Matrix organizational structure?",
+      opts: ["All employees report to a single functional leader","The company is divided by product or region with each division having its own functional teams","Cross-functional teams form around projects, drawing from multiple departments, then may dissolve after the project ends","Marketing operates independently from all other functions"],
+      correct: 2,
+      explain: "Matrix structure is the hybrid: it combines functional specialization (marketing, engineering, finance) with project-based organization. A product launch team might include one marketer, one engineer, one finance analyst, and one supply chain manager — reporting both to their functional department head and to the project manager. Advantage: agility and cross-functional integration. Risk: reporting confusion and competing priorities."
+    },
+    {
+      q: "Incremental Sales as a KPI measures:",
+      opts: ["Total revenue from all marketing channels","The contribution of specific marketing efforts to sales results — isolating what marketing caused beyond baseline expectations","The cost of each marketing campaign divided by total sales","Year-over-year revenue growth regardless of marketing cause"],
+      correct: 1,
+      explain: "Incremental Sales isolates marketing's causal contribution to revenue — above what would have happened anyway (the baseline). This is harder to measure than total revenue but more meaningful: it answers 'did our campaign actually cause additional sales, or would those customers have bought anyway?' It's how marketers prove their work's value to the business, not just track activity."
+    }
+  ]
+},
+
+// ── CLASS 4 ──────────────────────────────────────────────────
+{
+  flashcards: [
+    {
+      q: "What are the three core AMA Ethics norms every marketer must follow?",
+      a: "1) Do No Harm — avoid harmful actions and proactively benefit stakeholders. 2) Foster Integrity — strive for transparency and fairness in all marketing activities. 3) Embrace Ethical Values — honesty, responsibility, equity, transparency, and citizenship.",
+      ex: "Example: A pharmaceutical company burying side-effect data violates 'Do No Harm.' A car dealer hiding upfront costs in fine print violates 'Foster Integrity.' An influencer not disclosing paid partnerships violates 'Honesty' under Ethical Values."
+    },
+    {
+      q: "What is the critical difference between 'legal' and 'ethical' in marketing?",
+      a: "Something can be legal but still unethical. AMA ethics go beyond legal compliance — professional standards require marketers to ask not just 'is it allowed?' but 'is it right?' Unethical marketing is not necessarily illegal.",
+      ex: "Example: A weight-loss supplement claiming 'clinically studied' ingredients based on a 12-person non-controlled study is likely legal. But it's unethical — it creates a false impression of scientific validation that influences consumer decisions unfairly."
+    },
+    {
+      q: "What is Greenwashing and why does it violate marketing ethics?",
+      a: "Greenwashing is making environmental or sustainability claims in marketing that aren't supported by genuine impact. It violates AMA ethics norms of honesty, transparency, and 'do no harm' — it misleads consumers who try to make responsible purchasing decisions.",
+      ex: "Example: A fashion retailer launching a 'Conscious Collection' while producing 600 new styles per week generates massive textile waste. If the 'conscious' claim can't be substantiated by actual environmental data, it's greenwashing."
+    },
+    {
+      q: "What is Digital Transformation in marketing?",
+      a: "The ongoing shift from traditional marketing channels (print, broadcast) to digital channels — e-commerce, email, SEO/SEM, social media, mobile apps, AI-driven personalization, and voice search — that began in the mid-1990s and continues to evolve.",
+      ex: "Example: A retailer that once relied on newspaper ads and TV spots now runs targeted Instagram campaigns, Google Shopping ads, email automation, and AI-powered product recommendations. Each new channel created new marketing tactics and required new skills."
+    },
+    {
+      q: "What is the difference between SEO and SEM?",
+      a: "SEO (Search Engine Optimization) improves a website's organic (unpaid) ranking in search results through content, keywords, and technical optimization. SEM (Search Engine Marketing) uses paid advertising (like Google Ads) to appear in search results. SEO is earned; SEM is paid.",
+      ex: "Example: A bakery that writes helpful bread-making blog posts that rank on Google's first page for 'Phoenix sourdough' is doing SEO. The same bakery running paid Google Ads that appear at the top of search results for 'buy sourdough bread Phoenix' is doing SEM."
+    },
+    {
+      q: "What is Data-Driven Decision Making in marketing?",
+      a: "Using databases, analytics tools, and machine-learning algorithms to study consumer behavior, measure marketing performance, and make better decisions about product design, pricing, messaging, and distribution — replacing intuition with evidence.",
+      ex: "Example: Netflix uses viewing data from 200M+ subscribers to make content investment decisions before greenlighting a new series. Amazon's recommendation engine drives ~35% of total revenue by predicting what individual consumers will want based on behavioral patterns."
+    },
+    {
+      q: "What is Omnichannel Marketing?",
+      a: "A customer-centric approach in which a brand creates a seamless, consistent experience across all channels — physical stores, websites, mobile apps, social media, voice — so the consumer's journey is coherent regardless of how they interact with the brand.",
+      ex: "Example: A customer sees a Nike shoe on Instagram, researches it on Nike.com, tries it on at a Nike store, and buys it through the Nike app with a loyalty discount. All five touchpoints deliver a consistent brand experience — that's omnichannel."
+    },
+    {
+      q: "What is the Consumer Journey and why does it matter?",
+      a: "The complete set of experiences a consumer has with a brand — from first awareness through purchase and post-purchase behavior. Marketers map journey stages, identify touchpoints, and study consumer emotions at each stage to improve satisfaction and competitive advantage.",
+      ex: "Example: A hospital system mapping the patient journey discovers that most patients form their quality perception in the first 3 minutes of a phone call. That insight redirects marketing investment from billboard ads to call center training and response time improvement."
+    },
+    {
+      q: "What is Brand Authenticity and why is it a contemporary marketing challenge?",
+      a: "Brand authenticity is the perception that a brand is genuine, consistent, and honest — that it actually lives its stated values. It's a contemporary challenge because consumers have more tools than ever (social media, reviews, investigative journalism) to expose gaps between brand claims and reality.",
+      ex: "Example: Patagonia's authenticity derives from aligning every decision (giving the company away to fight climate change, using recycled materials, repairing old products) with its environmental values. Its marketing simply reflects actual behavior — which is why it's trusted."
+    },
+    {
+      q: "What ethical challenge does data-driven marketing create?",
+      a: "The tension between what marketers CAN do with consumer data and what they SHOULD do. Data enables hyper-targeting, behavioral prediction, and personalization at scale — but also enables surveillance, manipulation, discrimination, and exploitation of vulnerable consumers.",
+      ex: "Example: Cambridge Analytica used Facebook behavioral data (harvested without explicit consent) to target political messaging. The data capability existed. Using it that way violated consumer privacy expectations and trust — and ultimately violated FTC consent agreements. Capability ≠ ethical permission."
+    }
+  ],
+
+  scenarios: [
+    {
+      concept: "AMA Ethics — Applying the Norms",
+      prompt: "A regional car dealership runs ads stating 'Get your dream car for just $299 a month!' The $299 figure requires a $4,500 down payment, a 72-month loan term, and applies only to a single vehicle model currently unavailable at the dealership. The disclosures appear in 6-point font for 2 seconds at the end of a 30-second TV spot. Which AMA ethics norms are most clearly violated?",
+      opts: [
+        "None — the disclosures are technically present.",
+        "Foster Integrity (transparency and fairness) and Honesty (a specific ethical value) — because the headline claim creates a misleading impression that the fine print cannot reasonably correct.",
+        "Do No Harm only — the ad creates financial harm.",
+        "Only Citizenship is violated — the ad harms the community."
+      ],
+      correct: 1,
+      feedback: "Correct. 'Foster Integrity' requires transparency — not just technical disclosure, but genuine clarity. A 2-second, 6-point font disclosure at the end of a 30-second ad is not transparent communication — it's designed to be unreadable. The 'Honesty' value requires that marketing communications be truthful and not create false impressions. The FTC specifically requires disclosures to be 'clear and conspicuous' — this ad fails that standard. Technically having the disclosure doesn't make it ethical."
+    },
+    {
+      concept: "Digital Marketing — Channel Selection",
+      prompt: "A 72-year-old independent financial advisor wants to reach new clients. She has a $2,000 monthly marketing budget. Her target clients are affluent retirees aged 65–80 who are concerned about outliving their savings. She's considering: (A) Instagram ads, (B) Facebook ads with geographic and age targeting, (C) Google Search ads for 'retirement financial advisor [city]', (D) LinkedIn ads targeting recently retired executives. Which channels are most strategically appropriate and why?",
+      opts: [
+        "Instagram — it has the largest user base overall.",
+        "Facebook (B) and Google Search (C) are most appropriate: Facebook reaches her exact demographic with age/geographic targeting; Google captures active searchers who are already looking for her service. Instagram skews young; LinkedIn targets people still working.",
+        "LinkedIn is best because her target clients are executives.",
+        "All four channels should be used equally to maximize reach."
+      ],
+      correct: 1,
+      feedback: "Correct. Channel selection in digital marketing must match where the TARGET AUDIENCE actually spends time. Facebook has the highest penetration among 65+ adults and allows precise demographic targeting. Google Search captures high-intent prospects already searching for financial advisors — these are warm leads. Instagram's user base skews 18–34, making it inefficient for this target. LinkedIn targets currently-employed professionals, not retirees. With a $2,000 budget, concentrating on two well-matched channels outperforms spreading thin across all four."
+    },
+    {
+      concept: "Data-Driven Marketing",
+      prompt: "A regional grocery chain notices that customers who buy organic produce are 3x more likely to also purchase premium vitamins within the same shopping trip. The analytics team proposes placing vitamin displays at the end of the organic produce section. A second proposal: use customer email addresses to send targeted vitamin promotions only to customers whose purchase history shows organic produce purchases. Which proposal is more sophisticated data-driven marketing, and why?",
+      opts: [
+        "The in-store display — it reaches more people.",
+        "The targeted email campaign — it uses behavioral data to deliver relevant messaging to exactly the right customers at the individual level, increasing relevance and reducing waste.",
+        "Both proposals are equally data-driven.",
+        "Neither is data-driven — they're both traditional marketing tactics."
+      ],
+      correct: 1,
+      feedback: "Correct. Both proposals use data, but the targeted email campaign represents more sophisticated data-driven marketing. The in-store display is smart placement — it uses aggregate purchasing data to improve a physical environment. But it reaches everyone in the organic section, including non-buyers of vitamins. The email campaign targets specific individuals based on their personal purchase history, delivering a relevant message to the highest-probability buyers. This is the difference between data-informed placement and data-driven personalization — the second is more precise, less wasteful, and more likely to convert."
+    },
+    {
+      concept: "Omnichannel vs. Multichannel",
+      prompt: "Brand A sells outdoor gear. Website price: $149. In-store price: $164. Their app shows 'online exclusive deals' not available in stores. Customers who start a return online must complete it in-store with a separate system that can't see online order history. Brand B sells the same product at $149 everywhere. Their app, website, and in-store system share a single database — a return started on the app can be completed at any store, and online purchases appear in the loyalty account used in-store. Which brand is executing omnichannel strategy, and what is Brand A actually doing?",
+      opts: [
+        "Both brands are doing omnichannel marketing.",
+        "Brand B is omnichannel — seamless, consistent experience across channels. Brand A is multichannel — it operates in multiple channels but without integration or consistency, creating a fragmented consumer experience.",
+        "Brand A is omnichannel because it has more channels.",
+        "Omnichannel only applies to digital channels, not physical stores."
+      ],
+      correct: 1,
+      feedback: "Correct. Omnichannel requires integration — the consumer experience is seamless regardless of which channel they use. Brand B's shared database, consistent pricing, and connected loyalty system deliver this. Brand A has multiple channels (multichannel) but they operate as silos: inconsistent pricing, separate systems, and channel-specific offers that create confusion and friction. The critical distinction: multichannel = being present in multiple channels; omnichannel = those channels being seamlessly integrated from the consumer's perspective."
+    },
+    {
+      concept: "Ethics — Legal vs. Ethical",
+      prompt: "A social media influencer with 800,000 followers receives $3,500 to post about a meal kit service. She writes: 'Obsessed with this meal kit — my family actually looks forward to dinner now! Use code SARAH20 for 20% off.' She does not disclose the payment or that 'SARAH20' is a tracked affiliate code that earns her commission per sign-up. Her attorney tells her, 'This is a gray area — you probably won't get fined.' A marketing ethics consultant tells her she should still disclose. Who is right, and why?",
+      opts: [
+        "The attorney — if it's legal, there's no ethical issue.",
+        "The ethics consultant — FTC guidelines require disclosure of material connections, and even if enforcement is uncertain, the AMA ethics norm of Honesty requires that marketing not create false impressions. Followers believe this is an organic recommendation; it isn't.",
+        "Neither — she should just delete the post.",
+        "The attorney — disclosure hurts influencer effectiveness so the business case outweighs the ethics."
+      ],
+      correct: 1,
+      feedback: "Correct. The ethics consultant is right for two reasons. First, FTC guidelines DO require disclosure of material connections — the 'gray area' claim from the attorney is optimistic at best. Second, and more importantly for this course: the AMA ethics norm of Honesty states that marketers must not create false impressions. 800,000 followers believe 'I'm obsessed with this' is organic enthusiasm from someone they trust. It's actually a paid advertisement. That deception exists regardless of whether the FTC acts on it. Marketing ethics require going beyond compliance."
+    }
+  ],
+
+  quiz: [
+    {
+      q: "According to the AMA, which of the following best describes the 'Do No Harm' principle in marketing ethics?",
+      opts: ["Avoid all advertising that could be misinterpreted","Not only avoid harmful actions but proactively strive to benefit all stakeholders and society — and adhere to applicable laws at minimum","Only avoid activities that have been ruled illegal by the FTC","Focus on customer satisfaction metrics above all else"],
+      correct: 1,
+      explain: "'Do No Harm' goes beyond legal compliance — it's an active standard. 'Not only consciously avoiding harmful actions or omissions but also striving to benefit all stakeholders and society at large' is the AMA language. The 'at minimum adhere to laws' phrasing is important: laws are the floor, not the ceiling of ethical marketing behavior."
+    },
+    {
+      q: "A company's product claims are technically accurate but are presented in a way that leads most consumers to a false conclusion. This violates which AMA ethics principle?",
+      opts: ["Do No Harm only","Foster Integrity — which requires transparency and fairness, not just technical accuracy","Citizenship only","None — if the claims are accurate, there's no ethical violation"],
+      correct: 1,
+      explain: "'Foster Integrity' requires transparency and fairness — not just literal accuracy. Marketing that is technically true but creates a false impression through framing, emphasis, or omission still violates the integrity principle. The FTC applies the same standard: 'deception' includes any impression a reasonable consumer would draw, not just the literal words used."
+    },
+    {
+      q: "What is the key difference between SEO and SEM?",
+      opts: ["SEO costs more than SEM","SEO is organic (earned through content and optimization); SEM is paid advertising in search results","SEO targets social media; SEM targets search engines","They are two names for the same digital marketing strategy"],
+      correct: 1,
+      explain: "SEO = earned visibility through quality content, keyword optimization, and technical website quality. Google's algorithm ranks you based on relevance and authority. SEM = paid placement — you bid for ad space in search results. A business can have both: organic results (SEO) and paid results (SEM) appearing for the same search term. Both appear in search engines — the distinction is paid vs. earned."
+    },
+    {
+      q: "Omnichannel marketing is best characterized by:",
+      opts: ["Having a presence on as many different channels as possible","Seamless integration between all channels so the consumer experience is consistent regardless of how they interact with the brand","Focusing exclusively on digital channels for efficiency","Using the same content across all channels without adaptation"],
+      correct: 1,
+      explain: "Omnichannel ≠ multichannel. Multichannel means being present in multiple places. Omnichannel means those places are integrated — a single view of the customer, consistent pricing and experience, and the ability to move seamlessly between channels without starting over. The consumer doesn't experience channels; they experience the brand. Omnichannel makes the infrastructure invisible."
+    },
+    {
+      q: "Cambridge Analytica's use of Facebook user data to target political advertising is best described as:",
+      opts: ["A sophisticated but ethical data-driven marketing strategy","An example of how data capabilities can be used in ways that violate consumer privacy expectations and ethical norms — even when technical legality is uncertain","A standard practice in digital political marketing","An example of effective omnichannel marketing"],
+      correct: 1,
+      explain: "Cambridge Analytica illustrates the capability-vs-ethics distinction: the data capability existed (behavioral data from millions of Facebook profiles), and it was used effectively for targeting. But the data was harvested without meaningful consent, used to influence democratic processes, and ultimately violated FTC consent agreements. In marketing ethics terms: what you CAN do with data and what you SHOULD do are different questions — and 'I can' is not ethical justification for 'I did.'"
+    },
+    {
+      q: "An undisclosed paid influencer endorsement primarily violates which of the following?",
+      opts: ["The AMA's 'Do No Harm' principle","The AMA's 'Honesty' ethical value and FTC disclosure requirements — because it creates a false impression that a paid commercial message is an organic personal recommendation","The company's pricing strategy","Only the influencer's personal brand ethics"],
+      correct: 1,
+      explain: "Undisclosed paid endorsements violate the AMA Honesty value AND FTC guidelines. Followers believe an organic recommendation reflects the creator's genuine experience. When it's paid and undisclosed, that belief is a false impression deliberately created — which is the AMA's definition of dishonesty in marketing. FTC requires '#ad' or '#sponsored' disclosure. This applies to ALL compensation: free products, affiliate codes, and direct payment."
+    },
+    {
+      q: "Data-driven marketing replaces which historical limitation that John Wanamaker famously described?",
+      opts: ["The inability to target specific customer segments","The 'half my advertising is wasted and I don't know which half' problem — the inability to measure which marketing spend actually drove sales","The difficulty of reaching large audiences","The high cost of print and broadcast advertising"],
+      correct: 1,
+      explain: "Wanamaker's quote from the 1800s captured the pre-data marketing reality: you spent money broadly and hoped something worked, but couldn't measure which specific spend drove which sales. Digital analytics, attribution modeling, and behavioral tracking now allow marketers to track the path from ad exposure to purchase at the individual customer level — solving Wanamaker's problem. This is the core promise of data-driven marketing: replace intuition with evidence."
+    },
+    {
+      q: "A company publishes an annual sustainability report showing genuine progress on emissions reduction, workers' rights, and supply chain transparency — even reporting areas where it fell short of its own goals. This approach best represents:",
+      opts: ["Greenwashing — because they're publicizing their environmental efforts","Authentic brand transparency — reporting both progress and shortfalls builds consumer trust more durably than only sharing positive results","A weakness — companies should only report successes in marketing materials","Societal Marketing Era thinking that will hurt profitability"],
+      correct: 1,
+      explain: "Authentic transparency — including honest reporting of shortfalls — is the opposite of greenwashing. Greenwashing is claiming environmental benefit you haven't earned. Authentic reporting acknowledges both achievement and gaps, which signals that the commitment is genuine (not just PR). Research consistently shows that brands willing to admit imperfection are perceived as more trustworthy than those that project only positive outcomes. This is brand authenticity in practice."
+    }
+  ]
+}
+
+]; // end DATA
+
+// ══════════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════════
+const fcIndex     = [0,0,0,0];
+const fcFlipped   = [false,false,false,false];
+const quizScores  = [0,0,0,0];
+const quizAnswered = [
+  new Array(8).fill(false),
+  new Array(8).fill(false),
+  new Array(8).fill(false),
+  new Array(8).fill(false)
+];
+let totalAnswered = 0;
+
+// ══════════════════════════════════════════════════════════════
+//  CLASS TAB SWITCHING
+// ══════════════════════════════════════════════════════════════
+function switchClass(idx) {
+  document.querySelectorAll('.class-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.class-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
+// ══════════════════════════════════════════════════════════════
+//  MODULE TAB SWITCHING
+// ══════════════════════════════════════════════════════════════
+function switchModule(classIdx, mod) {
+  const panel = document.getElementById(`class-${classIdx}`);
+  panel.querySelectorAll('.mod-tab').forEach(t => t.classList.remove('active'));
+  panel.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+
+  const tabIdx = mod === 'fc' ? 0 : mod === 'sc' ? 1 : 2;
+  panel.querySelectorAll('.mod-tab')[tabIdx].classList.add('active');
+  document.getElementById(`c${classIdx}-${mod}`).classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════════
+//  FLASHCARDS
+// ══════════════════════════════════════════════════════════════
+function renderFC(classIdx) {
+  const cards = DATA[classIdx].flashcards;
+  const i = fcIndex[classIdx];
+  document.getElementById(`c${classIdx}-q`).textContent  = cards[i].q;
+  document.getElementById(`c${classIdx}-a`).textContent  = cards[i].a;
+  document.getElementById(`c${classIdx}-ex`).innerHTML   = cards[i].ex;
+  document.getElementById(`c${classIdx}-cur`).textContent = i + 1;
+  document.getElementById(`c${classIdx}-bar`).style.width = `${((i+1)/cards.length)*100}%`;
+  document.getElementById(`c${classIdx}-prev`).disabled  = i === 0;
+  document.getElementById(`c${classIdx}-next`).disabled  = i === cards.length - 1;
+
+  // reset flip
+  if (fcFlipped[classIdx]) {
+    const card = document.getElementById(`c${classIdx}-card`);
+    card.classList.remove('flipped');
+    fcFlipped[classIdx] = false;
+  }
+}
+
+function flipCard(classIdx) {
+  const card = document.getElementById(`c${classIdx}-card`);
+  fcFlipped[classIdx] = !fcFlipped[classIdx];
+  card.classList.toggle('flipped', fcFlipped[classIdx]);
+}
+
+function fcNav(classIdx, dir) {
+  const cards = DATA[classIdx].flashcards;
+  fcIndex[classIdx] = Math.max(0, Math.min(cards.length - 1, fcIndex[classIdx] + dir));
+  renderFC(classIdx);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  SCENARIOS
+// ══════════════════════════════════════════════════════════════
+function renderScenarios(classIdx) {
+  const container = document.getElementById(`c${classIdx}-scenarios`);
+  const scenarios = DATA[classIdx].scenarios;
+
+  container.innerHTML = scenarios.map((sc, si) => {
+    const opts = sc.opts.map((opt, oi) => {
+      const letters = ['A','B','C','D'];
+      return `<button class="answer-opt" onclick="answerScenario(${classIdx},${si},${oi})">
+        <span class="opt-letter">${letters[oi]}</span>
+        <span>${opt}</span>
+      </button>`;
+    }).join('');
+
+    return `<div class="scenario-card" id="sc-${classIdx}-${si}">
+      <div class="scenario-header">
+        <div class="scenario-num">${si+1}</div>
+        <div class="scenario-concept">${sc.concept}</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-prompt">${sc.prompt}</div>
+        <div class="answer-options" id="sc-opts-${classIdx}-${si}">${opts}</div>
+        <div class="scenario-feedback" id="sc-fb-${classIdx}-${si}"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function answerScenario(classIdx, scIdx, optIdx) {
+  const sc = DATA[classIdx].scenarios[scIdx];
+  const optsEl = document.getElementById(`sc-opts-${classIdx}-${scIdx}`);
+  const fbEl   = document.getElementById(`sc-fb-${classIdx}-${scIdx}`);
+  const btns   = optsEl.querySelectorAll('.answer-opt');
+
+  btns.forEach(b => b.disabled = true);
+  btns[optIdx].classList.add(optIdx === sc.correct ? 'correct' : 'incorrect');
+  if (optIdx !== sc.correct) btns[sc.correct].classList.add('revealed-correct');
+
+  const isCorrect = optIdx === sc.correct;
+  fbEl.textContent = (isCorrect ? '✓ Correct — ' : '✗ Not quite — ') + sc.feedback;
+  fbEl.className = `scenario-feedback show ${isCorrect ? 'correct-fb' : 'incorrect-fb'}`;
+
+  totalAnswered++;
+  document.getElementById('global-score').textContent = totalAnswered;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════════════════════════════════
+function renderQuiz(classIdx) {
+  const container = document.getElementById(`c${classIdx}-quiz-questions`);
+  const qs = DATA[classIdx].quiz;
+  const letters = ['A','B','C','D'];
+
+  container.innerHTML = qs.map((q, qi) => {
+    const opts = q.opts.map((opt, oi) => `
+      <button class="quiz-opt" onclick="answerQuiz(${classIdx},${qi},${oi})">
+        <span class="quiz-opt-letter">${letters[oi]}.</span>
+        <span>${opt}</span>
+      </button>`).join('');
+
+    return `<div class="quiz-q" id="qq-${classIdx}-${qi}">
+      <div class="quiz-q-num">Question ${qi+1} of ${qs.length}</div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-opts" id="qopts-${classIdx}-${qi}">${opts}</div>
+      <div class="quiz-explain" id="qexpl-${classIdx}-${qi}"></div>
+    </div>`;
+  }).join('');
+}
+
+function answerQuiz(classIdx, qIdx, optIdx) {
+  if (quizAnswered[classIdx][qIdx]) return;
+  quizAnswered[classIdx][qIdx] = true;
+
+  const q = DATA[classIdx].quiz[qIdx];
+  const optsEl  = document.getElementById(`qopts-${classIdx}-${qIdx}`);
+  const explEl  = document.getElementById(`qexpl-${classIdx}-${qIdx}`);
+  const btns    = optsEl.querySelectorAll('.quiz-opt');
+
+  btns.forEach(b => b.disabled = true);
+  const isCorrect = optIdx === q.correct;
+  btns[optIdx].classList.add(isCorrect ? 'q-correct' : 'q-wrong');
+  if (!isCorrect) btns[q.correct].classList.add('q-reveal');
+
+  explEl.textContent = (isCorrect ? '✓ ' : '✗ ') + q.explain;
+  explEl.className = `quiz-explain show ${isCorrect ? 'expl-correct' : 'expl-wrong'}`;
+
+  if (isCorrect) {
+    quizScores[classIdx]++;
+    document.getElementById(`c${classIdx}-score`).textContent = quizScores[classIdx];
+  }
+
+  totalAnswered++;
+  document.getElementById('global-score').textContent = totalAnswered;
+}
+
+function resetQuiz(classIdx) {
+  quizScores[classIdx] = 0;
+  quizAnswered[classIdx].fill(false);
+  document.getElementById(`c${classIdx}-score`).textContent = 0;
+  renderQuiz(classIdx);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════════
+function init() {
+  for (let i = 0; i < 4; i++) {
+    renderFC(i);
+    renderScenarios(i);
+    renderQuiz(i);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
