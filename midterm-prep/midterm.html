@@ -145,7 +145,7 @@ body{font-family:'Georgia',serif;background:#F0F3FA;color:#1A202C;min-height:100
   </div>
   <div class="header-sub">
     <span><span class="dot"></span> Topics 1–4 · All Chapters</span>
-    <span><span class="dot"></span> 45 Exam Concepts Covered</span>
+    <span><span class="dot"></span> 49 Exam Concepts Covered</span>
     <span><span class="dot"></span> 100+ Practice Questions</span>
     <span><span class="dot"></span> No internet needed</span>
   </div>
@@ -188,7 +188,7 @@ body{font-family:'Georgia',serif;background:#F0F3FA;color:#1A202C;min-height:100
       <button class="start-btn btn-forest" onclick="showPanel('practice')">Start Practicing</button>
     </div>
     <div class="module-card" onclick="showPanel('quiz')">
-      <div class="module-header"><div class="module-icon mi-gold">✅</div><div class="module-meta"><h3>Full Practice Quiz</h3><p>45 questions · full exam coverage</p></div></div>
+      <div class="module-header"><div class="module-icon mi-gold">✅</div><div class="module-meta"><h3>Full Practice Quiz</h3><p>49 questions · full exam coverage</p></div></div>
       <div class="module-body">One question per exam concept across all 4 topics, randomized. Mirrors the breadth of the real midterm. Reset and repeat to improve your score.</div>
       <button class="start-btn btn-gold" onclick="showPanel('quiz')">Start Full Quiz</button>
     </div>
@@ -336,19 +336,19 @@ body{font-family:'Georgia',serif;background:#F0F3FA;color:#1A202C;min-height:100
 <!-- FULL QUIZ -->
 <div class="panel" id="panel-quiz">
   <div class="section-hero" style="background:#B8880F">
-    <div class="session-pill" style="background:#0D1A3D;color:#fff">45 Questions · Full Exam Coverage</div>
+    <div class="session-pill" style="background:#0D1A3D;color:#fff">49 Questions · Full Exam Coverage</div>
     <h2 style="color:#fff">Full Practice Quiz</h2>
     <p style="color:rgba(255,255,255,.85)">One fresh question per exam concept across all 4 topics. Reset and repeat to improve.</p>
   </div>
   <div id="qz-intro">
     <div class="tip-banner"><span class="tip-icon">⚠️</span><span><strong>Important:</strong> These questions test the same concepts as your midterm using completely original scenarios and wording. They are study practice — not a preview of actual exam questions.</span></div>
-    <button class="start-btn btn-gold" style="font-size:15px;padding:12px 30px" onclick="startQuiz()">Begin 45-Question Quiz →</button>
+    <button class="start-btn btn-gold" style="font-size:15px;padding:12px 30px" onclick="startQuiz()">Begin 49-Question Quiz →</button>
   </div>
   <div id="qz-activity" class="activity-hidden">
-    <div class="score-display">Score: <span id="qz-score">0</span> / <span id="qz-total">45</span></div>
+    <div class="score-display">Score: <span id="qz-score">0</span> / <span id="qz-total">49</span></div>
     <div class="progress-row">
       <div class="progress-bar-track"><div class="progress-bar-fill" id="qz-progress" style="width:0%"></div></div>
-      <div class="progress-label" id="qz-label">Question 1 of 45</div>
+      <div class="progress-label" id="qz-label">Question 1 of 49</div>
     </div>
     <div class="activity-wrap">
       <div id="qz-q-wrap">
@@ -362,7 +362,7 @@ body{font-family:'Georgia',serif;background:#F0F3FA;color:#1A202C;min-height:100
       <div id="qz-results" style="display:none">
         <div class="results-box">
           <div class="results-score" id="qz-final-score"></div>
-          <div class="results-label">out of 45</div>
+          <div class="results-label">out of 49</div>
           <div class="results-msg" id="qz-result-msg"></div>
           <button class="reset-btn" onclick="startQuiz()">Retake Quiz</button>
         </div>
@@ -574,7 +574,7 @@ function prevCard(){if(fcIdx>0){fcIdx--;renderCard();}}
 renderCard();
 
 // ── PRACTICE + QUIZ DATA ──────────────────────────────────────────────
-// All 45 questions — fresh scenarios, same concepts. Grouped 0-4 = T1, 5-9 = T2, 10-14 = T3, 15-19 = T4; then 20-44 = full quiz extras
+// All 49 questions — fresh scenarios, same concepts. Grouped 0-4 = T1, 5-9 = T2, 10-14 = T3, 15-19 = T4; then 20-44 = full quiz extras
 var ALL_QS=[
   // SET 1: Topic 1 — Foundations (0–4)
   {topic:'Topic 1',concept:'AMA Definition of Marketing',
@@ -700,7 +700,7 @@ var ALL_QS=[
    opts:['Brand Awareness — they know the brand exists','Brand Recognition — they can identify the brand by name','Brand Preference — they show consistent repeat purchase and preference over alternatives','Brand Loyalty — they refuse to buy any other brand even when Caribou is unavailable'],
    ans:2,fb:'Brand Preference = consistent repeat purchase and choosing this brand over alternatives when available. The consumer has moved past Awareness (knows it exists) and Recognition (can identify it) into Preference (actively chooses it). Loyalty would mean they refuse to buy anything else even when Caribou isn\'t available.'},
 
-  // FULL QUIZ — 45 questions total covering every exam concept (indexes 20–44)
+  // FULL QUIZ — 49 questions total covering every exam concept (indexes 20–44)
   {topic:'Topic 1',concept:'Definition of Exchange',
    sc:'',q:'In marketing, exchange refers to:',
    opts:['The negotiation phase between a manufacturer and a retailer','The financial payment a consumer makes for a product or service','The trade of things of value between buyer and seller so that each is better off after the trade','The bartering of products between nongovernmental organizations'],
@@ -908,7 +908,7 @@ var qzCurrent=0,qzCorrect=0,qzOrder=[];
 
 function startQuiz(){
   qzCurrent=0;qzCorrect=0;
-  // Use all 45 questions: first 20 are the practice sets (0-19), then quiz extras (20-44)
+  // Use all 49 questions: first 20 are the practice sets (0-19), then quiz extras (20-44)
   qzOrder=[];
   for(var i=0;i<ALL_QS.length;i++)qzOrder.push(i);
   // Shuffle
