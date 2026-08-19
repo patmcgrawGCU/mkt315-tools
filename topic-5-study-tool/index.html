@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Topic 5: Pricing & Distribution Study Tool</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#F4F6FB;color:#1A202C;min-height:100vh;line-height:1.6}
+/* HEADER */
+.site-header{background:#0D1A3D;color:#fff;padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 16px;gap:16px;flex-wrap:wrap}
+.course-label{font-family:'Arial',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D4A017;margin-bottom:4px}
+.header-title{font-size:26px;font-weight:normal;color:#fff;line-height:1.2}
+.header-title strong{font-size:30px;display:block;margin-bottom:2px}
+.gcu-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:10px;background:rgba(255,255,255,.1);color:#AABBDD;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15)}
+.header-sub{padding:0 32px 16px;font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.header-sub span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:#D4A017;display:inline-block}
+/* NAV */
+.nav-bar{background:#fff;border-bottom:2px solid #E2E8F0;display:flex;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.nav-bar::-webkit-scrollbar{height:3px}
+.nav-bar::-webkit-scrollbar-thumb{background:#ccc}
+.nav-btn{padding:0 22px;height:56px;border:none;background:transparent;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:#4A5568;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.nav-btn:hover{color:#1A2B5E;background:#F8FAFF}
+.nav-btn.active{color:#1A2B5E;border-bottom-color:#D4A017}
+/* PANELS */
+.panel{display:none;padding:32px;max-width:1040px;margin:0 auto}
+.panel.active{display:block}
+/* SECTION HERO */
+.section-hero{background:#1A2B5E;border-radius:12px;padding:28px 32px;margin-bottom:28px;color:#fff}
+.section-hero h2{font-size:24px;margin-bottom:6px}
+.section-hero p{font-family:'Arial',sans-serif;font-size:14px;color:#AABBDD;line-height:1.5}
+.session-pill{display:inline-block;background:#D4A017;color:#0D1A3D;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+/* MODULE CARDS */
+.module-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:28px}
+.module-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,43,94,.08);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.module-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(26,43,94,.12)}
+.module-header{padding:18px 20px 14px;display:flex;align-items:center;gap:14px}
+.module-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.mod-a{background:#E8EDF8}
+.mod-b{background:#E6F4F3}
+.mod-c{background:#FDF6E3}
+.mod-d{background:#F0E8F4}
+.mod-e{background:#FCE8E8}
+.module-meta h3{font-size:16px;font-family:'Arial',sans-serif;font-weight:700;color:#1A2B5E;margin-bottom:2px}
+.module-meta p{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0}
+.module-body{padding:0 20px 18px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.start-btn{display:inline-block;border:none;padding:9px 20px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:10px}
+.btn-navy{background:#1A2B5E;color:#fff}
+.btn-navy:hover{background:#0D1A3D}
+.btn-teal{background:#0D7C74;color:#fff}
+.btn-teal:hover{background:#0A5E57}
+.btn-gold{background:#D4A017;color:#0D1A3D}
+.btn-gold:hover{background:#B8880F}
+.btn-rust{background:#8B3A1A;color:#fff}
+.btn-rust:hover{background:#6B2A10}
+.btn-purple{background:#6B3FA0;color:#fff}
+.btn-purple:hover{background:#4F2D80}
+/* ACTIVITY WRAP */
+.activity-wrap{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(26,43,94,.12);padding:28px;margin-bottom:28px}
+.activity-hidden{display:none}
+/* PROGRESS */
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.progress-bar-track{flex:1;height:8px;background:#EDF2F7;border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:#1A2B5E;border-radius:4px;transition:width .4s ease}
+.progress-label{font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;white-space:nowrap}
+/* FLASHCARDS */
+.flashcard-scene{width:100%;height:260px;perspective:1200px;cursor:pointer;margin-bottom:20px}
+.flashcard-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.flashcard-inner.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}
+.flashcard-front{background:#1A2B5E;color:#fff}
+.flashcard-back{background:#FDF6E3;border:2px solid #F0DC9A;transform:rotateY(180deg);color:#1A202C}
+.card-label{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.card-term{font-size:22px;font-weight:bold;line-height:1.3;margin-bottom:8px}
+.card-def{font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;color:#4A5568}
+.card-example{font-family:'Arial',sans-serif;font-size:13px;color:#0D7C74;font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid #F0DC9A}
+.flip-hint{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;text-align:center;margin-bottom:16px}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:16px}
+.card-nav button{background:#1A2B5E;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+.card-nav button:hover{background:#0D1A3D}
+.card-nav button:disabled{background:#EDF2F7;color:#8A9BB0;cursor:not-allowed}
+.card-counter{font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;font-weight:600;min-width:70px;text-align:center}
+/* TOPIC FILTER */
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.filter-btn{padding:6px 16px;border-radius:20px;border:2px solid #E2E8F0;background:#fff;font-family:'Arial',sans-serif;font-size:12px;font-weight:600;color:#4A5568;cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:#1A2B5E;color:#1A2B5E}
+.filter-btn.active-f{background:#1A2B5E;border-color:#1A2B5E;color:#fff}
+/* QUIZ / SCENARIO */
+.question-block{margin-bottom:8px}
+.question-text{font-size:17px;font-weight:bold;line-height:1.5;margin-bottom:6px;color:#0D1A3D}
+.scenario-box{background:#EDF2F7;border-left:4px solid #0D7C74;padding:14px 18px;border-radius:0 8px 8px 0;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:18px;line-height:1.6}
+.concept-tag{display:inline-block;background:#E6F4F3;color:#0D7C74;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:14px;letter-spacing:.5px}
+.chapter-tag{display:inline-block;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:14px;margin-left:6px;letter-spacing:.5px}
+.ch7-tag{background:#E8EDF8;color:#1A2B5E}
+.ch8-tag{background:#FDF6E3;color:#8B3A1A}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.opt-btn{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:13px 16px;font-family:'Arial',sans-serif;font-size:14px;color:#1A202C;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.4}
+.opt-btn:hover:not(:disabled){background:#EDF2F7;border-color:#1A2B5E}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-btn.correct{background:#DCFCE7;border-color:#166534;color:#166534}
+.opt-btn.wrong{background:#FEE2E2;border-color:#991B1B;color:#991B1B}
+.opt-btn.revealed{background:#F0F4FF;border-color:#1A2B5E}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:#1A2B5E;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.opt-btn.correct .opt-letter{background:#166534}
+.opt-btn.wrong .opt-letter{background:#991B1B}
+.opt-btn.revealed .opt-letter{background:#1A2B5E}
+.feedback-box{border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;margin-bottom:20px;display:none}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:#DCFCE7;border:1px solid #86EFAC;color:#166534}
+.feedback-box.wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#991B1B}
+.feedback-box strong{display:block;margin-bottom:4px;font-size:15px}
+.next-btn{background:#1A2B5E;color:#fff;border:none;padding:11px 28px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:none}
+.next-btn.show{display:inline-block}
+.next-btn:hover{background:#0D1A3D}
+.score-display{font-family:'Arial',sans-serif;font-size:15px;color:#4A5568;font-weight:600;text-align:right;margin-bottom:16px}
+.score-display span{color:#1A2B5E}
+/* RESULTS */
+.results-box{text-align:center;padding:32px 24px}
+.results-score{font-size:60px;font-weight:bold;color:#1A2B5E;line-height:1;margin-bottom:8px}
+.results-label{font-family:'Arial',sans-serif;font-size:16px;color:#4A5568;margin-bottom:20px}
+.results-msg{font-size:16px;color:#1A202C;margin-bottom:24px;line-height:1.6}
+.reset-btn{background:#0D7C74;color:#fff;border:none;padding:12px 30px;border-radius:8px;font-family:'Arial',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.reset-btn:hover{background:#0A5E57}
+/* MATCHING */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.match-col-label{font-family:'Arial',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:10px}
+.match-items{display:flex;flex-direction:column;gap:8px}
+.match-item{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:11px 14px;font-family:'Arial',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;color:#1A202C}
+.match-item:hover{background:#EDF2F7;border-color:#1A2B5E}
+.match-item.selected{background:#E8EDF8;border-color:#1A2B5E;color:#1A2B5E;font-weight:600}
+.match-item.matched{background:#DCFCE7;border-color:#166534;color:#166534;cursor:default}
+.match-item.wrong-flash{background:#FEE2E2;border-color:#991B1B}
+.match-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568}
+.match-score-row span{font-weight:700;color:#1A2B5E}
+/* KEY TERMS GRID */
+.terms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:28px}
+.term-card{background:#fff;border-radius:10px;border-left:4px solid #1A2B5E;padding:14px 16px;box-shadow:0 2px 8px rgba(26,43,94,.08)}
+.term-card.ch7{border-left-color:#1A2B5E}
+.term-card.ch8{border-left-color:#8B3A1A}
+.term-card .t-word{font-size:15px;font-weight:bold;color:#1A2B5E;margin-bottom:4px}
+.term-card.ch8 .t-word{color:#8B3A1A}
+.term-card .t-chapter{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:4px}
+.term-card .t-def{font-family:'Arial',sans-serif;font-size:13px;color:#4A5568;line-height:1.5}
+/* INFO / REFERENCE */
+.info-section{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,43,94,.08);padding:24px 28px;margin-bottom:24px}
+.info-section h3{font-size:18px;color:#1A2B5E;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.info-section h3 .icon{width:32px;height:32px;background:#1A2B5E;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.info-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.info-chip{background:#F4F6FB;border-radius:8px;padding:12px 14px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.info-chip strong{display:block;color:#1A2B5E;font-size:14px;margin-bottom:3px}
+/* BANNER */
+.tip-banner{background:#FDF6E3;border:1px solid #F0DC9A;border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+.tip-banner .tip-icon{font-size:18px;flex-shrink:0}
+/* ROUND TABS */
+.round-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.round-tab{padding:8px 20px;border-radius:8px;border:2px solid #E2E8F0;background:#fff;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:#4A5568;cursor:pointer;transition:all .2s}
+.round-tab:hover{border-color:#1A2B5E;color:#1A2B5E}
+.round-tab.active-rt{background:#1A2B5E;border-color:#1A2B5E;color:#fff}
+/* BACK BTN */
+.back-btn{background:transparent;border:2px solid #E2E8F0;color:#4A5568;padding:8px 16px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-bottom:24px}
+.back-btn:hover{border-color:#1A2B5E;color:#1A2B5E}
+/* STRATEGY SORTER */
+.sorter-wrap{margin-bottom:20px}
+.sorter-pool{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;min-height:52px;padding:10px;background:#F4F6FB;border:2px dashed #CBD5E0;border-radius:10px}
+.sorter-buckets{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.sorter-bucket{background:#fff;border:2px solid #E2E8F0;border-radius:10px;padding:12px;min-height:100px}
+.sorter-bucket-label{font-family:'Arial',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:8px;text-align:center}
+.sorter-bucket .match-item{font-size:12px;padding:8px 10px;cursor:pointer}
+.sorter-chip{background:#1A2B5E;color:#fff;border-radius:20px;padding:6px 14px;font-family:'Arial',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:background .2s}
+.sorter-chip:hover{background:#0D7C74}
+/* FOOTER */
+.site-footer{text-align:center;padding:24px 32px;font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;background:#fff;border-top:1px solid #E2E8F0;margin-top:40px}
+@media(max-width:640px){
+  .panel{padding:16px}
+  .header-top{padding:16px}
+  .match-grid{grid-template-columns:1fr}
+  .module-row{grid-template-columns:1fr}
+  .sorter-buckets{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="course-label">MKT 315 — Introduction to Marketing</div>
+      <div class="header-title"><strong>Topic 5: Pricing &amp; Distribution</strong>Interactive Study Tool</div>
+    </div>
+    <div class="header-right"><span class="gcu-badge">Grand Canyon University · Fall 2026</span></div>
+  </div>
+  <div class="header-sub">
+    <span><span class="dot"></span>Chapter 7: Pricing Strategy</span>
+    <span><span class="dot"></span>Chapter 8: Distribution &amp; Place</span>
+    <span><span class="dot"></span>Weeks 9–10 · Classes 17–20</span>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showPanel('home')" id="nav-home"><span>🏠</span>Home</button>
+  <button class="nav-btn" onclick="showPanel('terms')" id="nav-terms"><span>📖</span>Key Terms</button>
+  <button class="nav-btn" onclick="showPanel('flashcards')" id="nav-flashcards"><span>🃏</span>Flashcards</button>
+  <button class="nav-btn" onclick="showPanel('scenarios')" id="nav-scenarios"><span>🎯</span>Scenarios</button>
+  <button class="nav-btn" onclick="showPanel('quiz')" id="nav-quiz"><span>✅</span>Quiz</button>
+  <button class="nav-btn" onclick="showPanel('matching')" id="nav-matching"><span>🔗</span>Matching</button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HOME
+══════════════════════════════════════ -->
+<div class="panel active" id="panel-home">
+  <div class="section-hero">
+    <div class="session-pill">Topic 5 Study Tool</div>
+    <h2>Pricing &amp; Distribution — Topic 5 Study Hub</h2>
+    <p>Master Chapter 7 (Pricing Strategy) and Chapter 8 (Distribution &amp; Place) with five interactive modules. Use the tool throughout Weeks 9 and 10 to review Classes 17–20 and prepare for your Marketing Mix Executive Summary.</p>
+  </div>
+
+  <div class="tip-banner">
+    <span class="tip-icon">💡</span>
+    <div><strong>How to use this tool:</strong> Start with Key Terms to build vocabulary, then Flashcards for review, Scenarios to apply concepts to new situations, Quiz to track your score, and Matching to cement the connections. All questions are scenario-based — the same style as exam questions.</div>
+  </div>
+
+  <div class="module-row">
+    <div class="module-card" onclick="showPanel('terms')">
+      <div class="module-header"><div class="module-icon mod-a">📖</div><div class="module-meta"><h3>Key Terms</h3><p>48 terms — Ch. 7 &amp; Ch. 8</p></div></div>
+      <div class="module-body">All essential vocabulary organized by chapter. Filter by Ch. 7 Pricing, Ch. 8 Distribution, or browse all terms. Each card includes a definition and real-world example.</div>
+      <button class="start-btn btn-navy" onclick="showPanel('terms')">Browse Terms</button>
+    </div>
+    <div class="module-card" onclick="showPanel('flashcards')">
+      <div class="module-header"><div class="module-icon mod-b">🃏</div><div class="module-meta"><h3>Flashcards</h3><p>48 terms — flip to reveal</p></div></div>
+      <div class="module-body">Click to flip. Use the chapter filter to focus your practice — pricing concepts, distribution concepts, or both. Great for rapid review throughout Topic 5.</div>
+      <button class="start-btn btn-teal" onclick="showPanel('flashcards')">Start Flashcards</button>
+    </div>
+    <div class="module-card" onclick="showPanel('scenarios')">
+      <div class="module-header"><div class="module-icon mod-c">🎯</div><div class="module-meta"><h3>Scenario Questions</h3><p>20 applied scenarios</p></div></div>
+      <div class="module-body">Real-world situations that ask you to apply pricing and distribution strategy concepts — not just define them. Detailed feedback explains each answer.</div>
+      <button class="start-btn btn-gold" onclick="showPanel('scenarios')">Apply Concepts</button>
+    </div>
+    <div class="module-card" onclick="showPanel('quiz')">
+      <div class="module-header"><div class="module-icon mod-d">✅</div><div class="module-meta"><h3>Quick-Check Quiz</h3><p>20 questions — scored</p></div></div>
+      <div class="module-body">Mixed questions spanning both chapters. Track your score and see which areas need more review. Reset and retake as many times as you need.</div>
+      <button class="start-btn btn-rust" onclick="showPanel('quiz')">Start Quiz</button>
+    </div>
+    <div class="module-card" onclick="showPanel('matching')">
+      <div class="module-header"><div class="module-icon mod-e">🔗</div><div class="module-meta"><h3>Matching Games</h3><p>3 rounds — strategy focus</p></div></div>
+      <div class="module-body">Match pricing strategies to scenarios, distribution terms to definitions, and coverage strategies to brand examples. Three rounds with increasing difficulty.</div>
+      <button class="start-btn btn-purple" onclick="showPanel('matching')">Play Matching</button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="icon">📋</span> What This Tool Covers</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Class 17 · Ch. 7 — Part 1</strong>Why pricing is hard · Economics &amp; market structures · Pricing objectives · Break-even analysis · PLC pricing · Psychological pricing</div>
+      <div class="info-chip"><strong>Class 18 · Ch. 7 — Part 2</strong>Penetration vs. skimming · Cost-based &amp; exclusive strategies · Value-added components · Tactics (8 types) · B2B pricing · Robinson-Patman Act · Pricing ethics</div>
+      <div class="info-chip"><strong>Class 19 · Ch. 8 — Part 1</strong>What distribution is · Supply chain stages · Intermediary functions (3 types) · 6 wholesaler types · Direct vs. indirect channels · Market coverage strategies</div>
+      <div class="info-chip"><strong>Class 20 · Ch. 8 — Part 2</strong>Multichannel vs. omnichannel · Channel conflict (vertical/horizontal) · Channel captain · Disintermediation &amp; reintermediation · Retail formats · 4 utilities · AI in distribution · Ethics</div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="icon">📝</span> Assignment Reminder — Marketing Mix Executive Summary</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Part 3 — Place (Distribution)</strong>Name channel type (direct/indirect/multichannel/omnichannel), specific partners, and coverage strategy (intensive/selective/exclusive)</div>
+      <div class="info-chip"><strong>Part 4 — Price</strong>State pricing OBJECTIVE first, then strategy, then specific tactic example. PLC stage must align with the strategy chosen.</div>
+      <div class="info-chip"><strong>Part 5 — Reflection</strong>15 pts: "Because [product decision], the brand uses [place decision], which makes [price decision] possible." Show how all three Ps interlock.</div>
+      <div class="info-chip"><strong>Format</strong>750–1,000 words · Section headers · 3–5 credible sources · LopesWrite required · Check Halo for the current due date and submission requirements</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     KEY TERMS
+══════════════════════════════════════ -->
+<div class="panel" id="panel-terms">
+  <div class="section-hero" style="background:#0D7C74">
+    <div class="session-pill" style="background:#fff;color:#0D7C74">48 Terms</div>
+    <h2>Key Terms — Chapters 7 &amp; 8</h2>
+    <p>Filter by chapter to focus your study. Each term includes a definition and a real-world example to anchor it in memory.</p>
+  </div>
+  <div class="filter-row" id="terms-filter">
+    <button class="filter-btn active-f" onclick="filterTerms('all',this)">All Terms (48)</button>
+    <button class="filter-btn" onclick="filterTerms('ch7',this)">📊 Ch. 7 — Pricing (24)</button>
+    <button class="filter-btn" onclick="filterTerms('ch8',this)">🚚 Ch. 8 — Distribution (24)</button>
+  </div>
+  <div class="terms-grid" id="terms-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     FLASHCARDS
+══════════════════════════════════════ -->
+<div class="panel" id="panel-flashcards">
+  <div class="section-hero" style="background:#8B3A1A">
+    <div class="session-pill" style="background:#fff;color:#8B3A1A">Flashcards</div>
+    <h2>Flashcard Review — Ch. 7 &amp; Ch. 8</h2>
+    <p>Click the card to flip and reveal the definition. Use the filter to focus on one chapter or practice both together.</p>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn active-f" onclick="filterCards('all',this)">All (48)</button>
+    <button class="filter-btn" onclick="filterCards('ch7',this)">Ch. 7 — Pricing</button>
+    <button class="filter-btn" onclick="filterCards('ch8',this)">Ch. 8 — Distribution</button>
+  </div>
+  <div class="activity-wrap">
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="fc-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="fc-prog-label">0 / 0</div>
+    </div>
+    <div class="flip-hint">Click card to flip · Use arrows to navigate</div>
+    <div class="flashcard-scene" onclick="flipCard()">
+      <div class="flashcard-inner" id="fc-inner">
+        <div class="flashcard-front"><div class="card-label">Term</div><div class="card-term" id="fc-term"></div></div>
+        <div class="flashcard-back"><div class="card-label">Definition</div><div class="card-def" id="fc-def"></div><div class="card-example" id="fc-ex"></div></div>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button onclick="fcPrev()" id="fc-prev">← Prev</button>
+      <span class="card-counter" id="fc-counter">1 / 48</span>
+      <button onclick="fcNext()" id="fc-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCENARIOS
+══════════════════════════════════════ -->
+<div class="panel" id="panel-scenarios">
+  <div class="section-hero" style="background:#6B3FA0">
+    <div class="session-pill" style="background:#fff;color:#6B3FA0">20 Scenarios</div>
+    <h2>Applied Scenarios — Ch. 7 &amp; Ch. 8</h2>
+    <p>Apply pricing and distribution concepts to realistic business situations. These questions test analysis, not memorization.</p>
+  </div>
+  <div class="activity-wrap" id="sc-wrap">
+    <div class="score-display">Score: <span id="sc-score-display">0 / 0</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="sc-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="sc-prog-label">0 / 20</div>
+    </div>
+    <div id="sc-question-area">
+      <div class="concept-tag" id="sc-concept-tag"></div><span class="chapter-tag" id="sc-chapter-tag"></span>
+      <div class="question-block"><div class="question-text" id="sc-qtext"></div></div>
+      <div class="scenario-box activity-hidden" id="sc-scenario"></div>
+      <div class="options-list" id="sc-options"></div>
+      <div class="feedback-box" id="sc-feedback"></div>
+      <button class="next-btn" id="sc-next" onclick="scNext()">Next Question →</button>
+    </div>
+    <div class="results-box activity-hidden" id="sc-results">
+      <div class="results-score" id="sc-results-score"></div>
+      <div class="results-label" id="sc-results-label"></div>
+      <div class="results-msg" id="sc-results-msg"></div>
+      <button class="reset-btn" onclick="resetScenarios()">Practice Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     QUIZ
+══════════════════════════════════════ -->
+<div class="panel" id="panel-quiz">
+  <div class="section-hero" style="background:#8B3A1A">
+    <div class="session-pill" style="background:#fff;color:#8B3A1A">20 Questions — Scored</div>
+    <h2>Quick-Check Quiz — Ch. 7 &amp; Ch. 8</h2>
+    <p>Mixed pricing and distribution questions. Your score is tracked — aim for 80%+ before moving on from Topic 5.</p>
+  </div>
+  <div class="activity-wrap" id="q-wrap">
+    <div class="score-display">Score: <span id="q-score-display">0 / 0</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="q-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="q-prog-label">0 / 20</div>
+    </div>
+    <div id="q-question-area">
+      <div class="concept-tag" id="q-concept-tag"></div><span class="chapter-tag" id="q-chapter-tag"></span>
+      <div class="question-block"><div class="question-text" id="q-qtext"></div></div>
+      <div class="scenario-box activity-hidden" id="q-scenario"></div>
+      <div class="options-list" id="q-options"></div>
+      <div class="feedback-box" id="q-feedback"></div>
+      <button class="next-btn" id="q-next" onclick="qNext()">Next Question →</button>
+    </div>
+    <div class="results-box activity-hidden" id="q-results">
+      <div class="results-score" id="q-results-score"></div>
+      <div class="results-label" id="q-results-label"></div>
+      <div class="results-msg" id="q-results-msg"></div>
+      <button class="reset-btn" onclick="resetQuiz()">Retake Quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MATCHING
+══════════════════════════════════════ -->
+<div class="panel" id="panel-matching">
+  <div class="section-hero" style="background:#1A2B5E">
+    <div class="session-pill">3 Matching Rounds</div>
+    <h2>Matching Games — Strategy &amp; Concepts</h2>
+    <p>Match terms to definitions, pricing strategies to scenarios, and distribution concepts to examples. Click a left item, then click its match on the right.</p>
+  </div>
+  <div class="round-tabs">
+    <button class="round-tab active-rt" onclick="loadMatchRound(0,this)">Round 1: Pricing Strategies</button>
+    <button class="round-tab" onclick="loadMatchRound(1,this)">Round 2: Distribution Terms</button>
+    <button class="round-tab" onclick="loadMatchRound(2,this)">Round 3: Coverage &amp; Conflict</button>
+  </div>
+  <div class="activity-wrap">
+    <div class="match-score-row"><span>Matched: <span id="m-score">0</span> / <span id="m-total">8</span></span><button class="start-btn btn-navy" onclick="resetMatch()">Reset Round</button></div>
+    <div class="tip-banner" style="margin-bottom:16px"><span class="tip-icon">👆</span>Click a term on the left, then click its matching definition on the right.</div>
+    <div class="match-grid">
+      <div><div class="match-col-label">Term / Strategy</div><div class="match-items" id="m-left"></div></div>
+      <div><div class="match-col-label">Definition / Example</div><div class="match-items" id="m-right"></div></div>
+    </div>
+    <div class="feedback-box" id="m-feedback"></div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">MKT 315 — Topic 5 Study Tool &nbsp;|&nbsp; Grand Canyon University &nbsp;|&nbsp; For study and practice only — not for submission
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+
+const ALL_TERMS = [
+  // CH7 PRICING (24)
+  {ch:"ch7",term:"Break-Even Analysis (BEA)",def:"Determines how many units must be sold to cover all costs and yield the first dollar of profit. Formula: Fixed Costs ÷ (Price per Unit − Variable Cost per Unit).",ex:"If FC=$800, Price=$14, VC=$4 → Break-even = 80 units. Raise price to $18 → only need 57 units."},
+  {ch:"ch7",term:"Fixed Costs",def:"Costs that do NOT change regardless of production volume — rent, salaries, insurance, equipment loans.",ex:"A bakery pays $2,000/month rent whether it sells 0 croissants or 10,000. That's a fixed cost."},
+  {ch:"ch7",term:"Variable Costs",def:"Costs that increase directly with each unit produced — raw materials, packaging, per-unit labor.",ex:"Each candle uses $4 of wax, wick, and jar. Make 100 candles = $400 in variable costs."},
+  {ch:"ch7",term:"Contribution Margin",def:"Price minus variable cost per unit. Represents what each sale contributes toward covering fixed costs and eventually generating profit.",ex:"Price $14 − VC $4 = $10 contribution margin. Each sale contributes $10 toward covering rent."},
+  {ch:"ch7",term:"Pricing Objectives",def:"The goals that guide all pricing strategy decisions. Must be established BEFORE selecting a strategy. Types: profit max, market share, revenue max, status quo, survival, CSR.",ex:"A startup's objective is survival (cover costs). A Fortune 500's objective is profit maximization. Same product category — completely different strategies."},
+  {ch:"ch7",term:"Penetration Pricing",def:"Setting a price BELOW market average at launch to capture market share quickly. Different from loss-leader — it is a strategic (long-term) approach, not a short-term tactic.",ex:"Netflix launched at $7.99/month to undercut cable and capture subscribers. Price rose as loyalty formed."},
+  {ch:"ch7",term:"Price Skimming",def:"Setting a HIGH price at launch to recoup R&D costs and capture early-adopter margins, then reducing price as competition increases.",ex:"iPhone launched at $499 in 2007. Price dropped significantly as next-generation models launched and competition grew."},
+  {ch:"ch7",term:"Competition Pricing",def:"Setting prices at or near competitor levels. Used when products are commodities and the brand cannot meaningfully differentiate on price. Compete on service, quality, or experience instead.",ex:"Gas stations on the same corner. Major grocery chains in the same market. Neither can stray far from each other's price."},
+  {ch:"ch7",term:"Cost-Plus Pricing",def:"Set price by adding a fixed markup percentage to the cost of production. Most common strategy for small businesses and B2B. Formula: Cost + (Cost × Markup %).",ex:"Guitar costs $100 to make. 15% markup → $115 selling price. Simple, but ignores demand."},
+  {ch:"ch7",term:"Value-Based Pricing",def:"Price reflects what customers BELIEVE the product is worth — not production cost. Requires strong brand equity and differentiation.",ex:"Starbucks: ~$0.50 in ingredients → $6 beverage. The price IS the brand experience."},
+  {ch:"ch7",term:"Prestige / Exclusive Pricing",def:"High price signals quality, exclusivity, and status. Works only when few or no close substitutes exist and brand equity is strong. A prestige brand priced too low undermines itself.",ex:"Rolex, Hermès, Tiffany — their high price IS the product's positioning. Discount pricing would destroy the brand."},
+  {ch:"ch7",term:"High-Low Pricing",def:"Introduce product at a higher price, then gradually discount or mark down as demand decreases. Creates urgency through sales and promotions.",ex:"Macy's — items are nearly always 'on sale' from a higher list price. The sale IS the strategy, not the exception."},
+  {ch:"ch7",term:"Odd-Even Pricing",def:"Setting prices just below a round number ($29.95 instead of $30) to create a psychological perception of being meaningfully cheaper.",ex:"Almost every grocery store item. $9.99 feels much cheaper than $10 even though the difference is one cent."},
+  {ch:"ch7",term:"EDLP — Everyday Low Price",def:"A consistent low-price strategy without promotional fluctuation. Builds consumer trust but can trigger price wars. Requires very efficient operations.",ex:"Walmart's core strategy since Sam Walton. Aldi. The promise: this IS the low price, every day — no need to wait for a sale."},
+  {ch:"ch7",term:"Loss-Leader Pricing",def:"A TACTIC: selling a popular item BELOW COST to drive store traffic. Profit is recovered through full-margin purchases made during the same visit. Different from penetration (which is strategic).",ex:"Costco's $4.99 rotisserie chicken — sold below cost. Drives foot traffic. Shareholders have sued to stop it. Costco refuses."},
+  {ch:"ch7",term:"Dynamic Pricing",def:"Price changes in real-time based on demand, time, availability, and individual consumer signals. Legal but increasingly controversial with consumers.",ex:"Airline and hotel pricing. Uber surge pricing. Amazon reprices millions of items daily. Wendy's proposed (then reversed) peak-hour pricing in 2024."},
+  {ch:"ch7",term:"Trade Allowances",def:"Percentage discounts off list price given to wholesalers and retailers for large volume B2B purchases. A form of price reduction within the distribution channel.",ex:"Walmart commands massive trade allowances from suppliers because of its buying volume. Reduces manufacturer's effective selling price."},
+  {ch:"ch7",term:"Advertising Allowances",def:"Cash or promotional credits given to channel partners (retailers/wholesalers) to co-promote the manufacturer's product. Lowers retailer's cost.",ex:"Coca-Cola gives advertising allowances to restaurants that feature Coke in their combo meal promotions. Both benefit."},
+  {ch:"ch7",term:"Robinson-Patman Act",def:"Federal law preventing price discrimination that unfairly favors large retailers over small ones. Legal exceptions: quality differences, volume discounts, or actual production cost differences.",ex:"Charging Target a lower price than a boutique store SOLELY because you prefer Target = illegal. Volume discounts that reflect real cost savings = legal."},
+  {ch:"ch7",term:"Predatory Pricing",def:"ILLEGAL: Setting prices below cost with the intent to eliminate competitors and then raise prices once a monopoly is achieved. Courts and the FTC actively prosecute this.",ex:"Amazon faced a predatory pricing ruling in France for combining discounts + free shipping, even without proving monopolistic intent."},
+  {ch:"ch7",term:"Bait-and-Switch",def:"ILLEGAL: Advertising a low price to attract customers, then pressuring them to buy a higher-priced item. An FTC violation distinct from legitimate upselling.",ex:"Advertising a TV for $199, then when customers arrive telling them 'that model is sold out' and steering them to a $499 TV."},
+  {ch:"ch7",term:"Price Gouging",def:"Exploiting emergency conditions or supply shortages to charge extreme prices for essential goods. Illegal in most states during declared emergencies.",ex:"Hand sanitizer prices spiked 10,000%+ on Amazon reseller listings in March 2020. Most state laws prohibit this during declared emergencies."},
+  {ch:"ch7",term:"Heuristics",def:"Mental shortcuts consumers use to make faster, lower-effort purchase decisions. Include anchoring, decoy effect, and price-quality association.",ex:"Seeing 'Was $80, Now $40' — the $80 anchors your perception of value. You don't compare to actual market prices; you compare to the anchor."},
+  {ch:"ch7",term:"Price-Quality Heuristic",def:"Consumers' tendency to assume higher-priced products are higher quality, even without evidence. Charging too LOW can damage perceived quality for premium brands.",ex:"A blind wine tasting study: same wine rated significantly higher when labeled with a higher price. Price changed perceived taste."},
+
+  // CH8 DISTRIBUTION (24)
+  {ch:"ch8",term:"Distribution Channel",def:"One or more organizations that add value by moving finished products from manufacturer to consumer. Every link in the chain has a function and a cost.",ex:"Doritos: Frito-Lay factory → McLane (distributor) → 7-Eleven → consumer. Each step is a channel link."},
+  {ch:"ch8",term:"Supply Chain",def:"The complete sequence from raw materials through manufacturing, distribution, retail, and to the final consumer. Each stage adds form, place, time, or possession utility.",ex:"Coffee: Ethiopian farm → green bean export → roasting facility → distribution → grocery store → consumer."},
+  {ch:"ch8",term:"Intermediary",def:"Any organization that stands between the manufacturer and end consumer in the distribution channel. Adds value through specialization (transactional, logistical, or facilitating functions).",ex:"McLane Company is a $34B intermediary that most consumers have never heard of — it buys from manufacturers and distributes to convenience stores."},
+  {ch:"ch8",term:"Transactional Functions",def:"Distribution activities involving buying, reselling, taking ownership risk, negotiating prices, and securing contracts. The 'commerce' layer of the channel.",ex:"A merchant wholesaler buys 10,000 units from a manufacturer, takes ownership risk, and resells to 200 different retailers. That's transactional."},
+  {ch:"ch8",term:"Logistical Functions",def:"Distribution activities involving physical movement — transportation, warehousing, inventory management, and sorting of goods from bulk to retail units.",ex:"A distributor transports goods from a factory in Ohio to warehouses in Texas, Florida, and California. Pure logistical function."},
+  {ch:"ch8",term:"Facilitating Functions",def:"Distribution activities that support the channel's operation — financing, grading/standardizing products, market research, and co-op advertising support.",ex:"A distributor extends 30-day payment terms to a small retailer (financing = facilitating) so they can purchase inventory before they've sold it."},
+  {ch:"ch8",term:"Merchant Wholesaler",def:"Takes full ownership and business risk of products. Most common type of wholesaler. Buys in bulk from manufacturers, breaks into smaller lots, resells to retailers.",ex:"A food service distributor buys truckloads of canned goods from manufacturers and sells cases to restaurants and cafeterias."},
+  {ch:"ch8",term:"Rack Jobber",def:"Purchases the display rack AND merchandise, then sets up and manages product displays inside retail stores it does not own. Common for snacks, cosmetics, and magazines.",ex:"A greeting card rack at a pharmacy — the rack jobber owns the cards and rack, manages the display, and splits revenue with the pharmacy."},
+  {ch:"ch8",term:"Drop Shipper",def:"Takes ownership of goods but NEVER takes physical possession. Matches buyers and sellers, then arranges direct shipment from manufacturer to retailer. A pure paper intermediary.",ex:"E-commerce sellers on Amazon who list products without holding inventory. When an order comes in, the manufacturer ships directly to the customer."},
+  {ch:"ch8",term:"Direct Distribution",def:"Manufacturer sells directly to consumers without intermediaries (except shipping). Requires absorbing all channel functions internally. Higher margin but massive infrastructure cost.",ex:"Tesla showrooms — no dealerships. Nike.com. Dell computers built-to-order and shipped directly. The brand IS the retailer."},
+  {ch:"ch8",term:"Indirect Distribution",def:"Manufacturer uses intermediaries (wholesalers, distributors, retailers) to reach consumers. Lower cost through specialization, but margin shared across every channel link.",ex:"Frito-Lay never sells direct — all distribution goes through a network of distributors and retailers. Their supply chain IS their competitive advantage."},
+  {ch:"ch8",term:"Intensive Distribution",def:"Maximum market saturation — product available at EVERY possible outlet. Used for convenience goods and impulse buys where availability is the core value proposition.",ex:"Coca-Cola: convenience stores, vending, grocery, restaurants, gas stations, offices, airports. If it's not there when you're thirsty, you buy something else."},
+  {ch:"ch8",term:"Selective Distribution",def:"Product available through SOME qualifying retailers — not all. Maintains brand standards and avoids mass-market oversaturation while achieving significant reach.",ex:"Nike: sold through Foot Locker, Dick's Sporting Goods, Nike.com — but NOT dollar stores or discount retailers. Channel reflects brand positioning."},
+  {ch:"ch8",term:"Exclusive Distribution",def:"Product available through VERY FEW or only one authorized retailer per territory. Maximum brand control and prestige. Requires no close substitutes.",ex:"Rolex: authorized dealers only. Hermès: select boutiques. Tesla: own showrooms. Louis Vuitton: no department stores."},
+  {ch:"ch8",term:"Multichannel Distribution",def:"Multiple channels operate INDEPENDENTLY from each other. Different inventory systems, pricing, and customer experiences per channel. Focus: REACH.",ex:"A brand with a website and stores where online prices differ, online purchases can't be returned in-store, and loyalty points don't cross channels."},
+  {ch:"ch8",term:"Omnichannel Distribution",def:"All channels fully INTEGRATED — unified inventory, single customer profile, consistent pricing and experience across every touchpoint. Focus: EXPERIENCE.",ex:"Target BOPIS (Buy Online, Pick Up In Store) + same-day delivery + universal returns + loyalty that syncs across app, web, and stores."},
+  {ch:"ch8",term:"Channel Conflict",def:"Tension between distribution partners who feel treated unfairly in pricing, allocation, promotional support, or territory. Types: vertical (different levels) and horizontal (same level).",ex:"Vertical: brand launches DTC website, undercuts its own retailer partners' prices → retailers reduce shelf space. Horizontal: two dealers competing in the same territory."},
+  {ch:"ch8",term:"Channel Captain",def:"The individual or organization that coordinates all distribution partners, resolves conflict, and drives shared objectives. Often a manufacturer's manager — but dominant retailers (Walmart) can fill this role.",ex:"Walmart exercises channel captain authority over suppliers — dictating packaging, pricing, and promotional calendars due to its enormous buying power."},
+  {ch:"ch8",term:"Disintermediation",def:"The elimination of intermediaries from a distribution channel. Technology allows producers and consumers to connect directly, cutting out middlemen.",ex:"Airbnb eliminated hotels. Spotify eliminated physical music stores. Netflix eliminated Blockbuster. Uber eliminated taxi dispatchers."},
+  {ch:"ch8",term:"Reintermediation",def:"The creation of NEW intermediaries that perform old distribution functions in more efficient digital formats. Every disintermediation creates a gap that new intermediaries fill.",ex:"Amazon replaced bookstores but IS a new (more powerful) retailer. DoorDash replaced nothing — it created a new intermediary between restaurants and consumers."},
+  {ch:"ch8",term:"Place Utility",def:"One of four utilities retailers create: making a product geographically accessible and convenient for the consumer.",ex:"Starbucks drive-throughs at highway exits. Amazon same-day delivery to your door. 7-Eleven on every corner."},
+  {ch:"ch8",term:"Time Utility",def:"One of four utilities retailers create: providing access to products WHEN consumers want them, including 24/7 availability.",ex:"7-Eleven open at 2am. Amazon Prime next-day delivery. Netflix — stream anything, any time, no appointment."},
+  {ch:"ch8",term:"Form Utility",def:"One of four utilities retailers create: offering the right product size, format, or configuration for each retail context and consumer occasion.",ex:"Coca-Cola: 8oz can at vending vs. 24-pack at Costco vs. fountain at McDonald's. Same product, different form for each occasion."},
+  {ch:"ch8",term:"Possession Utility",def:"One of four utilities retailers create: enabling transactions through payment options that make purchase possible — financing, credit, installment plans.",ex:"Apple Pay. Affirm buy-now-pay-later. Car dealership financing that lets a buyer drive away without full cash payment."},
+];
+
+const SCENARIOS = [
+  // CH7
+  {ch:"ch7",concept:"Break-Even Analysis",scenario:"A student entrepreneur makes handmade soy candles. Fixed costs (studio rental, equipment): $600/month. Variable cost: $5 per candle. She currently prices them at $20.",question:"What is her monthly break-even quantity, and what happens to the break-even if she raises her price to $25?",options:["BEQ = 60 candles at $20; at $25, BEQ rises to 80 candles","BEQ = 40 candles at $20; at $25, BEQ drops to 30 candles","BEQ = 30 candles at $20; at $25, BEQ rises to 40 candles","BEQ = 60 candles at $20; at $25, BEQ also equals 60 candles"],correct:1,feedback:"At $20: CM = $20-$5 = $15. BEQ = $600/$15 = 40 candles. At $25: CM = $25-$5 = $20. BEQ = $600/$20 = 30 candles. Raising price REDUCES the break-even quantity because each sale contributes more toward fixed costs. Price is a more powerful lever on break-even than cutting costs."},
+  {ch:"ch7",concept:"Pricing Objectives",scenario:"A well-funded startup is entering the crowded project management software market (competing with Asana, Monday.com). They have 18 months of runway and their primary goal is to capture enterprise clients as fast as possible.",question:"Which pricing objective BEST fits this startup's situation?",options:["Profit maximization — they need to cover investor costs quickly","Market share growth — capture volume now, optimize margin later","Status quo — match competitor prices to avoid triggering a price war","Survival — price just high enough to cover variable costs"],correct:1,feedback:"Market share growth is the correct objective. A funded startup with a 18-month window and a specific goal of enterprise acquisition should prioritize capturing clients over margin. This objective leads to penetration pricing strategy — price below market to win accounts. Profit maximization comes AFTER the base is established. (Survival pricing is for emergencies, not strategic market entry.)"},
+  {ch:"ch7",concept:"Penetration vs. Skimming",scenario:"Two new brands launch simultaneously. Brand A is a new streaming service with 10,000 hours of content, pricing at $5.99/month (below Netflix). Brand B is a new wireless earbud with proprietary noise-cancellation technology, pricing at $399 (above AirPods). Brand A plans to raise prices after 12 months. Brand B plans to reduce prices after 18 months.",question:"Which statement CORRECTLY describes the strategies being used?",options:["Brand A uses skimming; Brand B uses penetration","Brand A uses penetration; Brand B uses loss-leader pricing","Brand A uses penetration; Brand B uses price skimming","Brand A uses competition pricing; Brand B uses prestige pricing"],correct:2,feedback:"Brand A = penetration (launch low, build share, raise later). Brand B = price skimming (launch high to recoup R&D and capture early-adopter margin, then lower as competition increases). The key distinction: skimming starts HIGH and comes DOWN. Penetration starts LOW and goes UP. Both are market-entry strategies, but with opposite price directions based on different objectives."},
+  {ch:"ch7",concept:"Value-Added Components",scenario:"Two athletic shoe brands sell shoes with identical materials, construction, and manufacturing cost. Brand X retails for $85. Brand Y retails for $165. In consumer blind tests, comfort ratings are nearly identical. Yet Brand Y consistently outsells Brand X in the $150+ price range.",question:"Which value-added component MOST LIKELY explains Brand Y's ability to command a 94% price premium?",options:["Brand Y uses better materials — the consumer perception is accurate","Brand Y's brand image creates a perception of superiority that consumers are willing to pay for","Brand Y uses loss-leader pricing to build volume, then raises prices","Brand Y's distribution is more exclusive, creating artificial scarcity"],correct:1,feedback:"Brand image is the value-added component at work. The textbook states: consumers may have 'the illusion, feeling, or perception of the company's superiority' that creates loyalty and willingness to pay more — even when objective differences don't justify it. This is why Nike can charge $165 for shoes that cost the same to make as an $85 competitor. The brand IS the value. Price is easily imitable — brand equity is not."},
+  {ch:"ch7",concept:"Pricing Tactics",scenario:"Costco sells its rotisserie chicken for $4.99 — a price they acknowledge is below their cost. Shareholders have sued Costco to discontinue this practice. Costco's CEO has stated publicly that the chicken will never be discontinued.",question:"Which pricing tactic does Costco's chicken represent, and why is this different from penetration pricing?",options:["EDLP — Costco's core strategy requires consistent low prices across all items","Loss-leader — sell one item below cost to drive traffic; profit recovered on other purchases","Penetration pricing — Costco is trying to gain market share in the rotisserie chicken market","Price skimming — Costco intends to raise the chicken price after competitors exit"],correct:1,feedback:"Loss-leader is correct. The chicken is a TACTIC (not the strategy): one specific item sold below cost to drive foot traffic. Shoppers who come for the chicken also buy $150 worth of other full-margin items. Penetration pricing is different — it's a strategic approach to a new market entry, not a tactical sacrifice of one product. Costco's pricing STRATEGY is competition-based (match warehouse club competitors). The chicken is a loss-leader TACTIC within that strategy."},
+  {ch:"ch7",concept:"Robinson-Patman Act",scenario:"A beverage manufacturer offers retailer A a price of $12 per case and retailer B a price of $16 per case. Both retailers order the same quantity. The only difference is that retailer A is a national chain and retailer B is an independent grocery store.",question:"Does this pricing arrangement violate the Robinson-Patman Act?",options:["No — manufacturers can always charge different prices to different customers","Yes — charging different prices with no cost justification, quality difference, or volume difference discriminates against the smaller retailer","No — the Robinson-Patman Act only applies to services, not products","Yes — any price difference between retailers is illegal under federal law"],correct:1,feedback:"This violates Robinson-Patman. The Act allows price differences ONLY when justified by: quality differences, actual volume discounts (different quantities ordered), or cost-of-service differences. Here, both retailers order the same quantity with no stated quality or cost difference. Charging the independent store more solely because the manufacturer prefers the national chain is the exact discrimination Robinson-Patman was designed to prevent."},
+  {ch:"ch7",concept:"Ethical Pricing",scenario:"A pharmaceutical company holds the only patent on a life-saving medication. When a disease outbreak triples demand, they raise the price 400%. The product is clinically unique and no substitute exists. They cite 'increased production costs' but internal documents show costs rose only 8%.",question:"Which TWO ethical violations does this pricing decision most clearly represent?",options:["Price gouging + predatory pricing — both involve exploiting market power","Price gouging + deceptive pricing — exploiting emergency AND misrepresenting cost justification","Robinson-Patman violation + bait-and-switch — different prices + misleading advertising","EDLP violation + loss-leader misuse — inconsistent pricing and profit manipulation"],correct:1,feedback:"Price gouging (exploiting supply shortage to charge extreme prices for essential goods) + deceptive pricing (claiming a 400% increase is justified by 8% cost increase). The company is legally vulnerable on both grounds. Note: predatory pricing is about setting prices BELOW cost to eliminate competitors — the opposite scenario. Bait-and-switch involves luring buyers with a low advertised price. Neither applies here."},
+  // CH8
+  {ch:"ch8",concept:"Supply Chain Functions",scenario:"Samsung manufactures Galaxy phones. Verizon and T-Mobile purchase them at wholesale prices and offer them to customers through their retail stores and websites. Samsung also sells directly through Samsung.com.",question:"Which intermediary FUNCTION do Verizon and T-Mobile primarily perform when selling Galaxy phones in-store?",options:["Facilitating — they provide financing and grading for the phones","Logistical — they transport, warehouse, and display the phones for consumer access","Transactional — they buy phones from Samsung, take ownership risk, and resell to consumers","Production — they assemble final components before retail sale"],correct:2,feedback:"Transactional is correct. Verizon and T-Mobile buy Samsung phones at wholesale prices, take ownership and business risk, and resell to end consumers at retail prices. This is the transactional function — buying, taking risk, and reselling. Logistical would be if they were purely warehousing and moving product without selling. Facilitating would be if they were providing financing or market research services without owning the product."},
+  {ch:"ch8",concept:"Market Coverage Strategy",scenario:"A new luxury Swiss watch brand ($3,200 average price) is entering the U.S. market. Their positioning: 'Swiss craftsmanship for those who appreciate the finest mechanical artistry.' They are deciding whether to sell through Nordstrom nationwide, through 8 carefully selected independent luxury watch retailers, or through their own boutiques only.",question:"Which distribution strategy BEST aligns with the brand's luxury positioning and pricing?",options:["Intensive — a $3,200 watch needs maximum availability to justify the high price","Selective via 8 curated retailers — balances prestige with meaningful market reach","Exclusive via own boutiques — maximum brand control and prestige, essential for luxury brand integrity","Competition-based — match how Timex and Fossil distribute since they're in the same market"],correct:2,feedback:"Exclusive distribution through own boutiques best preserves luxury brand integrity. A $3,200 watch positioned as 'finest craftsmanship' cannot coexist with Nordstrom's sale events, promotional pressure, or mass-market environment without diluting prestige. The channel IS the brand experience. (Selective through 8 retailers could work, but own boutiques give maximum control over the customer experience — which is what luxury brands are selling alongside the product.)"},
+  {ch:"ch8",concept:"Disintermediation",scenario:"A regional music school used to rely on a national curriculum publisher and a local music store to supply lesson books and sheet music. They now purchase directly from the printer using a print-on-demand service that delivers within 48 hours at 40% lower cost.",question:"What distribution concept does this represent, and what risk has the music school assumed?",options:["Reintermediation — they've replaced the old intermediary with a new digital one; risk = print-on-demand quality","Disintermediation — they've eliminated two intermediaries (publisher and retailer); risk = they now perform those channel functions themselves","Omnichannel transition — they've integrated online and offline channels; risk = inventory mismatch","Vertical channel conflict — they've undercut their supplier partners; risk = relationship damage"],correct:1,feedback:"Disintermediation: the music school cut out the curriculum publisher AND the local music store — two intermediaries eliminated. The risk is critical: they have assumed those intermediary functions themselves — sourcing, quality control, inventory management, and delivery coordination. The channel functions don't disappear; they transfer. If the print-on-demand service fails or quality is inconsistent, the school has no backup intermediary network to fall back on."},
+  {ch:"ch8",concept:"Multichannel vs. Omnichannel",scenario:"A national clothing retailer has a website, an app, and 400 physical stores. They recently ran a promotion: 30% off online only. A customer bought a shirt online at the discount price, received it, and tried to return it in-store. The store refused, saying 'online purchases can only be returned by mail.' The customer's loyalty points from in-store shopping don't appear in the app.",question:"Is this retailer multichannel or omnichannel? What is the clearest evidence?",options:["Omnichannel — they have three integrated channels working together","Multichannel — the return policy, pricing, and loyalty system are siloed by channel, creating friction for the customer","Omnichannel — having both a website and stores qualifies as omnichannel integration","Multichannel — they have fewer than five channels, which is required for omnichannel status"],correct:1,feedback:"Multichannel — and the evidence is clear. Three separate failures: (1) pricing differs by channel (online-only 30% off = separate pricing systems), (2) returns are restricted by the purchasing channel (not unified), (3) loyalty points don't transfer across touchpoints. Omnichannel requires unified inventory, unified customer data, and seamless cross-channel experience. Having multiple channels is just the starting point — integration is what makes it omnichannel."},
+  {ch:"ch8",concept:"Channel Conflict",scenario:"A premium outdoor gear manufacturer (hiking boots, $180 retail) has sold exclusively through REI and specialty outdoor retailers for 10 years. They launch their own direct-to-consumer website and begin offering 'factory direct' pricing at $145 — $35 below their wholesale partners' retail price.",question:"What type of channel conflict has this created, and what is the likely consequence if unresolved?",options:["Horizontal conflict between retailers — REI and the brand are competing at the same level","Vertical conflict — the manufacturer is undercutting its own retail partners, who will respond by reducing the brand's shelf space or dropping it","Gray market conflict — unauthorized sellers are undercutting the manufacturer's price","Competition conflict — a competitor brand is matching the manufacturer's DTC pricing"],correct:1,feedback:"Vertical channel conflict — between different levels of the same channel (manufacturer vs. retailer). The manufacturer's DTC channel undercuts the retailer's price, making the retail partnership economically unviable for REI. REI's rational response: reduce shelf space, deprioritize the brand, or drop it entirely. This is the Nike playbook in reverse — Nike controlled this by cutting lower-tier retailers FIRST and then launching premium DTC. Without advance planning and channel pricing rules (MAP policies), DTC launch creates vertical conflict that can destroy retail relationships."},
+  {ch:"ch8",concept:"Four Utilities",scenario:"A frozen meal company sells its products through three channels: (A) A grocery store three miles from campus, (B) A vending machine inside the campus library open 24/7, (C) An online subscription service with monthly home delivery.",question:"Which utility does the vending machine PRIMARILY provide that the grocery store and subscription service do NOT?",options:["Form utility — vending machines offer different packaging formats than grocery stores","Possession utility — vending machines offer payment options unavailable at grocery stores","Time utility — the vending machine provides access at 2am during finals week without requiring a trip off campus","Place utility — the vending machine's physical location is inside the building"],correct:2,feedback:"Time utility: the vending machine is specifically valuable because it is accessible at any hour, on demand, without planning or travel. A student studying at 2am during finals can't access the grocery store (which may be closed) or the subscription service (which requires ordering days ahead). The 24/7 availability IS the value the vending machine creates beyond what the other channels offer. (Place utility also applies, but is secondary — the distinctive value is the 24/7 access.)"},
+  {ch:"ch8",concept:"Wholesaler Types",scenario:"A regional potato chip manufacturer sells to a food service distributor that picks up product directly from the factory, pays cash immediately, and uses its own fleet of refrigerated trucks for delivery to 200 restaurant accounts.",question:"Which type of intermediary BEST describes this food service distributor?",options:["Rack jobber — they set up and manage product displays in restaurants","Cash-and-carry wholesaler — they pay immediately and provide their own transportation","Drop shipper — they take ownership without taking physical possession","Merchant wholesaler — they take full ownership and business risk through the standard supply chain"],correct:1,feedback:"Cash-and-carry wholesaler: key characteristics are (1) pays cash immediately (no credit extended), (2) provides own transportation, and (3) picks up from the supplier's location. This is the definition. Merchant wholesalers are broader — cash-and-carry is a specific type. Rack jobbers manage in-store displays they don't own. Drop shippers never take physical possession. The cash-and-carry model is common in food service, fresh produce, and restaurant supply."},
+  // MORE SCENARIOS
+  {ch:"ch7",concept:"PLC and Pricing",scenario:"A smart home speaker manufacturer launched their flagship device at $349 three years ago. Sales initially surged, then plateaued. The market now has 12 competing models ranging from $89 to $299. The manufacturer is still priced at $349.",question:"Based on PLC pricing theory, what pricing adjustment is most appropriate, and why?",options:["Maintain $349 — consumers who want premium will still buy at this price","Raise to $399 to signal continued exclusivity as competition grows","Reduce price through promotional discounting to retain share in the maturity stage","Use PWYW pricing to let consumers determine appropriate value"],correct:2,feedback:"The maturity phase is characterized by stable demand and significant competition — exactly this scenario. The textbook states: 'Marketing managers will most likely use promotional activity to discount the price paid by consumers for the product' in the maturity phase. With 12 competitors undercutting the $349 price, the brand cannot maintain share without price adjustment. The strategic choice at maturity: promotional discounts, bundling, or selective price reduction. Staying at $349 while competitors range from $89-$299 is a market share loss strategy, not a retention strategy."},
+  {ch:"ch8",concept:"Reintermediation",scenario:"Blockbuster Video eliminated regional distributors by buying directly from studios in the 1990s — a classic disintermediation move. Netflix then put Blockbuster out of business by streaming content directly. Now, Amazon Prime, HBO Max, and Apple TV+ each require their own subscription, forcing consumers to manage multiple platforms.",question:"Which phase of the distribution evolution does the current streaming landscape represent?",options:["Disintermediation — studios are now dealing directly with consumers","Pure digital distribution — no intermediaries exist in the streaming model","Reintermediation — new intermediaries (streaming platforms) emerged to aggregate content for consumers","Omnichannel transition — multiple streaming services represent multiple channels of the same content"],correct:2,feedback:"Reintermediation: Netflix disintermediated Blockbuster, but Netflix ITSELF became a new, powerful intermediary between studios and consumers. Then Disney+, HBO Max, Apple TV+, and Amazon Prime each became NEW intermediaries. The market fragmented back to multiple platforms that consumers must navigate — a new version of the old problem that Blockbuster's consolidated stores originally solved. Distribution functions (aggregation, licensing, delivery, customer relationship) must be performed by SOMEONE. Technology changed who, not whether."},
+  {ch:"ch7",concept:"B2B Pricing",scenario:"A manufacturer provides its largest retail chain client with a 15% trade allowance and an additional 3% advertising allowance. A smaller regional retailer who buys the same product receives neither allowance. Both purchase identical quantities per order.",question:"Does this arrangement violate the Robinson-Patman Act, and what would need to be TRUE for these allowances to be legal?",options:["No violation — manufacturers can choose which customers to reward with allowances","Violation — the allowances must be proportionally available to all competing buyers; identical quantity orders with no cost difference creates unlawful price discrimination","No violation — trade allowances are exempt from Robinson-Patman provisions","Violation — ALL price differences between retailers are illegal under federal antitrust law"],correct:1,feedback:"This is a Robinson-Patman violation. The law requires that promotional and trade allowances be 'proportionally available' to all competing purchasers. Offering allowances ONLY to the large chain while denying them to the regional retailer purchasing the same quantity is textbook price discrimination. For these allowances to be legal, the manufacturer would need to offer the same (or proportionally equivalent) allowances to ALL customers, OR justify the difference based on actual cost differences, quality differences, or different purchase volumes."},
+  {ch:"ch8",concept:"Distribution Ethics",scenario:"A regional deli chain purchases meats from a supplier that has received multiple quality warnings from the USDA. The deli chain's buyer notices the supplier's prices are 20% below market but does not investigate the warnings. Three months later, customers are hospitalized from listeria in products purchased at the deli.",question:"From a distribution ethics standpoint, what does this case demonstrate about accountability in the channel?",options:["Only the manufacturer is responsible — once product leaves their facility, liability transfers","The USDA inspector who approved the products bears sole regulatory responsibility","Ethical accountability spans every channel link — the deli chain's failure to investigate supplier warnings makes them morally (and potentially legally) complicit in consumer harm","This is purely a product liability case — distribution ethics are not relevant"],correct:2,feedback:"This is the Boar's Head principle applied to the full channel: 'Product safety is a distribution ethics issue, not just a manufacturing quality issue.' The deli chain's buyer received warning signals (USDA warnings + below-market price = red flag) and chose not to investigate. Ethical channel participation requires due diligence on supplier standards. The Clorox model — requiring all distribution partners to sign a Code of Conduct — exists precisely because 'we didn't know' is not a sufficient defense when warning signs were present and ignored."},
+  {ch:"ch7",concept:"Value-Added and Pricing Strategy Chain",scenario:"A sustainable water bottle brand makes bottles from recycled ocean plastics. The bottle performs identically to competitors priced at $22. The brand prices at $55. They sell through REI and their own website only. They donate 1% of revenue to ocean cleanup organizations.",question:"Which pricing strategy is MOST operative, and what value-added components justify the premium over a functionally identical competitor?",options:["Cost-plus — the recycled materials cost more to process, justifying the higher price","Value-based pricing — consumers pay for brand image (sustainability mission), social image (environmental identity signal), and the unique origin story, not just the bottle","Prestige pricing — the brand is so exclusive that the price alone signals status","Penetration pricing — the $55 price is intentionally low to capture environmentally-conscious consumers away from premium competitors"],correct:1,feedback:"Value-based pricing is correct. The $55 price reflects what environmentally-conscious consumers BELIEVE this bottle is worth — the sustainability mission, the 1% ocean cleanup commitment, the identity signal of carrying it (social image value-added component), and the origin story. These are classic value-added components from the textbook: brand image, social image, and unique features (recycled ocean plastic). Cost-plus would result in a price near the competitor's $22. Prestige requires no close substitutes — functionally identical competitors exist. Value-based is pricing to perceived worth, not production cost."},
+];
+
+const QUIZ_QUESTIONS = [
+  {ch:"ch7",concept:"BEA Formula",question:"A company's fixed costs are $2,400/month. Each unit costs $8 to produce and sells for $20. What is the monthly break-even quantity?",options:["200 units","120 units","300 units","150 units"],correct:0,feedback:"BEQ = Fixed Costs ÷ Contribution Margin per unit. CM = $20 - $8 = $12. BEQ = $2,400 ÷ $12 = 200 units. This is the exact formula from the textbook — master it for the exam."},
+  {ch:"ch7",concept:"Pricing Strategies",question:"A new fitness app launches at $2.99/month (below market average of $9.99), with plans to raise the price to $9.99 after 12 months once subscriber base is established. This is an example of:",options:["Price skimming — starting low and raising to capture full margin","Penetration pricing — starting below market to build market share","Loss-leader pricing — $2.99 is below the cost of the app","Competition pricing — matching the closest competitor's price"],correct:1,feedback:"Penetration pricing: strategic low-price entry to build market share, with planned price increase after the base is established. Key distinction: penetration is a STRATEGY (long-term market position). Loss-leader is a TACTIC (one item sold below cost to drive traffic to other full-margin items). Skimming starts HIGH and comes down — the opposite direction."},
+  {ch:"ch7",concept:"Pricing Tactics",question:"Walmart's promise of 'always the lowest price' without running weekly promotional sales best describes which pricing tactic?",options:["Dynamic pricing — prices respond to demand in real-time","High-low pricing — introduce high, discount to create urgency","EDLP (Every Day Low Price) — consistent low price without promotional fluctuation","Loss-leader pricing — sell key items below cost to drive traffic"],correct:2,feedback:"EDLP: Everyday Low Price. Walmart's strategy of consistent pricing without promotional cycles. Consumers don't need to wait for a sale — the price IS always low. EDLP requires extremely efficient operations and supply chain management. High-low is the opposite strategy (Macy's). Dynamic pricing adjusts in real-time (airlines, Uber). Loss-leader is tactical — specific items below cost."},
+  {ch:"ch7",concept:"Robinson-Patman",question:"Which of the following price differences between retailers is LEGAL under the Robinson-Patman Act?",options:["Charging a national chain 20% less than an independent store for the same product and quantity, because you prefer the national chain","Charging 10% more per unit for small orders vs. large orders, reflecting real logistics cost differences","Giving advertising allowances to one retailer but not offering equivalent allowances to a competing retailer","Charging different prices based solely on which retailer's corporate headquarters is in a preferred state"],correct:1,feedback:"Volume discounts that reflect actual cost differences (logistics, handling, invoicing efficiency at scale) are explicitly permitted by Robinson-Patman. The law bans price discrimination that CANNOT be justified by cost, quality, or volume differences. Choices A, C, and D all describe discrimination with no legitimate cost or quality justification."},
+  {ch:"ch7",concept:"Ethical Pricing",question:"A concert venue charges $250 for a ticket, then adds $75 in 'convenience fees' and 'facility charges' at checkout. The FTC's 2024 rule most directly addresses this practice as:",options:["Predatory pricing — artificially low starting price designed to trap buyers","Bait-and-switch — advertising $250 but requiring $325 is illegal luring","Drip pricing / junk fees — mandatory fees added late in the process that should be disclosed in the initial price","Legal — discretionary fees are explicitly permitted under federal consumer protection law"],correct:2,feedback:"Drip pricing (junk fees): the FTC's 2024 rule requires all-in pricing for mandatory fees. Advertising $250 when the unavoidable price is $325 is a form of deceptive pricing increasingly targeted by the FTC. Bait-and-switch involves substituting a different PRODUCT — here it's the same ticket, just with fees added. Predatory pricing is about eliminating competitors, not consumer fees."},
+  {ch:"ch8",concept:"Intermediary Functions",question:"A coffee distributor picks up roasted beans from a farm cooperative, transports them to a regional warehouse, repackages them into retail bags, and delivers to 300 grocery stores weekly. Which combination of intermediary functions does this distributor perform?",options:["Transactional + Logistical + Facilitating — all three types","Logistical only — transportation and warehousing are purely logistical","Transactional + Logistical — takes ownership risk AND physically moves the product","Facilitating only — the distributor doesn't own the product"],correct:2,feedback:"Transactional (takes ownership of the coffee — assuming business risk when they buy from the cooperative) + Logistical (transports, warehouses, repackages, and delivers). Facilitating functions are financing, grading, and market research support — not present in this scenario. The farm cooperative and the grocery stores perform additional functions; this distributor's role is transactional + logistical."},
+  {ch:"ch8",concept:"Coverage Strategy",question:"Wrigley's chewing gum is available at gas stations, grocery stores, pharmacies, convenience stores, vending machines, airports, office lobbies, and checkout lanes everywhere. Which market coverage strategy does this represent, and why is it the correct choice?",options:["Exclusive distribution — Wrigley's strong brand requires channel control","Selective distribution — Wrigley's avoids mass-market outlets to maintain image","Intensive distribution — gum is a convenience good where availability at the moment of impulse is the core value proposition","Competition-based distribution — Wrigley's matches wherever Trident is sold"],correct:2,feedback:"Intensive distribution is mandatory for a convenience/impulse product. Chewing gum's purchase trigger is impulse — if it's not within arm's reach when someone wants it, they won't seek it out. Missing a single outlet type means missed sales. Selective distribution (restricting to some channels) would be appropriate for a shopping good. Exclusive distribution would destroy the business model for an $1.50 product that depends on volume and ubiquity."},
+  {ch:"ch8",concept:"Channel Conflict Types",question:"Two authorized Toyota dealerships in the same city begin offering identical incentives and undercutting each other's prices for the same vehicle models, leading to margin erosion for both.",options:["Vertical conflict — manufacturer vs. dealership level competition","Horizontal conflict — two channel partners at the same level competing against each other","Gray market conflict — unauthorized dealers undercutting official prices","Disintermediation — Toyota is bypassing dealers to sell direct"],correct:1,feedback:"Horizontal conflict: two parties at the SAME level of the distribution channel (both are authorized dealerships = same level) competing against each other. Vertical conflict would be Toyota corporate undercutting its own dealers. Gray market would be unauthorized third parties. Disintermediation would be Toyota selling direct, bypassing dealers entirely (Tesla's model)."},
+  {ch:"ch8",concept:"Disintermediation vs. Reintermediation",question:"Expedia replaced traditional travel agents by letting consumers book flights and hotels directly online. However, Expedia itself now serves as a marketplace that aggregates offerings from hundreds of airlines, hotels, and rental car companies — performing booking, comparison, and transaction functions that consumers can't easily do themselves. This evolution illustrates:",options:["Pure disintermediation — travel agents are gone and no new intermediary replaced them","Reintermediation — a new, more efficient intermediary (Expedia) emerged to perform the same aggregation and facilitation functions","Multichannel distribution — travelers can now book through multiple channels","Vertical channel conflict — travel agents and Expedia are fighting for the same customers"],correct:1,feedback:"Reintermediation: Expedia disintermediated traditional travel agents, but Expedia ITSELF became a new intermediary. The distribution functions (aggregation, comparison, booking, transaction facilitation) didn't disappear — they moved to a digital platform. This is the core principle: 'Distribution functions must be performed by SOMEONE.' Technology changes who performs them and how efficiently, not whether they're performed."},
+  {ch:"ch8",concept:"Four Utilities",question:"A home improvement retailer offers 0% financing for 18 months on purchases over $500, allowing customers to buy major appliances without full upfront payment. Which utility does this financing program primarily create?",options:["Place utility — financing makes the store more accessible geographically","Time utility — financing reduces the time needed to complete the purchase","Form utility — financing allows customers to buy larger quantities","Possession utility — financing enables the transfer of goods from retailer to consumer who couldn't otherwise afford the upfront cost"],correct:3,feedback:"Possession utility: financing removes the payment barrier that would prevent ownership transfer. The customer can possess and use the appliance immediately, paying over time. Without this utility, many consumers could not make the purchase at all — the store's financing enables the exchange. Place, time, and form utilities are about location, availability timing, and product format — not payment mechanisms."},
+  {ch:"ch7",concept:"Psychological Pricing",question:"A mattress store labels its premium mattress 'Originally $3,800 — Now $1,600.' Research shows consumers consistently rate this mattress higher quality than an identical mattress labeled simply '$1,600.' Which pricing psychology principles are BOTH at work?",options:["Odd-even pricing + EDLP — the original price creates the odd effect, and $1,600 is consistently low","Anchoring heuristic + price-quality heuristic — the $3,800 sets a reference point AND the higher price signals quality","Loss-leader + value-based pricing — the discount creates urgency and the original price reflects value","High-low pricing + PWYW — the store uses promotional cycles and consumer-set pricing"],correct:1,feedback:"Anchoring (the $3,800 makes $1,600 feel like a bargain — the reference point is artificially high) + Price-quality heuristic (consumers perceive higher-priced items as higher quality, so the $3,800 original price raises perceived quality even AFTER the discount). High-low pricing is also technically at work (introduce at higher price, discount down), but anchoring + price-quality heuristic are the psychological mechanisms that explain WHY this works on consumers."},
+  {ch:"ch8",concept:"Omnichannel",question:"A retailer integrates its inventory system across all stores and its website, allowing customers to see real-time stock availability at any location, buy online with in-store pickup in 2 hours, return any purchase at any location regardless of where it was bought, and earn loyalty points that sync instantly across app, web, and in-store transactions. This is an example of:",options:["Multichannel distribution — the retailer has multiple channels operating together","Omnichannel distribution — all channels are fully integrated into one seamless customer experience","Selective distribution — the retailer is limiting its channel partners","Intensive distribution — maximum channel saturation achieved through technology integration"],correct:1,feedback:"Omnichannel: the defining characteristics are present — unified real-time inventory, seamless cross-channel returns, integrated loyalty data, and consistent pricing/availability across touchpoints. The customer experience is seamless regardless of channel. This is the critical distinction from multichannel: multichannel has multiple channels; omnichannel has multiple channels that are INTEGRATED. The friction of switching channels is eliminated."},
+  {ch:"ch7",concept:"Value-Based vs Cost-Plus",question:"A coffee shop calculates that each latte costs $0.75 to make (espresso, milk, cup, lid). They price it at $6.50. The owner says: 'We price based on what our customers expect to pay for a premium handcrafted beverage in this neighborhood.' This is an example of:",options:["Cost-plus pricing — the $5.75 markup is a predictable percentage of cost","EDLP pricing — $6.50 is consistently the lowest price in the area","Value-based pricing — the price reflects what customers believe the experience is worth, not production cost","Penetration pricing — $6.50 is below the $7+ market average to build a customer base"],correct:2,feedback:"Value-based pricing: the price is set based on what customers BELIEVE the product is worth — the experience, the brand, the neighborhood positioning — not the production cost. The 767% markup ($0.75 → $6.50) cannot be explained by cost-plus logic. It can ONLY be explained by perceived value. This is how Starbucks, Blue Bottle, and most independent premium coffee shops operate. Cost-plus pricing at 30% markup would yield ~$0.98 — far below market."},
+  {ch:"ch8",concept:"Direct vs. Indirect",question:"Tesla sells its electric vehicles exclusively through its own showrooms and website, with no independent dealerships. Competitors like Ford and GM sell through franchise dealerships nationwide. Which trade-off does Tesla accept by choosing direct distribution?",options:["Tesla cannot control its pricing — dealerships set retail prices","Tesla achieves maximum market saturation but sacrifices brand control","Tesla maintains complete brand and pricing control but limits geographic reach and requires massive infrastructure investment","Tesla eliminates all channel conflict but cannot compete with dealership service networks"],correct:2,feedback:"Direct distribution trade-off: full brand and pricing control (Tesla can maintain exact positioning, no dealer discounting) in exchange for the infrastructure requirement of building and managing its own showroom and service network in every market. Traditional auto dealers provide geographic reach at no capital cost to the manufacturer — but Tesla views the dealership experience as a brand risk. This is a strategic choice based on brand priority: control vs. reach."},
+  {ch:"ch7",concept:"Pricing Ethics — Predatory vs. Competition",question:"Amazon offers free two-day shipping plus discounted prices on books that are below the prices of independent bookstores, eventually driving many out of business. Which statement BEST describes the ethical and legal issues?",options:["This is predatory pricing — Amazon intentionally priced below cost with monopolistic intent, which is illegal","This is competition pricing — matching and beating competitors on price and service is legitimate competitive strategy; only actual predatory pricing (intent to monopolize + below-cost pricing) is illegal","This is bait-and-switch — Amazon advertised free shipping but actually charged for Prime membership","This is price gouging — Amazon exploited its market position to charge consumers too much"],correct:1,feedback:"This is legitimate competition unless Amazon priced BELOW COST with proven INTENT to eliminate competitors to then raise prices (predatory pricing requires both elements). Superior pricing + logistics efficiency is legal competition, not predatory pricing. The France ruling against Amazon applied a stricter standard (combination of discounts + free shipping = predatory even without intent proof), but U.S. law generally requires proving below-cost pricing AND monopolistic intent. Being a better, cheaper competitor is legal; being a cheaper competitor with monopolistic intent at below-cost prices is predatory."},
+  {ch:"ch8",concept:"Supply Chain Transparency",question:"A fashion brand's marketing claims 'sustainable and ethical manufacturing.' An NGO investigation reveals the brand's tier-2 supplier uses child labor in one country and pays below-minimum wage in another. The brand says: 'We can only monitor our direct suppliers.' Which distribution ethics principle does this situation violate?",options:["Channel captain responsibility — the brand must control only its direct retail partners","Logistical function failure — the brand failed to properly transport goods","Ethical accountability across the full chain — brands cannot claim ethical values while maintaining ignorance of supply chain practices that violate those values","Robinson-Patman Act violation — labor price discrimination is a federal violation"],correct:2,feedback:"Full-chain ethical accountability: the Clorox model (written code of conduct for all partners) exists precisely because 'we didn't know about tier-2 suppliers' is insufficient when you've made public ethical claims. The brand promise extends to every factory, every supplier, every tier of the supply chain. Claiming sustainability while maintaining deliberate ignorance of supplier practices that contradict that claim is the exact ethics failure the Boar's Head and Nike/Lululemon cases illustrate. Transparency is an integrity issue, not just a PR issue."},
+  {ch:"ch7",concept:"Pricing Objectives and Strategy Alignment",question:"A premium athletic apparel brand (similar positioning to Lululemon) announces a 'permanent price reduction' of 40% across all products to drive volume. Their previous pricing objective was profit maximization. What is the most likely strategic consequence?",options:["Increased revenue — volume gains will more than offset the margin reduction","Market share surge — lower prices always attract more consumers","Brand equity erosion — the price reduction signals lower quality to existing customers who paid premium prices and may confuse the brand's market position","Improved competitive position — price reduction weakens competitor advantage"],correct:2,feedback:"Brand equity erosion: premium brands are caught between two worlds when they dramatically reduce prices. Existing premium customers feel deceived (they paid more). Price-sensitive new customers aren't loyal to the brand — they're loyal to the discount. The brand loses its premium identity without gaining durable low-end loyalty. The price-quality heuristic works in reverse: if it was worth $128, why is it now $77? Something must be wrong. This is the Missoni x Target phenomenon — short-term revenue, long-term positioning damage."},
+  {ch:"ch8",concept:"Rack Jobber",question:"A cosmetics manufacturer places its products in 2,000 drug stores nationwide. The manufacturer owns the display racks, manages the inventory, decides the product assortment, and pays the drug store a percentage of sales rather than selling at wholesale. The drug store provides only the floor space.",question:"Which type of intermediary is the cosmetics manufacturer functioning as in this arrangement?",options:["Drop shipper — they manage sales without owning physical inventory","Cash-and-carry wholesaler — they sell directly without credit","Rack jobber — they own and manage the displays within a retailer's space in exchange for a percentage of sales","Merchant wholesaler — they buy and resell product through standard wholesale channels"],correct:2,feedback:"Rack jobber: the defining characteristics are (1) the manufacturer/intermediary OWNS the display rack and merchandise, (2) manages the display and inventory within the retail space, and (3) pays the retailer a percentage of sales rather than paying wholesale. The retailer provides only floor space. Common in cosmetics, greeting cards, magazines, and snack foods. This arrangement lets the rack jobber control its brand presentation while giving the retailer a revenue stream without inventory risk."},
+];
+
+const MATCHING_ROUNDS = [
+  {title:"Round 1: Pricing Strategies",pairs:[
+    {left:"Penetration Pricing",right:"Launch below market to build share; raise price as loyalty forms"},
+    {left:"Price Skimming",right:"Launch HIGH to recoup R&D; reduce price as competition grows"},
+    {left:"Cost-Plus Pricing",right:"Production cost + fixed markup % = selling price"},
+    {left:"Value-Based Pricing",right:"Price reflects what customers BELIEVE it's worth — not cost"},
+    {left:"EDLP",right:"Consistent low price daily — no promotional sales cycles"},
+    {left:"Loss-Leader",right:"Sell one item BELOW COST to drive traffic; recover on other items"},
+    {left:"Dynamic Pricing",right:"Real-time price changes based on demand, time, and availability"},
+    {left:"High-Low Pricing",right:"Launch at higher price; discount over time to create urgency"},
+  ]},
+  {title:"Round 2: Distribution Terms",pairs:[
+    {left:"Intensive Distribution",right:"Available everywhere — convenience goods, impulse buys, Coca-Cola"},
+    {left:"Selective Distribution",right:"Some qualifying retailers — maintains brand standards (Nike at REI, not Dollar Tree)"},
+    {left:"Exclusive Distribution",right:"One or very few partners — luxury goods, full brand control (Rolex authorized dealers)"},
+    {left:"Omnichannel",right:"All channels INTEGRATED — unified inventory, data, and seamless experience"},
+    {left:"Disintermediation",right:"Cutting out middlemen — Airbnb eliminated hotels, Spotify eliminated CD stores"},
+    {left:"Reintermediation",right:"New digital middlemen emerge — Amazon replaced bookstores but IS the new intermediary"},
+    {left:"Channel Captain",right:"Coordinates all partners, resolves conflict — could be manufacturer OR dominant retailer"},
+    {left:"Drop Shipper",right:"Owns products but never handles them — arranges direct manufacturer-to-retailer shipment"},
+  ]},
+  {title:"Round 3: Coverage, Conflict & Utilities",pairs:[
+    {left:"Vertical Channel Conflict",right:"Manufacturer undercuts its own retailers by launching a DTC website at lower prices"},
+    {left:"Horizontal Channel Conflict",right:"Two authorized dealers competing in the same territory, undercutting each other"},
+    {left:"Place Utility",right:"7-Eleven on every corner — product is accessible where consumers are"},
+    {left:"Time Utility",right:"7-Eleven open at 2am — available WHEN consumers need it"},
+    {left:"Form Utility",right:"Coca-Cola in 8oz can vs. 2-liter bottle vs. fountain — right format for each occasion"},
+    {left:"Possession Utility",right:"18-month 0% financing — enables the exchange even without upfront cash"},
+    {left:"Rack Jobber",right:"Owns the display rack AND merchandise, manages it inside a store they don't own"},
+    {left:"Robinson-Patman Act",right:"Federal law requiring proportional pricing — protects small retailers from unfair price discrimination"},
+  ]},
+];
+
+// ═══════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  if(id==='terms') renderTerms('all');
+  if(id==='flashcards') initFlashcards('all');
+  if(id==='scenarios' && !scInit) initScenarios();
+  if(id==='quiz' && !qInit) initQuiz();
+  if(id==='matching') loadMatchRound(currentMatchRound, document.querySelectorAll('.round-tab')[currentMatchRound]);
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════════════════════
+// KEY TERMS
+// ═══════════════════════════════════════════════════════════
+function renderTerms(filter){
+  const grid=document.getElementById('terms-grid');
+  grid.innerHTML='';
+  const list=filter==='all'?ALL_TERMS:ALL_TERMS.filter(t=>t.ch===filter);
+  list.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='term-card '+t.ch;
+    d.innerHTML='<div class="t-chapter">'+(t.ch==='ch7'?'Ch. 7 — Pricing':'Ch. 8 — Distribution')+'</div><div class="t-word">'+t.term+'</div><div class="t-def">'+t.def+'</div><div class="t-def" style="margin-top:6px;color:#0D7C74;font-style:italic;font-size:12px;">'+t.ex+'</div>';
+    grid.appendChild(d);
+  });
+}
+function filterTerms(f,btn){
+  document.querySelectorAll('#terms-filter .filter-btn').forEach(b=>b.classList.remove('active-f'));
+  btn.classList.add('active-f');
+  renderTerms(f);
+}
+
+// ═══════════════════════════════════════════════════════════
+// FLASHCARDS
+// ═══════════════════════════════════════════════════════════
+let fcAll=[],fcCurrent=[],fcIdx=0,fcFlipped=false;
+function initFlashcards(filter){
+  fcAll=ALL_TERMS;
+  filterCards(filter);
+}
+function filterCards(f,btn){
+  if(btn){document.querySelectorAll('#panel-flashcards .filter-btn').forEach(b=>b.classList.remove('active-f'));btn.classList.add('active-f');}
+  fcCurrent=f==='all'?[...fcAll]:fcAll.filter(t=>t.ch===f);
+  fcCurrent=shuffle(fcCurrent);
+  fcIdx=0;fcFlipped=false;
+  renderCard();
+}
+function shuffle(a){let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderCard(){
+  if(!fcCurrent.length)return;
+  const c=fcCurrent[fcIdx];
+  document.getElementById('fc-term').textContent=c.term;
+  document.getElementById('fc-def').textContent=c.def;
+  document.getElementById('fc-ex').textContent='Example: '+c.ex;
+  document.getElementById('fc-counter').textContent=(fcIdx+1)+' / '+fcCurrent.length;
+  document.getElementById('fc-prog-label').textContent=(fcIdx+1)+' / '+fcCurrent.length;
+  document.getElementById('fc-progress').style.width=(((fcIdx+1)/fcCurrent.length)*100)+'%';
+  document.getElementById('fc-prev').disabled=fcIdx===0;
+  document.getElementById('fc-next').disabled=fcIdx===fcCurrent.length-1;
+  const inner=document.getElementById('fc-inner');
+  inner.classList.remove('flipped');fcFlipped=false;
+}
+function flipCard(){const i=document.getElementById('fc-inner');fcFlipped=!fcFlipped;i.classList.toggle('flipped',fcFlipped);}
+function fcPrev(){if(fcIdx>0){fcIdx--;renderCard();}}
+function fcNext(){if(fcIdx<fcCurrent.length-1){fcIdx++;renderCard();}}
+
+// ═══════════════════════════════════════════════════════════
+// SCENARIOS
+// ═══════════════════════════════════════════════════════════
+let scData=[],scIdx=0,scScore=0,scAnswered=false,scInit=false;
+function initScenarios(){
+  scInit=true;
+  scData=shuffle([...SCENARIOS]);
+  scIdx=0;scScore=0;
+  renderScenario();
+}
+function renderScenario(){
+  const area=document.getElementById('sc-question-area');
+  const results=document.getElementById('sc-results');
+  if(scIdx>=scData.length){showScResults();return;}
+  area.style.display='block';results.classList.add('activity-hidden');
+  const q=scData[scIdx];scAnswered=false;
+  document.getElementById('sc-concept-tag').textContent=q.concept;
+  const ct=document.getElementById('sc-chapter-tag');
+  ct.textContent=q.ch==='ch7'?'Ch. 7 — Pricing':'Ch. 8 — Distribution';
+  ct.className='chapter-tag '+(q.ch==='ch7'?'ch7-tag':'ch8-tag');
+  document.getElementById('sc-qtext').textContent=q.question;
+  const sb=document.getElementById('sc-scenario');
+  if(q.scenario){sb.textContent=q.scenario;sb.classList.remove('activity-hidden');}else{sb.classList.add('activity-hidden');}
+  const opts=document.getElementById('sc-options');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.options.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+o;
+    btn.onclick=()=>answerScenario(i,btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('sc-feedback').className='feedback-box';
+  document.getElementById('sc-feedback').style.display='none';
+  const nb=document.getElementById('sc-next');nb.classList.remove('show');
+  document.getElementById('sc-score-display').textContent=scScore+' / '+scIdx;
+  document.getElementById('sc-prog-label').textContent=scIdx+' / '+scData.length;
+  document.getElementById('sc-progress').style.width=((scIdx/scData.length)*100)+'%';
+}
+function answerScenario(i,btn){
+  if(scAnswered)return;
+  scAnswered=true;
+  const q=scData[scIdx];
+  const btns=document.querySelectorAll('#sc-options .opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  const fb=document.getElementById('sc-feedback');
+  fb.style.display='block';
+  if(i===q.correct){
+    btn.classList.add('correct');
+    fb.className='feedback-box show correct';
+    fb.innerHTML='<strong>✓ Correct!</strong>'+q.feedback;
+    scScore++;
+  }else{
+    btn.classList.add('wrong');
+    btns[q.correct].classList.add('revealed');
+    fb.className='feedback-box show wrong';
+    fb.innerHTML='<strong>✗ Not quite.</strong>'+q.feedback;
+  }
+  document.getElementById('sc-next').classList.add('show');
+  document.getElementById('sc-score-display').textContent=scScore+' / '+(scIdx+1);
+}
+function scNext(){scIdx++;renderScenario();}
+function showScResults(){
+  document.getElementById('sc-question-area').style.display='none';
+  const r=document.getElementById('sc-results');r.classList.remove('activity-hidden');
+  const pct=Math.round((scScore/scData.length)*100);
+  document.getElementById('sc-results-score').textContent=scScore+'/'+scData.length;
+  document.getElementById('sc-results-label').textContent=pct+'% correct';
+  document.getElementById('sc-results-msg').textContent=pct>=80?'Excellent work! You have a strong grasp of pricing and distribution strategy. Review any wrong answers in the feedback above before the final.':pct>=60?'Good progress — review the concepts behind your missed questions and practice the scenarios again. Focus on the objective→strategy→tactic chain.':'Keep practicing. Focus on distinguishing similar strategies (penetration vs. skimming, multichannel vs. omnichannel, direct vs. indirect) and the BEA formula. Use the flashcards to reinforce key terms.';
+  document.getElementById('sc-prog-label').textContent=scData.length+' / '+scData.length;
+  document.getElementById('sc-progress').style.width='100%';
+}
+function resetScenarios(){
+  scData=shuffle([...SCENARIOS]);scIdx=0;scScore=0;
+  document.getElementById('sc-results').classList.add('activity-hidden');
+  renderScenario();
+}
+
+// ═══════════════════════════════════════════════════════════
+// QUIZ
+// ═══════════════════════════════════════════════════════════
+let qData=[],qIdx=0,qScore=0,qAnswered=false,qInit=false;
+function initQuiz(){
+  qInit=true;
+  qData=shuffle([...QUIZ_QUESTIONS]);
+  qIdx=0;qScore=0;
+  renderQuiz();
+}
+function renderQuiz(){
+  const area=document.getElementById('q-question-area');
+  const results=document.getElementById('q-results');
+  if(qIdx>=qData.length){showQResults();return;}
+  area.style.display='block';results.classList.add('activity-hidden');
+  const q=qData[qIdx];qAnswered=false;
+  document.getElementById('q-concept-tag').textContent=q.concept;
+  const ct=document.getElementById('q-chapter-tag');
+  ct.textContent=q.ch==='ch7'?'Ch. 7 — Pricing':'Ch. 8 — Distribution';
+  ct.className='chapter-tag '+(q.ch==='ch7'?'ch7-tag':'ch8-tag');
+  document.getElementById('q-qtext').textContent=q.question;
+  const sb=document.getElementById('q-scenario');
+  if(q.scenario){sb.textContent=q.scenario;sb.classList.remove('activity-hidden');}else{sb.classList.add('activity-hidden');}
+  const opts=document.getElementById('q-options');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.options.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+o;
+    btn.onclick=()=>answerQuiz(i,btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('q-feedback').className='feedback-box';
+  document.getElementById('q-feedback').style.display='none';
+  const nb=document.getElementById('q-next');nb.classList.remove('show');
+  document.getElementById('q-score-display').textContent=qScore+' / '+qIdx;
+  document.getElementById('q-prog-label').textContent=qIdx+' / '+qData.length;
+  document.getElementById('q-progress').style.width=((qIdx/qData.length)*100)+'%';
+}
+function answerQuiz(i,btn){
+  if(qAnswered)return;
+  qAnswered=true;
+  const q=qData[qIdx];
+  const btns=document.querySelectorAll('#q-options .opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  const fb=document.getElementById('q-feedback');
+  fb.style.display='block';
+  if(i===q.correct){
+    btn.classList.add('correct');
+    fb.className='feedback-box show correct';
+    fb.innerHTML='<strong>✓ Correct!</strong>'+q.feedback;
+    qScore++;
+  }else{
+    btn.classList.add('wrong');
+    btns[q.correct].classList.add('revealed');
+    fb.className='feedback-box show wrong';
+    fb.innerHTML='<strong>✗ Not quite.</strong>'+q.feedback;
+  }
+  document.getElementById('q-next').classList.add('show');
+  document.getElementById('q-score-display').textContent=qScore+' / '+(qIdx+1);
+}
+function qNext(){qIdx++;renderQuiz();}
+function showQResults(){
+  document.getElementById('q-question-area').style.display='none';
+  const r=document.getElementById('q-results');r.classList.remove('activity-hidden');
+  const pct=Math.round((qScore/qData.length)*100);
+  document.getElementById('q-results-score').textContent=qScore+'/'+qData.length;
+  document.getElementById('q-results-label').textContent=pct+'% correct';
+  document.getElementById('q-results-msg').textContent=pct>=80?'You have a strong grasp of Topic 5 content. Review your incorrect answers one more time before moving on.':pct>=60?'Solid foundation — review the concepts from your missed questions. Focus especially on: BEA formula, penetration vs. skimming, multichannel vs. omnichannel, and the Robinson-Patman Act.':'Review both chapters using the Key Terms and Flashcard modules, then retake the quiz. Pay special attention to: pricing objective → strategy → tactic chain; direct vs. indirect distribution; and the four utilities.';
+  document.getElementById('q-prog-label').textContent=qData.length+' / '+qData.length;
+  document.getElementById('q-progress').style.width='100%';
+}
+function resetQuiz(){
+  qData=shuffle([...QUIZ_QUESTIONS]);qIdx=0;qScore=0;
+  document.getElementById('q-results').classList.add('activity-hidden');
+  renderQuiz();
+}
+
+// ═══════════════════════════════════════════════════════════
+// MATCHING
+// ═══════════════════════════════════════════════════════════
+let currentMatchRound=0,mSelected=null,mMatched=0,mPairs=[];
+function loadMatchRound(idx,btn){
+  currentMatchRound=idx;
+  document.querySelectorAll('.round-tab').forEach(b=>b.classList.remove('active-rt'));
+  if(btn)btn.classList.add('active-rt');
+  mSelected=null;mMatched=0;
+  mPairs=shuffle([...MATCHING_ROUNDS[idx].pairs]);
+  const lefts=mPairs.map(p=>p.left);
+  const rights=shuffle(mPairs.map(p=>p.right));
+  document.getElementById('m-total').textContent=mPairs.length;
+  document.getElementById('m-score').textContent=0;
+  const ml=document.getElementById('m-left');ml.innerHTML='';
+  const mr=document.getElementById('m-right');mr.innerHTML='';
+  lefts.forEach((l,i)=>{
+    const el=document.createElement('div');
+    el.className='match-item';el.textContent=l;el.dataset.idx=i;el.dataset.side='left';
+    el.onclick=()=>matchClick(el,'left',i,l);
+    ml.appendChild(el);
+  });
+  rights.forEach((r,i)=>{
+    const el=document.createElement('div');
+    el.className='match-item';el.textContent=r;el.dataset.val=r;el.dataset.side='right';
+    el.onclick=()=>matchClick(el,'right',i,r);
+    mr.appendChild(el);
+  });
+  document.getElementById('m-feedback').className='feedback-box';
+}
+function matchClick(el,side,idx,val){
+  if(el.classList.contains('matched'))return;
+  if(side==='left'){
+    document.querySelectorAll('#m-left .match-item').forEach(e=>e.classList.remove('selected'));
+    el.classList.add('selected');
+    mSelected={el,val,side:'left',idx};
+  }else{
+    if(!mSelected||mSelected.side!=='left'){
+      document.querySelectorAll('#m-right .match-item').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');
+      mSelected={el,val,side:'right'};
+      return;
+    }
+    const leftVal=mSelected.val;
+    const leftIdx=mSelected.idx;
+    const correctRight=mPairs[leftIdx].right;
+    if(val===correctRight){
+      mSelected.el.classList.remove('selected');mSelected.el.classList.add('matched');
+      el.classList.add('matched');
+      mMatched++;
+      document.getElementById('m-score').textContent=mMatched;
+      mSelected=null;
+      const fb=document.getElementById('m-feedback');
+      fb.className='feedback-box show correct';fb.style.display='block';
+      fb.innerHTML='<strong>✓ Matched!</strong> '+leftVal+' → '+correctRight;
+      if(mMatched===mPairs.length){
+        setTimeout(()=>{fb.innerHTML='<strong>🎉 Round Complete!</strong> All '+mPairs.length+' pairs matched correctly. Try the next round!';},400);
+      }
+    }else{
+      el.classList.add('wrong-flash');
+      mSelected.el.classList.add('wrong-flash');
+      setTimeout(()=>{el.classList.remove('wrong-flash');mSelected.el.classList.remove('wrong-flash');mSelected.el.classList.remove('selected');mSelected=null;},600);
+      const fb=document.getElementById('m-feedback');
+      fb.className='feedback-box show wrong';fb.style.display='block';
+      fb.innerHTML='<strong>✗ Not a match.</strong> Try a different pairing.';
+    }
+  }
+}
+function resetMatch(){loadMatchRound(currentMatchRound,null);}
+
+// ── INIT ──
+renderTerms('all');
+initFlashcards('all');
+</script>
+</body>
+</html>
