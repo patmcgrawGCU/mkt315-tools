@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Topic 2 Study Tool</title>
+<style>
+/* ══════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #0F1923;
+  color: #E8EDF2;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+.site-header {
+  background: #0A1118;
+  border-bottom: 1px solid #1E3448;
+  padding: 0 32px;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0;
+  flex: 1;
+}
+.header-eyebrow {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2BBFB0;
+  margin-bottom: 4px;
+}
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.3px;
+}
+.header-subtitle {
+  font-size: 12px;
+  color: #6A859E;
+  margin-top: 2px;
+}
+.header-badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 16px 0;
+  gap: 4px;
+}
+.badge-pill {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: #1A3A4A;
+  color: #2BBFB0;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #2BBFB0;
+}
+.badge-note {
+  font-size: 11px;
+  color: #4A6880;
+}
+
+/* ══════════════════════════════════════════════
+   SETUP BANNER
+══════════════════════════════════════════════ */
+.setup-banner {
+  background: linear-gradient(135deg, #0D2137 0%, #0A1A2E 100%);
+  border-bottom: 1px solid #1E3448;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.setup-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.setup-text {
+  font-size: 13px;
+  color: #A8BFCF;
+  line-height: 1.5;
+}
+.setup-text strong {
+  color: #E8EDF2;
+  font-weight: 600;
+}
+.setup-steps {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+.setup-step {
+  font-size: 11px;
+  background: #1A3A4A;
+  color: #2BBFB0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.05em;
+}
+.step-arrow { color: #3A5570; font-size: 11px; }
+
+/* ══════════════════════════════════════════════
+   TAB NAV
+══════════════════════════════════════════════ */
+.tab-nav {
+  background: #0A1118;
+  border-bottom: 2px solid #1A3448;
+  display: flex;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.tab-nav::-webkit-scrollbar { height: 3px; }
+.tab-nav::-webkit-scrollbar-thumb { background: #1E3448; }
+.tab-btn {
+  border: none;
+  background: transparent;
+  color: #5A7A92;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0 24px;
+  height: 52px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tab-btn:hover { color: #A8BFCF; }
+.tab-btn.active { color: #2BBFB0; border-bottom-color: #2BBFB0; }
+.tab-num {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  background: #1A3A4A;
+  color: #3A8A82;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.tab-btn.active .tab-num { background: #1D6A72; color: #FFFFFF; }
+
+/* ══════════════════════════════════════════════
+   CONTENT PANELS
+══════════════════════════════════════════════ */
+.tab-panel { display: none; padding: 28px 32px 48px; max-width: 960px; margin: 0 auto; }
+.tab-panel.active { display: block; }
+
+.panel-header {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #1A3448;
+}
+.panel-chapter {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2BBFB0;
+  margin-bottom: 6px;
+}
+.panel-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+.panel-desc { font-size: 13px; color: #6A859E; }
+
+/* ══════════════════════════════════════════════
+   SECTION HEADERS
+══════════════════════════════════════════════ */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 18px;
+}
+.section-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.icon-terms  { background: #1A3A4A; }
+.icon-lab    { background: #1A3020; }
+.icon-check  { background: #3A2A10; }
+
+.section-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5A7A92;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #C8DDE8;
+  margin-top: 1px;
+}
+
+/* ══════════════════════════════════════════════
+   FLASHCARD GRID
+══════════════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.flashcard {
+  background: #141F2B;
+  border: 1px solid #1E3448;
+  border-radius: 10px;
+  cursor: pointer;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.flashcard:hover { border-color: #2BBFB0; transform: translateY(-2px); }
+.flashcard.flipped .card-front { display: none; }
+.flashcard:not(.flipped) .card-back { display: none; }
+
+.card-front, .card-back {
+  padding: 18px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-term {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+}
+.card-hint {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  color: #2BBFB0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.card-back {
+  background: #1A3A4A;
+  border-left: 3px solid #2BBFB0;
+}
+.card-def {
+  font-size: 13px;
+  color: #C8DDE8;
+  line-height: 1.55;
+}
+.card-ex {
+  font-size: 11.5px;
+  color: #2BBFB0;
+  font-style: italic;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #204050;
+}
+.cards-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.reset-btn {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid #1E3448;
+  color: #5A7A92;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.reset-btn:hover { border-color: #2BBFB0; color: #2BBFB0; }
+
+/* ══════════════════════════════════════════════
+   SCENARIO LAB (MCQ)
+══════════════════════════════════════════════ */
+.scenario-block {
+  background: #141F2B;
+  border: 1px solid #1E3448;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.scenario-q {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid #1A3040;
+}
+.scenario-num {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #2BBFB0;
+  margin-bottom: 8px;
+}
+.scenario-text {
+  font-size: 14px;
+  color: #E8EDF2;
+  line-height: 1.6;
+}
+.scenario-choices { padding: 12px 22px 16px; display: flex; flex-direction: column; gap: 8px; }
+.choice-btn {
+  background: #0F1923;
+  border: 1px solid #1E3448;
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  color: #A8BFCF;
+  transition: all 0.18s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.choice-btn:hover:not(:disabled) { border-color: #2BBFB0; color: #FFFFFF; background: #1A2F40; }
+.choice-btn:disabled { cursor: default; }
+.choice-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #3A6070;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.choice-btn.correct { background: #0A2A1A; border-color: #1A8A4A; color: #6FCA96; }
+.choice-btn.correct .choice-label { color: #6FCA96; }
+.choice-btn.wrong   { background: #2A0A0A; border-color: #8A1A1A; color: #E89090; }
+.choice-btn.wrong .choice-label { color: #E89090; }
+.choice-btn.revealed{ background: #0A2A1A; border-color: #1A8A4A; color: #6FCA96; opacity: 0.7; }
+
+.scenario-feedback {
+  display: none;
+  margin: 0 22px 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.scenario-feedback.show { display: block; }
+.feedback-correct { background: #0A2A1A; border: 1px solid #1A8A4A; color: #6FCA96; }
+.feedback-wrong   { background: #2A1A0A; border: 1px solid #8A4A1A; color: #F0C070; }
+.feedback-label { font-weight: 700; margin-bottom: 4px; }
+
+/* Progress bar for scenarios */
+.scenario-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.progress-track {
+  flex: 1;
+  height: 4px;
+  background: #1A3448;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #2BBFB0;
+  border-radius: 2px;
+  transition: width 0.4s;
+  width: 0%;
+}
+.progress-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: #5A7A92;
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════
+   QUICK CHECK (T/F)
+══════════════════════════════════════════════ */
+.qcheck-block {
+  background: #141F2B;
+  border: 1px solid #1E3448;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.qcheck-statement {
+  font-size: 14px;
+  color: #E8EDF2;
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+.tf-buttons { display: flex; gap: 10px; }
+.tf-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #1E3448;
+  background: #0F1923;
+  color: #5A7A92;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: 0.05em;
+}
+.tf-btn:hover:not(:disabled) { border-color: #2BBFB0; color: #2BBFB0; }
+.tf-btn:disabled { cursor: default; }
+.tf-btn.tf-correct { background: #0A2A1A; border-color: #1A8A4A; color: #6FCA96; }
+.tf-btn.tf-wrong   { background: #2A0A0A; border-color: #8A1A1A; color: #E89090; }
+.qcheck-explain {
+  display: none;
+  margin-top: 12px;
+  padding: 10px 13px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #C8DDE8;
+  background: #0A1A2A;
+  border: 1px solid #1E3448;
+}
+.qcheck-explain.show { display: block; }
+.explain-verdict {
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.verdict-t { color: #6FCA96; }
+.verdict-f { color: #E89090; }
+
+/* Score display */
+.score-banner {
+  background: #0A1A2A;
+  border: 1px solid #1E3448;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.score-display {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2BBFB0;
+}
+.score-label { font-size: 12px; color: #5A7A92; margin-top: 2px; }
+.score-msg { font-size: 13.5px; color: #A8BFCF; line-height: 1.5; }
+.retry-btn {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #1A3A4A;
+  border: 1px solid #2BBFB0;
+  color: #2BBFB0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.retry-btn:hover { background: #2BBFB0; color: #0A1118; }
+
+/* ══════════════════════════════════════════════
+   DRAG-AND-DROP MATCHING (Tab 3 special)
+══════════════════════════════════════════════ */
+.match-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.match-left, .match-right { display: flex; flex-direction: column; gap: 8px; }
+.match-col-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5A7A92;
+  margin-bottom: 4px;
+}
+.drag-item {
+  background: #1A3A4A;
+  border: 1px solid #204A5A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #FFFFFF;
+  cursor: grab;
+  user-select: none;
+  transition: all 0.18s;
+}
+.drag-item:hover { border-color: #2BBFB0; }
+.drag-item.dragging { opacity: 0.5; cursor: grabbing; }
+.drop-zone {
+  background: #0F1923;
+  border: 1px dashed #2A4A5A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #4A6A7A;
+  min-height: 42px;
+  transition: all 0.18s;
+  position: relative;
+}
+.drop-zone.dragover { border-color: #2BBFB0; background: #0A1F2F; }
+.drop-zone.filled { border-color: #204A5A; color: #FFFFFF; }
+.drop-zone.matched { border-color: #1A8A4A; background: #0A2A1A; color: #6FCA96; }
+.drop-zone.mismatch { border-color: #8A1A1A; background: #2A0A0A; color: #E89090; }
+.drop-zone .zone-label {
+  font-size: 11px;
+  color: #4A6A7A;
+  margin-bottom: 4px;
+  font-style: italic;
+}
+.match-check-btn {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #1A3A4A;
+  border: 1px solid #2BBFB0;
+  color: #2BBFB0;
+  padding: 9px 20px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: all 0.18s;
+}
+.match-check-btn:hover { background: #2BBFB0; color: #0A1118; }
+.match-result {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+}
+.match-result.show { display: block; }
+.match-result.good { background: #0A2A1A; border: 1px solid #1A8A4A; color: #6FCA96; }
+.match-result.bad  { background: #2A1A0A; border: 1px solid #8A4A1A; color: #F0C070; }
+
+/* ══════════════════════════════════════════════
+   DIVIDER
+══════════════════════════════════════════════ */
+.section-divider {
+  border: none;
+  border-top: 1px solid #1A3448;
+  margin: 36px 0 0;
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.site-footer {
+  background: #0A1118;
+  border-top: 1px solid #1A3448;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 11px;
+  color: #3A5570;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .site-header { padding: 14px 16px; }
+  .tab-panel { padding: 20px 16px 40px; }
+  .cards-grid { grid-template-columns: 1fr 1fr; }
+  .match-container { grid-template-columns: 1fr; }
+  .setup-banner { padding: 12px 16px; }
+  .tab-btn { padding: 0 14px; font-size: 11.5px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="site-header">
+  <div class="header-brand">
+    <div class="header-eyebrow">MKT 315 — Principles of Marketing</div>
+    <div class="header-title">Topic 2 Interactive Study Tool</div>
+    <div class="header-subtitle">Marketing Research · Strategy &amp; Objectives · Segmentation · The Marketing Mix</div>
+  </div>
+  <div class="header-badge">
+    <span class="badge-pill">Chapters 2 &amp; 3</span>
+    <span class="badge-note">Grand Canyon University</span>
+  </div>
+</header>
+
+<!-- ══════════ SETUP BANNER ══════════ -->
+<div class="setup-banner">
+  <span class="setup-icon">📥</span>
+  <div class="setup-text">
+    <strong>How to use this tool:</strong> This interactive study tool covers all four class meetings in Topic 2. Use the tabs above to move among Classes 5–8, then work through the flashcards, scenarios, and quick checks at your own pace.
+    <div class="setup-steps">
+      <span class="setup-step">1. Choose a class</span>
+      <span class="step-arrow">→</span>
+      <span class="setup-step">2. Review flashcards</span>
+      <span class="step-arrow">→</span>
+      <span class="setup-step">3. Practice scenarios</span>
+      <span class="step-arrow">→</span>
+      <span class="setup-step">4. Complete quick checks</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TAB NAV ══════════ -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('t1', this)">
+    <span class="tab-num">01</span> Class 5 — Why Research Matters
+  </button>
+  <button class="tab-btn" onclick="showTab('t2', this)">
+    <span class="tab-num">02</span> Class 6 — Research Process &amp; Ethics
+  </button>
+  <button class="tab-btn" onclick="showTab('t3', this)">
+    <span class="tab-num">03</span> Class 7 — Strategy &amp; Situation Analysis
+  </button>
+  <button class="tab-btn" onclick="showTab('t4', this)">
+    <span class="tab-num">04</span> Class 8 — Segmentation &amp; Marketing Mix
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 1 — CH2 PART 1: WHY RESEARCH MATTERS
+═══════════════════════════════════════════════════ -->
+<section id="tab-t1" class="tab-panel active">
+  <div class="panel-header">
+    <div class="panel-chapter">Week 3 · Class 5 · Chapter 2</div>
+    <div class="panel-title">Why Marketing Research Matters &amp; How It Works</div>
+    <div class="panel-desc">Research types · Secondary vs. primary data · Qualitative vs. quantitative techniques · Validity &amp; reliability</div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="section-header">
+    <div class="section-icon icon-terms">🃏</div>
+    <div>
+      <div class="section-label">Module 1</div>
+      <div class="section-title">Key Terms — Click any card to flip</div>
+    </div>
+  </div>
+  <div class="cards-controls">
+    <button class="reset-btn" onclick="resetCards('t1')">↺ Reset All Cards</button>
+  </div>
+  <div class="cards-grid" id="cards-t1">
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Marketing Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The collection, recording, and analysis of information to aid in making marketing decisions. Provides better data so organizations can make better decisions.</div><div class="card-ex">Toyota researching consumer EV adoption barriers before designing the bZ4X.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Exploratory Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Open-ended, flexible research used to gain initial understanding and discover the right questions to ask. Used at the beginning stages. Small samples — cannot draw statistically valid conclusions.</div><div class="card-ex">Key question answered: "What should we be asking?"</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Descriptive Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Provides a detailed understanding of the characteristics of a population or phenomenon. Answers WHO, WHAT, WHERE, WHEN — but NOT WHY. Results can be numerical and observational.</div><div class="card-ex">Asking drivers how far they drive daily, or ranking vehicle features on a scale.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Causal Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Establishes cause-and-effect between variables by manipulating one variable while holding all others constant. Highly structured. Also called experimental research or A/B testing.</div><div class="card-ex">Toyota testing two email offers to see which generates more website clicks — only one variable differs.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Secondary Data</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Data already collected, processed, and published by the firm or another organization. Reviewed FIRST in any research process. Less expensive and faster than primary data. Sources: industry reports, government databases, academic studies.</div><div class="card-ex">Reading Automotive News industry reports before commissioning a consumer survey.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Primary Data</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Original information collected firsthand for a specific research purpose. Fills gaps secondary data cannot answer. Proprietary — gives the company a competitive advantage. More expensive and time-consuming.</div><div class="card-ex">Toyota conducting focus groups with hybrid owners to understand EV purchase hesitations.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Qualitative Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Open-ended research to understand consumer reasoning, opinions, and behavior. Small samples — cannot be generalized statistically. Data type: words, themes, insights. Methods: focus groups, interviews, observational research.</div><div class="card-ex">Often the STARTING point — identifies what to measure before a large survey is designed.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Quantitative Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Structured research generating numerical data for statistical conclusions. Large samples required. Data type: numbers, percentages, statistics. Methods: surveys, behavioral research, A/B testing, analytics. Presented to leadership for major decisions.</div><div class="card-ex">Surveying 1,000 consumers using a Likert scale to measure brand loyalty.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Likert Scale</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A research instrument where respondents rate their agreement with a statement on a 1–5 scale (1 = strongly disagree, 5 = strongly agree). Converts attitudes to numbers for statistical comparison.</div><div class="card-ex">"The new packaging makes the product look more premium." [1–2–3–4–5]</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Validity</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The research actually measures what it claims to measure. A valid study asks questions that directly address the research question without mixing in unrelated variables.</div><div class="card-ex">Asking "Do you like this car?" when you want to measure GPS feature preference is NOT valid.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Reliability</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Research results can be consistently reproduced when the study is repeated under the same conditions. A reliable study produces stable results across different samples and time points.</div><div class="card-ex">Surveying two different groups of 500 drivers with the same questions and getting similar results.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Data Collection</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The gathering of information in a structured way to answer marketing research questions. Channels include: mail, telephone, in-person, online, mobile devices, and social media. Each channel has different tradeoffs in cost, speed, and data quality.</div><div class="card-ex">Online surveys are now preferred — low cost, fast deployment, instant analysis.</div></div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIO LAB -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-lab">🔬</div>
+    <div>
+      <div class="section-label">Module 2</div>
+      <div class="section-title">Scenario Lab — Apply what you know</div>
+    </div>
+  </div>
+
+  <div class="scenario-progress">
+    <div class="progress-track"><div class="progress-fill" id="prog-t1-lab"></div></div>
+    <div class="progress-label" id="prog-t1-lab-txt">0 / 5 answered</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="scenario-block" id="sq-t1-1">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 01</div>
+      <div class="scenario-text">A regional bakery chain is considering adding a new line of gluten-free products. Before spending $40,000 on product development, the owner asks the marketing team what they should do first. Which recommendation is MOST aligned with sound research practice?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t1','1','A','C')" id="t1-1-A"><span class="choice-label">A</span> Commission a 2,000-person online survey immediately to test flavor preferences.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','1','B','C')" id="t1-1-B"><span class="choice-label">B</span> Search for existing industry reports on gluten-free market growth and the bakery's own sales data on current gluten-free items.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','1','C','C')" id="t1-1-C"><span class="choice-label">C</span> Conduct a series of small focus groups with existing customers to explore attitudes toward gluten-free options.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','1','D','C')" id="t1-1-D"><span class="choice-label">D</span> Ask the store managers what they think customers want.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t1-1">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      Secondary data is always reviewed FIRST. The bakery's own sales history and published industry reports on the gluten-free market are faster and cheaper than primary research — and they may fully answer whether there's a real opportunity before spending anything on development.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="scenario-block" id="sq-t1-2">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 02</div>
+      <div class="scenario-text">A shoe brand runs a TV ad for two weeks in City A and runs no ad in City B (same demographics). They then measure purchase rates in both cities. What type of research is this, and why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t1','2','A','B')" id="t1-2-A"><span class="choice-label">A</span> Descriptive — it describes sales rates across two cities.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','2','B','B')" id="t1-2-B"><span class="choice-label">B</span> Causal — one variable (the ad) is manipulated while all other conditions are held constant.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','2','C','B')" id="t1-2-C"><span class="choice-label">C</span> Exploratory — it's uncovering new questions about advertising effectiveness.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','2','D','B')" id="t1-2-D"><span class="choice-label">D</span> Qualitative — it involves observing consumer behavior in natural settings.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t1-2">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      This is causal (experimental) research. The ad is the independent variable. The purchase rate is the dependent variable. All other conditions (demographics, market size, time period) are held constant. That isolation of one variable is what defines causal research — it allows you to attribute the change in outcome to the change in the variable.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="scenario-block" id="sq-t1-3">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 03</div>
+      <div class="scenario-text">A startup food brand wants to understand whether its new plant-based snack bar will succeed in the market. The CEO says they should survey 500 grocery shoppers immediately. A marketing consultant pushes back and says that's not the right first move. What should they do FIRST, and why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t1','3','A','B')" id="t1-3-A"><span class="choice-label">A</span> Launch a small test in three stores and measure sell-through rate — behavioral data is more reliable than surveys.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','3','B','B')" id="t1-3-B"><span class="choice-label">B</span> Review existing industry reports on plant-based snack market growth and the brand's own sales data on similar products — secondary data first, primary research second.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','3','C','B')" id="t1-3-C"><span class="choice-label">C</span> Run a large-scale quantitative survey to measure consumer attitudes toward plant-based eating.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','3','D','B')" id="t1-3-D"><span class="choice-label">D</span> Hold focus groups with health-conscious consumers to explore their snacking habits and unmet needs.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t1-3">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      Secondary data is always reviewed FIRST. Before spending money on surveys, focus groups, or retail tests, the startup should check what already exists: industry reports on plant-based snack growth (IBISWorld, Mintel), government nutrition trend data, competitor sales figures, and any internal data on similar products they've sold before. This secondary research may fully answer the question — or at minimum, it will identify exactly what primary research is still needed. The principle: never commission primary research until you've exhausted secondary data.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="scenario-block" id="sq-t1-4">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 04</div>
+      <div class="scenario-text">A marketing manager reviews her company's study: "92% of customers say they would recommend us to a friend." Three months later, a repeat study with a different sample yields 91%. She concludes the data is trustworthy. What quality of research is she observing?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t1','4','A','B')" id="t1-4-A"><span class="choice-label">A</span> Validity — the study measured what it claimed to measure.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','4','B','B')" id="t1-4-B"><span class="choice-label">B</span> Reliability — the results are consistent across repeated studies with different samples.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','4','C','B')" id="t1-4-C"><span class="choice-label">C</span> Primary data quality — the results are proprietary and specific.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','4','D','B')" id="t1-4-D"><span class="choice-label">D</span> Causal validity — the study establishes cause-and-effect for the recommendation rate.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t1-4">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      Reliability = consistent results when the study is repeated. The two results (92% and 91%) are nearly identical despite using different respondents — that consistency is the definition of reliability. Validity would apply if she were assessing whether "would recommend" is the right question to measure customer satisfaction (does the question actually measure what we think it measures?).
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="scenario-block" id="sq-t1-5">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 05</div>
+      <div class="scenario-text">An auto insurance company wants to understand WHY Gen Z drivers are more likely to let their policies lapse. Which approach is most appropriate as a FIRST step?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t1','5','A','A')" id="t1-5-A"><span class="choice-label">A</span> Conduct in-depth interviews with 15–20 Gen Z customers who recently let a policy lapse — qualitative, exploratory.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','5','B','A')" id="t1-5-B"><span class="choice-label">B</span> Survey 5,000 Gen Z drivers using a Likert-scale questionnaire about policy attitudes — quantitative, descriptive.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','5','C','A')" id="t1-5-C"><span class="choice-label">C</span> Run an A/B test of two renewal reminder emails — quantitative, causal.</button>
+      <button class="choice-btn" onclick="checkMCQ('t1','5','D','A')" id="t1-5-D"><span class="choice-label">D</span> Pull industry benchmarks on Gen Z insurance lapse rates — secondary data.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t1-5">
+      <div class="feedback-label">✓ Correct! Option A is right.</div>
+      The question asks about WHY — that's a qualitative, exploratory problem. Before you can survey 5,000 people or A/B test reminders, you need to understand the underlying reasons. In-depth interviews with recent lapses give you that depth of understanding. The findings from those interviews would inform the right quantitative survey questions later. Note: D (secondary data) would actually be step zero — check what's already published — but assuming that's been done, the next step is exploratory qualitative.
+    </div>
+  </div>
+
+  <!-- QUICK CHECK -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-check">✅</div>
+    <div>
+      <div class="section-label">Module 3</div>
+      <div class="section-title">Quick Check — True or False?</div>
+    </div>
+  </div>
+
+  <div id="qcheck-t1">
+    <div class="qcheck-block">
+      <div class="qcheck-statement">1. Secondary data is always less reliable than primary data and should only be used when primary research is unavailable.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t1','1',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t1','1',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t1-1"><div class="explain-verdict verdict-f">FALSE</div>Secondary data is not inferior — it's reviewed FIRST because it's faster and cheaper. Well-sourced secondary data (government reports, industry databases, peer-reviewed studies) is often highly reliable. The "limitation" of secondary data is not reliability — it's specificity. It may not answer your exact research question, which is when primary data is needed.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">2. A focus group with 8 participants is an example of qualitative exploratory research.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t1','2',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t1','2',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t1-2"><div class="explain-verdict verdict-t">TRUE</div>A focus group with 8 participants is a classic qualitative research method. Small group, open-ended discussion, unstructured exploration of consumer thoughts — this is exploratory by nature. It uncovers themes and questions rather than producing statistically valid numbers.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">3. Causal research can establish a cause-and-effect relationship even if multiple variables change at the same time.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t1','3',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t1','3',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t1-3"><div class="explain-verdict verdict-f">FALSE</div>The defining rule of causal research is that only ONE variable changes at a time. If you change two things simultaneously, you cannot determine which change caused the effect. This is the fundamental discipline of experimental design — isolate the independent variable to establish causation. If you change a website button's color AND its copy at the same time, you don't know which change drove the conversion difference.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">4. A researcher conducting one-on-one interviews with 12 consumers to understand WHY they stopped using a subscription service is using the same type of research as a researcher who surveys 2,000 consumers on a 1–5 rating scale.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t1','4',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t1','4',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t1-4"><div class="explain-verdict verdict-f">FALSE</div>These are two fundamentally different research approaches. The 12-consumer interviews are qualitative research — small sample, open-ended, exploratory, focused on understanding reasoning and behavior. The 2,000-consumer rating-scale survey is quantitative research — large sample, structured, produces numerical data that can be statistically analyzed. The distinction is not just sample size: it's the type of data collected (words/insights vs. numbers/statistics) and the purpose (discover/understand vs. measure/confirm).</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">5. A survey with 5,000 structured questions answered by a large sample is an example of exploratory research.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t1','5',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t1','5',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t1-5"><div class="explain-verdict verdict-f">FALSE</div>A large-sample structured survey is quantitative descriptive research — not exploratory. Exploratory research uses small samples, open-ended methods (focus groups, interviews), and flexible structures. The moment you have structured questions and a large sample producing numerical data, you've crossed into quantitative territory. Descriptive if it characterizes the population; causal if it's testing a variable manipulation.</div>
+    </div>
+
+    <div class="score-banner" id="score-t1" style="display:none">
+      <div><div class="score-display" id="score-t1-num"></div><div class="score-label">Quick Check Score</div></div>
+      <div class="score-msg" id="score-t1-msg"></div>
+      <button class="retry-btn" onclick="retryQCheck('t1')">↺ Retry</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 2 — CH2 PART 2: RESEARCH PROCESS & ETHICS
+═══════════════════════════════════════════════════ -->
+<section id="tab-t2" class="tab-panel">
+  <div class="panel-header">
+    <div class="panel-chapter">Week 3 · Class 6 · Chapter 2</div>
+    <div class="panel-title">The 5-Step Research Process, Ethics &amp; Case Studies</div>
+    <div class="panel-desc">Research process steps · PII &amp; data privacy · Cambridge Analytica · Insights Association Code · Toyota &amp; Coca-Cola cases</div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="section-header">
+    <div class="section-icon icon-terms">🃏</div>
+    <div><div class="section-label">Module 1</div><div class="section-title">Key Terms — Click any card to flip</div></div>
+  </div>
+  <div class="cards-controls"><button class="reset-btn" onclick="resetCards('t2')">↺ Reset All Cards</button></div>
+  <div class="cards-grid" id="cards-t2">
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">The 5-Step Research Process</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">1. Identify the Problem → 2. Develop the Research Plan → 3. Conduct Research → 4. Analyze Data &amp; Report Findings → 5. Take Action. The process is CYCLICAL — it restarts as markets change.</div><div class="card-ex">Step 1 is the most important — garbage in, garbage out.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Personally Identifiable Information (PII)</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Any data that can identify a specific individual, either alone or combined with other information. Examples: name, email, phone, browsing history, location patterns, purchase records. Protected by GDPR, CCPA, and other privacy laws.</div><div class="card-ex">Cambridge Analytica harvested PII from 87 million Facebook users without consent via a quiz app.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">A/B Testing</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">An experimental research method where two versions (A and B) are tested against each other by changing ONE variable while holding all other conditions constant. The result establishes which version produces the better outcome.</div><div class="card-ex">Toyota testing whether an extended warranty offer OR a tire pricing offer generates more email opens.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Behavioral Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Seeks to understand consumer buying patterns through consumption data, data mining, and tracking the customer journey. Analyzes what people actually DO rather than what they say they'll do — more predictive than stated preference.</div><div class="card-ex">Amazon's recommendation engine analyzes purchase history and browsing behavior to predict next purchases.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Marketing Analytics</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Code placed on website backends and tracking tools that reveal visitor origins, page behavior, conversion rates, and online habits. Provides continuous data on digital marketing performance. Examples: Google Analytics, Adobe Analytics.</div><div class="card-ex">Analytics reveals that 70% of visitors leave the checkout page without buying — prompting redesign.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Neuromarketing / Physiological Research</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Applies neuroscience to marketing by measuring unconscious physiological responses to marketing stimuli. Methods include EEG (brain activity), eye tracking, and fMRI. Captures reactions consumers cannot articulate in surveys.</div><div class="card-ex">Eye tracking shows consumers look at a person's face on a webpage before reading the headline — redesign accordingly.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Focus Group</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A qualitative research method assembling 6–10 demographically diverse people for a guided discussion. Used in exploratory research to understand consumer reasoning, not to generate statistics. Moderator skill significantly impacts quality.</div><div class="card-ex">Coca-Cola used global focus groups across markets to understand what "novelty" means to Gen Z before designing Creations.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Insights Association Code of Standards</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Professional ethics code for marketing researchers requiring: (1) Respect subjects' rights, (2) Transparent consent for data collection, (3) Integrity in all relationships, (4) Compliance with applicable laws. Also prohibits revealing subject identity without consent.</div><div class="card-ex">Disguising data mining as an academic quiz — as Cambridge Analytica did — violates all four principles.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Research Validity &amp; Problem Definition</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The MOST critical step in research is Step 1: Identify the Problem. A vague problem produces useless research. A strong problem statement is specific, decision-oriented, and identifies the exact information needed. Weak: "We need more data." Strong: "Which segment will pay a premium for Feature X, and what is their price ceiling?"</div></div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIO LAB -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-lab">🔬</div>
+    <div><div class="section-label">Module 2</div><div class="section-title">Scenario Lab — Process &amp; Ethics</div></div>
+  </div>
+  <div class="scenario-progress">
+    <div class="progress-track"><div class="progress-fill" id="prog-t2-lab"></div></div>
+    <div class="progress-label" id="prog-t2-lab-txt">0 / 5 answered</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 01</div>
+      <div class="scenario-text">A streaming service notices that subscribers over 45 are canceling at twice the rate of younger subscribers. Their VP of Marketing says: "We need to run a massive survey right away." A senior researcher pushes back. What step has the VP skipped?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t2','1','A','A')" id="t2-1-A"><span class="choice-label">A</span> Step 1 — Identify the Problem. They haven't defined what specific information they need or what decision the research will inform.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','1','B','A')" id="t2-1-B"><span class="choice-label">B</span> Step 3 — Conduct Research. They should have done the research before noticing the cancellation rate.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','1','C','A')" id="t2-1-C"><span class="choice-label">C</span> Step 4 — Analyze Data. The data hasn't been analyzed correctly yet.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','1','D','A')" id="t2-1-D"><span class="choice-label">D</span> Step 5 — Take Action. They should act on what they already know before researching further.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t2-1">
+      <div class="feedback-label">✓ Correct! Option A is right.</div>
+      The VP has skipped Step 1 — defining the problem. "Subscribers over 45 are canceling more" is an observation, not a research problem. The research question needs to specify: Why are they canceling? Is it content? Price? Interface? Competitor? Without a clear problem definition, a massive survey will generate a lot of data and no useful insight. "Garbage in, garbage out" — the most important step is always the first one.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 02</div>
+      <div class="scenario-text">A consumer app company creates a fun personality quiz on their website. The quiz is marketed as a "fun way to learn about yourself." In reality, it collects detailed data on users' values, interests, and social networks, which the company then sells to third-party advertisers. Which ethical principle does this MOST directly violate?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t2','2','A','B')" id="t2-2-A"><span class="choice-label">A</span> The principle of statistical reliability — the data may not be reproducible.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','2','B','B')" id="t2-2-B"><span class="choice-label">B</span> Transparency and informed consent — users were not told their data would be sold to third parties.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','2','C','B')" id="t2-2-C"><span class="choice-label">C</span> The principle of validity — the quiz may not accurately measure what it claims.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','2','D','B')" id="t2-2-D"><span class="choice-label">D</span> Secondary data standards — the company should have used existing public data instead.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t2-2">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      This mirrors the Cambridge Analytica scandal precisely. Users were deceived about the purpose of the quiz (entertainment vs. data harvesting) and were not told their data would be sold. This violates the Insights Association's principle of transparency and informed consent — and in many jurisdictions, it's also illegal under GDPR and CCPA. The data may also be sold in ways that reveal individual identities, violating the additional requirement that research data not be used to identify subjects without consent.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 03</div>
+      <div class="scenario-text">Toyota's EV research found that range anxiety was the #1 barrier to adoption. They designed the bZ4X with 252 miles of range and offered free charging for year one. Which step in the research process does the free charging offer BEST exemplify?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t2','3','A','C')" id="t2-3-A"><span class="choice-label">A</span> Step 2 — Develop the Research Plan. Planning which consumers to target for free charging trials.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','3','B','C')" id="t2-3-B"><span class="choice-label">B</span> Step 3 — Conduct Research. Testing whether free charging increases consumer interest.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','3','C','C')" id="t2-3-C"><span class="choice-label">C</span> Step 5 — Take Action. The research findings directly informed a product/marketing decision (free charging to address the adoption barrier identified by research).</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','3','D','C')" id="t2-3-D"><span class="choice-label">D</span> Step 4 — Analyze Data. The free charging program is part of interpreting consumer preference data.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t2-3">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      Step 5 is "Take Action" — where research findings are translated into specific marketing decisions. The finding (range anxiety and charging uncertainty are barriers) led directly to the decision (offer free charging for year one to remove those specific barriers). This is exactly what Step 5 looks like: a research finding maps to a specific product or marketing decision. The bZ4X case is a model of research-driven decision-making where you can trace every major feature directly back to a Step 4 finding.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 04</div>
+      <div class="scenario-text">Coca-Cola launched limited-edition Creations flavors that were available for a short time only. Cherry Vanilla and Orange Vanilla eventually became permanent products. From a research perspective, what was brilliant about this strategy?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t2','4','A','D')" id="t2-4-A"><span class="choice-label">A</span> It was exploratory research — the limited editions were designed to discover new flavor concepts.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','4','B','D')" id="t2-4-B"><span class="choice-label">B</span> It was secondary data collection — Coca-Cola relied on competitor flavor trends to make decisions.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','4','C','D')" id="t2-4-C"><span class="choice-label">C</span> It was purely a marketing tactic with no research dimension — the real research happened in focus groups before launch.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','4','D','D')" id="t2-4-D"><span class="choice-label">D</span> The limited-edition launch itself was a research mechanism — real-world sales data is more valid than stated preference surveys, so the market tested each flavor before committing to it permanently.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t2-4">
+      <div class="feedback-label">✓ Correct! Option D is right.</div>
+      This is one of the most elegant examples of embedding research into a product strategy. By making Creations limited-edition, Coca-Cola ran a real-world test of each flavor — revealed preference (what people actually buy) rather than stated preference (what people say they'll buy in a survey). The flavors that sold well became permanent; the ones that didn't were retired. The sales data is the research. This eliminates the survey gap: people can intend to buy a flavor and never actually do it — but they can't lie with a purchase.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 05</div>
+      <div class="scenario-text">A researcher presents findings to a client showing that 78% of users prefer the competitor's mobile app. The client says, "This can't be right — let's leave this finding out of the report." A researcher who agrees to omit this finding is violating which principle?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t2','5','A','C')" id="t2-5-A"><span class="choice-label">A</span> Data collection methodology — the finding should be re-tested before reporting.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','5','B','C')" id="t2-5-B"><span class="choice-label">B</span> Sample size requirements — the 78% finding is statistically insignificant without more respondents.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','5','C','C')" id="t2-5-C"><span class="choice-label">C</span> Research integrity — selectively reporting only favorable findings is a form of deception that undermines the purpose of research.</button>
+      <button class="choice-btn" onclick="checkMCQ('t2','5','D','C')" id="t2-5-D"><span class="choice-label">D</span> Secondary data standards — the finding needs to be confirmed with a published external source before reporting.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t2-5">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      Selectively reporting research to omit unfavorable findings is a fundamental integrity violation. Research exists to inform better decisions — including uncomfortable ones. A client who doesn't know their competitor's app is preferred by 78% of users will continue making decisions based on false confidence. The Insights Association Code specifically requires "integrity, professionalism, and transparency in all relationships and practices." Omitting a finding to please a client is the opposite of that — and it ultimately harms the client whose decisions will be based on incomplete information.
+    </div>
+  </div>
+
+  <!-- QUICK CHECK -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-check">✅</div>
+    <div><div class="section-label">Module 3</div><div class="section-title">Quick Check — True or False?</div></div>
+  </div>
+  <div id="qcheck-t2">
+    <div class="qcheck-block">
+      <div class="qcheck-statement">1. Step 1 of the research process (Identify the Problem) is the most critical step because every subsequent step depends on getting it right.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t2','1',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t2','1',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-1"><div class="explain-verdict verdict-t">TRUE</div>If the research problem is poorly defined, every dollar spent on the remaining four steps is potentially wasted. Research conducted to answer the wrong question produces data that can't drive good decisions — "garbage in, garbage out." The problem statement must be specific, decision-oriented, and identify exactly what information is needed. Vague problems produce vague results.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">2. The marketing research process ends at Step 5 (Take Action) — once decisions are made, the process is complete.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t2','2',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t2','2',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-2"><div class="explain-verdict verdict-f">FALSE</div>The 5-step process is CYCLICAL — it doesn't end at Step 5. After decisions are implemented, the marketplace continues to change: competitors respond, consumer preferences shift, economic conditions evolve. This creates new questions that restart the research process. Toyota doesn't do EV research once — it researches continuously as the market changes. Excellent marketing organizations have ongoing research capabilities, not just occasional research projects.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">3. Under the Insights Association Code, researchers are required to ensure that data collected for research is not used to reveal the identity of a research subject without their consent.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t2','3',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t2','3',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-3"><div class="explain-verdict verdict-t">TRUE</div>This is a specific requirement in the Insights Association Code: "Ensure that data obtained for purposes of research are not used to reveal the identity of the research subject without their consent." This goes beyond simply not sharing names — it means anonymization practices must ensure that combinations of data points cannot be used to identify individuals. This is especially relevant in the age of data re-identification, where even "anonymous" data can sometimes be traced back to individuals.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">4. Behavioral research (tracking what consumers actually do) is generally more predictive of future behavior than stated preference surveys (asking what consumers say they'll do).</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t2','4',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t2','4',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-4"><div class="explain-verdict verdict-t">TRUE</div>Past behavior is the best predictor of future behavior. There is a well-documented gap between what people SAY they'll do and what they actually DO — the "intention-action gap." Coca-Cola's Creations strategy exploited this by using real purchase data rather than survey data to decide which flavors to keep permanently. A survey respondent might say they'd buy a Cotton Candy Coke — but actual purchase behavior tells the real story.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">5. Cambridge Analytica violated data ethics by collecting data from approximately 305,000 people who actively consented to participating in a quiz.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t2','5',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t2','5',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-5"><div class="explain-verdict verdict-f">FALSE — but requires nuance.</div>The 305,000 who took the quiz did consent to having THEIR OWN data collected. The violation was that Facebook's API at the time allowed the app to also access the data of those users' Facebook FRIENDS — approximately 87 million people who had never heard of the quiz and never consented. Framing the violation as affecting the 305,000 active participants understates the harm by a factor of nearly 300x.</div>
+    </div>
+
+    <div class="score-banner" id="score-t2" style="display:none">
+      <div><div class="score-display" id="score-t2-num"></div><div class="score-label">Quick Check Score</div></div>
+      <div class="score-msg" id="score-t2-msg"></div>
+      <button class="retry-btn" onclick="retryQCheck('t2')">↺ Retry</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 3 — CH3 PART 1: STRATEGY & SITUATION ANALYSIS
+═══════════════════════════════════════════════════ -->
+<section id="tab-t3" class="tab-panel">
+  <div class="panel-header">
+    <div class="panel-chapter">Week 4 · Class 7 · Chapter 3</div>
+    <div class="panel-title">Objectives, Strategies, Tactics &amp; Situation Analysis</div>
+    <div class="panel-desc">O-S-T hierarchy · Strategic planning process · SWOT analysis · BCG Matrix · Ansoff Matrix · Environmental scan</div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="section-header">
+    <div class="section-icon icon-terms">🃏</div>
+    <div><div class="section-label">Module 1</div><div class="section-title">Key Terms — Click any card to flip</div></div>
+  </div>
+  <div class="cards-controls"><button class="reset-btn" onclick="resetCards('t3')">↺ Reset All Cards</button></div>
+  <div class="cards-grid" id="cards-t3">
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Objective</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">WHAT you want to achieve. A specific, measurable outcome aligned with organizational mission. Long-term — typically measured in years. Must have a TARGET (what) and TIME LIMIT (when).</div><div class="card-ex">Mastercard: "Drive greater share of spend among consumers — +25% within 2 years."</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Strategy</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">HOW you plan to achieve the objective. Directional approach — big ideas, not specific actions. Medium-term, often measured in months. Must be tested: "Does this strategy actually drive toward the objective?"</div><div class="card-ex">Mastercard: Extend card use from luxury purchases (travel, dining) to everyday spending (grocery, gas).</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Tactic</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A specific ACTION taken to implement the strategy. Short-term, day-to-day or week-to-week. Detailed and budgeted. Each tactic must tie back to a specific strategy, which in turn serves the objective.</div><div class="card-ex">Mastercard: Launch the "Priceless" TV campaign. Sign up grocery stores to accept Mastercard. Partner with MLB.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Situation Analysis</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A thorough, honest assessment of where an organization stands relative to its products, competitors, and market direction. Examines four perspectives: Environment, Competitors, Company, and Consumers. Diagnose BEFORE prescribing strategy.</div><div class="card-ex">Netflix's situation analysis while still a DVD company revealed: streaming is an opportunity AND physical media is a fatal weakness.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Environmental Scan</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Analysis of external forces outside any company's control that affect the entire market. STEC framework: Social (demographics, culture, norms), Technology (disruption, purchase behavior), Economic (GDP, inflation, consumer income), Competitive (market structure, competitor activity).</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">SWOT Analysis</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Strategic tool analyzing Strengths, Weaknesses, Opportunities, and Threats. S &amp; W = INTERNAL (within company control). O &amp; T = EXTERNAL (outside company control). Value is proportional to honesty — wishful thinking produces false confidence.</div><div class="card-ex">Netflix DVD-era: Strength = customer loyalty; Weakness = physical media dependence; Opportunity = streaming growth; Threat = digital competitors.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Ansoff Matrix</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Strategic tool assessing four growth options by risk level: Market Penetration (existing product + existing market — LOWEST risk), Product Development (new product + existing market), Market Development (existing product + new market), Diversification (new product + new market — HIGHEST risk).</div><div class="card-ex">Risk increases every time you cross into a new market or new product category.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">BCG Growth-Share Matrix</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Portfolio tool classifying products/businesses by market growth rate and market share: Stars (high growth, high share — invest), Cash Cows (low growth, high share — harvest), Question Marks (high growth, low share — decide), Dogs/Pets (low growth, low share — divest).</div><div class="card-ex">Use Cash Cow profits to fund Stars; evaluate Question Marks; exit Dogs.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">KPIs (Key Performance Indicators)</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Measurement tools that tell marketers when they have achieved key points of success AND allow them to recognize areas that are off-track in time to correct them. Essential for marketing plan control. Dashboard of a strategy.</div><div class="card-ex">If objective is +5% market share in 12 months, KPIs might include monthly new customer acquisition, competitive win rate, and brand awareness tracking.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Implementation Plan</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The roadmap of activities, budgets, timelines, and milestones needed to execute the marketing plan. Translates strategy into operational reality — who does what, when, and with what resources. Makes objectives achievable.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Competitive Market Structures</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Four structures: Pure Competition (many sellers, identical products — distribution differentiates), Monopolistic Competition (many sellers, substitutable — promotions differentiate), Oligopoly (few sellers, most sales — quality/service differentiates), Monopoly (one seller, regulated — marketing minimal).</div></div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIO LAB -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-lab">🔬</div>
+    <div><div class="section-label">Module 2</div><div class="section-title">Scenario Lab — Strategy in Action</div></div>
+  </div>
+  <div class="scenario-progress">
+    <div class="progress-track"><div class="progress-fill" id="prog-t3-lab"></div></div>
+    <div class="progress-label" id="prog-t3-lab-txt">0 / 5 answered</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 01</div>
+      <div class="scenario-text">A marketing director writes: "Our strategy for Q3 is to post three times per week on Instagram and run two email campaigns per month." A junior team member responds that this isn't a strategy. Who is correct, and why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t3','1','A','B')" id="t3-1-A"><span class="choice-label">A</span> The director is correct — posting schedules and email frequency are strategic decisions about resource allocation.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','1','B','B')" id="t3-1-B"><span class="choice-label">B</span> The junior team member is correct — these are tactics (specific, executable actions), not a strategy (directional approach to achieving an objective).</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','1','C','B')" id="t3-1-C"><span class="choice-label">C</span> Both are correct — strategy and tactics can be the same thing at different levels of the organization.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','1','D','B')" id="t3-1-D"><span class="choice-label">D</span> The junior is partially right — these are objectives, not strategies.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t3-1">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      Posting three times per week and running two email campaigns are TACTICS — specific, executable, day-to-day actions. A strategy would say something like: "Build an authentic community among Gen Z fitness enthusiasts through social platforms they trust, using peer content and challenge formats that drive organic sharing." THAT directional approach is a strategy. The specific tactics (what platform, how often, what content format) would flow from that strategy. The most common mistake is writing tactics when asked for strategies.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 02</div>
+      <div class="scenario-text">A running shoe brand with strong brand loyalty and premium positioning decides to launch a line of tennis racquets. Using the Ansoff Matrix, where does this decision sit — and what does that mean for risk?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t3','2','A','D')" id="t3-2-A"><span class="choice-label">A</span> Market Penetration — the brand is expanding within its existing customer base, which is lowest risk.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','2','B','D')" id="t3-2-B"><span class="choice-label">B</span> Product Development — they're creating a new product for their existing running customer base.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','2','C','D')" id="t3-2-C"><span class="choice-label">C</span> Market Development — they're taking an existing product (athletic gear) into a new market (tennis).</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','2','D','D')" id="t3-2-D"><span class="choice-label">D</span> Diversification — both the product (racquets vs. shoes) and the market (tennis players vs. runners) are new, making this the highest-risk quadrant.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t3-2">
+      <div class="feedback-label">✓ Correct! Option D is right.</div>
+      Diversification occurs when a company pursues BOTH a new product AND a new market simultaneously — the highest-risk Ansoff quadrant. The shoe brand has no expertise in making racquets (new product) and no existing relationship with tennis players (new market). Compare this to Product Development (making running apparel for existing runners — new product, existing market) which would be lower risk because the customer relationship is already established. Risk increases every time you cross a new axis in the Ansoff Matrix.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 03</div>
+      <div class="scenario-text">A marketing team presents their SWOT with these entries: Strengths — "We have great employees and a good culture." Weaknesses — "Sometimes we could communicate better internally." A consultant calls this SWOT "useless." Why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t3','3','A','C')" id="t3-3-A"><span class="choice-label">A</span> The SWOT only lists two factors — it needs at least five per quadrant to be valid.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','3','B','C')" id="t3-3-B"><span class="choice-label">B</span> The SWOT mixes internal and external factors — strengths and weaknesses should be external.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','3','C','C')" id="t3-3-C"><span class="choice-label">C</span> The entries are not specific competitive advantages or evidence-based weaknesses — they're generic aspirations and softened assessments that won't drive meaningful strategic decisions.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','3','D','C')" id="t3-3-D"><span class="choice-label">D</span> The SWOT doesn't include any references to competitors — all SWOT entries must reference the competitive landscape.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t3-3">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      "We have great employees" is not a competitive strength — it's an aspiration that virtually every company claims. A real strength is something specific and advantageous vs. competitors: "Our customer retention rate (94%) exceeds the industry average (70%)." Similarly, "we could communicate better" softens a real weakness into something non-actionable. A SWOT's value is directly proportional to its honesty. Vague entries produce vague strategy. The consultant's critique is about specificity and evidence — not quantity or structure.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 04</div>
+      <div class="scenario-text">Netflix's decision to invest in streaming in 2007 while still operating a successful DVD-by-mail business is best described as which Ansoff Matrix strategy — and what drove it?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t3','4','A','B')" id="t3-4-A"><span class="choice-label">A</span> Market Penetration — Netflix was deepening its presence with existing customers by offering more ways to consume content.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','4','B','B')" id="t3-4-B"><span class="choice-label">B</span> Market Development — Netflix took its existing competency (content delivery and curation) into a new market/channel (streaming) to reach existing and new audiences.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','4','C','B')" id="t3-4-C"><span class="choice-label">C</span> Diversification — streaming is a completely different product in a completely different market from DVD rental.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','4','D','B')" id="t3-4-D"><span class="choice-label">D</span> Product Development — Netflix created an entirely new product (streaming) for its existing customer base.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t3-4">
+      <div class="feedback-label">✓ Note: This is a genuinely debatable classification.</div>
+      This question has legitimate arguments for both B (Market Development — same content, new delivery channel/market) and D (Product Development — new delivery method for existing customers). The strongest argument is D: Netflix's existing subscribers were the target, and streaming was a new product/service offering for them. The key SWOT insight that drove the decision: Opportunity (growing internet speeds, digital lifestyle) + Weakness (physical media dependence) = the streaming strategy was both necessary and possible. Their honest SWOT forced the move.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 05</div>
+      <div class="scenario-text">A large consumer electronics company has four products: (1) Wireless earbuds — growing 35% per year, market leader. (2) Desktop computers — declining market, they still lead. (3) Smart home hub — growing market, they have 8% share. (4) Fax machines — declining market, minimal share. Using the BCG Matrix, correctly classify all four.</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t3','5','A','A')" id="t3-5-A"><span class="choice-label">A</span> Earbuds = Star, Desktops = Cash Cow, Smart Home Hub = Question Mark, Fax = Dog.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','5','B','A')" id="t3-5-B"><span class="choice-label">B</span> Earbuds = Star, Desktops = Dog, Smart Home Hub = Star, Fax = Cash Cow.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','5','C','A')" id="t3-5-C"><span class="choice-label">C</span> Earbuds = Cash Cow, Desktops = Star, Smart Home Hub = Dog, Fax = Question Mark.</button>
+      <button class="choice-btn" onclick="checkMCQ('t3','5','D','A')" id="t3-5-D"><span class="choice-label">D</span> Earbuds = Question Mark, Desktops = Cash Cow, Smart Home Hub = Star, Fax = Dog.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t3-5">
+      <div class="feedback-label">✓ Correct! Option A is right.</div>
+      BCG Matrix: High growth + high share = Star (Earbuds: growing 35%, market leader → invest). Low growth + high share = Cash Cow (Desktops: declining market, still leading → harvest profits, fund Stars). High growth + low share = Question Mark (Smart Home Hub: growing market, only 8% share → decide: invest to win, or exit?). Low growth + low share = Dog (Fax: declining market, minimal share → divest or let die). Strategic implication: Use Desktop profits (Cash Cow) to fund Earbuds growth (Star) and potentially the Smart Home Hub (Question Mark).
+    </div>
+  </div>
+
+  <!-- QUICK CHECK -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-check">✅</div>
+    <div><div class="section-label">Module 3</div><div class="section-title">Quick Check — True or False?</div></div>
+  </div>
+  <div id="qcheck-t3">
+    <div class="qcheck-block">
+      <div class="qcheck-statement">1. Objectives, strategies, and tactics are essentially different words for the same concept — they all refer to what a marketing team plans to do.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t3','1',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t3','1',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t3-1"><div class="explain-verdict verdict-f">FALSE</div>These are distinct concepts operating at different time horizons and levels of specificity. Objectives = WHAT (measurable long-term outcomes, measured in years). Strategies = HOW (directional approaches, measured in months). Tactics = specific actions (day-to-day/week-to-week execution). The analogy: Objective = your destination city. Strategy = the route you take. Tactics = specific turns, speed, and stops along the way. Confusing them is one of the most common mistakes in marketing planning.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">2. In a SWOT analysis, regulatory changes that restrict how a company can advertise would be classified as a Threat.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t3','2',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t3','2',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t2-2-alt"><div class="explain-verdict verdict-t">TRUE</div>Regulatory changes are external factors outside the company's control. If they negatively affect the company's operations or competitive position — such as restricting advertising methods the company relies on — they classify as Threats. If the same regulatory change restricted competitors more than your company (perhaps you already use compliant methods), the same change could be an Opportunity. The classification depends on the impact on YOUR company's position.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">3. The BCG Matrix would advise investing heavily in "Dog" products because they represent untapped growth potential.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t3','3',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t3','3',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t3-3"><div class="explain-verdict verdict-f">FALSE</div>Dogs (low growth, low market share) represent the opposite of untapped potential — they're in declining markets where the company is also a weak competitor. The BCG Matrix recommendation for Dogs is to DIVEST (sell or shut down) or harvest whatever remaining value exists, then stop investing. The resources freed from Dogs should be redirected to Stars and selective Question Marks. Investing heavily in Dogs is described as "throwing good money after bad."</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">4. Situation analysis should come BEFORE setting marketing objectives — you must diagnose the situation before prescribing a strategy.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t3','4',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t3','4',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t3-4"><div class="explain-verdict verdict-t">TRUE</div>This is the core principle of the strategic planning sequence: diagnose before prescribing. A doctor doesn't prescribe medication before examining the patient. A marketer shouldn't set objectives before understanding where the organization currently stands relative to the market, competitors, consumers, and internal capabilities. The situation analysis produces the evidence that makes objectives realistic and strategies grounded in actual conditions.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">5. Moving from Market Penetration to Diversification in the Ansoff Matrix increases risk because both the product and the market are new territory.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t3','5',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t3','5',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t3-5"><div class="explain-verdict verdict-t">TRUE</div>Market Penetration = existing product + existing market = lowest risk (you know the product and the customer). Diversification = new product + new market = highest risk (you know neither the product nor the customer). Risk increases every time you cross into unfamiliar territory. Market Development and Product Development are intermediate risks — you're unfamiliar with one dimension (either the market or the product) but have existing knowledge in the other.</div>
+    </div>
+
+    <div class="score-banner" id="score-t3" style="display:none">
+      <div><div class="score-display" id="score-t3-num"></div><div class="score-label">Quick Check Score</div></div>
+      <div class="score-msg" id="score-t3-msg"></div>
+      <button class="retry-btn" onclick="retryQCheck('t3')">↺ Retry</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 4 — CH3 PART 2: SEGMENTATION & MARKETING MIX
+═══════════════════════════════════════════════════ -->
+<section id="tab-t4" class="tab-panel">
+  <div class="panel-header">
+    <div class="panel-chapter">Week 4 · Class 8 · Chapter 3</div>
+    <div class="panel-title">Segmentation, Targeting, Positioning &amp; the Marketing Mix</div>
+    <div class="panel-desc">4 segmentation types · Target market criteria · Buyer personas · Differentiation · Positioning · SMART goals · 4Ps + 7Ps</div>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="section-header">
+    <div class="section-icon icon-terms">🃏</div>
+    <div><div class="section-label">Module 1</div><div class="section-title">Key Terms — Click any card to flip</div></div>
+  </div>
+  <div class="cards-controls"><button class="reset-btn" onclick="resetCards('t4')">↺ Reset All Cards</button></div>
+  <div class="cards-grid" id="cards-t4">
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Market Segmentation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Dividing the entire available market into groups of consumers with similar characteristics. Principle: narrowing your focus increases the power of your message. "The more you focus, the stronger your brand becomes — because you stand for something." (Al Ries)</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Geographic Segmentation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Narrows the market by WHERE consumers are — country, region, city, zip code, or climate. Broadest form of segmentation.</div><div class="card-ex">A restaurant targets customers within a 5-mile radius. A solar panel company focuses on high-sun states.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Demographic Segmentation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Narrows by WHO consumers are — age, gender, income, ethnicity, education, occupation, marital status, household size, birth era (Boomers, Millennials, Gen Z). Most commonly used because demographic data is abundant.</div><div class="card-ex">Restaurant targets families with children, household income $65K+.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Psychographic Segmentation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Narrows by HOW consumers think — values, beliefs, personality, social status, activities, interests, opinions, political leanings. Goes beyond who someone IS to how they see themselves and the world.</div><div class="card-ex">Restaurant campaign emphasizes clean, fun, family environment for health-conscious parents — same demographic, different psychographic.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Behavioral Segmentation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Narrows by WHAT consumers DO — purchase occasions, loyalty status, usage rate, benefits sought, buyer-readiness stage. The most predictive form of segmentation: past behavior predicts future behavior. 80/20 rule: 80% of sales from 20% of customers.</div><div class="card-ex">Loyalty program data reveals which customers visit most often and what they order.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Target Market</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">The specific segment of the population selected by the company to direct its marketing efforts toward. Must be: most likely to buy, large enough for revenue goals, reachable through channels, NOT fiercely loyal to a competitor, profitable to serve.</div><div class="card-ex">Mastercard targeted "Good Revolvers" — responsible everyday credit users ignored by Amex and Visa.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Buyer Persona</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A constructed representation of the ideal buyer with all traits of the target segment — demographics, lifestyle, media habits, consumption patterns, professional role, and emotional drivers. Used to filter every marketing decision: "Would this resonate with [Persona Name]?"</div><div class="card-ex">"Sarah, 34, marketing manager, $95K HHI, two kids, drives a Honda CRV, reads Fast Company, shops at Target."</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Differentiation</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Creating points of difference in the consumer's mind that allow a company to stand out from competitors. Must be based on ADDED VALUE (above expectations), not expected value (good service is expected — not a differentiator). Three paths: price, customer service, brand image.</div><div class="card-ex">Dawn differentiates by cleaning wildlife harmed by oil spills — emotional brand integrity above product function.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Positioning</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Owning a unique and compelling spot in the consumer's mind different from any competitor. "Positioning is not what you do to a product. It's what you do to the MIND of the prospect." (Ries &amp; Trout). Happens whether you plan it or not — position deliberately before someone else does.</div><div class="card-ex">Mastercard positioned itself as the card for meaningful everyday moments — territory Amex and Visa didn't own.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Repositioning</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Changing the place a product or brand occupies in the consumer's mind relative to competitors. Needed when: position is unfavorable, brand wants to expand into new areas, or mission has significantly changed. Requires time, consistency, and investment.</div><div class="card-ex">Apple repositioned from "computer company for creative professionals" to "lifestyle technology brand for everyone" via the iPod.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">Perceptual Map</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">A visualization tool using two axes to graph the position of a brand compared to competitors based on consumer perceptions. Reveals: who occupies competing positions, where market gaps exist, and where new positioning opportunities are available.</div><div class="card-ex">X-axis = Price (Low→High), Y-axis = Quality (Low→High). An empty High Quality / Low Price quadrant signals an opportunity.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">SMART Goals</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Specific, Measurable, Achievable, Relevant, Time-Bound. Created by George Doran (1981). Transforms ambitious but vague intentions into concrete, accountable plans with clear milestones and measurement criteria.</div><div class="card-ex">Weak: "Grow revenue." SMART: "Increase monthly subscription revenue by 20% within 18 months by expanding into the small business segment."</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">The 4 Ps (Marketing Mix)</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Product (what you sell — tangible or intangible, features, packaging), Price (what customers pay — must account for competitiveness, perceived value, cost, margin), Place (how customers access it — distribution channels, logistics), Promotion (how consumers learn about it — advertising, PR, events, digital).</div><div class="card-ex">All four Ps must align with each other AND with the target market and positioning strategy.</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">The Extended 7 Ps (Services)</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Services add three Ps to the classic four: People (front-line employees ARE the service experience), Process (systems ensuring consistent experience across every interaction and location), Physical Evidence (the tangible elements consumers see/touch/feel that signal quality).</div><div class="card-ex">Starbucks: People (trained baristas), Process (standardized drink prep), Physical Evidence (store design identical worldwide).</div></div>
+    </div>
+
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="card-front"><div class="card-term">VALS / PRIZM / Tapestry</div><div class="card-hint">↻ tap to flip</div></div>
+      <div class="card-back"><div class="card-def">Pre-built segmentation systems: VALS (8 psychographic types by motivation and resources), PRIZM/Claritas (68 lifestyle segments combining demographics, behavior, geography), Tapestry/ESRI (67 neighborhood segments). Save research time by providing ready-to-use segmentation profiles.</div><div class="card-ex">VALS "Strivers" buy above their means to project status. PRIZM "Young Achievers" = ideal target for tech startups.</div></div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIO LAB -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-lab">🔬</div>
+    <div><div class="section-label">Module 2</div><div class="section-title">Scenario Lab — Segmentation &amp; Positioning</div></div>
+  </div>
+  <div class="scenario-progress">
+    <div class="progress-track"><div class="progress-fill" id="prog-t4-lab"></div></div>
+    <div class="progress-label" id="prog-t4-lab-txt">0 / 5 answered</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 01</div>
+      <div class="scenario-text">A direct-to-consumer mattress brand has identified two potential target segments: (A) adults 25–45 with back pain who prioritize sleep quality and will pay a premium, and (B) all adults who sleep on a mattress. Their marketing budget is $200,000. A strategist argues strongly for Segment A. What is the PRIMARY strategic reason to choose the narrower segment?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t4','1','A','C')" id="t4-1-A"><span class="choice-label">A</span> Segment A is larger and therefore generates more total revenue potential.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','1','B','C')" id="t4-1-B"><span class="choice-label">B</span> Segment B is already served by competitors, making it an unattractive target.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','1','C','C')" id="t4-1-C"><span class="choice-label">C</span> A $200K budget concentrated on Segment A's specific pain point (sleep quality + back pain) will produce more resonant messaging, more efficient media buys, and higher conversion than the same budget spread thin across all sleeping adults.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','1','D','C')" id="t4-1-D"><span class="choice-label">D</span> Segment A requires less product development investment than serving all adults.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t4-1">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      This is the resource allocation argument for focus. Segment B ("all adults who sleep") contains every competitor's target — the messaging must be generic to reach everyone, and $200K spread across that universe produces minimal impact. Segment A allows the brand to speak directly to a specific unmet need (back pain + sleep quality), use targeted media channels (health publications, orthopedic forums, sleep-specialist influencers), and build a brand that means something specific to a group likely to buy, pay a premium, and refer others. Focus doesn't limit revenue — it concentrates the resources needed to earn it.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 02</div>
+      <div class="scenario-text">Two dish soap brands, Dawn and Mrs. Meyer's, are both more expensive than the generic store brand yet maintain strong customer loyalty. What type of differentiation does each primarily use, and what does this illustrate about differentiation strategy?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t4','2','A','D')" id="t4-2-A"><span class="choice-label">A</span> Both use price differentiation — premium pricing signals higher quality and justifies the cost premium.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','2','B','D')" id="t4-2-B"><span class="choice-label">B</span> Both use product differentiation — their cleaning formulas are measurably superior to competitors.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','2','C','D')" id="t4-2-C"><span class="choice-label">C</span> Dawn uses customer service differentiation; Mrs. Meyer's uses product differentiation.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','2','D','D')" id="t4-2-D"><span class="choice-label">D</span> Dawn uses brand image/social purpose differentiation (wildlife cause); Mrs. Meyer's uses brand image/values differentiation (green/organic). Both illustrate that differentiation doesn't require a better product — it requires a better story that resonates with a specific audience's values.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t4-2">
+      <div class="feedback-label">✓ Correct! Option D is right.</div>
+      Dawn's differentiation is emotional brand integrity — using the same formula to clean wildlife contaminated by oil spills creates a values association that transcends the functional product. Mrs. Meyer's plant-derived ingredients and recyclable packaging appeal to environmentally conscious consumers. Neither claim is purely about superior cleaning power — they're about what the brand stands for. This illustrates a crucial differentiation principle: you don't need a superior product to command a premium — you need a superior story that connects to what your target audience values.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 03</div>
+      <div class="scenario-text">A fitness app brand writes this as their positioning statement: "For health-conscious consumers, we offer a high-quality, convenient workout solution at a fair price." A marketing professor circles this and writes "NOT a positioning statement — try again." Why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t4','3','A','B')" id="t4-3-A"><span class="choice-label">A</span> The statement doesn't mention the company's name or logo — positioning requires explicit brand identification.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','3','B','B')" id="t4-3-B"><span class="choice-label">B</span> The statement contains no differentiator — "quality, convenient, fair price" are claims every competitor makes and are expected values, not added values. The statement describes no unique position in the market.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','3','C','B')" id="t4-3-C"><span class="choice-label">C</span> Positioning statements should focus on price — the statement mixes price with quality, which creates a confused position.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','3','D','B')" id="t4-3-D"><span class="choice-label">D</span> The target audience is too broad — "health-conscious consumers" is not specific enough to write a positioning statement.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t4-3">
+      <div class="feedback-label">✓ Correct! Option B is right.</div>
+      "Quality, convenient, and fair price" are EXPECTED values — they're the minimum consumers expect from any product worth considering. A positioning statement must identify ADDED value — what this brand delivers above and beyond the baseline that no competitor can legitimately claim. Ries and Trout define positioning as "what you do to the mind of the prospect" — and this statement doesn't give any consumer a reason to mentally place this brand in a distinct, memorable position. The fix: identify the one thing this app does that competitors don't, and build the statement around that.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 04</div>
+      <div class="scenario-text">A national hotel chain wants to win over business travelers. Their marketing plan includes: a comfortable lobby, free Wi-Fi, and friendly staff. A branding consultant says these 4Ps decisions are strategically weak. Why?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t4','4','A','C')" id="t4-4-A"><span class="choice-label">A</span> The chain should focus only on price — business travelers are purely cost-driven.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','4','B','C')" id="t4-4-B"><span class="choice-label">B</span> These decisions don't address the Promotion P — the plan has no advertising component.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','4','C','C')" id="t4-4-C"><span class="choice-label">C</span> Comfortable lobby, free Wi-Fi, and friendly staff are expected values that every competitor also offers — they don't differentiate or create a position. The 4Ps must be connected to a genuine differentiator and the target market's specific unmet needs.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','4','D','C')" id="t4-4-D"><span class="choice-label">D</span> The plan focuses on the service 7Ps without addressing the basic 4Ps first — that's the wrong order.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t4-4">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      "Comfortable lobby, free Wi-Fi, friendly staff" describe what EVERY business hotel offers. These are expected values — they're the price of admission. Business travelers are not going to choose one hotel over another because it has Wi-Fi. They choose based on differentiators: guaranteed late check-in, 24-hour room service, proximity to airports and convention centers, elite loyalty program, or specific workspace design. The 4Ps must be connected to what the target market (business travelers) actually needs that competitors don't deliver. That connection is what makes them strategically strong, not just competent.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="scenario-block">
+    <div class="scenario-q">
+      <div class="scenario-num">Scenario 05</div>
+      <div class="scenario-text">A marketing director sets this goal for her team: "We want to significantly increase our social media following in the next year." A mentor says this fails the SMART test. Which letter(s) of SMART does it fail, and what would a SMART version look like?</div>
+    </div>
+    <div class="scenario-choices">
+      <button class="choice-btn" onclick="checkMCQ('t4','5','A','C')" id="t4-5-A"><span class="choice-label">A</span> It fails only T (Time-bound) — it says "next year" which is too vague without a specific date.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','5','B','C')" id="t4-5-B"><span class="choice-label">B</span> It fails only M (Measurable) — "significantly increase" is not a specific number.</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','5','C','C')" id="t4-5-C"><span class="choice-label">C</span> It fails S (Specific), M (Measurable), and implicitly A (Achievable, since there's no baseline). A SMART version: "Grow Instagram followers from 12,400 to 25,000 by December 31 by deploying a weekly Reels strategy and partnering with three micro-influencers per quarter."</button>
+      <button class="choice-btn" onclick="checkMCQ('t4','5','D','C')" id="t4-5-D"><span class="choice-label">D</span> It fails R (Relevant) — social media followers don't relate to business revenue objectives.</button>
+    </div>
+    <div class="scenario-feedback" id="fb-t4-5">
+      <div class="feedback-label">✓ Correct! Option C is right.</div>
+      "Significantly increase" fails S (what platform? what type of followers? what's the starting point?) and M (significantly by how much? there's no number to track against). Without a baseline and a specific target, there's no way to know what "achieved" looks like or to set meaningful milestones. The SMART version (12,400 → 25,000 by Dec 31 via Reels + micro-influencers) passes all five tests: Specific (Instagram, follower count, strategy type), Measurable (exact numbers), Achievable (roughly 2x growth is ambitious but realistic with the right tactics), Relevant (social growth supports brand awareness), and Time-Bound (December 31).
+    </div>
+  </div>
+
+  <!-- QUICK CHECK -->
+  <hr class="section-divider">
+  <div class="section-header">
+    <div class="section-icon icon-check">✅</div>
+    <div><div class="section-label">Module 3</div><div class="section-title">Quick Check — True or False?</div></div>
+  </div>
+  <div id="qcheck-t4">
+    <div class="qcheck-block">
+      <div class="qcheck-statement">1. Behavioral segmentation is generally the most PREDICTIVE form of segmentation because past behavior is the strongest indicator of future behavior.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t4','1',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t4','1',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t4-1"><div class="explain-verdict verdict-t">TRUE</div>Behavioral segmentation tracks what people actually DO — purchase history, loyalty status, usage rate, benefits sought. Actual behavior is far more predictive than demographics (who someone is) or psychographics (how they think), because it captures what people have already demonstrated they will do. The 80/20 rule (80% of sales from 20% of customers) is a behavioral insight — and loyalty programs exist specifically to identify and nurture those high-value behavioral segments.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">2. The 7Ps of marketing (adding People, Process, and Physical Evidence) are relevant for ALL businesses — not just service companies.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t4','2',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t4','2',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t4-2"><div class="explain-verdict verdict-f">FALSE — with nuance.</div>The 7Ps extension is specifically designed for SERVICE businesses where the experience IS the product. People, Process, and Physical Evidence matter most when the quality of the service delivery is what the customer is paying for and evaluating. For pure physical product companies (like a manufacturer selling widgets through distributors), the classic 4Ps are typically sufficient. The 7Ps become essential when there's significant human interaction in the delivery of value — hotels, restaurants, healthcare, consulting, education.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">3. A perceptual map shows how consumers actually perceive brands, which may differ significantly from how the brands wish to be perceived.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t4','3',true,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t4','3',false,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t4-3"><div class="explain-verdict verdict-t">TRUE</div>A perceptual map is built on consumer research — it shows how consumers position brands in their minds, not how companies position themselves in their marketing materials. This distinction matters: a company may believe it occupies a "high-quality, affordable" position, but if consumers perceive it as low-quality and overpriced, the map will show that reality. This is why repositioning is so challenging — you're not changing the product, you're changing beliefs that consumers have already formed.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">4. VALS, PRIZM, and Tapestry are primarily geographic segmentation tools — they segment consumers based on where they live.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t4','4',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t4','4',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t4-4"><div class="explain-verdict verdict-f">FALSE</div>While PRIZM and Tapestry incorporate geographic data (zip codes, neighborhoods), all three tools are multi-dimensional — they combine geographic, demographic, psychographic, and behavioral data into unified consumer profiles. VALS is primarily psychographic (values, attitudes, lifestyles). PRIZM and Tapestry use geography as an organizing structure but classify consumers by lifestyle, behavior, and socioeconomic characteristics that go well beyond simply where someone lives. Their power is precisely in combining multiple segmentation dimensions into a single actionable profile.</div>
+    </div>
+
+    <div class="qcheck-block">
+      <div class="qcheck-statement">5. If a company doesn't deliberately position its brand, the brand will have no position in consumers' minds — it simply remains neutral.</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF('t4','5',false,this,'True')">True</button>
+        <button class="tf-btn" onclick="checkTF('t4','5',true,this,'False')">False</button>
+      </div>
+      <div class="qcheck-explain" id="tfe-t4-5"><div class="explain-verdict verdict-f">FALSE</div>Brands are positioned whether or not the company does it deliberately. If a company doesn't control its positioning, competitors, the media, social networks, and consumers will define it instead — often unfavorably. A brand without deliberate positioning might be "the cheap option," "the confusing brand," or "the one that's not as good as [Competitor X]." Ries and Trout argue that this is why positioning must be proactive: "If you don't position yourself, your competition will position you." Deliberate positioning is not optional — it's what protects the brand from being defined by default.</div>
+    </div>
+
+    <div class="score-banner" id="score-t4" style="display:none">
+      <div><div class="score-display" id="score-t4-num"></div><div class="score-label">Quick Check Score</div></div>
+      <div class="score-msg" id="score-t4-msg"></div>
+      <button class="retry-btn" onclick="retryQCheck('t4')">↺ Retry</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  MKT 315 — Principles of Marketing &nbsp;·&nbsp; Topic 2 Study Tool &nbsp;·&nbsp; Grand Canyon University &nbsp;·&nbsp; For educational use only
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════ */
+function showTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════════════════
+   FLASHCARD RESET
+══════════════════════════════════════════════ */
+function resetCards(tabId) {
+  document.querySelectorAll('#cards-' + tabId + ' .flashcard').forEach(c => c.classList.remove('flipped'));
+}
+
+/* ══════════════════════════════════════════════
+   MCQ SCENARIO CHECKER
+══════════════════════════════════════════════ */
+var labAnswered = { t1: 0, t2: 0, t3: 0, t4: 0 };
+var labTotal    = { t1: 5, t2: 5, t3: 5, t4: 5 };
+
+function checkMCQ(tab, qNum, selected, correct) {
+  var prefix = tab + '-' + qNum + '-';
+  var letters = ['A','B','C','D'];
+
+  // Disable all buttons
+  letters.forEach(function(l) {
+    var btn = document.getElementById(prefix + l);
+    if (!btn) return;
+    btn.disabled = true;
+    if (l === correct) {
+      btn.classList.add('correct');
+    } else if (l === selected && selected !== correct) {
+      btn.classList.add('wrong');
+    } else if (l !== selected) {
+      btn.classList.add('revealed');
+    }
+  });
+
+  // Show feedback
+  var fb = document.getElementById('fb-' + tab + '-' + qNum);
+  if (fb) {
+    fb.classList.add('show');
+    fb.className = 'scenario-feedback show ' + (selected === correct ? 'feedback-correct' : 'feedback-wrong');
+    if (selected !== correct) {
+      var label = fb.querySelector('.feedback-label');
+      if (label) label.textContent = '✗ Not quite. Here\'s the correct answer (' + correct + '):';
+    }
+  }
+
+  // Update progress
+  labAnswered[tab]++;
+  var pct = (labAnswered[tab] / labTotal[tab]) * 100;
+  var bar = document.getElementById('prog-' + tab + '-lab');
+  var txt = document.getElementById('prog-' + tab + '-lab-txt');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = labAnswered[tab] + ' / ' + labTotal[tab] + ' answered';
+}
+
+/* ══════════════════════════════════════════════
+   TRUE/FALSE CHECKER
+══════════════════════════════════════════════ */
+var tfScores = { t1: { correct: 0, total: 0, max: 5 }, t2: { correct: 0, total: 0, max: 5 },
+                 t3: { correct: 0, total: 0, max: 5 }, t4: { correct: 0, total: 0, max: 5 } };
+
+function checkTF(tab, qNum, isCorrect, clickedBtn, clickedLabel) {
+  var container = clickedBtn.parentElement;
+  var buttons   = container.querySelectorAll('.tf-btn');
+  var explainId = 'tfe-' + tab + '-' + qNum;
+  var explain   = document.getElementById(explainId);
+
+  buttons.forEach(function(b) { b.disabled = true; });
+
+  if (isCorrect) {
+    clickedBtn.classList.add('tf-correct');
+    tfScores[tab].correct++;
+  } else {
+    clickedBtn.classList.add('tf-wrong');
+    // highlight the correct one
+    buttons.forEach(function(b) {
+      if (b !== clickedBtn) b.classList.add('tf-correct');
+    });
+  }
+
+  if (explain) explain.classList.add('show');
+
+  tfScores[tab].total++;
+  if (tfScores[tab].total >= tfScores[tab].max) {
+    showScore(tab);
+  }
+}
+
+function showScore(tab) {
+  var s   = tfScores[tab];
+  var pct = Math.round((s.correct / s.max) * 100);
+  var scoreEl = document.getElementById('score-' + tab);
+  var numEl   = document.getElementById('score-' + tab + '-num');
+  var msgEl   = document.getElementById('score-' + tab + '-msg');
+  if (!scoreEl) return;
+
+  numEl.textContent = s.correct + '/' + s.max;
+  var msgs = {
+    5: "Perfect score! You've got this section locked in.",
+    4: "Strong work — review the one you missed before the exam.",
+    3: "Solid effort — a couple of these concepts are worth revisiting.",
+    2: "Make sure to re-read those sections and try the flashcards again.",
+    1: "Good start — review the key terms for this session and retry.",
+    0: "Let's revisit the flashcards and lecture slides, then try again."
+  };
+  msgEl.textContent = msgs[s.correct] || msgs[0];
+  scoreEl.style.display = 'flex';
+}
+
+function retryQCheck(tab) {
+  var container = document.getElementById('qcheck-' + tab);
+  if (!container) return;
+  container.querySelectorAll('.tf-btn').forEach(function(b) {
+    b.disabled = false;
+    b.classList.remove('tf-correct','tf-wrong');
+  });
+  container.querySelectorAll('.qcheck-explain').forEach(function(e) {
+    e.classList.remove('show');
+  });
+  tfScores[tab] = { correct: 0, total: 0, max: 5 };
+  var scoreEl = document.getElementById('score-' + tab);
+  if (scoreEl) scoreEl.style.display = 'none';
+}
+</script>
+</body>
+</html>
