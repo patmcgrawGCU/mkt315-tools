@@ -628,7 +628,7 @@
   }
 
   .missed-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif;modeQuiz
     font-size: 1.1rem;
     letter-spacing: 2px;
     color: var(--red);
@@ -815,7 +815,7 @@
 
 <nav class="mode-bar">
   <button class="mode-btn active" onclick="switchMode('home')" id="modeHome">🏠 Home</button>
-  <button class="mode-btn" onclick="switchMode('quiz')" id="modeQuiz">📝 Practice Quiz</button>
+  <button class="mode-btn" onclick="switchMode('quiz'); startQuiz('all')" id="modeQuiz">📝 Practice Quiz</button>
   <button class="mode-btn" onclick="switchMode('flashcards')" id="modeFlash">🃏 Flashcards</button>
   <button class="mode-btn" onclick="switchMode('guide')" id="modeGuide">📖 Study Guide</button>
 </nav>
