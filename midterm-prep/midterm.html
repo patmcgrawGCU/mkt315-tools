@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Midterm Prep: Topics 1–4</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#F0F3FA;color:#1A202C;min-height:100vh;line-height:1.6}
+.site-header{background:#0D1A3D;color:#fff;padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:18px 28px 14px;gap:16px;flex-wrap:wrap}
+.course-label{font-family:'Arial',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D4A017;margin-bottom:4px}
+.header-title{font-size:24px;font-weight:normal;color:#fff;line-height:1.2}
+.header-title strong{font-size:28px;display:block;margin-bottom:2px}
+.gcu-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:10px;background:rgba(255,255,255,.1);color:#AABBDD;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15)}
+.header-sub{padding:0 28px 14px;font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.header-sub span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:#D4A017;display:inline-block}
+.nav-bar{background:#fff;border-bottom:2px solid #E2E8F0;display:flex;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.nav-bar::-webkit-scrollbar{height:3px}
+.nav-bar::-webkit-scrollbar-thumb{background:#ccc}
+.nav-btn{padding:0 20px;height:52px;border:none;background:transparent;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:#4A5568;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.nav-btn:hover{color:#0D1A3D;background:#F8FAFF}
+.nav-btn.active{color:#0D1A3D;border-bottom-color:#D4A017}
+.tab-icon{font-size:15px}
+.panel{display:none;padding:28px;max-width:1040px;margin:0 auto}
+.panel.active{display:block}
+.section-hero{border-radius:12px;padding:24px 28px;margin-bottom:24px;color:#fff}
+.section-hero h2{font-size:22px;margin-bottom:5px}
+.section-hero p{font-family:'Arial',sans-serif;font-size:14px;color:rgba(255,255,255,.8);line-height:1.5}
+.session-pill{display:inline-block;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.module-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:24px}
+.module-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(13,26,61,.08);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.module-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(13,26,61,.13)}
+.module-header{padding:16px 18px 12px;display:flex;align-items:center;gap:13px}
+.module-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.mi-navy{background:#E8EDF8}.mi-teal{background:#E6F4F3}.mi-gold{background:#FDF6E3}.mi-forest{background:#E8F3EC}.mi-plum{background:#F3E8EF}.mi-rust{background:#FDEEE8}
+.module-meta h3{font-size:15px;font-family:'Arial',sans-serif;font-weight:700;color:#0D1A3D;margin-bottom:2px}
+.module-meta p{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0}
+.module-body{padding:0 18px 16px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.start-btn{display:inline-block;border:none;padding:8px 18px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:8px}
+.btn-navy{background:#0D1A3D;color:#fff}.btn-navy:hover{background:#060E22}
+.btn-teal{background:#0D7C74;color:#fff}.btn-teal:hover{background:#0A5E57}
+.btn-gold{background:#B8880F;color:#fff}.btn-gold:hover{background:#8F6A0B}
+.btn-forest{background:#1E5631;color:#fff}.btn-forest:hover{background:#143B22}
+.btn-plum{background:#6D2E46;color:#fff}.btn-plum:hover{background:#4E2032}
+.btn-rust{background:#8B3A1A;color:#fff}.btn-rust:hover{background:#6A2C13}
+.activity-wrap{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(13,26,61,.12);padding:26px;margin-bottom:24px}
+.activity-hidden{display:none!important}
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.progress-bar-track{flex:1;height:8px;background:#EDF2F7;border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:#0D1A3D;border-radius:4px;transition:width .4s ease}
+.progress-label{font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;white-space:nowrap}
+.score-display{font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;font-weight:600;text-align:right;margin-bottom:14px}
+.score-display span{color:#0D1A3D}
+.flashcard-scene{width:100%;height:240px;perspective:1200px;cursor:pointer;margin-bottom:18px}
+.flashcard-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.flashcard-inner.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.flashcard-front{background:#0D1A3D;color:#fff}
+.flashcard-back{background:#FDF6E3;border:2px solid #F0DC9A;transform:rotateY(180deg);color:#1A202C}
+.card-label{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:6px}
+.card-topic-pill{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:8px;display:inline-block}
+.card-term{font-size:20px;font-weight:bold;line-height:1.3;margin-bottom:6px}
+.card-def{font-family:'Arial',sans-serif;font-size:13px;line-height:1.5;color:#4A5568}
+.card-example{font-family:'Arial',sans-serif;font-size:12px;font-style:italic;margin-top:7px;padding-top:7px;border-top:1px solid #F0DC9A;color:#0D7C74}
+.flip-hint{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;text-align:center;margin-bottom:14px}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:14px}
+.card-nav button{background:#0D1A3D;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+.card-nav button:hover{background:#060E22}
+.card-nav button:disabled{background:#EDF2F7;color:#8A9BB0;cursor:not-allowed}
+.card-counter{font-family:'Arial',sans-serif;font-size:13px;color:#4A5568;font-weight:600;min-width:65px;text-align:center}
+.chapter-filter{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.filter-btn{padding:6px 16px;border-radius:20px;border:2px solid #E2E8F0;background:#fff;font-family:'Arial',sans-serif;font-size:12px;font-weight:600;color:#4A5568;cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:#0D1A3D;color:#0D1A3D}
+.filter-btn.active{background:#0D1A3D;color:#fff;border-color:#0D1A3D}
+.concept-tag{display:inline-block;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:12px;letter-spacing:.5px}
+.scenario-box{background:#EDF2F7;border-left:4px solid #0D7C74;padding:13px 16px;border-radius:0 8px 8px 0;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:16px;line-height:1.6}
+.question-text{font-size:16px;font-weight:bold;line-height:1.5;margin-bottom:6px;color:#0D1A3D}
+.options-list{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.opt-btn{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:12px 15px;font-family:'Arial',sans-serif;font-size:14px;color:#1A202C;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:11px;line-height:1.4;width:100%}
+.opt-btn:hover:not(:disabled){background:#EDF2F7;border-color:#0D1A3D}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-btn.correct{background:#DCFCE7;border-color:#166534;color:#166534}
+.opt-btn.wrong{background:#FEE2E2;border-color:#991B1B;color:#991B1B}
+.opt-btn.revealed{background:#EEF2FF;border-color:#0D1A3D}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:#0D1A3D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.opt-btn.correct .opt-letter{background:#166534}
+.opt-btn.wrong .opt-letter{background:#991B1B}
+.opt-btn.revealed .opt-letter{background:#4A5568}
+.feedback-box{border-radius:10px;padding:13px 16px;font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;margin-bottom:18px;display:none}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:#DCFCE7;border:1px solid #86EFAC;color:#166534}
+.feedback-box.wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#991B1B}
+.feedback-box strong{display:block;margin-bottom:3px;font-size:15px}
+.next-btn{background:#0D1A3D;color:#fff;border:none;padding:10px 26px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:none}
+.next-btn.show{display:inline-block}
+.next-btn:hover{background:#060E22}
+.results-box{text-align:center;padding:28px 20px}
+.results-score{font-size:56px;font-weight:bold;color:#0D1A3D;line-height:1;margin-bottom:6px}
+.results-label{font-family:'Arial',sans-serif;font-size:15px;color:#4A5568;margin-bottom:18px}
+.results-msg{font-size:15px;color:#1A202C;margin-bottom:22px;line-height:1.6}
+.reset-btn{background:#0D7C74;color:#fff;border:none;padding:11px 28px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s}
+.reset-btn:hover{background:#0A5E57}
+.back-btn{background:transparent;border:2px solid #E2E8F0;color:#4A5568;padding:7px 14px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-bottom:22px}
+.back-btn:hover{border-color:#0D1A3D;color:#0D1A3D}
+.tip-banner{background:#FDF6E3;border:1px solid #F0DC9A;border-radius:10px;padding:13px 16px;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:20px;display:flex;gap:11px;align-items:flex-start;line-height:1.5}
+.tip-icon{font-size:17px;flex-shrink:0}
+.terms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px;margin-bottom:24px}
+.term-card{background:#fff;border-radius:10px;padding:13px 15px;box-shadow:0 2px 8px rgba(13,26,61,.07)}
+.term-card.t1{border-left:4px solid #0D1A3D}.term-card.t2{border-left:4px solid #1E5631}.term-card.t3{border-left:4px solid #0D7C74}.term-card.t4{border-left:4px solid #6D2E46}
+.t-topic{font-family:'Arial',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:3px}
+.t-word{font-size:14px;font-weight:bold;margin-bottom:5px}
+.term-card.t1 .t-word{color:#0D1A3D}.term-card.t2 .t-word{color:#1E5631}.term-card.t3 .t-word{color:#0D7C74}.term-card.t4 .t-word{color:#6D2E46}
+.t-def{font-family:'Arial',sans-serif;font-size:12px;color:#4A5568;line-height:1.5}
+.info-section{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(13,26,61,.07);padding:22px 26px;margin-bottom:22px}
+.info-section h3{font-size:17px;color:#0D1A3D;margin-bottom:13px;display:flex;align-items:center;gap:9px}
+.info-icon-sq{width:30px;height:30px;background:#0D1A3D;color:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.info-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.info-chip{background:#F0F3FA;border-radius:8px;padding:11px 13px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.info-chip strong{display:block;color:#0D1A3D;font-size:13px;margin-bottom:2px}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.match-col-label{font-family:'Arial',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:8px}
+.match-items{display:flex;flex-direction:column;gap:7px}
+.match-item{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:10px 13px;font-family:'Arial',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;color:#1A202C;line-height:1.4}
+.match-item:hover{background:#EDF2F7;border-color:#0D1A3D}
+.match-item.selected{background:#E8EDF8;border-color:#0D1A3D;color:#0D1A3D;font-weight:600}
+.match-item.matched{background:#DCFCE7;border-color:#166534;color:#166534;cursor:default}
+.match-item.wrong-flash{background:#FEE2E2;border-color:#991B1B}
+.match-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.match-score-row span{font-weight:700;color:#0D1A3D}
+.site-footer{text-align:center;padding:22px;font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;background:#fff;border-top:1px solid #E2E8F0;margin-top:36px}
+@media(max-width:640px){.panel{padding:16px}.header-top{padding:14px}.match-grid{grid-template-columns:1fr}.module-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="course-label">MKT 315 · Midterm Prep</div>
+      <div class="header-title"><strong>Topics 1–4 Study Tool</strong>Complete Midterm Review</div>
+    </div>
+    <div class="header-right"><div class="gcu-badge">Grand Canyon University · Fall 2026</div></div>
+  </div>
+  <div class="header-sub">
+    <span><span class="dot"></span> Topics 1–4 · All Chapters</span>
+    <span><span class="dot"></span> 45 Exam Concepts Covered</span>
+    <span><span class="dot"></span> 100+ Practice Questions</span>
+    <span><span class="dot"></span> No internet needed</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showPanel('home')" id="btn-home"><span class="tab-icon">🏠</span> Start Here</button>
+  <button class="nav-btn" onclick="showPanel('terms')" id="btn-terms"><span class="tab-icon">📖</span> Key Terms</button>
+  <button class="nav-btn" onclick="showPanel('flashcards')" id="btn-flashcards"><span class="tab-icon">🃏</span> Flashcards</button>
+  <button class="nav-btn" onclick="showPanel('practice')" id="btn-practice"><span class="tab-icon">💡</span> Practice Sets</button>
+  <button class="nav-btn" onclick="showPanel('quiz')" id="btn-quiz"><span class="tab-icon">✅</span> Full Quiz</button>
+  <button class="nav-btn" onclick="showPanel('matching')" id="btn-matching"><span class="tab-icon">🔗</span> Matching</button>
+</nav>
+
+<!-- HOME -->
+<div class="panel active" id="panel-home">
+  <div class="section-hero" style="background:#0D1A3D">
+    <div class="session-pill" style="background:#D4A017;color:#0D1A3D">Midterm Prep · Topics 1–4</div>
+    <h2>Your Complete Midterm Study Hub</h2>
+    <p>Built from the exact concepts your midterm tests — marketing foundations, research &amp; strategy, consumer behavior, and products &amp; services. Every question uses fresh scenarios so you practice applying concepts, not memorizing answers.</p>
+  </div>
+  <div class="tip-banner">
+    <span class="tip-icon">📥</span>
+    <span><strong>How to use this tool:</strong> Download this file from your Canvas announcement, then open it in Chrome or any browser. No internet needed. Start with Flashcards to lock in definitions, then work through Practice Sets by topic, then take the Full Quiz under timed pressure.</span>
+  </div>
+  <div class="module-row">
+    <div class="module-card" onclick="showPanel('terms')">
+      <div class="module-header"><div class="module-icon mi-navy">📖</div><div class="module-meta"><h3>Key Terms</h3><p>48 terms across all 4 topics</p></div></div>
+      <div class="module-body">Every vocabulary word your midterm tests, organized by topic with color-coding. Filter by topic or browse everything.</div>
+      <button class="start-btn btn-navy" onclick="showPanel('terms')">Browse Terms</button>
+    </div>
+    <div class="module-card" onclick="showPanel('flashcards')">
+      <div class="module-header"><div class="module-icon mi-teal">🃏</div><div class="module-meta"><h3>Flashcards</h3><p>40 flip cards · all topics</p></div></div>
+      <div class="module-body">Click to flip. Front = concept. Back = definition + real example. Filter by topic to focus your review. Covers every concept tested on the exam.</div>
+      <button class="start-btn btn-teal" onclick="showPanel('flashcards')">Start Flashcards</button>
+    </div>
+    <div class="module-card" onclick="showPanel('practice')">
+      <div class="module-header"><div class="module-icon mi-forest">💡</div><div class="module-meta"><h3>Practice Sets</h3><p>4 topic sets · 5 questions each</p></div></div>
+      <div class="module-body">Scenario-based questions organized by topic. Fresh situations — same concepts as the exam, completely different wording. Immediate feedback explains why.</div>
+      <button class="start-btn btn-forest" onclick="showPanel('practice')">Start Practicing</button>
+    </div>
+    <div class="module-card" onclick="showPanel('quiz')">
+      <div class="module-header"><div class="module-icon mi-gold">✅</div><div class="module-meta"><h3>Full Practice Quiz</h3><p>45 questions · full exam coverage</p></div></div>
+      <div class="module-body">One question per exam concept across all 4 topics, randomized. Mirrors the breadth of the real midterm. Reset and repeat to improve your score.</div>
+      <button class="start-btn btn-gold" onclick="showPanel('quiz')">Start Full Quiz</button>
+    </div>
+    <div class="module-card" onclick="showPanel('matching')">
+      <div class="module-header"><div class="module-icon mi-plum">🔗</div><div class="module-meta"><h3>Matching Games</h3><p>4 rounds · key frameworks</p></div></div>
+      <div class="module-body">Match terms to definitions for the most heavily tested frameworks: eras, Maslow's hierarchy, CDM stages, and the 4 I's.</div>
+      <button class="start-btn btn-plum" onclick="showPanel('matching')">Play Matching</button>
+    </div>
+  </div>
+  <div class="info-section">
+    <h3><span class="info-icon-sq">📋</span> What This Tool Covers</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Topic 1 — Marketing Foundations</strong>AMA definition, exchange, 4 marketing eras, macro vs. micro, 4 P's, marketing strategy vs. plan vs. tactic, SWOT, environmental scanning, mission/vision, what can be marketed</div>
+      <div class="info-chip"><strong>Topic 2 — Research &amp; Strategy</strong>5-step research process, qualitative vs. quantitative, Likert scale, exploratory research, market segmentation, target market selection, positioning, differentiation, USP</div>
+      <div class="info-chip"><strong>Topic 3 — Consumer Behavior</strong>Consumer behavior definition, Maslow's 5-level hierarchy, 5-step CDM process (flat tire = problem recognition), psychological vs. sociocultural factors, low vs. high involvement, buying behavior types</div>
+      <div class="info-chip"><strong>Topic 4 — Products &amp; Services</strong>4 I's of services (intangibility, inconsistency, inseparability, inventory), service blueprint, offering concept, PLC (intro/growth/maturity/decline), packaging, brand development stages, product line extension, 7 P's</div>
+    </div>
+  </div>
+  <div class="info-section">
+    <h3><span class="info-icon-sq">⚠️</span> Top Concepts to Know Cold</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Marketing definition (AMA)</strong>"Activity, set of institutions, and processes for creating, communicating, delivering, and exchanging offerings that have value…" — know this word for word.</div>
+      <div class="info-chip"><strong>The 4 marketing eras in order</strong>Production → Sales → Marketing Concept → Societal Marketing. Sales Era = promotions &amp; personal selling. Marketing Concept Era = consumer needs focus.</div>
+      <div class="info-chip"><strong>Maslow's hierarchy — exact order</strong>Physiological → Safety → Love/Belonging → Esteem → Self-Actualization. Bottom to top. Many students flip Esteem and Self-Actualization.</div>
+      <div class="info-chip"><strong>Flat tire = Problem Recognition</strong>The flat tire scenario always tests the first stage of the CDM. You recognize a need when something unexpected creates a problem requiring a solution.</div>
+      <div class="info-chip"><strong>4 I's — all four, correctly</strong>Intangibility, Inseparability, Inconsistency, Inventory. "Innovation" and "Impression" are wrong — both appear as distractors on the real exam.</div>
+      <div class="info-chip"><strong>SWOT: external = O &amp; T</strong>Opportunities and Threats are external (no control). Strengths and Weaknesses are internal (some control). The exam tests this distinction directly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY TERMS -->
+<div class="panel" id="panel-terms">
+  <div class="section-hero" style="background:#1E5631">
+    <div class="session-pill" style="background:#fff;color:#1E5631">48 Terms · 4 Topics</div>
+    <h2>Key Terms — Midterm Edition</h2>
+    <p>All vocabulary your midterm tests. Filter by topic or view all. Color border = topic.</p>
+  </div>
+  <div class="chapter-filter">
+    <button class="filter-btn active" onclick="filterTerms('all',this)">All Topics</button>
+    <button class="filter-btn" onclick="filterTerms('t1',this)">Topic 1 — Foundations</button>
+    <button class="filter-btn" onclick="filterTerms('t2',this)">Topic 2 — Research</button>
+    <button class="filter-btn" onclick="filterTerms('t3',this)">Topic 3 — Consumer Behavior</button>
+    <button class="filter-btn" onclick="filterTerms('t4',this)">Topic 4 — Products &amp; Services</button>
+  </div>
+  <div class="terms-grid" id="terms-grid"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="panel" id="panel-flashcards">
+  <div class="section-hero" style="background:#0D7C74">
+    <div class="session-pill" style="background:#fff;color:#0D7C74">40 Cards</div>
+    <h2>Flashcards — All Topics</h2>
+    <p>Click the card to flip. Filter by topic to focus your review session.</p>
+  </div>
+  <div class="chapter-filter">
+    <button class="filter-btn active" onclick="filterCards('all',this)">All Topics</button>
+    <button class="filter-btn" onclick="filterCards('t1',this)">Topic 1</button>
+    <button class="filter-btn" onclick="filterCards('t2',this)">Topic 2</button>
+    <button class="filter-btn" onclick="filterCards('t3',this)">Topic 3</button>
+    <button class="filter-btn" onclick="filterCards('t4',this)">Topic 4</button>
+  </div>
+  <p class="flip-hint">👆 Click the card to flip it · Use arrows to navigate</p>
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard-inner" id="fc-inner">
+      <div class="flashcard-front">
+        <div class="card-topic-pill" id="fc-pill" style="background:#D4A017;color:#0D1A3D">Topic 1</div>
+        <div class="card-label">Term / Concept</div>
+        <div class="card-term" id="fc-term">Loading...</div>
+      </div>
+      <div class="flashcard-back">
+        <div class="card-label">Definition + Example</div>
+        <div class="card-def" id="fc-def"></div>
+        <div class="card-example" id="fc-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button onclick="prevCard()" id="fc-prev" disabled>← Prev</button>
+    <span class="card-counter" id="fc-counter">1 / 40</span>
+    <button onclick="nextCard()" id="fc-next">Next →</button>
+  </div>
+</div>
+
+<!-- PRACTICE SETS -->
+<div class="panel" id="panel-practice">
+  <div class="section-hero" style="background:#1E5631">
+    <div class="session-pill" style="background:#fff;color:#1E5631">4 Sets · 5 Questions Each</div>
+    <h2>Practice Sets by Topic</h2>
+    <p>Scenario-based questions using fresh situations — the same concepts as your exam, different wording. Read each situation carefully before choosing.</p>
+  </div>
+  <div id="pr-menu">
+    <div class="tip-banner"><span class="tip-icon">💡</span><span>These questions apply concepts to new situations — exactly what the exam does. A score of 4–5 means you're ready. A score of 2–3 means review that topic's flashcards before the exam.</span></div>
+    <div class="module-row">
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-navy">1️⃣</div><div class="module-meta"><h3>Set 1: Marketing Foundations</h3><p>5 questions · Topic 1 concepts</p></div></div>
+        <div class="module-body">Definition of marketing, exchange, 4 eras, macro/micro, 4 P's, SWOT, mission statements.</div>
+        <button class="start-btn btn-navy" onclick="startPractice(0)">Start Set 1</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-forest">2️⃣</div><div class="module-meta"><h3>Set 2: Research &amp; Strategy</h3><p>5 questions · Topic 2 concepts</p></div></div>
+        <div class="module-body">Research process, qual vs. quant, Likert, segmentation, target markets, positioning, USP, differentiation.</div>
+        <button class="start-btn btn-forest" onclick="startPractice(5)">Start Set 2</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-teal">3️⃣</div><div class="module-meta"><h3>Set 3: Consumer Behavior</h3><p>5 questions · Topic 3 concepts</p></div></div>
+        <div class="module-body">Maslow's hierarchy, CDM stages, psychological vs. sociocultural factors, involvement levels, consumer behavior definition.</div>
+        <button class="start-btn btn-teal" onclick="startPractice(10)">Start Set 3</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-plum">4️⃣</div><div class="module-meta"><h3>Set 4: Products &amp; Services</h3><p>5 questions · Topic 4 concepts</p></div></div>
+        <div class="module-body">4 I's of services, PLC stages, service blueprint, offering concept, packaging, brand preference, product line extension.</div>
+        <button class="start-btn btn-plum" onclick="startPractice(15)">Start Set 4</button>
+      </div>
+    </div>
+  </div>
+  <div id="pr-activity" class="activity-hidden">
+    <button class="back-btn" onclick="showPrMenu()">← Back to Sets</button>
+    <div class="score-display">Score: <span id="pr-score">0</span> / <span id="pr-total">5</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="pr-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="pr-label">Question 1 of 5</div>
+    </div>
+    <div class="activity-wrap">
+      <div id="pr-q-wrap">
+        <div class="concept-tag" id="pr-concept" style="background:#E6F4F3;color:#0D7C74"></div>
+        <div class="scenario-box" id="pr-scenario" style="display:none"></div>
+        <div class="question-text" id="pr-question"></div>
+        <div class="options-list" id="pr-options"></div>
+        <div class="feedback-box" id="pr-feedback"></div>
+        <button class="next-btn" id="pr-next" onclick="nextPractice()">Next Question →</button>
+      </div>
+      <div id="pr-results" style="display:none">
+        <div class="results-box">
+          <div class="results-score" id="pr-final-score"></div>
+          <div class="results-label">out of 5</div>
+          <div class="results-msg" id="pr-result-msg"></div>
+          <button class="reset-btn" onclick="showPrMenu()">Try Another Set</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL QUIZ -->
+<div class="panel" id="panel-quiz">
+  <div class="section-hero" style="background:#B8880F">
+    <div class="session-pill" style="background:#0D1A3D;color:#fff">45 Questions · Full Exam Coverage</div>
+    <h2 style="color:#fff">Full Practice Quiz</h2>
+    <p style="color:rgba(255,255,255,.85)">One fresh question per exam concept across all 4 topics. Reset and repeat to improve.</p>
+  </div>
+  <div id="qz-intro">
+    <div class="tip-banner"><span class="tip-icon">⚠️</span><span><strong>Important:</strong> These questions test the same concepts as your midterm using completely original scenarios and wording. They are study practice — not a preview of actual exam questions.</span></div>
+    <button class="start-btn btn-gold" style="font-size:15px;padding:12px 30px" onclick="startQuiz()">Begin 45-Question Quiz →</button>
+  </div>
+  <div id="qz-activity" class="activity-hidden">
+    <div class="score-display">Score: <span id="qz-score">0</span> / <span id="qz-total">45</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="qz-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="qz-label">Question 1 of 45</div>
+    </div>
+    <div class="activity-wrap">
+      <div id="qz-q-wrap">
+        <div class="concept-tag" id="qz-concept" style="background:#E6F4F3;color:#0D7C74"></div>
+        <div class="scenario-box" id="qz-scenario" style="display:none"></div>
+        <div class="question-text" id="qz-question"></div>
+        <div class="options-list" id="qz-options"></div>
+        <div class="feedback-box" id="qz-feedback"></div>
+        <button class="next-btn" id="qz-next" onclick="nextQuiz()">Next Question →</button>
+      </div>
+      <div id="qz-results" style="display:none">
+        <div class="results-box">
+          <div class="results-score" id="qz-final-score"></div>
+          <div class="results-label">out of 45</div>
+          <div class="results-msg" id="qz-result-msg"></div>
+          <button class="reset-btn" onclick="startQuiz()">Retake Quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATCHING -->
+<div class="panel" id="panel-matching">
+  <div class="section-hero" style="background:#6D2E46">
+    <div class="session-pill" style="background:#fff;color:#6D2E46">4 Rounds</div>
+    <h2>Matching Games</h2>
+    <p>Click a term on the left, then its match on the right. These 4 frameworks appear on every version of the exam.</p>
+  </div>
+  <div id="match-menu">
+    <div class="module-row">
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-navy">🔁</div><div class="module-meta"><h3>Round 1: 4 Marketing Eras</h3><p>Match each era to its description</p></div></div>
+        <button class="start-btn btn-navy" onclick="startMatch(0)">Play Round 1</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-teal">🔁</div><div class="module-meta"><h3>Round 2: Maslow's Hierarchy</h3><p>Match each level to its definition &amp; example</p></div></div>
+        <button class="start-btn btn-teal" onclick="startMatch(1)">Play Round 2</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-forest">🔁</div><div class="module-meta"><h3>Round 3: CDM Process</h3><p>Match each stage to its description</p></div></div>
+        <button class="start-btn btn-forest" onclick="startMatch(2)">Play Round 3</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-plum">🔁</div><div class="module-meta"><h3>Round 4: 4 I's of Services</h3><p>Match each I to its meaning &amp; example</p></div></div>
+        <button class="start-btn btn-plum" onclick="startMatch(3)">Play Round 4</button>
+      </div>
+    </div>
+  </div>
+  <div id="match-activity" class="activity-hidden">
+    <button class="back-btn" onclick="document.getElementById('match-menu').style.display='block';document.getElementById('match-activity').classList.add('activity-hidden')">← Back to Rounds</button>
+    <div class="match-score-row">Matched: <span id="m-matched">0</span> / <span id="m-total">0</span> &nbsp;|&nbsp; Attempts: <span id="m-attempts">0</span></div>
+    <div class="match-grid">
+      <div><div class="match-col-label">Terms</div><div class="match-items" id="m-left"></div></div>
+      <div><div class="match-col-label">Definitions / Descriptions</div><div class="match-items" id="m-right"></div></div>
+    </div>
+    <div id="m-complete" style="display:none">
+      <div class="results-box">
+        <div class="results-score" id="m-final-attempts"></div>
+        <div class="results-label">Total Attempts</div>
+        <div class="results-msg" id="m-result-msg"></div>
+        <button class="reset-btn" onclick="document.getElementById('match-menu').style.display='block';document.getElementById('match-activity').classList.add('activity-hidden')">Try Another Round</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">MKT 315 — Principles of Marketing &nbsp;|&nbsp; Grand Canyon University &nbsp;|&nbsp; Midterm Prep Tool — Topics 1–4</footer>
+
+<script>
+// ── NAV ──────────────────────────────────────────────────────────────
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── TERMS DATA ────────────────────────────────────────────────────────
+var TERMS=[
+  // Topic 1
+  {t:'t1',w:'Marketing (AMA Definition)',d:'The activity, set of institutions, and processes for creating, communicating, delivering, and exchanging offerings that have value for customers, clients, partners, and society at large.'},
+  {t:'t1',w:'Exchange',d:'The trade of things of value between a buyer and a seller so that each is better off after the trade. The foundation of every marketing transaction.'},
+  {t:'t1',w:'Production Era',d:'The earliest marketing era (Colonial Period–1920s) defined by scarce goods and a focus on producing as many products as cheaply and efficiently as possible.'},
+  {t:'t1',w:'Sales Era',d:'Marketing era (1920s–1960s) defined by having more goods than customers. Companies hired salespeople and used promotions to find buyers. Focus: personal selling.'},
+  {t:'t1',w:'Marketing Concept Era',d:'Marketing era (1960s–1970s) focused on satisfying consumer needs while remaining profitable. Customer-first thinking. The marketing concept emerged here.'},
+  {t:'t1',w:'Societal Marketing Era',d:'Current era (1970s–present) that balances consumer wants with long-term societal welfare. Includes sustainability, ethics, and social responsibility.'},
+  {t:'t1',w:'Macromarketing',d:'The process of analyzing the impact of marketing on the external environment — economy, government regulation, technology, and social/cultural influences.'},
+  {t:'t1',w:'Micromarketing',d:'Specific marketing activities and tactics directed at very targeted segments. The "how" of executing a strategy at the ground level.'},
+  {t:'t1',w:'Marketing Strategy',d:'The overarching approach to achieving marketing objectives. Focuses on WHAT you want to achieve. Incorporates target market, positioning, and the marketing mix.'},
+  {t:'t1',w:'Marketing Plan',d:'The detailed document specifying HOW strategies will be executed — tactics, budget, timeline, and measurement criteria.'},
+  {t:'t1',w:'Marketing Tactic',d:'A specific, time-bound action taken to execute a strategy. More detailed than a strategy; less broad than a plan.'},
+  {t:'t1',w:'SWOT Analysis',d:'A framework assessing internal Strengths and Weaknesses (controllable) and external Opportunities and Threats (not controllable).'},
+  {t:'t1',w:'Environmental Scanning',d:'The basic purpose is to help management determine the future direction of the organization by analyzing internal/external conditions.'},
+  {t:'t1',w:'Mission Statement',d:'Clearly defines a company\'s purpose — what it does, who it serves, and how. Communicates purpose and values to customers and stakeholders.'},
+  {t:'t1',w:'Marketing Mix (4 P\'s)',d:'Product, Price, Place, Promotion — the four elements marketers control to create value and reach target markets. Profit is NOT one of the 4 P\'s.'},
+  // Topic 2
+  {t:'t2',w:'Marketing Research',d:'The systematic process of gathering, analyzing, and interpreting data to support marketing decisions. Does NOT determine revenue recognition methods.'},
+  {t:'t2',w:'5-Step Research Process',d:'1) Define the problem → 2) Develop research plan → 3) Collect data → 4) Analyze data → 5) Take marketing actions. Step 1 is always first.'},
+  {t:'t2',w:'Qualitative Research',d:'Research used to understand consumer thoughts, feelings, and motivations. Methods include focus groups, interviews, and observation. Best for the "why."'},
+  {t:'t2',w:'Quantitative Research',d:'Research that collects measurable numerical data. Surveys, Likert scales, and statistical analysis. Best for "how many" and "how much."'},
+  {t:'t2',w:'Likert Scale',d:'A rating scale (e.g., 1 = Strongly Disagree to 5 = Strongly Agree) used in surveys to measure attitudes and opinions. Falls under QUANTITATIVE research.'},
+  {t:'t2',w:'Exploratory Research',d:'Research used to gain insight into a problem when little is known. Focus groups and open-ended interviews are examples. NOT the same as testing or measuring.'},
+  {t:'t2',w:'Market Segmentation',d:'Dividing the entire market into groups of consumers with similar needs, characteristics, or behaviors. NOT dividing products or organizations.'},
+  {t:'t2',w:'Target Market',d:'The specific group of consumers a company directs its marketing efforts toward. Ideal targets are large enough, reachable, profitable, and likely to buy — NOT loyal to a competitor.'},
+  {t:'t2',w:'Positioning',d:'Establishing a product\'s place in the consumer\'s mind relative to competitors. Not about price or store layout — it\'s about perceived identity.'},
+  {t:'t2',w:'Differentiation',d:'Creating meaningful points of difference in the consumer\'s mind. The primary goal is NOT to lower costs or match competitors — it\'s to stand out.'},
+  {t:'t2',w:'Unique Selling Proposition (USP)',d:'The one thing that sets a product apart from all competitors in the marketplace. Not a mission statement, pricing structure, or ad budget.'},
+  // Topic 3
+  {t:'t3',w:'Consumer Behavior',d:'The actions a person takes in purchasing and using products/services, including the mental and social processes that come before and after these actions.'},
+  {t:'t3',w:'Maslow\'s Hierarchy of Needs',d:'Five-level pyramid of human motivation (bottom to top): Physiological → Safety → Love/Belonging → Esteem → Self-Actualization. Helps marketers understand motivation.'},
+  {t:'t3',w:'Physiological Needs',d:'The most basic survival needs — food, water, shelter, sleep. Bottom of Maslow\'s hierarchy. Must be met before higher needs can be pursued.'},
+  {t:'t3',w:'Safety Needs',d:'Security and protection from harm — job stability, insurance, financial planning. Second level of Maslow\'s hierarchy.'},
+  {t:'t3',w:'Love and Belonging',d:'Social connection, friendship, family, community. Third level. Marketing appeals: social media campaigns, group experiences.'},
+  {t:'t3',w:'Esteem Needs',d:'Respect, recognition, and self-esteem. Fourth level. Luxury goods and professional development products appeal here.'},
+  {t:'t3',w:'Self-Actualization',d:'Top of Maslow\'s hierarchy. Pursuing personal potential and growth. Educational programs, creative tools, and personal development products appeal here.'},
+  {t:'t3',w:'5-Step CDM Process',d:'Consumer Decision-Making: 1) Problem Recognition → 2) Information Search → 3) Evaluation of Alternatives → 4) Purchase Decision → 5) Post-Purchase Evaluation.'},
+  {t:'t3',w:'Problem Recognition',d:'First stage of the CDM process — a consumer realizes a need or problem exists. Example: noticing a flat tire = immediate problem recognition.'},
+  {t:'t3',w:'Evaluation of Alternatives',d:'Third stage of CDM — the consumer COMPARES different products or services before deciding. Not the same as problem recognition or information search.'},
+  {t:'t3',w:'Psychological Factors',d:'Internal influences on consumer behavior: perception, personality, lifestyle, motivation, and attitudes. Income is NOT a psychological factor — it\'s personal/economic.'},
+  {t:'t3',w:'Sociocultural Factors',d:'External social/cultural influences: social class, subculture, reference groups, family, and cultural norms. "Attitude toward spending" is NOT sociocultural — it\'s personal.'},
+  {t:'t3',w:'Low-Involvement Purchase',d:'A routine purchase requiring minimal thought and effort. Example: Heinz ketchup. High-involvement: luxury handbag, vacation, country club membership.'},
+  // Topic 4
+  {t:'t4',w:'Services',d:'Intangible offerings or actions of value a purchaser receives in a transaction. Examples: airline trips, financial advice, phone calls. Cannot be touched or stored.'},
+  {t:'t4',w:'4 I\'s of Services',d:'Intangibility, Inseparability, Inconsistency, Inventory. "Innovation" and "Impression" are common wrong answers on the exam — both are distractors.'},
+  {t:'t4',w:'Intangibility',d:'Services cannot be seen, touched, or experienced before purchase. Sarah\'s massage scenario on the exam tests this: she can\'t try the massage before buying it.'},
+  {t:'t4',w:'Service Blueprint',d:'A customer contact audit that maps all employee actions and acknowledges that services are designed to be experiences. Also called a service experience map.'},
+  {t:'t4',w:'Offering Concept',d:'The combination of products AND services a business offers to consumers or other businesses. Total customer value = product component + service component.'},
+  {t:'t4',w:'Product Life Cycle (PLC)',d:'The stages a product category moves through: Introduction → Growth → Maturity → Decline. NOT average lifespan — it describes marketplace stages.'},
+  {t:'t4',w:'Decline Stage (PLC)',d:'When a product loses market share as consumer tastes change or better alternatives emerge. Example: TV Westerns in the 1960s–70s entering decline.'},
+  {t:'t4',w:'Maturity Stage Strategy',d:'At maturity: hold market share through product differentiation and finding new buyers and uses. NOT generating awareness (that\'s Introduction).'},
+  {t:'t4',w:'Packaging',d:'Any container in which a product is offered for sale AND on which information is communicated. Not just a label, display, or bundle — it\'s the container plus information.'},
+  {t:'t4',w:'Brand Preference',d:'The stage of brand development at which consumers begin expressing repeat buying behavior and prefer the brand over alternatives. Comes after Recognition, before Loyalty.'},
+  {t:'t4',w:'Product Line Extension',d:'Adding new items to an existing product line to provide more value. Example: PetSmart adding boarding and training to its retail product mix.'},
+  {t:'t4',w:'7 P\'s of Services',d:'The traditional 4 P\'s (Product, Price, Place, Promotion) PLUS People, Process, and Physical Evidence. Services depend on People for experience delivery.'}
+];
+
+function renderTerms(filter){
+  var g=document.getElementById('terms-grid');g.innerHTML='';
+  TERMS.filter(function(t){return filter==='all'||t.t===filter;}).forEach(function(t){
+    var labels={t1:'Topic 1 — Foundations',t2:'Topic 2 — Research',t3:'Topic 3 — Consumer Behavior',t4:'Topic 4 — Products & Services'};
+    var d=document.createElement('div');d.className='term-card '+t.t;
+    d.innerHTML='<div class="t-topic">'+labels[t.t]+'</div><div class="t-word">'+t.w+'</div><div class="t-def">'+t.d+'</div>';
+    g.appendChild(d);
+  });
+}
+function filterTerms(f,btn){
+  document.querySelectorAll('#panel-terms .filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active'); renderTerms(f);
+}
+renderTerms('all');
+
+// ── FLASHCARDS DATA ───────────────────────────────────────────────────
+var ALL_CARDS=[
+  {t:'t1',term:'Marketing — The AMA Definition',def:'The activity, set of institutions, and processes for creating, communicating, delivering, and exchanging offerings that have value for customers, clients, partners, and society at large.',ex:'This exact definition appears on every version of the midterm. Memorize it word for word. Wrong answers include "advertising," "distribution," and "identifying target markets."'},
+  {t:'t1',term:'Exchange',def:'The trade of things of value between buyer and seller so that each is better off after the trade.',ex:'You pay $5 for a coffee — you get the coffee (value), Starbucks gets revenue (value). Both are better off. Barter is NOT the definition of exchange in marketing.'},
+  {t:'t1',term:'Production Era',def:'Colonial Period–1920s. Characterized by scarce goods. Main approach: produce as much as cheaply as possible. Problem: overproduction of goods consumers didn\'t want.',ex:'Henry Ford\'s assembly line, commercial canning, factory-made clothing. The era ended when supply exceeded demand.'},
+  {t:'t1',term:'Sales Era',def:'1920s–1960s. More goods than customers existed. Companies hired salespeople, used promotions and pricing to clear overstock. Focus: personal selling.',ex:'Door-to-door salespeople, retail "sales," aggressive promotion. The exam always pairs this era with "promotions and personal selling."'},
+  {t:'t1',term:'Marketing Concept Era',def:'1960s–1970s. Modern marketing concept developed — companies focused on satisfying consumer needs while remaining profitable.',ex:'This era = consumer needs focus. Baby Boomers drove demand. Convenience products, frozen meals, disposable goods. The exam pairs this with "needs of the consumer."'},
+  {t:'t1',term:'Macromarketing',def:'Analyzing the impact of marketing on the EXTERNAL environment — economy, government regulation, technological development, social and cultural influences.',ex:'A home builder studying interest rates before pricing condos. An auto company analyzing emissions regulations. External forces they can observe but not control.'},
+  {t:'t1',term:'Marketing Strategy vs. Plan',def:'Strategy = WHAT you want to achieve (overarching approach). Plan = HOW you will achieve it (detailed tactics, budget, timeline). A strategy focuses on direction; a plan delivers execution.',ex:'"We will target millennials through mobile-first experiences" = strategy. "We will run 3 Instagram campaigns in Q1 with a $50K budget" = plan (tactics).'},
+  {t:'t1',term:'SWOT: External Factors',def:'In SWOT, Opportunities and Threats are EXTERNAL — the company has no control over them. Strengths and Weaknesses are INTERNAL — some control exists.',ex:'A recession (external Threat), a new regulation (external Threat), a competitor leaving the market (external Opportunity). The exam asks specifically about external factors.'},
+  {t:'t1',term:'Environmental Scanning',def:'The process of monitoring the internal and external environment to help management determine the future direction of the organization.',ex:'NOT about physical space, budget planning, or consumer options — it\'s about organizational direction. Marketers scan competitors, economy, regulations, and technology.'},
+  {t:'t1',term:'Mission Statement',def:'Clearly defines a company\'s PURPOSE — what it does, who it serves, and how. Primary purpose: communicate purpose and values to customers and stakeholders.',ex:'NOT a financial goal document, NOT a competitive analysis. GCU\'s mission centers on Christ-centered education. LEGO: "To inspire and develop the builders of tomorrow."'},
+  {t:'t2',term:'Step 1 of Marketing Research',def:'Define the problem. This is always the FIRST step — before any data is collected or plans are made. You cannot solve a problem you have not clearly defined.',ex:'A company notices sales are falling. Step 1: clearly define whether the problem is awareness, price, product quality, or distribution. Wrong: jumping to surveys first.'},
+  {t:'t2',term:'Qualitative vs. Quantitative',def:'Qualitative = understanding thoughts/motivations. Best for "why." Methods: focus groups, interviews. Quantitative = measurable numbers. Best for "how many." Methods: surveys, Likert scales.',ex:'Want to understand WHY consumers dislike your packaging? → Qualitative (focus group). Want to know HOW MANY would switch brands? → Quantitative (survey with Likert scale).'},
+  {t:'t2',term:'Likert Scale',def:'A rating scale (e.g., 1 = Strongly Disagree to 5 = Strongly Agree) used to measure attitudes and opinions. Falls under QUANTITATIVE research — it produces numerical data.',ex:'The exam asks which research type Likert falls under. Answer: Quantitative. The scale produces numbers that can be statistically analyzed — that makes it quantitative, not qualitative.'},
+  {t:'t2',term:'Exploratory Research',def:'Research used to gain insight into a problem when little is known. Open-ended. Focus groups and open-ended interviews are the key examples.',ex:'Automotive industry: asking a focus group what features consumers want in a new truck = exploratory. Testing which ad generates more clicks = NOT exploratory (that\'s experimental/quantitative).'},
+  {t:'t2',term:'Target Market — Ideal Characteristics',def:'An ideal target market is: large enough to meet revenue goals, reachable through communication channels, likely to buy, and profitable to serve. Loyal to a competitor is NOT a characteristic.',ex:'The exam asks which is NOT a key characteristic. Answer: "Loyal to a competitor." A market already loyal to a rival is difficult and expensive to convert — it\'s not ideal.'},
+  {t:'t2',term:'Market Segmentation',def:'Dividing the ENTIRE MARKET into groups of consumers with shared needs or characteristics. NOT dividing products, organizations, or businesses.',ex:'Nike segmenting into runners, basketball players, and casual wearers is market segmentation — dividing the market of potential shoe buyers into groups. Common wrong answer: "dividing the product."'},
+  {t:'t2',term:'Positioning',def:'Establishing a product\'s place in the CONSUMER\'S MIND relative to competitors. About perceived identity, not pricing, store layout, or ad spending.',ex:'Volvo owns "safety" in consumers\' minds. Apple owns "innovative simplicity." Tesla owns "electric luxury." This mental positioning is what differentiation creates.'},
+  {t:'t2',term:'Differentiation',def:'Creating meaningful points of difference in the consumer\'s mind. PRIMARY GOAL: stand out from competitors, not to lower costs or match them.',ex:'The exam specifically tests this. Wrong answers: "lower production costs" and "match the competition." If you match the competition, you have zero differentiation — that\'s the opposite.'},
+  {t:'t2',term:'Unique Selling Proposition (USP)',def:'The ONE thing that sets a product apart from all competitors. Not a mission statement, pricing structure, legal agreement, or budget plan.',ex:'FedEx\'s original USP: "When it absolutely, positively has to be there overnight." One clear, compelling point of difference that no competitor could claim.'},
+  {t:'t2',term:'What Marketing Research Cannot Do',def:'Marketing research helps with segmentation, pricing strategy, packaging, and product decisions — but it does NOT determine the best method of revenue recognition (that\'s accounting).',ex:'The exam asks for the exception. Revenue recognition = an accounting/financial function, not a marketing research function. All other options (packaging, pricing, segmentation) are valid.'},
+  {t:'t3',term:'Consumer Behavior — Definition',def:'The actions a person takes in purchasing and using products and services, including the mental and social processes that come before and after these actions.',ex:'Not just the act of buying — it includes everything before (need recognition, research) and after (satisfaction, loyalty, or regret). This is the Kotler-derived definition.'},
+  {t:'t3',term:'Maslow\'s Hierarchy — Exact Order',def:'Bottom to top: Physiological → Safety → Love/Belonging → Esteem → Self-Actualization. You must fulfill lower needs before pursuing higher ones.',ex:'The exam shows all five levels in scrambled order and asks which is correct. The most common wrong answer swaps Esteem and Self-Actualization. Self-Actualization is ALWAYS at the top.'},
+  {t:'t3',term:'Maslow — What It Helps Marketers Understand',def:'Maslow\'s hierarchy helps marketers better understand HUMAN MOTIVATION — the driving force behind purchase decisions.',ex:'The exam offers "world economy," "family size," and "political affiliations" as distractors. The answer is always human motivation. Needs drive motivation; motivation drives purchasing.'},
+  {t:'t3',term:'Problem Recognition (CDM Stage 1)',def:'The first stage of the consumer decision-making process — realizing a need or problem exists.',ex:'The flat tire scenario on the exam always tests this. You walk to your car, see a flat tire — that moment of recognition = Problem Recognition. NOT "prepurchase behavior" or "alternative evaluation."'},
+  {t:'t3',term:'Evaluation of Alternatives (CDM Stage 3)',def:'The stage where the consumer COMPARES different products or services before making a decision.',ex:'You\'ve decided to buy a new phone. You\'re now comparing iPhone vs. Samsung vs. Google Pixel on features, price, and reviews. That comparison process = Evaluation of Alternatives.'},
+  {t:'t3',term:'Psychological Factors — What\'s Included',def:'Psychological factors influencing consumer behavior: Perception, Personality, Lifestyle, Motivation, Attitudes. INCOME is NOT a psychological factor — it\'s a personal/economic factor.',ex:'The exam asks which is NOT a psychological factor. Answer: Income. Income is a demographic/economic variable. All others (perception, personality, motivation, lifestyle) are internal psychological states.'},
+  {t:'t3',term:'Sociocultural Factors — What\'s Included',def:'Social class, subculture, reference groups, family, and cultural norms. "Attitude toward spending" is NOT a sociocultural factor — it\'s a personal attitude.',ex:'The exam asks which is NOT sociocultural. Answer: Attitude toward spending. Family, social class, subculture, and reference groups are all external social influences. Attitude is internal/personal.'},
+  {t:'t3',term:'Low-Involvement Purchase',def:'A routine purchase requiring minimal thought, research, or risk. Usually inexpensive and habitual.',ex:'Heinz ketchup = low involvement. Louis Vuitton bag, Trek bicycle, country club membership, Italy vacation = HIGH involvement (expensive, complex, emotionally significant decisions).'},
+  {t:'t3',term:'Why Consumer Behavior Matters',def:'Understanding consumer behavior SUPPORTS a successful marketing strategy by explaining how consumers make decisions. It does NOT eliminate segmentation or reduce production costs.',ex:'The exam tests this with wrong answers like "eliminates segmentation" and "reduces production costs." Consumer behavior insights make strategy more effective — they don\'t replace other marketing functions.'},
+  {t:'t3',term:'Sociocultural Factor Example',def:'Cultural norms and demographics are examples of sociocultural factors. NOT product pricing, brand positioning, distribution strategy, or warranty policies.',ex:'The exam asks for an example of a sociocultural factor. Pricing, positioning, and distribution are marketing mix decisions — they\'re managerial, not sociocultural influences on consumer behavior.'},
+  {t:'t4',term:'Services — Definition',def:'Intangible items such as airline trips, financial advice, or telephone calls that an organization provides to consumers. Cannot be touched, stored, or physically examined before purchase.',ex:'The exact exam examples: airline trips, financial advice, telephone calls. These are "services," not "production goods," "support products," "goods," or "benefits."'},
+  {t:'t4',term:'4 I\'s of Services — Exact List',def:'Intangibility, Inconsistency, Inseparability, and Inventory. These are the ONLY four. Innovation, Impression, Inflexibility are all distractors that appear in wrong answer choices.',ex:'The exam shows 5 options — all start with I. The correct four: Intangibility, Inconsistency, Inseparability, Inventory. Eliminate any option containing Innovation, Impression, or Inflexibility.'},
+  {t:'t4',term:'Intangibility — The Sarah Scenario',def:'Services cannot be experienced or seen before purchase. Consumers rely on trust, reputation, and reviews as quality proxies.',ex:'Sarah wants a massage for her back. She\'s concerned because a massage can\'t be experienced before she buys it — unlike shoes she can try on. This = Intangibility. NOT Inconsistency or Inseparability.'},
+  {t:'t4',term:'Service Blueprint',def:'A customer contact audit that maps ALL employee actions and acknowledges that services are designed to be experiences. Also called a service experience framework.',ex:'The exam offers: service continuum, gap analysis, service blueprint, experience economy, service audit. Only "service blueprint" matches the definition of a customer contact audit mapping employee actions.'},
+  {t:'t4',term:'Offering Concept',def:'The combination of products AND services offered to consumers or other businesses. Total value = product component + service component combined.',ex:'Starbucks: the coffee (product) + the barista experience, atmosphere, and Wi-Fi (services) together form the offering concept. The exam\'s exact wording: "combination of products and services."'},
+  {t:'t4',term:'Product Life Cycle — Definition',def:'A concept that describes the stages a product goes through IN THE MARKETPLACE — Introduction, Growth, Maturity, and Decline.',ex:'NOT "average lifespan," NOT "stages from concept to commercialization," NOT "early growth, accelerated development, maturity, decline." The correct stages are: introduction, growth, maturity, decline — in that order.'},
+  {t:'t4',term:'Decline Stage — TV Westerns',def:'The Decline stage is when a product category loses market share as consumer tastes change or better alternatives emerge.',ex:'The TV Westerns scenario is on all 3 exam versions. Gunsmoke, Bonanza, etc. became unpopular as tastes changed. The category entered DECLINE. Not "deletion," "cancellation," "maturity," or "harvesting."'},
+  {t:'t4',term:'Maturity Stage — Marketing Strategy',def:'At Maturity: aim to hold market share through further product differentiation and finding new buyers and uses. NOT building awareness (Introduction) or finding channel intermediaries (Growth).',ex:'The exam lists 5 strategies and asks which fits Maturity. Answer: "Aims to hold market share through further product differentiation and finding new buyers and uses." Awareness and primary demand belong to Introduction.'},
+  {t:'t4',term:'Packaging',def:'Any container in which a product is offered for sale AND on which information is communicated. Both the container AND the information together define packaging.',ex:'The exam answer must match: "Any container... offered for sale... on which information is communicated." NOT a point-of-purchase display (separate), NOT just a label, NOT merchandising.'},
+  {t:'t4',term:'Brand Preference Stage',def:'The stage of brand development at which consumers begin expressing REPEAT buying behavior and a preference for the brand over alternatives.',ex:'The exam asks which stage involves "repeat buying behavior and preference." Answer: Brand Preference. Before it: Awareness, Recognition. After it: Loyalty, Equity. Preference = they like it and buy it again.'}
+];
+
+var activeCards=ALL_CARDS.slice(), fcIdx=0, fcFlipped=false;
+var pillColors={t1:'#D4A017;color:#0D1A3D',t2:'#1E5631;color:#fff',t3:'#0D7C74;color:#fff',t4:'#6D2E46;color:#fff'};
+var topicLabels={t1:'Topic 1 — Foundations',t2:'Topic 2 — Research',t3:'Topic 3 — Consumer Behavior',t4:'Topic 4 — Products & Services'};
+
+function filterCards(f,btn){
+  document.querySelectorAll('#panel-flashcards .filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  activeCards=f==='all'?ALL_CARDS.slice():ALL_CARDS.filter(function(c){return c.t===f;});
+  fcIdx=0; fcFlipped=false; renderCard();
+}
+function renderCard(){
+  var c=activeCards[fcIdx];
+  document.getElementById('fc-inner').classList.remove('flipped'); fcFlipped=false;
+  var pill=document.getElementById('fc-pill');
+  pill.textContent=topicLabels[c.t]; pill.style.cssText='background:'+pillColors[c.t];
+  document.getElementById('fc-term').textContent=c.term;
+  document.getElementById('fc-def').textContent=c.def;
+  document.getElementById('fc-ex').textContent=c.ex;
+  document.getElementById('fc-counter').textContent=(fcIdx+1)+' / '+activeCards.length;
+  document.getElementById('fc-prev').disabled=fcIdx===0;
+  document.getElementById('fc-next').disabled=fcIdx===activeCards.length-1;
+}
+function flipCard(){fcFlipped=!fcFlipped;document.getElementById('fc-inner').classList.toggle('flipped',fcFlipped);}
+function nextCard(){if(fcIdx<activeCards.length-1){fcIdx++;renderCard();}}
+function prevCard(){if(fcIdx>0){fcIdx--;renderCard();}}
+renderCard();
+
+// ── PRACTICE + QUIZ DATA ──────────────────────────────────────────────
+// All 45 questions — fresh scenarios, same concepts. Grouped 0-4 = T1, 5-9 = T2, 10-14 = T3, 15-19 = T4; then 20-44 = full quiz extras
+var ALL_QS=[
+  // SET 1: Topic 1 — Foundations (0–4)
+  {topic:'Topic 1',concept:'AMA Definition of Marketing',
+   sc:'A professor asks her class to define marketing. One student says it\'s about advertising. Another says it\'s about sales. A third says it\'s a much broader concept.',
+   q:'Which of the following best captures the complete AMA definition of marketing?',
+   opts:['The strategies used to advertise and promote products to consumers globally','The activity, set of institutions, and processes for creating, communicating, delivering, and exchanging offerings that have value for customers, clients, partners, and society','The process of identifying target markets and using selling tactics to reach them','The activity involved in moving products from manufacturers to consumers'],
+   ans:1,fb:'The AMA definition is broader than advertising or selling — it covers the full process of creating, communicating, delivering, and exchanging value. Every wrong option captures only one piece of that whole. Know this word for word.'},
+
+  {topic:'Topic 1',concept:'Marketing Eras',
+   sc:'A textile company in 1935 hires its first team of traveling salespeople and begins running newspaper promotions to move surplus inventory sitting in its warehouses.',
+   q:'This company\'s approach is most characteristic of which marketing era?',
+   opts:['The Production Era — focused on maximizing output','The Sales Era — focused on promotions and personal selling to clear excess goods','The Marketing Concept Era — focused on satisfying consumer needs','The Societal Marketing Era — focused on balancing consumer wants with societal welfare'],
+   ans:1,fb:'The Sales Era (1920s–1960s) was defined by having more goods than customers. Companies responded by hiring salespeople and using promotions. This company\'s traveling salespeople and newspaper promotions are classic Sales Era behavior.'},
+
+  {topic:'Topic 1',concept:'Macromarketing vs. Micromarketing',
+   sc:'The marketing team at a solar panel company spends a month analyzing upcoming federal tax incentive legislation, projected energy cost increases, and shifting public attitudes toward renewable energy before deciding which product lines to prioritize.',
+   q:'This activity is best described as:',
+   opts:['Micromarketing — creating specific tactics for targeted consumer segments','Macromarketing — analyzing the impact of external forces on marketing decisions','Environmental scanning at the product level only','SWOT analysis focused on internal company strengths'],
+   ans:1,fb:'Macromarketing analyzes the external environment — government regulation, economy, technology, and social/cultural forces. The company is studying legislation, energy costs, and public attitudes (all external). Micromarketing would be the specific campaigns they run afterward.'},
+
+  {topic:'Topic 1',concept:'SWOT — External vs. Internal',
+   sc:'During a strategy meeting, a brand manager lists four factors: (1) their company\'s strong R&D team, (2) an upcoming economic recession, (3) a patent they own, and (4) a new competitor entering their market.',
+   q:'Which two of these four factors are EXTERNAL and beyond the company\'s direct control?',
+   opts:['The strong R&D team and the patent they own','The economic recession and the new competitor entering their market','The strong R&D team and the new competitor','The patent they own and the economic recession'],
+   ans:1,fb:'In SWOT, external factors = Opportunities and Threats. The company has no control over a recession (economic threat) or a new competitor entering (competitive threat). The R&D team and the patent are INTERNAL strengths the company controls.'},
+
+  {topic:'Topic 1',concept:'Mission Statement Purpose',
+   sc:'A new employee at a nonprofit asks her manager why they spend so much time talking about their mission statement during client-facing presentations and team onboarding.',
+   q:'Which explanation best captures the PRIMARY purpose of a mission statement?',
+   opts:['It outlines the organization\'s financial goals for the next fiscal year','It communicates the organization\'s purpose and values to customers, stakeholders, and employees','It provides a detailed roadmap of marketing tactics and budget allocations','It describes the target market demographics and competitive landscape in detail'],
+   ans:1,fb:'A mission statement\'s primary job is to communicate purpose and values — to customers, stakeholders, and employees. It answers "why do we exist?" Not a financial plan, not a tactical roadmap, and not a competitive analysis.'},
+
+  // SET 2: Topic 2 — Research & Strategy (5–9)
+  {topic:'Topic 2',concept:'First Step of Research Process',
+   sc:'A restaurant chain is experiencing a 15% drop in customer return visits. The CMO immediately wants to launch a loyalty app. Her research director pushes back, saying they shouldn\'t spend money on a solution before completing the first step.',
+   q:'What is the first step of the marketing research process that the research director is referring to?',
+   opts:['Develop the research plan and methodology','Collect relevant primary and secondary data','Define the problem clearly before any research begins','Analyze data and develop findings'],
+   ans:2,fb:'Step 1 is always Define the Problem. You cannot design a research plan, collect data, or take action without first clearly defining what question you\'re trying to answer. The CMO is skipping to solutions — the research director is right.'},
+
+  {topic:'Topic 2',concept:'Qualitative vs. Quantitative',
+   sc:'A cosmetics company wants to understand WHY younger consumers feel their packaging feels "outdated" and what emotions it triggers. They schedule sessions where 8–10 participants discuss their feelings openly with a moderator.',
+   q:'This research approach is best described as:',
+   opts:['Quantitative research — it measures numerical data about consumer preferences','Qualitative research — it seeks to understand thoughts, feelings, and motivations','Experimental research — it tests two versions of packaging against each other','Descriptive research — it measures a specific attitude on a numeric scale'],
+   ans:1,fb:'Understanding WHY consumers feel something = qualitative. Open discussion groups (focus groups) are the signature qualitative method. Quantitative would measure HOW MANY feel that way using surveys and scales. The distinction is depth of understanding vs. measurable counts.'},
+
+  {topic:'Topic 2',concept:'Market Segmentation Definition',
+   sc:'A running shoe company divides all potential shoe buyers into three groups: serious marathon runners, casual joggers, and people who wear athletic shoes for lifestyle/fashion purposes.',
+   q:'This activity is best described as:',
+   opts:['Dividing the company\'s product line into subgroups based on performance level','Dividing the entire market into groups of consumers with similar needs and behaviors','Dividing the organization into functional departments that focus on each consumer group','Targeting a broad audience with a single undifferentiated message'],
+   ans:1,fb:'Market segmentation = dividing the ENTIRE MARKET into consumer groups. The company is not dividing its products or its organizational structure — it\'s dividing the pool of all potential buyers into distinct groups based on how they use running shoes.'},
+
+  {topic:'Topic 2',concept:'Target Market Characteristics',
+   sc:'A luxury watch brand is evaluating three possible target market segments. Segment A is large and profitable but deeply loyal to Rolex. Segment B is reachable through high-end lifestyle media and has disposable income. Segment C is interested in watches but too small to generate meaningful revenue.',
+   q:'Based on ideal target market characteristics, which segment is the STRONGEST candidate?',
+   opts:['Segment A — large size makes it the most attractive despite Rolex loyalty','Segment B — it is large enough, reachable, and likely to respond','Segment C — small segments are easier to dominate completely','All three segments are equally attractive for different reasons'],
+   ans:1,fb:'Segment B hits all the ideal characteristics: reachable through appropriate channels, has income (profitable to serve), and is likely to buy. Segment A fails because loyalty to a competitor makes conversion very difficult. Segment C fails the "large enough" criterion.'},
+
+  {topic:'Topic 2',concept:'Differentiation vs. USP',
+   sc:'A craft brewery\'s marketing director tells the team: "Every other local brewery claims they use quality ingredients. We need to own something specific that NO ONE else can say — and say it first." She spends three weeks developing a single, concrete claim.',
+   q:'The specific claim she develops that sets this brewery apart from all competitors is best described as:',
+   opts:['A mission statement — it defines the company\'s core purpose and values','A unique selling proposition (USP) — the one thing that sets this product apart from all competitors','A positioning statement — it describes where they want to be in consumers\' minds','A marketing objective — it specifies what the marketing team wants to achieve'],
+   ans:1,fb:'A USP is the ONE thing that sets a product apart from all competitors. The director is searching for a single, ownable claim — that\'s a USP. A positioning statement is broader (overall mind-space). An objective describes goals. A mission statement describes purpose.'},
+
+  // SET 3: Topic 3 — Consumer Behavior (10–14)
+  {topic:'Topic 3',concept:'Maslow\'s Hierarchy — Correct Order',
+   sc:'A marketing professor asks students to arrange Maslow\'s five needs from most basic to highest.',
+   q:'Which sequence correctly represents Maslow\'s hierarchy from bottom (most basic) to top?',
+   opts:['Self-Actualization, Esteem, Love/Belonging, Safety, Physiological','Physiological, Safety, Love/Belonging, Esteem, Self-Actualization','Physiological, Safety, Love/Belonging, Self-Actualization, Esteem','Love/Belonging, Safety, Physiological, Esteem, Self-Actualization'],
+   ans:1,fb:'Bottom to top: Physiological → Safety → Love/Belonging → Esteem → Self-Actualization. The most common mistake is putting Esteem above Self-Actualization. Self-Actualization is ALWAYS at the very top of the pyramid.'},
+
+  {topic:'Topic 3',concept:'Problem Recognition',
+   sc:'Marcus is finishing his morning run when his fitness tracker displays an alert: "Battery critically low — charge required." He immediately realizes he needs to research replacement options before his next race in two weeks.',
+   q:'Marcus\'s realization when he sees the battery alert represents which stage of the consumer decision-making process?',
+   opts:['Information search — he begins researching replacement options','Evaluation of alternatives — he compares different fitness tracker brands','Problem recognition — he realizes a need or problem exists','Post-purchase evaluation — he reflects on his current tracker\'s performance'],
+   ans:2,fb:'The moment Marcus sees the alert and recognizes he has a problem (dying tracker) = Problem Recognition. This is Stage 1. Information search comes next (researching options). Evaluation of alternatives is Stage 3 (comparing brands). The battery alert IS the trigger for problem recognition.'},
+
+  {topic:'Topic 3',concept:'Psychological vs. Sociocultural Factors',
+   sc:'A marketing researcher lists factors that influenced a consumer\'s car purchase: (1) her income level, (2) her personality type (risk-averse), (3) her reference group (colleagues who drive luxury cars), and (4) her attitude toward status symbols.',
+   q:'Which of these is NOT a psychological factor influencing consumer behavior?',
+   opts:['Her personality type (risk-averse)','Her income level','Her attitude toward status symbols','Her perception of luxury brands'],
+   ans:1,fb:'Income is a PERSONAL/ECONOMIC factor — not a psychological one. Psychological factors are internal mental states: perception, personality, motivation, attitudes, and lifestyle. Income is a demographic/economic variable outside the psychological category.'},
+
+  {topic:'Topic 3',concept:'Low vs. High Involvement',
+   sc:'On the same shopping trip, Carla picks up a bottle of dish soap without much thought, then spends 45 minutes comparing three different laptops before putting one in her cart.',
+   q:'Which of the following correctly describes the TYPE of purchase decisions Carla is making?',
+   opts:['Dish soap = high involvement; laptop = low involvement','Dish soap = low involvement; laptop = high involvement','Both are high involvement because she researched both before buying','Both are low involvement because she completed both purchases in the same trip'],
+   ans:1,fb:'Dish soap is a low-involvement, routine, inexpensive purchase — she grabbed it without thought. The laptop is high-involvement: expensive, complex, and requires significant research and comparison. Involvement level is determined by perceived risk, cost, and decision complexity.'},
+
+  {topic:'Topic 3',concept:'Sociocultural Factor Example',
+   sc:'A market research report identifies several factors driving purchasing decisions in a new geographic market: local family structures, dominant religious traditions, language preferences, and average household income.',
+   q:'Which of these factors is BEST classified as a sociocultural influence on consumer behavior?',
+   opts:['Average household income — economic factor affecting purchasing power','Local family structures and dominant religious traditions — cultural and social norms','A company\'s distribution strategy — an internal marketing mix decision','Product warranty policies — a product feature designed by the company'],
+   ans:1,fb:'Local family structures and religious traditions are sociocultural influences — they are cultural norms that shape consumer behavior from the outside. Income is economic/personal. Distribution strategy and warranty policies are marketing mix decisions made by the company, not external social forces.'},
+
+  // SET 4: Topic 4 — Products & Services (15–19)
+  {topic:'Topic 4',concept:'4 I\'s of Services',
+   sc:'A student lists what she believes are the four characteristics that distinguish services from products. She writes: Intangibility, Inconsistency, Inseparability, and Innovation.',
+   q:'Which correction should she make to her list?',
+   opts:['Replace Inconsistency with Impression','Replace Innovation with Inventory','Replace Inseparability with Inflexibility','The list is correct as written'],
+   ans:1,fb:'"Innovation" is a common wrong answer on the exam — it is NOT one of the 4 I\'s. The correct fourth I is "Inventory" (also called Perishability). The full correct list: Intangibility, Inseparability, Inconsistency, Inventory. Both "Innovation" and "Impression" appear as distractors.'},
+
+  {topic:'Topic 4',concept:'Intangibility',
+   sc:'Priya is considering hiring a financial advisor. She cannot see, touch, or experience the advice before committing to a 12-month contract. She bases her decision entirely on the advisor\'s credentials, referrals from colleagues, and online reviews.',
+   q:'Which characteristic of services is Priya navigating when she relies on credentials and reviews as quality proxies?',
+   opts:['Inconsistency — the quality of financial advice varies across advisors','Inseparability — the advisor and the service cannot be separated','Intangibility — the service cannot be experienced or evaluated before purchase','Inventory — financial advice is perishable and cannot be stored'],
+   ans:2,fb:'Intangibility means services cannot be seen, touched, or experienced before purchase. Because she can\'t "try" the advice first, Priya uses proxies (credentials, reviews) to judge likely quality. This is the classic marketing challenge of intangibility. The Sarah/massage scenario on the real exam tests the exact same concept.'},
+
+  {topic:'Topic 4',concept:'PLC — Stages and Strategy',
+   sc:'A brand manager of a popular carbonated water brand notices that the category has been flat for 3 years, major players are established, and growth only happens by taking share from competitors. She recommends increasing product variety and targeting new demographic groups.',
+   q:'This market situation and recommended strategy best match which stage of the product life cycle?',
+   opts:['Introduction — build awareness and generate trial among early adopters','Growth — expand distribution and add features to capture rising demand','Maturity — hold market share through differentiation and finding new buyers and uses','Decline — reduce marketing investment and begin phasing out the product'],
+   ans:2,fb:'Flat growth, established major players, and competition for existing customers = Maturity. The strategy (more variety, new demographics) matches the exam\'s exact Maturity strategy: "hold market share through further product differentiation and finding new buyers and uses."'},
+
+  {topic:'Topic 4',concept:'Offering Concept',
+   sc:'A hotel chain\'s leadership team debates whether their core value to guests comes from the physical room (the bed, the bathroom, the amenities) or from the services (concierge, check-in experience, restaurant, loyalty program). A consultant tells them it\'s both — and removing either element reduces total customer value.',
+   q:'The consultant\'s view reflects which marketing concept?',
+   opts:['Competitive advantage — using unique features to outperform rivals','The offering concept — total value is the combination of products and services together','Service quality — measuring how well service delivery meets customer expectations','Product mix strategy — managing the breadth and depth of a company\'s portfolio'],
+   ans:1,fb:'The Offering Concept says total customer value = product component + service component combined. Remove either and value falls. The hotel room is the product; concierge, loyalty programs, and dining are services. Together they form the offering. This exact wording appears on the exam.'},
+
+  {topic:'Topic 4',concept:'Brand Preference Stage',
+   sc:'A coffee drinker has known about Caribou Coffee for years (awareness), can identify it in a lineup of coffee brands (recognition), and now specifically chooses Caribou whenever it\'s available — buying it repeatedly over the past six months.',
+   q:'This consumer is currently at which stage of brand development?',
+   opts:['Brand Awareness — they know the brand exists','Brand Recognition — they can identify the brand by name','Brand Preference — they show consistent repeat purchase and preference over alternatives','Brand Loyalty — they refuse to buy any other brand even when Caribou is unavailable'],
+   ans:2,fb:'Brand Preference = consistent repeat purchase and choosing this brand over alternatives when available. The consumer has moved past Awareness (knows it exists) and Recognition (can identify it) into Preference (actively chooses it). Loyalty would mean they refuse to buy anything else even when Caribou isn\'t available.'},
+
+  // FULL QUIZ — 45 questions total covering every exam concept (indexes 20–44)
+  {topic:'Topic 1',concept:'Definition of Exchange',
+   sc:'',q:'In marketing, exchange refers to:',
+   opts:['The negotiation phase between a manufacturer and a retailer','The financial payment a consumer makes for a product or service','The trade of things of value between buyer and seller so that each is better off after the trade','The bartering of products between nongovernmental organizations'],
+   ans:2,fb:'Exchange = trade of value where BOTH parties are better off. It is broader than just payment — it encompasses the entire value transfer. This is a direct exam question: the exact correct answer is "the trade of things of value between buyer and seller so that each is better off."'},
+
+  {topic:'Topic 1',concept:'Production Era',
+   sc:'',q:'The Production Era of marketing was primarily characterized by:',
+   opts:['Companies focusing on satisfying consumer needs while remaining profitable','Businesses using salespeople and promotions to clear surplus inventory','A focus on producing as many goods as cheaply and efficiently as possible','Balancing consumer wants with long-term societal welfare and sustainability'],
+   ans:2,fb:'The Production Era (Colonial Period–1920s) = scarce goods, focus on maximizing production efficiency. Henry Ford\'s assembly line is the icon of this era. Its problem: overproduction of goods consumers didn\'t want.'},
+
+  {topic:'Topic 1',concept:'Societal Marketing Era',
+   sc:'',q:'The Societal Marketing Era is best described as:',
+   opts:['Focused on using personal selling and promotions to move excess inventory','Centered on producing goods at the lowest possible cost to maximize availability','Concerned only with satisfying individual consumer desires for short-term profit','Balancing consumer wants and company profits with long-term societal and environmental welfare'],
+   ans:3,fb:'The Societal Marketing Era (1970s–present) adds a third objective beyond consumer satisfaction and profit: long-term societal welfare. Environmental responsibility, sustainability, and ethical practices are hallmarks of this era.'},
+
+  {topic:'Topic 1',concept:'Micromarketing',
+   sc:'',q:'A regional restaurant chain runs a targeted Instagram campaign specifically for college students within 5 miles of each location offering a student discount. This is an example of:',
+   opts:['Macromarketing — analyzing external environmental forces on the restaurant industry','Micromarketing — developing specific tactics directed at very targeted segments','Environmental scanning — monitoring competitive activity in the restaurant space','SWOT analysis — identifying internal strengths to deploy against market opportunities'],
+   ans:1,fb:'Micromarketing = specific tactics aimed at very targeted segments. Instagram campaign + 5-mile radius + student segment = highly targeted micro-level execution. Macromarketing operates at the broader external environment level, not the tactical campaign level.'},
+
+  {topic:'Topic 1',concept:'Marketing Mix — 4 P\'s',
+   sc:'',q:'The traditional marketing mix (4 P\'s) includes all of the following EXCEPT:',
+   opts:['Product','Price','Profit','Place'],
+   ans:2,fb:'Profit is NOT one of the 4 P\'s. The 4 P\'s are Product, Price, Place, and Promotion. Profit is a business outcome, not a marketing mix element. This appears on the exam as-is: "The marketing mix includes all but which of the following?" Answer: Profit.'},
+
+  {topic:'Topic 1',concept:'Strategy vs. Plan vs. Tactic',
+   sc:'',q:'A marketing strategy focuses on:',
+   opts:['The detailed schedule of activities and budget allocations for the coming year','What you want to achieve for your business and marketing efforts','The specific actions a salesperson takes during a customer call','The measurement criteria used to evaluate campaign performance'],
+   ans:1,fb:'Strategy = WHAT you want to achieve. Plan = HOW you\'ll achieve it (detailed tactics and budget). A tactic is a specific action within the plan. The exam question is direct: "A _____ focuses on what you want to achieve for your business and marketing efforts." Answer: Marketing strategy.'},
+
+  {topic:'Topic 1',concept:'Environmental Scanning Purpose',
+   sc:'',q:'The basic purpose of environmental scanning is:',
+   opts:['To help management determine the future direction of the organization','To help marketers determine if there is enough space for a promotional event','To help employees understand the company\'s commitment to environmental sustainability','To help management allocate the annual marketing budget'],
+   ans:0,fb:'Environmental scanning helps management determine the future direction of the organization by analyzing internal and external conditions. The other options are all specific, narrow tasks — scanning is a strategic, forward-looking activity. This exact question appears on the exam.'},
+
+  {topic:'Topic 1',concept:'What Can Be Marketed',
+   sc:'',q:'Which of the following is NOT typically listed as something that can be marketed using marketing principles?',
+   opts:['A physical product like a smartphone','An idea or social cause','A person such as a political candidate','A financial accounting standard'],
+   ans:3,fb:'Marketing can apply to goods, services, events, experiences, people, places, ideas, information, and organizations. Financial accounting standards are technical regulatory frameworks — they are not marketed to consumers using marketing principles. Everything else on this list can and is marketed.'},
+
+  {topic:'Topic 2',concept:'Likert Scale Classification',
+   sc:'',q:'A survey asks respondents to rate their agreement with the statement "I trust this brand" on a scale from 1 (Strongly Disagree) to 5 (Strongly Agree). This measurement tool is called a Likert scale and falls under:',
+   opts:['Qualitative research — it captures nuanced emotional responses','Quantitative research — it produces numerical data that can be statistically analyzed','Exploratory research — it seeks to understand unknown consumer feelings','Observational research — it records consumer behavior without asking questions'],
+   ans:1,fb:'The Likert scale produces numbers — numerical ratings that can be averaged, compared, and statistically tested. That makes it quantitative. This is a direct exam question: "The Likert scale comes under _____." Answer: Quantitative research.'},
+
+  {topic:'Topic 2',concept:'Marketing Research Limitation',
+   sc:'',q:'Which of the following statements about marketing research is MOST accurate?',
+   opts:['Marketing research always results in a positive outcome when done correctly','People are equally accurate about products they\'ve used and ones they\'ve only heard about','When collecting marketing research, people may be reluctant to tell you what you want to know','Stated intentions in research studies perfectly correlate with actual buying behavior'],
+   ans:2,fb:'People may be reluctant to share honest opinions — they may give socially desirable answers, exaggerate, or simply not know their own motivations. This limitation is why research design matters. All other options are false: research doesn\'t guarantee positive outcomes, unfamiliarity reduces accuracy, and stated intention ≠ behavior.'},
+
+  {topic:'Topic 2',concept:'Exploratory Research',
+   sc:'',q:'A technology company wants to understand what emotions consumers feel when first unboxing a new device. They invite 10 participants to unbox the product while a moderator asks open-ended questions about their experience.',
+   q:'This approach is an example of:',
+   opts:['Quantitative research — it will produce numerical satisfaction scores','Exploratory research — it seeks to gain insight into consumer feelings through open-ended discovery','Descriptive research — it measures the precise percentage of consumers who feel positive','Causal research — it establishes a cause-and-effect relationship between unboxing and satisfaction'],
+   ans:1,fb:'Exploratory research is open-ended and discovery-focused — used when you don\'t know enough to ask specific measurable questions. Open-ended questions with a moderator = exploratory. The automotive focus group on the real exam tests the same concept: "conducting a focus group to learn what features consumers like" = exploratory.'},
+
+  {topic:'Topic 2',concept:'Positioning',
+   sc:'',q:'When Volvo consistently communicates "safety" in every campaign, product feature, and customer touchpoint — so that when consumers think of car safety they automatically think of Volvo — this is an example of:',
+   opts:['Differentiation — creating points of difference from competitors through features','Positioning — establishing a specific place in the consumer\'s mind','A unique selling proposition — one claim that sets the product apart from all rivals','Market segmentation — targeting safety-conscious consumers as a distinct group'],
+   ans:1,fb:'Positioning = establishing a product\'s place in the consumer\'s MIND. Volvo owns the "safety" position. Note: positioning and USP are related but different. A USP is the specific claim. Positioning is the cumulative mental space the brand owns. The exam defines positioning as "establishing a product\'s place in the consumer\'s mind."'},
+
+  {topic:'Topic 2',concept:'Why Narrow the Target Market',
+   sc:'',q:'A marketing director argues that trying to appeal to everyone with their message will actually hurt their results. She recommends narrowing their focus to a specific audience.',
+   q:'What is the MAIN reason for narrowing the target market focus?',
+   opts:['To reduce the cost of product development and manufacturing','To be more meaningful and relevant to a specific audience that is likely to respond','To appeal to the broadest possible group and maximize total market coverage','To compete across multiple segments simultaneously using the same pricing strategy'],
+   ans:1,fb:'Narrowing the target market makes marketing more relevant and meaningful to the specific audience most likely to respond. A broad, everyone-at-once message becomes diluted and less effective. The exam\'s exact answer: "To be more meaningful to a specific audience likely to respond."'},
+
+  {topic:'Topic 3',concept:'Consumer Behavior — Definition',
+   sc:'',q:'Which of the following best defines consumer behavior as studied in marketing?',
+   opts:['Purchase intentions formed before a consumer enters a retail store','The application of market research to identify consumer demographics','The actions a person takes in purchasing and using products, including the mental and social processes before and after these actions','The strategies companies use to change consumer habits through advertising'],
+   ans:2,fb:'Consumer behavior = all the actions AND mental/social processes before and after a purchase. It\'s broader than just the purchase decision itself. Kotler\'s definition: studying how, what, when, and why people buy. The exam\'s exact answer: "the actions a person takes in purchasing and using products and services, including the mental and social processes that come before and after these actions."'},
+
+  {topic:'Topic 3',concept:'Maslow — Marketing Application',
+   sc:'',q:'Abraham Maslow\'s hierarchy of needs is most useful to marketers because it helps them better understand:',
+   opts:['How to price products for different income segments','The world economic conditions affecting consumer spending','Human motivation — the driving force behind purchasing decisions','How to structure a company\'s organizational hierarchy'],
+   ans:2,fb:'Maslow helps marketers understand HUMAN MOTIVATION. Different need levels trigger different motivations, which drive different purchase decisions. A person motivated by safety needs buys insurance; one motivated by esteem needs buys luxury goods. The exam answer is always "human motivation."'},
+
+  {topic:'Topic 3',concept:'Evaluation of Alternatives',
+   sc:'',q:'A consumer has recognized a need for new running shoes, researched several brands online, and is now comparing Nike, Brooks, and ASICS side by side on features, price, and reviews before making a final decision.',
+   q:'This consumer is currently in which stage of the decision-making process?',
+   opts:['Problem recognition — realizing the need for new running shoes','Information search — gathering data about different running shoe options','Evaluation of alternatives — comparing different products to make a decision','Post-purchase evaluation — reflecting on the satisfaction with the chosen shoes'],
+   ans:2,fb:'Evaluation of Alternatives = comparing different products or services to make a decision. The consumer has already recognized the need (Stage 1) and gathered information (Stage 2). Now they\'re comparing — that\'s Stage 3. The real exam defines this stage as "the stage where the consumer compares different products or services to make a decision."'},
+
+  {topic:'Topic 3',concept:'Flat Tire = Problem Recognition',
+   sc:'',q:'After finishing her final exam, a student walks to her car and discovers her rear tire is completely flat. She immediately thinks about how she\'ll get it repaired before her shift at work tonight.',
+   q:'The moment she notices the flat tire, she enters which stage of the consumer decision-making process?',
+   opts:['Alternative evaluation — comparing tire repair shops','Cognitive dissonance — second-guessing her decision to park there','Problem recognition — realizing a need or problem exists that requires action','Routine response behavior — applying a habitual solution to a familiar problem'],
+   ans:2,fb:'This is the flat tire problem recognition scenario — the same logic as on the real exam. The moment you notice an unexpected problem (flat tire, dead battery, broken phone), you have entered Stage 1: Problem Recognition. You haven\'t searched for solutions yet — you\'ve just realized one is needed.'},
+
+  {topic:'Topic 3',concept:'Psychological Factor — Income Exclusion',
+   sc:'',q:'A research team studying psychological influences on consumer behavior lists: perception, personality, lifestyle, income, and motivation. Their supervisor points out that one item does not belong.',
+   q:'Which factor is NOT a psychological influence on consumer behavior?',
+   opts:['Perception','Personality','Lifestyle','Income'],
+   ans:3,fb:'Income is a personal/economic/demographic factor — NOT a psychological one. Psychological factors are internal mental states: perception (how we interpret stimuli), personality (consistent behavioral tendencies), lifestyle (activities and interests), and motivation (drive created by unmet needs). Income belongs in the "personal factors" category.'},
+
+  {topic:'Topic 3',concept:'Sociocultural — Attitude Toward Spending Exclusion',
+   sc:'',q:'A professor asks students to identify which factor is NOT a sociocultural influence on consumer behavior: (A) Social class (B) Subculture (C) Reference groups (D) Attitude toward spending (E) Family',
+   q:'Which is the correct answer?',
+   opts:['Social class','Subculture','Reference groups','Attitude toward spending'],
+   ans:3,fb:'"Attitude toward spending" is a personal/psychological attitude, not a sociocultural factor. Sociocultural factors are external group and cultural influences: social class, subculture, reference groups, family, and cultural norms. Attitude is an internal, individual psychological state.'},
+
+  {topic:'Topic 4',concept:'Services Definition',
+   sc:'',q:'Intangible items such as airline trips, financial advice, or telephone calls that an organization provides to consumers are referred to as:',
+   opts:['Production goods','Support products','Services','Benefits'],
+   ans:2,fb:'These are SERVICES — intangible offerings or actions of value. The exam uses the exact examples: "airline trips, financial advice, or telephone calls." The wrong answers all appear as options on the real exam. Services is the correct term for these intangible, experience-based offerings.'},
+
+  {topic:'Topic 4',concept:'4 I\'s — Correct Combination',
+   sc:'',q:'The four I\'s that characterize services and distinguish them from physical products are:',
+   opts:['Intangibility, inconsistency, inseparability, and innovation','Intangibility, inventory, inflexibility, and impression','Intangibility, inconsistency, inseparability, and inventory','Intangibility, inventory, innovation, and impression'],
+   ans:2,fb:'The correct four: Intangibility, Inconsistency, Inseparability, and Inventory. Every wrong option contains "Innovation" or "Impression" or "Inflexibility" — all of which are common distractors. The real exam offers these exact four options. Eliminate any option with Innovation or Impression.'},
+
+  {topic:'Topic 4',concept:'Service Blueprint',
+   sc:'',q:'A hotel chain creates a comprehensive diagram that maps every employee touchpoint throughout a guest\'s stay — from online booking through checkout — acknowledging that the stay is designed to be an experience, not just a transaction.',
+   q:'This type of diagram is best described as:',
+   opts:['A service continuum — showing the spectrum from pure goods to pure services','A gap analysis — identifying differences between customer expectations and delivery','A service blueprint — a customer contact audit mapping all employee actions in the service experience','An experience audit — evaluating customer emotions at each stage'],
+   ans:2,fb:'A service blueprint is a customer contact audit that includes ALL employee actions and acknowledges that services are designed to be experiences. The real exam uses this exact definition. Wrong answers: "service continuum," "gap analysis," "experience economy," and "service audit" all appear as distractors.'},
+
+  {topic:'Topic 4',concept:'Offering Concept Definition',
+   sc:'',q:'A combination of products and services offered to consumers or other businesses is called:',
+   opts:['Competitive advantage','A business\'s offering concept','Service quality','Customer satisfaction'],
+   ans:1,fb:'The offering concept = the combination of products AND services a business provides. This is a direct exam question with exact wording. Competitive advantage is the edge over rivals; service quality measures perception of delivery; customer satisfaction measures post-purchase feeling.'},
+
+  {topic:'Topic 4',concept:'PLC Definition',
+   sc:'',q:'Product life cycle is best defined as:',
+   opts:['The average life span of a product from launch to discontinuation','A concept describing stages a new product goes through from concept to commercialization','A concept describing the stages a product goes through in the marketplace — introduction, growth, maturity, and decline','The amount of time it takes an innovation to fully diffuse through the marketplace'],
+   ans:2,fb:'The PLC describes stages a product goes through IN THE MARKETPLACE: Introduction, Growth, Maturity, Decline. Option A (average lifespan) is wrong. Option B (concept to commercialization) describes new product development, not PLC. Option D describes diffusion of innovation. The exact exam answer always specifies the four stages.'},
+
+  {topic:'Topic 4',concept:'TV Westerns — Decline Stage',
+   sc:'',q:'In the late 1950s and 1960s, TV Westerns like Gunsmoke and Bonanza were hugely popular. As viewer tastes shifted, ratings declined and production of these programs slowed significantly. The TV Western category entered which stage of its product life cycle?',
+   opts:['Deletion','Cancellation','Decline','Maturity'],
+   ans:2,fb:'This scenario appears word-for-word on all three versions of the real exam. When a product category loses market share as consumer tastes change, it has entered Decline. "Deletion" and "Cancellation" are not PLC stages. "Maturity" would mean growth has slowed but share is stable — not that it\'s actively shrinking.'},
+
+  {topic:'Topic 4',concept:'Maturity Stage Marketing',
+   sc:'',q:'At the maturity stage of the product life cycle, marketing emphasis typically:',
+   opts:['Is directed toward generating more consumer awareness of the product','Switches to finding more channel intermediaries to carry the product','Focuses on stimulating primary demand for the product category','Aims to hold market share through product differentiation and finding new buyers and uses'],
+   ans:3,fb:'Maturity strategy = hold share through differentiation and finding new buyers. Option A (building awareness) = Introduction stage. Option B (adding intermediaries) = Growth stage. Option C (stimulating primary demand) = Introduction stage. The exact exam answer: "Aims to hold market share through further product differentiation and finding new buyers and uses."'},
+
+  {topic:'Topic 4',concept:'Packaging',
+   sc:'',q:'Any container in which a product is offered for sale and on which information is communicated is referred to as:',
+   opts:['A point-of-purchase display','Merchandising','Packaging','A label'],
+   ans:2,fb:'Packaging = the container PLUS the information communicated on it. A label is just the information. A point-of-purchase display is a separate retail fixture. Merchandising is a broader set of retail practices. The exam tests this with exactly these answer choices.'},
+
+  {topic:'Topic 4',concept:'7 P\'s — People',
+   sc:'',q:'Many services depend on ________ — one of the seven P\'s of services — for the creation and delivery of the customer service experience.',
+   opts:['People','Profitability','Process','Productivity'],
+   ans:0,fb:'"People" is the P that drives service creation and delivery. This is a direct exam question. The 3 service-specific P\'s added to the traditional 4 are: People, Physical Evidence (Servicescape), and Process. Profitability and Productivity are business metrics, not P\'s of service marketing.'},
+
+  {topic:'Topic 4',concept:'Product Line Extension',
+   sc:'',q:'Why might a company like PetSmart extend its product line to include services like pet boarding and training?',
+   opts:['To discontinue its retail product lines and shift entirely to services','To eliminate competition from small local pet stores','To provide more value to existing customers and attract new ones who may then purchase retail products','To comply with local pet care licensing regulations'],
+   ans:2,fb:'Product line extensions add new offerings to serve existing customers better AND attract new ones. PetSmart customers who already buy food and supplies can now also board their pet — increasing total revenue and deepening the relationship. This is the exam\'s exact correct answer.'}
+];
+
+// ── PRACTICE ENGINE ─────────────────────────────────────────────────
+var prStart=0,prCurrent=0,prCorrect=0;
+
+function startPractice(start){
+  prStart=start;prCurrent=0;prCorrect=0;
+  document.getElementById('pr-menu').style.display='none';
+  document.getElementById('pr-activity').classList.remove('activity-hidden');
+  document.getElementById('pr-q-wrap').style.display='block';
+  document.getElementById('pr-results').style.display='none';
+  renderPractice();
+}
+function showPrMenu(){
+  document.getElementById('pr-menu').style.display='block';
+  document.getElementById('pr-activity').classList.add('activity-hidden');
+}
+function renderPractice(){
+  var q=ALL_QS[prStart+prCurrent];
+  document.getElementById('pr-score').textContent=prCorrect;
+  document.getElementById('pr-total').textContent=5;
+  document.getElementById('pr-progress').style.width=((prCurrent/5)*100)+'%';
+  document.getElementById('pr-label').textContent='Question '+(prCurrent+1)+' of 5';
+  document.getElementById('pr-concept').textContent=q.concept;
+  var sb=document.getElementById('pr-scenario');
+  if(q.sc&&q.sc.length>0){sb.textContent=q.sc;sb.style.display='block';}else{sb.style.display='none';}
+  document.getElementById('pr-question').textContent=q.q;
+  var fb=document.getElementById('pr-feedback');fb.className='feedback-box';fb.style.display='none';
+  var nx=document.getElementById('pr-next');nx.className='next-btn';
+  nx.textContent=prCurrent===4?'See Results →':'Next Question →';
+  var ol=document.getElementById('pr-options');ol.innerHTML='';
+  var letters=['A','B','C','D','E'];
+  q.opts.forEach(function(opt,i){
+    var b=document.createElement('button');b.className='opt-btn';
+    b.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+opt;
+    b.onclick=function(){selectAnswer('pr',i,q.ans,q.fb,q.opts.length);};
+    ol.appendChild(b);
+  });
+}
+function nextPractice(){
+  prCurrent++;
+  if(prCurrent>=5){
+    document.getElementById('pr-q-wrap').style.display='none';
+    document.getElementById('pr-results').style.display='block';
+    var pct=Math.round((prCorrect/5)*100);
+    document.getElementById('pr-final-score').textContent=prCorrect;
+    var msgs=['Review the flashcards for this topic before the exam — focus on the feedback from each question.','Getting there — 3 out of 5 is progress. Review the concepts you missed.','Strong! One more pass through this set will lock it in.','Excellent — you have a solid command of this topic.','Perfect score — you\'re ready on this topic!'];
+    document.getElementById('pr-result-msg').textContent=msgs[prCorrect];
+  }else{renderPractice();}
+}
+
+// ── QUIZ ENGINE ─────────────────────────────────────────────────────
+var qzCurrent=0,qzCorrect=0,qzOrder=[];
+
+function startQuiz(){
+  qzCurrent=0;qzCorrect=0;
+  // Use all 45 questions: first 20 are the practice sets (0-19), then quiz extras (20-44)
+  qzOrder=[];
+  for(var i=0;i<ALL_QS.length;i++)qzOrder.push(i);
+  // Shuffle
+  for(var i=qzOrder.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=qzOrder[i];qzOrder[i]=qzOrder[j];qzOrder[j]=tmp;}
+  document.getElementById('qz-intro').style.display='none';
+  document.getElementById('qz-activity').classList.remove('activity-hidden');
+  document.getElementById('qz-q-wrap').style.display='block';
+  document.getElementById('qz-results').style.display='none';
+  renderQuiz();
+}
+function renderQuiz(){
+  var q=ALL_QS[qzOrder[qzCurrent]];
+  document.getElementById('qz-score').textContent=qzCorrect;
+  document.getElementById('qz-total').textContent=ALL_QS.length;
+  document.getElementById('qz-progress').style.width=((qzCurrent/ALL_QS.length)*100)+'%';
+  document.getElementById('qz-label').textContent='Question '+(qzCurrent+1)+' of '+ALL_QS.length;
+  document.getElementById('qz-concept').textContent=q.topic+' — '+q.concept;
+  var sb=document.getElementById('qz-scenario');
+  if(q.sc&&q.sc.length>0){sb.textContent=q.sc;sb.style.display='block';}else{sb.style.display='none';}
+  document.getElementById('qz-question').textContent=q.q;
+  var fb=document.getElementById('qz-feedback');fb.className='feedback-box';fb.style.display='none';
+  var nx=document.getElementById('qz-next');nx.className='next-btn';
+  nx.textContent=qzCurrent===ALL_QS.length-1?'See Results →':'Next Question →';
+  var ol=document.getElementById('qz-options');ol.innerHTML='';
+  var letters=['A','B','C','D','E'];
+  q.opts.forEach(function(opt,i){
+    var b=document.createElement('button');b.className='opt-btn';
+    b.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+opt;
+    b.onclick=function(){selectAnswer('qz',i,q.ans,q.fb,q.opts.length);};
+    ol.appendChild(b);
+  });
+}
+function nextQuiz(){
+  qzCurrent++;
+  if(qzCurrent>=ALL_QS.length){
+    document.getElementById('qz-q-wrap').style.display='none';
+    document.getElementById('qz-results').style.display='block';
+    var pct=Math.round((qzCorrect/ALL_QS.length)*100);
+    document.getElementById('qz-final-score').textContent=qzCorrect;
+    var msg=pct>=90?'Outstanding — you are thoroughly prepared for the midterm!':pct>=75?'Strong performance. Review your missed questions, especially the highlighted feedback.':pct>=60?'Good foundation. Spend extra time on the topics where you missed the most.':'Keep studying — use the Flashcards and Practice Sets by topic to rebuild your foundation before the exam.';
+    document.getElementById('qz-result-msg').textContent=msg;
+  }else{renderQuiz();}
+}
+
+// ── SHARED ANSWER HANDLER ────────────────────────────────────────────
+function selectAnswer(prefix,chosen,correct,fb,numOpts){
+  var btns=document.querySelectorAll('#'+prefix+'-options .opt-btn');
+  btns.forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct)b.classList.add('correct');
+    else if(i===chosen&&chosen!==correct)b.classList.add('wrong');
+    else b.classList.add('revealed');
+  });
+  if(chosen===correct){
+    if(prefix==='pr')prCorrect++;
+    else if(prefix==='qz')qzCorrect++;
+    if(prefix==='qz')document.getElementById('qz-score').textContent=qzCorrect;
+    if(prefix==='pr')document.getElementById('pr-score').textContent=prCorrect;
+  }
+  var fbox=document.getElementById(prefix+'-feedback');
+  fbox.className='feedback-box show '+(chosen===correct?'correct':'wrong');
+  fbox.innerHTML='<strong>'+(chosen===correct?'✓ Correct!':'✗ Not quite.')+'</strong>'+fb;
+  fbox.style.display='block';
+  document.getElementById(prefix+'-next').classList.add('show');
+}
+
+// ── MATCHING DATA ────────────────────────────────────────────────────
+var MATCH_ROUNDS=[
+  {title:'Round 1 — 4 Marketing Eras',pairs:[
+    {left:'Production Era',right:'Scarce goods; focus on manufacturing as many products as cheaply as possible; overproduction was the main problem'},
+    {left:'Sales Era',right:'More goods than customers; companies hire salespeople and use promotions and personal selling to move surplus inventory'},
+    {left:'Marketing Concept Era',right:'Focus shifts to satisfying the needs of consumers while remaining profitable; customer-first thinking develops'},
+    {left:'Societal Marketing Era',right:'Balances consumer wants and company profits with long-term environmental welfare and social responsibility'},
+    {left:'Macromarketing',right:'Analyzing the impact of external forces — economy, regulation, technology, culture — on marketing decisions'}
+  ]},
+  {title:'Round 2 — Maslow\'s Hierarchy (Bottom to Top)',pairs:[
+    {left:'Physiological Needs',right:'Food, water, shelter, sleep — most basic survival needs; must be met before any other level can be pursued'},
+    {left:'Safety Needs',right:'Security and protection from harm; insurance, financial planning, security systems are marketed here'},
+    {left:'Love & Belonging',right:'Social connection, friendship, family, community; social media and group experience campaigns appeal here'},
+    {left:'Esteem Needs',right:'Respect, recognition, achievement; luxury goods and professional development products target this level'},
+    {left:'Self-Actualization',right:'Top of the pyramid; pursuing personal potential and growth; educational programs and creative tools appeal here'}
+  ]},
+  {title:'Round 3 — 5-Step Consumer Decision Making',pairs:[
+    {left:'Stage 1: Problem Recognition',right:'Consumer realizes a need or problem exists — e.g., noticing a flat tire triggers the need for repair'},
+    {left:'Stage 2: Information Search',right:'Consumer gathers information about possible solutions — searching online, asking friends, reading reviews'},
+    {left:'Stage 3: Evaluation of Alternatives',right:'Consumer COMPARES different products or services against each other before deciding'},
+    {left:'Stage 4: Purchase Decision',right:'Consumer makes the final choice and completes the transaction'},
+    {left:'Stage 5: Post-Purchase Evaluation',right:'Consumer reflects on satisfaction with the decision; leads to loyalty, repeat purchase, or cognitive dissonance'}
+  ]},
+  {title:'Round 4 — 4 I\'s of Services',pairs:[
+    {left:'Intangibility',right:'Services cannot be seen, touched, or experienced before purchase; consumers use reviews and credentials as proxies'},
+    {left:'Inseparability',right:'The service provider and the service cannot be separated — the stylist IS the haircut experience'},
+    {left:'Inconsistency',right:'Service quality varies because it is delivered by people whose mood, training, and energy differ each time'},
+    {left:'Inventory (Perishability)',right:'Services cannot be stored; an empty airline seat at takeoff is permanently lost revenue — it cannot be resold'}
+  ]}
+];
+
+var mSelected=null,mMatched=0,mAttempts=0;
+
+function startMatch(roundIdx){
+  var round=MATCH_ROUNDS[roundIdx];
+  mSelected=null;mMatched=0;mAttempts=0;
+  document.getElementById('match-menu').style.display='none';
+  document.getElementById('match-activity').classList.remove('activity-hidden');
+  document.getElementById('m-complete').style.display='none';
+  document.getElementById('m-matched').textContent='0';
+  document.getElementById('m-total').textContent=round.pairs.length;
+  document.getElementById('m-attempts').textContent='0';
+  var pairs=round.pairs.slice();
+  var rights=pairs.map(function(p){return p.right;});
+  for(var i=rights.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=rights[i];rights[i]=rights[j];rights[j]=t;}
+  var lDiv=document.getElementById('m-left'),rDiv=document.getElementById('m-right');
+  lDiv.innerHTML='';rDiv.innerHTML='';
+  pairs.forEach(function(p){
+    var li=document.createElement('div');li.className='match-item';li.textContent=p.left;
+    li.dataset.value=p.left;li.dataset.side='left';
+    li.onclick=function(){handleMatch(li,pairs);};lDiv.appendChild(li);
+  });
+  rights.forEach(function(r){
+    var ri=document.createElement('div');ri.className='match-item';ri.textContent=r;
+    ri.dataset.value=r;ri.dataset.side='right';
+    ri.onclick=function(){handleMatch(ri,pairs);};rDiv.appendChild(ri);
+  });
+}
+function handleMatch(el,pairs){
+  if(el.classList.contains('matched'))return;
+  if(!mSelected){
+    mSelected=el;el.classList.add('selected');
+  }else{
+    if(mSelected===el){mSelected.classList.remove('selected');mSelected=null;return;}
+    mAttempts++;document.getElementById('m-attempts').textContent=mAttempts;
+    var leftEl=mSelected.dataset.side==='left'?mSelected:el;
+    var rightEl=mSelected.dataset.side==='right'?mSelected:el;
+    if(leftEl.dataset.side===rightEl.dataset.side){mSelected.classList.remove('selected');mSelected=el;el.classList.add('selected');return;}
+    var pair=pairs.find(function(p){return p.left===leftEl.dataset.value&&p.right===rightEl.dataset.value;});
+    if(pair){
+      leftEl.classList.remove('selected');leftEl.classList.add('matched');rightEl.classList.add('matched');
+      mMatched++;document.getElementById('m-matched').textContent=mMatched;mSelected=null;
+      if(mMatched===pairs.length){
+        setTimeout(function(){
+          document.getElementById('m-complete').style.display='block';
+          document.getElementById('m-final-attempts').textContent=mAttempts;
+          document.getElementById('m-result-msg').textContent=mAttempts<=pairs.length?'Perfect matching — you know this framework cold!':mAttempts<=pairs.length*2?'Well done — a few tries but you got there.':'Keep practicing — review the flashcards for this framework and try again.';
+        },400);
+      }
+    }else{
+      leftEl.classList.add('wrong-flash');rightEl.classList.add('wrong-flash');
+      setTimeout(function(){leftEl.classList.remove('wrong-flash','selected');rightEl.classList.remove('wrong-flash','selected');},700);
+      mSelected=null;
+    }
+  }
+}
+</script>
+</body>
+</html>
