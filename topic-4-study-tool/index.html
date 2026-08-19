@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Topic 4: Products &amp; Services Study Tool</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;background:#F4F6FB;color:#1A202C;min-height:100vh;line-height:1.6}
+
+/* HEADER */
+.site-header{background:#0D3B4E;color:#FFFFFF;padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 16px;gap:16px;flex-wrap:wrap}
+.course-label{font-family:'Arial',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8A838;margin-bottom:4px}
+.header-title{font-size:26px;font-weight:normal;color:#FFFFFF;line-height:1.2}
+.header-title strong{font-size:30px;display:block;margin-bottom:2px}
+.header-right{text-align:right}
+.gcu-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:10px;background:rgba(255,255,255,.1);color:#AABBDD;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15)}
+.header-sub{padding:0 32px 16px;font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.header-sub span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:#E8A838;display:inline-block}
+
+/* NAV */
+.nav-bar{background:#FFFFFF;border-bottom:2px solid #E2E8F0;display:flex;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.nav-bar::-webkit-scrollbar{height:3px}
+.nav-bar::-webkit-scrollbar-thumb{background:#ccc}
+.nav-btn{padding:0 24px;height:56px;border:none;background:transparent;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:#4A5568;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.nav-btn:hover{color:#0D3B4E;background:#F8FAFF}
+.nav-btn.active{color:#0D3B4E;border-bottom-color:#E8A838}
+.tab-icon{font-size:16px}
+
+/* PANELS */
+.panel{display:none;padding:32px;max-width:1000px;margin:0 auto}
+.panel.active{display:block}
+
+/* SECTION HERO */
+.section-hero{background:#0D3B4E;border-radius:12px;padding:28px 32px;margin-bottom:28px;color:#FFFFFF}
+.section-hero h2{font-size:24px;margin-bottom:6px}
+.section-hero p{font-family:'Arial',sans-serif;font-size:14px;color:#AABBDD;line-height:1.5}
+.session-pill{display:inline-block;background:#E8A838;color:#0D3B4E;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+
+/* MODULE CARDS */
+.module-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:28px}
+.module-card{background:#FFFFFF;border-radius:12px;box-shadow:0 2px 8px rgba(26,43,94,.08);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.module-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(26,43,94,.12)}
+.module-header{padding:18px 20px 14px;display:flex;align-items:center;gap:14px}
+.module-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.mi-blue{background:#E8EDF8}
+.mi-teal{background:#E6F4F3}
+.mi-gold{background:#FDF6E3}
+.mi-plum{background:#F0E8F4}
+.mi-red{background:#FDE8E8}
+.module-meta h3{font-size:16px;font-family:'Arial',sans-serif;font-weight:700;color:#0D3B4E;margin-bottom:2px}
+.module-meta p{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0}
+.module-body{padding:0 20px 18px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.start-btn{display:inline-block;background:#0D3B4E;color:#FFFFFF;border:none;padding:9px 20px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:10px}
+.start-btn:hover{background:#0A2D3C}
+.btn-teal{background:#0E7C7B}
+.btn-teal:hover{background:#0A5E5D}
+.btn-gold{background:#E8A838;color:#0D3B4E}
+.btn-gold:hover{background:#C8882A}
+.btn-plum{background:#6D2E46}
+.btn-plum:hover{background:#4A1E30}
+.btn-red{background:#9B2335}
+.btn-red:hover{background:#741A27}
+
+/* ACTIVITY WRAPPER */
+.activity-wrap{background:#FFFFFF;border-radius:12px;box-shadow:0 4px 20px rgba(26,43,94,.12);padding:28px;margin-bottom:28px}
+.activity-hidden{display:none!important}
+
+/* PROGRESS */
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.progress-bar-track{flex:1;height:8px;background:#EDF2F7;border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:#0D3B4E;border-radius:4px;transition:width .4s ease}
+.progress-label{font-family:'Arial',sans-serif;font-size:13px;color:#8A9BB0;white-space:nowrap}
+.score-display{font-family:'Arial',sans-serif;font-size:15px;color:#4A5568;font-weight:600;text-align:right;margin-bottom:16px}
+.score-display span{color:#0D3B4E}
+
+/* FLASHCARDS */
+.flashcard-scene{width:100%;height:260px;perspective:1200px;cursor:pointer;margin-bottom:20px}
+.flashcard-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.flashcard-inner.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}
+.flashcard-front{background:#0D3B4E;color:#FFFFFF}
+.flashcard-back{background:#FDF6E3;border:2px solid #F0DC9A;transform:rotateY(180deg);color:#1A202C}
+.card-label{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.card-term{font-size:22px;font-weight:bold;line-height:1.3;margin-bottom:8px}
+.card-def{font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;color:#4A5568}
+.card-example{font-family:'Arial',sans-serif;font-size:13px;color:#0E7C7B;font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid #F0DC9A}
+.flip-hint{font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;text-align:center;margin-bottom:16px}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:16px}
+.card-nav button{background:#0D3B4E;color:#FFFFFF;border:none;padding:10px 22px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+.card-nav button:hover{background:#0A2D3C}
+.card-nav button:disabled{background:#EDF2F7;color:#8A9BB0;cursor:not-allowed}
+.card-counter{font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;font-weight:600;min-width:70px;text-align:center}
+.chapter-filter{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:7px 18px;border-radius:20px;border:2px solid #E2E8F0;background:#FFFFFF;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:#4A5568;cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:#0D3B4E;color:#0D3B4E}
+.filter-btn.active{background:#0D3B4E;color:#FFFFFF;border-color:#0D3B4E}
+
+/* SCENARIO / QUIZ */
+.question-text{font-size:17px;font-weight:bold;line-height:1.5;margin-bottom:6px;color:#0D1A3D}
+.scenario-box{background:#EDF2F7;border-left:4px solid #0E7C7B;padding:14px 18px;border-radius:0 8px 8px 0;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:18px;line-height:1.6}
+.concept-tag{display:inline-block;background:#E6F4F3;color:#0E7C7B;font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:14px;letter-spacing:.5px}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.opt-btn{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:13px 16px;font-family:'Arial',sans-serif;font-size:14px;color:#1A202C;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.4;width:100%}
+.opt-btn:hover:not(:disabled){background:#EDF2F7;border-color:#0D3B4E}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-btn.correct{background:#DCFCE7;border-color:#166534;color:#166534}
+.opt-btn.wrong{background:#FEE2E2;border-color:#991B1B;color:#991B1B}
+.opt-btn.revealed{background:#EEF2FF;border-color:#0D3B4E}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:#0D3B4E;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.opt-btn.correct .opt-letter{background:#166534}
+.opt-btn.wrong .opt-letter{background:#991B1B}
+.opt-btn.revealed .opt-letter{background:#0D3B4E}
+.feedback-box{border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;margin-bottom:20px;display:none}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:#DCFCE7;border:1px solid #86EFAC;color:#166534}
+.feedback-box.wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#991B1B}
+.feedback-box strong{display:block;margin-bottom:4px;font-size:15px}
+.next-btn{background:#0D3B4E;color:#FFFFFF;border:none;padding:11px 28px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:none}
+.next-btn.show{display:inline-block}
+.next-btn:hover{background:#0A2D3C}
+
+/* RESULTS */
+.results-box{text-align:center;padding:32px 24px}
+.results-score{font-size:60px;font-weight:bold;color:#0D3B4E;line-height:1;margin-bottom:8px}
+.results-label{font-family:'Arial',sans-serif;font-size:16px;color:#4A5568;margin-bottom:20px}
+.results-msg{font-size:16px;color:#1A202C;margin-bottom:24px;line-height:1.6}
+.reset-btn{background:#0E7C7B;color:#FFFFFF;border:none;padding:12px 30px;border-radius:8px;font-family:'Arial',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.reset-btn:hover{background:#0A5E5D}
+
+/* MATCHING */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.match-col-label{font-family:'Arial',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:10px}
+.match-items{display:flex;flex-direction:column;gap:8px}
+.match-item{background:#F4F6FB;border:2px solid #E2E8F0;border-radius:10px;padding:11px 14px;font-family:'Arial',sans-serif;font-size:14px;cursor:pointer;transition:all .2s;color:#1A202C}
+.match-item:hover{background:#EDF2F7;border-color:#0D3B4E}
+.match-item.selected{background:#E8EDF8;border-color:#0D3B4E;color:#0D3B4E;font-weight:600}
+.match-item.matched{background:#DCFCE7;border-color:#166534;color:#166534;cursor:default}
+.match-item.wrong-flash{background:#FEE2E2;border-color:#991B1B}
+.match-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568}
+.match-score-row span{font-weight:700;color:#0D3B4E}
+
+/* KEY TERMS */
+.terms-filter{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.terms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:28px}
+.term-card{background:#FFFFFF;border-radius:10px;border-left:4px solid #0D3B4E;padding:14px 16px;box-shadow:0 2px 8px rgba(26,43,94,.08)}
+.term-card.ch6{border-left-color:#6D2E46}
+.t-word{font-size:15px;font-weight:bold;color:#0D3B4E;margin-bottom:6px}
+.term-card.ch6 .t-word{color:#6D2E46}
+.t-def{font-family:'Arial',sans-serif;font-size:13px;color:#4A5568;line-height:1.5}
+.t-chapter{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A9BB0;margin-bottom:4px}
+
+/* INFO */
+.info-section{background:#FFFFFF;border-radius:12px;box-shadow:0 2px 8px rgba(26,43,94,.08);padding:24px 28px;margin-bottom:24px}
+.info-section h3{font-size:18px;color:#0D3B4E;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.info-icon{width:32px;height:32px;background:#0D3B4E;color:#FFFFFF;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.info-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.info-chip{background:#F4F6FB;border-radius:8px;padding:12px 14px;font-family:'Arial',sans-serif;font-size:13px;color:#4A5568}
+.info-chip strong{display:block;color:#0D3B4E;font-size:14px;margin-bottom:3px}
+
+/* TIP BANNER */
+.tip-banner{background:#FDF6E3;border:1px solid #F0DC9A;border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;color:#4A5568;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+.tip-icon{font-size:18px;flex-shrink:0}
+.back-btn{background:transparent;border:2px solid #E2E8F0;color:#4A5568;padding:8px 16px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-bottom:24px}
+.back-btn:hover{border-color:#0D3B4E;color:#0D3B4E}
+.site-footer{text-align:center;padding:24px 32px;font-family:'Arial',sans-serif;font-size:12px;color:#8A9BB0;background:#FFFFFF;border-top:1px solid #E2E8F0;margin-top:40px}
+
+/* FRAMEWORK CARDS */
+.framework-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px}
+.fw-card{background:#FFFFFF;border-radius:10px;box-shadow:0 2px 8px rgba(26,43,94,.08);padding:18px 20px;border-top:4px solid #0D3B4E}
+.fw-card.ch6{border-top-color:#6D2E46}
+.fw-title{font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:#0D3B4E;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.fw-card.ch6 .fw-title{color:#6D2E46}
+.fw-item{font-family:'Arial',sans-serif;font-size:13px;color:#4A5568;padding:5px 0;border-bottom:1px solid #EDF2F7;line-height:1.4}
+.fw-item:last-child{border-bottom:none}
+.fw-item strong{color:#1A202C}
+
+@media(max-width:640px){
+  .panel{padding:16px}
+  .header-top{padding:16px}
+  .match-grid{grid-template-columns:1fr}
+  .module-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="course-label">MKT 315 · Topic 4</div>
+      <div class="header-title">
+        <strong>Products &amp; Services</strong>
+        Interactive Study Tool
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="gcu-badge">Grand Canyon University · Fall 2026</div>
+    </div>
+  </div>
+  <div class="header-sub">
+    <span><span class="dot"></span> Chapters 5 &amp; 6</span>
+    <span><span class="dot"></span> Midterm Prep</span>
+    <span><span class="dot"></span> 6 Modules · 90+ Questions</span>
+    <span><span class="dot"></span> Weeks 7–8 · Classes 13–16</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showPanel('home')" id="btn-home"><span class="tab-icon">🏠</span> Start Here</button>
+  <button class="nav-btn" onclick="showPanel('terms')" id="btn-terms"><span class="tab-icon">📖</span> Key Terms</button>
+  <button class="nav-btn" onclick="showPanel('frameworks')" id="btn-frameworks"><span class="tab-icon">🗂️</span> Frameworks</button>
+  <button class="nav-btn" onclick="showPanel('flashcards')" id="btn-flashcards"><span class="tab-icon">🃏</span> Flashcards</button>
+  <button class="nav-btn" onclick="showPanel('scenarios')" id="btn-scenarios"><span class="tab-icon">💡</span> Scenarios</button>
+  <button class="nav-btn" onclick="showPanel('quiz')" id="btn-quiz"><span class="tab-icon">✅</span> Quiz</button>
+  <button class="nav-btn" onclick="showPanel('matching')" id="btn-matching"><span class="tab-icon">🔗</span> Matching</button>
+</nav>
+
+<!-- ══ HOME ══════════════════════════════════════════════════════════ -->
+<div class="panel active" id="panel-home">
+  <div class="section-hero">
+    <div class="session-pill">Topic 4 · Chapters 5 &amp; 6</div>
+    <h2>Products &amp; Services: Your Midterm Study Hub</h2>
+    <p>Covers all four class meetings in Topic 4 — innovation, product life cycle, branding, packaging, and ethics (Chapter 5), followed by the 4 I's, service quality, the Gap Model, 7 P's, and CREST recovery (Chapter 6). Use the modules throughout Weeks 7 and 8, then return to the full tool when preparing for the midterm.</p>
+  </div>
+
+  <div class="tip-banner">
+    <span class="tip-icon">📥</span>
+    <span><strong>How to use this tool:</strong> Use this interactive tool throughout Topic 4. Start with Key Terms and Frameworks, then use Flashcards, Scenarios, the Quiz, and Matching activities to practice applying the concepts from Classes 13–16.</span>
+  </div>
+
+  <div class="module-row">
+    <div class="module-card" onclick="showPanel('terms')">
+      <div class="module-header">
+        <div class="module-icon mi-blue">📖</div>
+        <div class="module-meta"><h3>Key Terms</h3><p>38 vocabulary terms — Ch. 5 &amp; 6</p></div>
+      </div>
+      <div class="module-body">All major definitions from both chapters. Filter by chapter or browse everything. Great for a first pass before flashcards.</div>
+      <button class="start-btn" onclick="showPanel('terms')">Browse Terms</button>
+    </div>
+    <div class="module-card" onclick="showPanel('frameworks')">
+      <div class="module-header">
+        <div class="module-icon mi-teal">🗂️</div>
+        <div class="module-meta"><h3>Frameworks</h3><p>7 testable frameworks at a glance</p></div>
+      </div>
+      <div class="module-body">PLC stages, 4 I's, 6 quality dimensions, Gap Model, 7 P's, CREST, Brand Development — all in one reference view.</div>
+      <button class="start-btn btn-teal" onclick="showPanel('frameworks')">View Frameworks</button>
+    </div>
+    <div class="module-card" onclick="showPanel('flashcards')">
+      <div class="module-header">
+        <div class="module-icon mi-blue">🃏</div>
+        <div class="module-meta"><h3>Flashcards</h3><p>36 flip cards — both chapters</p></div>
+      </div>
+      <div class="module-body">Click to flip. Front = term or concept. Back = definition + real-world example. Filter by chapter. No definition recall — all connected to real brands.</div>
+      <button class="start-btn" onclick="showPanel('flashcards')">Start Flashcards</button>
+    </div>
+    <div class="module-card" onclick="showPanel('scenarios')">
+      <div class="module-header">
+        <div class="module-icon mi-teal">💡</div>
+        <div class="module-meta"><h3>Scenario Questions</h3><p>20 application scenarios</p></div>
+      </div>
+      <div class="module-body">Read a business situation and pick the best answer. Instant feedback explains WHY. No definitions — these are the kinds of questions your midterm actually asks.</div>
+      <button class="start-btn btn-teal" onclick="showPanel('scenarios')">Start Scenarios</button>
+    </div>
+    <div class="module-card" onclick="showPanel('quiz')">
+      <div class="module-header">
+        <div class="module-icon mi-gold">✅</div>
+        <div class="module-meta"><h3>Quick-Check Quiz</h3><p>24 multiple-choice questions</p></div>
+      </div>
+      <div class="module-body">Full-coverage concept checks across all topics. Track your score and reset to practice again.</div>
+      <button class="start-btn btn-gold" onclick="showPanel('quiz')">Start Quiz</button>
+    </div>
+    <div class="module-card" onclick="showPanel('matching')">
+      <div class="module-header">
+        <div class="module-icon mi-plum">🔗</div>
+        <div class="module-meta"><h3>Matching Games</h3><p>3 rounds — PLC, 4 I's, Gap Model</p></div>
+      </div>
+      <div class="module-body">Match terms to their definitions or framework stages. Great for drilling the frameworks that show up most often on exams.</div>
+      <button class="start-btn btn-plum" onclick="showPanel('matching')">Play Matching</button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="info-icon">📋</span> What This Tool Covers</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Class 13 · Ch. 5 — Part 1</strong>Innovation types, consumer vs. business products, 4 PLC stages + strategies, new product development process</div>
+      <div class="info-chip"><strong>Class 14 · Ch. 5 — Part 2</strong>Product mix vs. line, 6 branding elements, brand development stages, BDI/CDI, packaging functions, product ethics</div>
+      <div class="info-chip"><strong>Class 15 · Ch. 6 — Part 1</strong>Goods vs. services, 4 I's (Intangibility, Inseparability, Inconsistency, Inventory), Offering Concept, 6 service quality dimensions, Zone of Tolerance</div>
+      <div class="info-chip"><strong>Class 16 · Ch. 6 — Part 2</strong>Gap Model (5 gaps), Brand Promise, 7 P's of service, Servicescape, CREST service recovery method</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KEY TERMS ═════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-terms">
+  <div class="section-hero" style="background:#0E7C7B">
+    <div class="session-pill" style="background:#FFFFFF;color:#0E7C7B">38 Terms</div>
+    <h2>Key Terms — Chapters 5 &amp; 6</h2>
+    <p>All essential vocabulary for Products &amp; Services. Filter by chapter or view all.</p>
+  </div>
+  <div class="terms-filter">
+    <button class="filter-btn active" onclick="filterTerms('all',this)">All Terms</button>
+    <button class="filter-btn" onclick="filterTerms('ch5',this)">Chapter 5 — Products</button>
+    <button class="filter-btn" onclick="filterTerms('ch6',this)">Chapter 6 — Services</button>
+  </div>
+  <div class="terms-grid" id="terms-grid"></div>
+</div>
+
+<!-- ══ FRAMEWORKS ════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-frameworks">
+  <div class="section-hero" style="background:#1A2E35">
+    <div class="session-pill">7 Frameworks</div>
+    <h2>Testable Frameworks at a Glance</h2>
+    <p>Every framework that appears on exams — with the key distinction for each one. Use this as a rapid review before the midterm.</p>
+  </div>
+
+  <div class="tip-banner">
+    <span class="tip-icon">⚡</span>
+    <span><strong>Exam tip:</strong> Scenario questions will describe a situation and ask you to identify which framework element applies. Study the examples in each card — they are the bridge between definition and application.</span>
+  </div>
+
+  <div class="framework-grid">
+    <div class="fw-card">
+      <div class="fw-title">Product Life Cycle — 4 Stages</div>
+      <div class="fw-item"><strong>Introduction:</strong> New to market, build awareness, high promo spend, high risk</div>
+      <div class="fw-item"><strong>Growth:</strong> Sales climb, competitors enter, add features &amp; expand distribution</div>
+      <div class="fw-item"><strong>Maturity:</strong> Growth slows, steal share, differentiate, adjust pricing</div>
+      <div class="fw-item"><strong>Decline:</strong> Sales drop, cut costs, limit distribution, phase out or find niche</div>
+      <div class="fw-item" style="color:#9B2335;font-weight:600">⚠ PLC describes a CATEGORY, not a single brand</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-title">Brand Development Stages</div>
+      <div class="fw-item"><strong>Awareness:</strong> Consumer first notices the brand exists</div>
+      <div class="fw-item"><strong>Recognition:</strong> Links brand to a product category</div>
+      <div class="fw-item"><strong>Preference:</strong> Repeat purchase begins; favors this brand</div>
+      <div class="fw-item"><strong>Loyalty:</strong> Won't switch even at lower competitor price</div>
+      <div class="fw-item"><strong>Brand Equity:</strong> Financial value created by loyalty and trust</div>
+    </div>
+    <div class="fw-card">
+      <div class="fw-title">Packaging — 3 Functions</div>
+      <div class="fw-item"><strong>Protection:</strong> Safeguards during transport and storage</div>
+      <div class="fw-item"><strong>Identification:</strong> Brand visibility at point of purchase</div>
+      <div class="fw-item"><strong>Messaging:</strong> Ingredients, instructions, warnings, portions</div>
+      <div class="fw-item" style="color:#0E7C7B;font-size:12px">Examples: Pringles cylinder, Morton Salt spout, Heinz inverted bottle</div>
+    </div>
+    <div class="fw-card ch6">
+      <div class="fw-title">4 I's of Services</div>
+      <div class="fw-item"><strong>Intangibility:</strong> Cannot be touched before purchase → use reviews, physical cues</div>
+      <div class="fw-item"><strong>Inseparability:</strong> Provider IS the service → who you hire defines your service</div>
+      <div class="fw-item"><strong>Inconsistency:</strong> Quality varies by provider/day → train and standardize</div>
+      <div class="fw-item"><strong>Inventory:</strong> Services can't be stored → manage perishability with pricing</div>
+    </div>
+    <div class="fw-card ch6">
+      <div class="fw-title">6 Service Quality Dimensions</div>
+      <div class="fw-item"><strong>Reliability #1:</strong> Deliver what was promised — the only OUTCOME dimension</div>
+      <div class="fw-item"><strong>Tangibles:</strong> Physical setting where service is delivered</div>
+      <div class="fw-item"><strong>Responsiveness:</strong> Answer promptly, help quickly</div>
+      <div class="fw-item"><strong>Assurance:</strong> Provider has knowledge and competence</div>
+      <div class="fw-item"><strong>Empathy:</strong> Understanding the customer's needs and feelings</div>
+      <div class="fw-item"><strong>Tangible Evidence:</strong> Customer's evaluation of that physical setting</div>
+    </div>
+    <div class="fw-card ch6">
+      <div class="fw-title">Gap Model — 5 Gaps</div>
+      <div class="fw-item"><strong>Gap 1 — Knowledge:</strong> Don't know what customers want → marketing research</div>
+      <div class="fw-item"><strong>Gap 2 — Standards:</strong> Know but didn't build into standards → process design</div>
+      <div class="fw-item"><strong>Gap 3 — Delivery:</strong> Standards exist but aren't met → hire, train, supervise</div>
+      <div class="fw-item"><strong>Gap 4 — Communications:</strong> Good service, wrong expectations set → consistent messaging</div>
+      <div class="fw-item"><strong>Gap 5 — Customer:</strong> Expectation ≠ perception → only fixed by closing Gaps 1–4</div>
+    </div>
+    <div class="fw-card ch6">
+      <div class="fw-title">CREST Service Recovery</div>
+      <div class="fw-item"><strong>C — Calm</strong> the customer first; involve supervisor if needed</div>
+      <div class="fw-item"><strong>R — Repeat</strong> the problem to confirm shared understanding</div>
+      <div class="fw-item"><strong>E — Empathy</strong> statements: "I understand," "I appreciate..."</div>
+      <div class="fw-item"><strong>S — Solve</strong> with a mutually agreed-upon resolution</div>
+      <div class="fw-item"><strong>T — Timely</strong> response — delay is a second service failure</div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="info-icon">🔑</span> Most Commonly Confused Pairs</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Inseparability vs. Inconsistency</strong>Inseparability = provider IS the service. Inconsistency = quality VARIES across providers and over time. Different concepts, different marketing responses.</div>
+      <div class="info-chip"><strong>Tangibles vs. Tangible Evidence</strong>Tangibles = the physical environment (decor, tools). Tangible Evidence = the customer's JUDGMENT of that environment. Same setting, two different concepts.</div>
+      <div class="info-chip"><strong>Product Mix vs. Product Line</strong>Mix = ALL categories a company offers (width). Line = items within ONE category (depth). Adding a new flavor = line extension. Adding a new category = expanding the mix.</div>
+      <div class="info-chip"><strong>Gap 3 vs. Gap 4</strong>Gap 3 = you have the right standards but can't execute them (training problem). Gap 4 = you deliver well but told customers to expect the wrong thing (communication problem).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FLASHCARDS ════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-flashcards">
+  <div class="section-hero" style="background:#0D3B4E">
+    <div class="session-pill">36 Cards</div>
+    <h2>Flashcards — Chapters 5 &amp; 6</h2>
+    <p>Click the card to flip. Filter by chapter to focus your review. Front = concept; back = definition + real example.</p>
+  </div>
+  <div class="chapter-filter">
+    <button class="filter-btn active" onclick="filterCards('all',this)">All Cards</button>
+    <button class="filter-btn" onclick="filterCards('ch5',this)">Chapter 5 — Products</button>
+    <button class="filter-btn" onclick="filterCards('ch6',this)">Chapter 6 — Services</button>
+  </div>
+  <p class="flip-hint">👆 Click the card to flip it</p>
+  <div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard-inner" id="fc-inner">
+      <div class="flashcard-front">
+        <div class="card-label" id="fc-chapter-label">Chapter 5</div>
+        <div class="card-term" id="fc-term">Loading...</div>
+      </div>
+      <div class="flashcard-back">
+        <div class="card-label">Definition + Example</div>
+        <div class="card-def" id="fc-def"></div>
+        <div class="card-example" id="fc-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card-nav">
+    <button onclick="prevCard()" id="fc-prev">← Prev</button>
+    <span class="card-counter" id="fc-counter">1 / 36</span>
+    <button onclick="nextCard()" id="fc-next">Next →</button>
+  </div>
+</div>
+
+<!-- ══ SCENARIOS ════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-scenarios">
+  <div class="section-hero" style="background:#0E7C7B">
+    <div class="session-pill" style="background:#FFFFFF;color:#0E7C7B">20 Scenarios</div>
+    <h2>Scenario Questions</h2>
+    <p>Apply what you know — these are NOT definition recall questions. Read each business situation carefully and choose the best answer.</p>
+  </div>
+  <div id="sc-menu">
+    <div class="tip-banner">
+      <span class="tip-icon">💡</span>
+      <span>These scenarios test your ability to <strong>apply</strong> concepts to new situations — exactly what the midterm asks. Read carefully before choosing.</span>
+    </div>
+    <div class="module-row">
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-blue">1️⃣</div><div class="module-meta"><h3>Set 1: Innovation &amp; PLC</h3><p>5 scenarios · Class 13 · Ch. 5 Part 1</p></div></div>
+        <button class="start-btn" onclick="startScenarios(0,5)">Start Set 1</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-gold">2️⃣</div><div class="module-meta"><h3>Set 2: Branding &amp; Packaging</h3><p>5 scenarios · Class 14 · Ch. 5 Part 2</p></div></div>
+        <button class="start-btn btn-gold" onclick="startScenarios(5,5)">Start Set 2</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-teal">3️⃣</div><div class="module-meta"><h3>Set 3: 4 I's &amp; Quality</h3><p>5 scenarios · Class 15 · Ch. 6 Part 1</p></div></div>
+        <button class="start-btn btn-teal" onclick="startScenarios(10,5)">Start Set 3</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-plum">4️⃣</div><div class="module-meta"><h3>Set 4: Gap Model &amp; CREST</h3><p>5 scenarios · Class 16 · Ch. 6 Part 2</p></div></div>
+        <button class="start-btn btn-plum" onclick="startScenarios(15,5)">Start Set 4</button>
+      </div>
+    </div>
+  </div>
+  <div id="sc-activity" class="activity-hidden">
+    <button class="back-btn" onclick="showScMenu()">← Back to Sets</button>
+    <div class="score-display">Score: <span id="sc-score">0</span> / <span id="sc-total">5</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="sc-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="sc-label">Question 1 of 5</div>
+    </div>
+    <div class="activity-wrap">
+      <div id="sc-q-wrap">
+        <div class="concept-tag" id="sc-concept"></div>
+        <div class="scenario-box" id="sc-scenario"></div>
+        <div class="question-text" id="sc-question"></div>
+        <div class="options-list" id="sc-options"></div>
+        <div class="feedback-box" id="sc-feedback"></div>
+        <button class="next-btn" id="sc-next" onclick="nextScenario()">Next Question →</button>
+      </div>
+      <div id="sc-results" style="display:none">
+        <div class="results-box">
+          <div class="results-score" id="sc-final-score"></div>
+          <div class="results-label">Scenarios Complete</div>
+          <div class="results-msg" id="sc-result-msg"></div>
+          <button class="reset-btn" onclick="showScMenu()">Try Another Set</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-quiz">
+  <div class="section-hero" style="background:#E8A838">
+    <div class="session-pill" style="background:#0D3B4E;color:#FFFFFF">24 Questions</div>
+    <h2 style="color:#0D3B4E">Quick-Check Quiz</h2>
+    <p style="color:#0D3B4E;opacity:.8">Full chapter coverage. Answer all 24 questions, then review your score. Reset and go again.</p>
+  </div>
+  <div id="quiz-intro">
+    <div class="tip-banner">
+      <span class="tip-icon">⚠️</span>
+      <span><strong>Important:</strong> These questions test concept understanding, not exam wording. They're designed to help you think — not to preview actual exam questions.</span>
+    </div>
+    <button class="start-btn" onclick="startQuiz()" style="font-size:15px;padding:12px 32px">Start 24-Question Quiz →</button>
+  </div>
+  <div id="quiz-activity" class="activity-hidden">
+    <div class="score-display">Score: <span id="qz-score">0</span> / <span id="qz-total">24</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="qz-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="qz-label">Question 1 of 24</div>
+    </div>
+    <div class="activity-wrap">
+      <div id="qz-q-wrap">
+        <div class="concept-tag" id="qz-concept"></div>
+        <div class="question-text" id="qz-question"></div>
+        <div class="options-list" id="qz-options"></div>
+        <div class="feedback-box" id="qz-feedback"></div>
+        <button class="next-btn" id="qz-next" onclick="nextQuiz()">Next Question →</button>
+      </div>
+      <div id="qz-results" style="display:none">
+        <div class="results-box">
+          <div class="results-score" id="qz-final-score"></div>
+          <div class="results-label">Quiz Complete</div>
+          <div class="results-msg" id="qz-result-msg"></div>
+          <button class="reset-btn" onclick="startQuiz()">Retake Quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MATCHING ══════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-matching">
+  <div class="section-hero" style="background:#6D2E46">
+    <div class="session-pill" style="background:#FFFFFF;color:#6D2E46">3 Rounds</div>
+    <h2>Matching Games</h2>
+    <p>Match terms to definitions or framework stages. Great for drilling the concepts that appear most on exams.</p>
+  </div>
+  <div id="match-menu">
+    <div class="module-row">
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-blue">🔁</div><div class="module-meta"><h3>Round 1: PLC Strategies</h3><p>Match each stage to its marketing strategy</p></div></div>
+        <button class="start-btn" onclick="startMatch(0)">Play Round 1</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-teal">🔁</div><div class="module-meta"><h3>Round 2: 4 I's of Services</h3><p>Match each I to its example &amp; response</p></div></div>
+        <button class="start-btn btn-teal" onclick="startMatch(1)">Play Round 2</button>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><div class="module-icon mi-plum">🔁</div><div class="module-meta"><h3>Round 3: Gap Model</h3><p>Match each gap to its cause &amp; fix</p></div></div>
+        <button class="start-btn btn-plum" onclick="startMatch(2)">Play Round 3</button>
+      </div>
+    </div>
+  </div>
+  <div id="match-activity" class="activity-hidden">
+    <button class="back-btn" onclick="document.getElementById('match-menu').style.display='block';document.getElementById('match-activity').classList.add('activity-hidden')">← Back to Rounds</button>
+    <div class="match-score-row">Matched: <span id="m-matched">0</span> / <span id="m-total">0</span> &nbsp;|&nbsp; Attempts: <span id="m-attempts">0</span></div>
+    <div class="match-grid">
+      <div>
+        <div class="match-col-label">Terms / Concepts</div>
+        <div class="match-items" id="m-left"></div>
+      </div>
+      <div>
+        <div class="match-col-label">Definitions / Examples</div>
+        <div class="match-items" id="m-right"></div>
+      </div>
+    </div>
+    <div id="m-complete" style="display:none">
+      <div class="results-box">
+        <div class="results-score" id="m-attempts-final"></div>
+        <div class="results-label">Attempts to Complete</div>
+        <div class="results-msg" id="m-result-msg"></div>
+        <button class="reset-btn" onclick="document.getElementById('match-menu').style.display='block';document.getElementById('match-activity').classList.add('activity-hidden')">Try Another Round</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MKT 315 — Introduction to Marketing &nbsp;|&nbsp; Grand Canyon University · Fall 2026 &nbsp;|&nbsp; Topic 4 Study Tool — Chapters 5 &amp; 6
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════════
+// KEY TERMS DATA
+// ══════════════════════════════════════════
+var TERMS = [
+  // Chapter 5
+  {ch:'ch5',word:'Innovation',def:'An idea that leads to a new product or service or a significant improvement in an existing product or service.'},
+  {ch:'ch5',word:'Product',def:'Tangible or intangible items of value consumers receive in purchase transactions. Can be goods, services, or combinations.'},
+  {ch:'ch5',word:'Competitive Advantage',def:'The extent to which firms exploit opportunities, neutralize threats, deploy assets effectively, or reduce expenses relative to competition.'},
+  {ch:'ch5',word:'Product Life Cycle',def:'The four stages a product category moves through: Introduction, Growth, Maturity, and Decline.'},
+  {ch:'ch5',word:'Introduction Stage',def:'When a product is new to the market. High costs, low sales, focus on building awareness and generating trial.'},
+  {ch:'ch5',word:'Growth Stage',def:'When product awareness builds and consumers understand the value. Sales climb and competitors begin entering the market.'},
+  {ch:'ch5',word:'Maturity Stage',def:'When a product is familiar to most consumers and growth slows or stops. Focus shifts to defending share.'},
+  {ch:'ch5',word:'Decline Stage',def:'When a product loses market share as it is replaced by newer products or consumer needs change.'},
+  {ch:'ch5',word:'Product Mix',def:'The combination of all different offerings an organization provides across all its product categories.'},
+  {ch:'ch5',word:'Product Line',def:'A group of similar products that may be sold to the same or different market segments to meet similar needs.'},
+  {ch:'ch5',word:'Brand Awareness',def:'The first stage of brand development — consumers become conscious the brand exists.'},
+  {ch:'ch5',word:'Brand Loyalty',def:'When customers prefer one brand over others and stick to it consistently, resisting switching even when competitors offer lower prices.'},
+  {ch:'ch5',word:'Brand Equity',def:'The financial and strategic value associated with a strong brand image and positive consumer experiences.'},
+  {ch:'ch5',word:'Packaging',def:'The physical container in which the product arrives to the customer. Functions include protection, identification, and messaging.'},
+  {ch:'ch5',word:'Objective Quality',def:'Quality measured against quantifiable specifications — the measurable, physical properties of a product.'},
+  {ch:'ch5',word:'Perceived Quality',def:'The quality consumers believe a product embodies based on past experience, brand reputation, and word-of-mouth.'},
+  {ch:'ch5',word:'Co-Creation',def:'A process where brands and consumers work together to create better ideas, products, and services (e.g., LEGO Ideas).'},
+  {ch:'ch5',word:'Brand Development Index (BDI)',def:'Measures the effectiveness of a brand with a specified market segment compared to its performance with all consumers.'},
+  {ch:'ch5',word:'Category Development Index (CDI)',def:'A statistical measure of the performance of a product category in a market compared to average national performance.'},
+  // Chapter 6
+  {ch:'ch6',word:'Services',def:'Intangible offerings or actions of value a purchaser receives in a transaction. Cannot be touched, stored, or inventoried.'},
+  {ch:'ch6',word:'Intangibility',def:'Services cannot be seen, heard, tasted, or touched before purchase. Consumers rely on trust, reviews, and physical evidence.'},
+  {ch:'ch6',word:'Inseparability',def:'The consumer cannot distinguish the service provider from the service itself — they are produced and consumed simultaneously.'},
+  {ch:'ch6',word:'Inconsistency',def:'Service quality varies because services are created and delivered by people who differ in mood, training, and experience.'},
+  {ch:'ch6',word:'Inventory (Perishability)',def:'Services cannot be stored. An unsold service opportunity is lost revenue that can never be recovered.'},
+  {ch:'ch6',word:'Offering Concept',def:'The combination of products and services a business provides. Total customer value = product component + service component.'},
+  {ch:'ch6',word:'Service Quality',def:'A measurement of consumer perceptions and opinions about how well service delivery met their needs and expectations.'},
+  {ch:'ch6',word:'Reliability',def:'The most important service quality dimension — the ability to perform the promised service dependably and accurately. The only OUTCOME dimension.'},
+  {ch:'ch6',word:'Responsiveness',def:'Providing assistance and answering customer questions promptly. A process dimension of service quality.'},
+  {ch:'ch6',word:'Assurance',def:'The customer\'s evaluation of the competence, knowledge, and credentials of the service provider.'},
+  {ch:'ch6',word:'Empathy',def:'Service providers being understanding and personally caring about the customer\'s specific needs and circumstances.'},
+  {ch:'ch6',word:'Servicescape',def:'The physical setting where services are produced, delivered, and consumed — including conditions, layout, signs, and symbols.'},
+  {ch:'ch6',word:'Zone of Tolerance',def:'The range between the minimum acceptable (adequate) service level and the desired service level. Failure falls below adequate.'},
+  {ch:'ch6',word:'Brand Promise',def:'A commitment to customers about what the company will consistently deliver — the foundation of all marketing communications.'},
+  {ch:'ch6',word:'7 P\'s of Service',def:'Product, Price, Promotion, Place (traditional 4 P\'s) + People, Physical Evidence, and Process (service additions).'},
+  {ch:'ch6',word:'CREST Method',def:'A service recovery framework: Calm the customer, Repeat the problem, Empathy statements, Solve it, Timely resolution.'},
+  {ch:'ch6',word:'Gap Model',def:'A framework identifying 5 potential weaknesses in service delivery — from not understanding customer needs to customer perception gaps.'},
+  {ch:'ch6',word:'Customer Gap (Gap 5)',def:'The difference between what a customer expected and what they perceived they received. Only closed by eliminating Gaps 1–4.'},
+  {ch:'ch6',word:'Tangible Evidence',def:'The customer\'s evaluation of the physical location where services are rendered — cleanliness, safety, professionalism.'}
+];
+
+function renderTerms(filter){
+  var grid=document.getElementById('terms-grid');
+  grid.innerHTML='';
+  TERMS.filter(t=>filter==='all'||t.ch===filter).forEach(function(t){
+    var d=document.createElement('div');
+    d.className='term-card '+(t.ch==='ch6'?'ch6':'');
+    d.innerHTML='<div class="t-chapter">'+(t.ch==='ch5'?'Chapter 5 — Products':'Chapter 6 — Services')+'</div><div class="t-word">'+t.word+'</div><div class="t-def">'+t.def+'</div>';
+    grid.appendChild(d);
+  });
+}
+function filterTerms(f,btn){
+  document.querySelectorAll('.terms-filter .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTerms(f);
+}
+renderTerms('all');
+
+// ══════════════════════════════════════════
+// FLASHCARDS DATA
+// ══════════════════════════════════════════
+var ALL_CARDS = [
+  // Chapter 5 (18 cards)
+  {ch:'ch5',term:'Innovation',def:'An idea that leads to a meaningful improvement — a new product, process, or significant upgrade to an existing offering.',ex:'Netflix shifting from DVD-by-mail to streaming is process innovation. The iPhone was product innovation that created a new category.'},
+  {ch:'ch5',term:'Product Life Cycle',def:'The four stages ALL product categories move through: Introduction → Growth → Maturity → Decline. Applies to categories, not just brands.',ex:'Smartphones are in Maturity. Electric vehicles are in Growth. Paper road maps are in Decline.'},
+  {ch:'ch5',term:'Introduction Stage',def:'Product is new to market. High costs, low sales, no profit yet. Goal: build awareness and generate first trials.',ex:'When Red Bull launched in the US in 1997, no one knew what an "energy drink" was — they had to create the category.'},
+  {ch:'ch5',term:'Growth Stage',def:'Sales climb, brand is recognizable, competitors enter. Goal: expand distribution, add features, grow market share fast.',ex:'Instant Pot exploded in 2017 during the holiday season — word-of-mouth from online influencers drove rapid growth stage entry.'},
+  {ch:'ch5',term:'Maturity Stage',def:'Growth slows or stops; market is saturated. Goal: steal competitors\' customers, redefine target, defend share.',ex:'Smartphones are in maturity — most households have one. Apple competes through design and ecosystem lock-in, not market creation.'},
+  {ch:'ch5',term:'Decline Stage',def:'Sales and market share shrink as the category is replaced by something better or consumer needs change.',ex:'DVDs are in decline, replaced by streaming. Paper road maps were replaced by Google Maps and GPS apps.'},
+  {ch:'ch5',term:'Product Mix',def:'The full combination of ALL product categories and offerings a company provides. Represents the WIDTH of a company\'s portfolio.',ex:'Apple\'s product mix includes Mac, iPhone, iPad, Apple Watch, AirPods, iCloud, Apple TV+, and Apple Pay.'},
+  {ch:'ch5',term:'Product Line',def:'A group of similar products within a company\'s mix, targeting similar needs. Represents the DEPTH within one category.',ex:'Apple\'s iPhone line includes the iPhone 15, 15 Pro, 15 Pro Max — multiple items within one product line.'},
+  {ch:'ch5',term:'Product Line Extension',def:'Adding new items to an existing product line to serve more customer needs within the same category.',ex:'Diet Coke adding Ginger Lime, Feisty Cherry, and Twisted Mango flavors in 2018 — extending the Diet Coke line.'},
+  {ch:'ch5',term:'Co-Creation',def:'A process where brands and consumers collaborate to generate new product ideas, often through online platforms or communities.',ex:'LEGO Ideas lets fans submit designs — if a project gets 10,000 votes, LEGO may produce it and credits the creator.'},
+  {ch:'ch5',term:'Brand',def:'A product or service with a unique identity combining visual elements, experiences, and the consistent promise it makes to consumers.',ex:'Nike is not just a swoosh — it\'s the entire experience of "inspiration and innovation to every athlete in the world."'},
+  {ch:'ch5',term:'Brand Equity',def:'The financial and strategic value a company gains from having a strong, recognizable brand with loyal customers.',ex:'Coca-Cola\'s brand equity means the name itself adds value beyond the liquid in the can — consumers pay a premium just for the name.'},
+  {ch:'ch5',term:'Brand Loyalty',def:'When consumers consistently choose one brand over all competitors and resist switching even when alternatives offer better prices.',ex:'Apple fans who pre-order every new iPhone without comparing specs to Samsung demonstrate true brand loyalty.'},
+  {ch:'ch5',term:'Single Brand Strategy',def:'One brand name applied across all or most of a company\'s products. Lower cost to maintain, but one failure can hurt all.',ex:'Samsung sells phones, TVs, appliances, and semiconductors all under one brand. Tesla does the same across all vehicle models.'},
+  {ch:'ch5',term:'Multiple Brand Strategy',def:'Using separate, distinct brands for different products or categories within the same company.',ex:'P&G sells Tide, Gain, and Bounce — three competing laundry brands under one company. If Gain fails, Tide is unaffected.'},
+  {ch:'ch5',term:'BDI vs. CDI',def:'BDI = how well YOUR BRAND performs in a segment vs. national average. CDI = how well the CATEGORY performs in that segment.',ex:'High CDI + Low BDI: Energy drinks sell well in California (category strong), but your Red Bull competitor outsells you (brand weak). Investigate why.'},
+  {ch:'ch5',term:'Packaging — Protection',def:'The primary function of packaging: safeguarding the product from damage, tampering, or theft during transport and storage.',ex:'Cereal boxes, aluminum cans, shrink-wrapped pallets, tamper-evident pharmaceutical caps — all protect the product.'},
+  {ch:'ch5',term:'Packaging — Identification',def:'Packaging helps a brand stand out at the shelf and enables instant recognition, often without reading a word.',ex:'Morton Salt\'s cylindrical container, Pringles\' distinctive tube, Heinz\'s inverted ketchup bottle — all immediately recognizable.'},
+  // Chapter 6 (18 cards)
+  {ch:'ch6',term:'Services vs. Goods',def:'Goods are physical, can be stored, inspected before purchase, and ownership transfers. Services are intangible, perishable, consumed at delivery.',ex:'A car is a good. An oil change is a service. A Starbucks latte is BOTH — the coffee is a good, the experience is the service.'},
+  {ch:'ch6',term:'Intangibility',def:'Services cannot be seen, touched, or tasted before purchase. Consumers use reviews, reputation, and physical cues as quality proxies.',ex:'You can\'t test-drive a massage before booking it. Yelp reviews, clean spa decor, and therapist credentials are proxies for quality.'},
+  {ch:'ch6',term:'Inseparability',def:'The provider and the service cannot be separated — they are created and consumed simultaneously. Who delivers it IS what it is.',ex:'A haircut cannot be separated from the stylist giving it. Bad stylist = bad haircut, even if the salon itself is beautiful.'},
+  {ch:'ch6',term:'Inconsistency',def:'Service quality varies based on who delivers it, when, and with which customer. No two service interactions are identical.',ex:'Your Starbucks order tastes slightly different depending on the barista. The experience varies by shift, mood, and traffic volume.'},
+  {ch:'ch6',term:'Inventory / Perishability',def:'Services cannot be stored or stockpiled. An empty airline seat at takeoff is lost revenue that can never be recovered.',ex:'A hotel with 10 empty rooms on a Tuesday night lost that revenue permanently. Airlines overbook to compensate for expected cancellations.'},
+  {ch:'ch6',term:'Offering Concept',def:'The total combination of products AND services a business offers. Customer value = product value + service value combined.',ex:'Starbucks: the coffee alone isn\'t worth $6. The barista knowing your name, the Wi-Fi, the atmosphere — together they create the value.'},
+  {ch:'ch6',term:'Reliability (Service Quality)',def:'The #1 service quality dimension. Performing the promised service dependably and accurately. The ONLY outcome-based dimension.',ex:'Amazon Prime promising 2-day delivery and delivering in 2 days. Miss the window? That\'s a Reliability failure — the most damaging kind.'},
+  {ch:'ch6',term:'Responsiveness',def:'Providing prompt assistance and answering questions quickly. A process dimension — how fast you respond matters enormously.',ex:'Chewy.com calling customers directly after a complaint. Answering a live chat in under 5 minutes. Replying to email within 24 hours.'},
+  {ch:'ch6',term:'Assurance',def:'The customer\'s perception of the provider\'s knowledge and competence. Do they seem like they know what they\'re doing?',ex:'An HVAC technician who arrives with the exact right part and diagnoses the problem in 3 minutes projects strong assurance.'},
+  {ch:'ch6',term:'Empathy',def:'Service providers demonstrating genuine understanding of the customer\'s specific needs and circumstances.',ex:'A restaurant manager offering to comp a meal after a long wait — not because it\'s policy, but because they genuinely understand the inconvenience.'},
+  {ch:'ch6',term:'Tangibles vs. Tangible Evidence',def:'Tangibles = the physical environment (decor, tools, uniforms). Tangible Evidence = the customer\'s EVALUATION of that environment.',ex:'Tangibles: the clean exam room and organized equipment in a doctor\'s office. Tangible Evidence: the patient feeling safe and cared for because of it.'},
+  {ch:'ch6',term:'Servicescape',def:'The complete physical setting where a service is produced, delivered, and consumed — conditions, layout, symbols, and imagery all included.',ex:'Olive Garden uses Italian music, Mediterranean decor, and wine displays to create an "Italy" atmosphere that shapes the dining experience.'},
+  {ch:'ch6',term:'Zone of Tolerance',def:'The range between a customer\'s minimum acceptable service (adequate) and their ideal level (desired). Falling below adequate = service failure.',ex:'A 15-minute restaurant wait: some diners (wide ZOT) accept it; others (narrow ZOT) are already frustrated. Same service, different thresholds.'},
+  {ch:'ch6',term:'Brand Promise',def:'A company\'s commitment to customers about what they will consistently receive — the foundation of trust and marketing strategy.',ex:'Nike: "Inspiration and innovation to every athlete." Patagonia: "We\'re in business to save our home planet." Both are operational commitments.'},
+  {ch:'ch6',term:'7 P\'s of Service',def:'Traditional 4 P\'s (Product, Price, Promotion, Place) + 3 service-specific additions: People, Physical Evidence, and Process.',ex:'McDonald\'s 7 P\'s: Product (menu), Price (value tiers), Promotion (McD app deals), Place (drive-thrus), People (crew training), Physical Evidence (clean store), Process (assembly line kitchen).'},
+  {ch:'ch6',term:'CREST Recovery',def:'A 5-step service recovery framework: Calm, Repeat the problem, Empathy, Solve, Timely resolution.',ex:'Airline delay: Calm the frustrated passenger → Repeat: "You missed your connection because of our delay" → Empathy: "I understand how frustrating this is" → Solve: rebook + meal voucher → Timely: do it in 10 minutes.'},
+  {ch:'ch6',term:'Gap Model — Gap 3',def:'The Delivery Gap: service standards exist but the company fails to meet them. Root cause: poor hiring, training, or supervision.',ex:'A hotel knows check-in should be under 3 minutes (standard exists) but untrained front desk staff takes 10 minutes (Gap 3).'},
+  {ch:'ch6',term:'Gap Model — Gap 4',def:'The Communications Gap: good service is delivered, but the company set wrong customer expectations in marketing and communications.',ex:'A pizza chain trains staff to deliver in 45 minutes but advertises "30-minute delivery" — customers expect 30, receive 45, feel let down.'}
+];
+
+var activeCards=ALL_CARDS.slice();
+var fcIdx=0;
+var fcFlipped=false;
+
+function filterCards(f,btn){
+  document.querySelectorAll('.chapter-filter .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCards=(f==='all')?ALL_CARDS.slice():ALL_CARDS.filter(c=>c.ch===f);
+  fcIdx=0;
+  fcFlipped=false;
+  renderCard();
+}
+
+function renderCard(){
+  var c=activeCards[fcIdx];
+  document.getElementById('fc-inner').classList.remove('flipped');
+  fcFlipped=false;
+  document.getElementById('fc-chapter-label').textContent=c.ch==='ch5'?'Chapter 5 — Products':'Chapter 6 — Services';
+  document.getElementById('fc-term').textContent=c.term;
+  document.getElementById('fc-def').textContent=c.def;
+  document.getElementById('fc-ex').textContent=c.ex;
+  document.getElementById('fc-counter').textContent=(fcIdx+1)+' / '+activeCards.length;
+  document.getElementById('fc-prev').disabled=(fcIdx===0);
+  document.getElementById('fc-next').disabled=(fcIdx===activeCards.length-1);
+}
+
+function flipCard(){
+  fcFlipped=!fcFlipped;
+  document.getElementById('fc-inner').classList.toggle('flipped',fcFlipped);
+}
+function nextCard(){if(fcIdx<activeCards.length-1){fcIdx++;renderCard();}}
+function prevCard(){if(fcIdx>0){fcIdx--;renderCard();}}
+renderCard();
+
+// ══════════════════════════════════════════
+// SCENARIO DATA
+// ══════════════════════════════════════════
+var SCENARIOS = [
+  // SET 1: Innovation & PLC (0-4)
+  {
+    concept:'Product Life Cycle',
+    scenario:'A major electronics retailer notices that sales of 4K TVs have leveled off completely over the past two years. Almost every household that wants one already has one, and new entrants to the market are competing primarily on price. The top three brands control 80% of market share.',
+    q:'Based on these observations, which stage of the product life cycle best describes the 4K TV category?',
+    opts:['Introduction — new to market, creating demand','Growth — rapid sales increase, new competitors entering','Maturity — growth has slowed, focus on defending share','Decline — category is shrinking rapidly'],
+    ans:2,
+    feedback:'Correct. The key signals of Maturity are: growth has stopped (leveled off), high market penetration (most households have one), and competition shifting to price. Maturity does NOT mean decline — many products stay in Maturity for decades.'
+  },
+  {
+    concept:'Innovation Types',
+    scenario:'Airbnb did not invent a new type of room or build a single hotel. Instead, they created a computerized platform that connects people with spare rooms to travelers seeking lodging — turning ordinary homes into potential hotels without owning any property.',
+    q:'Which type of innovation best describes what Airbnb created?',
+    opts:['Product innovation — a brand new physical offering','Process innovation — a new way of delivering an existing service','Technological invention — a new scientific discovery','Brand extension — adding services to an existing hotel brand'],
+    ans:1,
+    feedback:'Correct. Airbnb is process innovation — they changed HOW lodging is found and booked, not what a room is. They did not create a new product; they created a new process for connecting supply with demand. Netflix\'s DVD-by-mail model and Ford\'s assembly line are also classic process innovations.'
+  },
+  {
+    concept:'New Product Development',
+    scenario:'General Mills launched its Worldwide Innovation Network in 2007, inviting entrepreneurs, customers, academics, and independent designers to submit new food product concepts. Internal teams then screen submissions against strategic fit, cost feasibility, and market potential before any investment is made.',
+    q:'The stage described in the screening step — narrowing ideas based on strategic fit and feasibility — is which stage of the new product development process?',
+    opts:['Idea generation — brainstorming new concepts','Idea screening — reducing many ideas to the most viable few','Concept testing — exposing ideas to target consumers','Test marketing — limited product launch in one region'],
+    ans:1,
+    feedback:'Correct. Idea screening is specifically about taking a large pool of ideas and applying internal filters — strategic alignment, estimated cost, and feasibility — to reduce the list before any expensive development begins. Concept testing comes AFTER screening and involves external consumers.'
+  },
+  {
+    concept:'Product Life Cycle — Strategy',
+    scenario:'A craft beer brand has been growing rapidly for three years. The category is now attracting dozens of new competitors, distribution is expanding into new states, and the brand is investing heavily in television advertising. Sales are climbing 30% year over year.',
+    q:'Which marketing strategy is MOST appropriate for this brand right now?',
+    opts:['Reduce marketing spending to protect margins','Cut prices significantly to maintain volume','Add new flavors, expand into new geographic markets, and increase distribution','Focus narrowly on the most loyal existing customers'],
+    ans:2,
+    feedback:'Correct. This is a Growth stage scenario — rapid sales increase, competitors entering, expanding geography. The right strategy is to capture as much market as possible: add variety, expand distribution, and grow market share before the category reaches Maturity. Cutting prices or spending is a Maturity/Decline tactic.'
+  },
+  {
+    concept:'Consumer vs. Business Products',
+    scenario:'A marketing student buys a MacBook Pro for college homework and personal use. Six months later, the same model MacBook Pro is purchased in bulk by a law firm for its attorney staff.',
+    q:'How should the MacBook Pro be classified in EACH transaction?',
+    opts:['Consumer product in both cases — it\'s the same laptop','Business product in both cases — it\'s sold by a B2B company','Consumer product for the student; business product for the law firm','Business product for the student; consumer product for the law firm'],
+    ans:2,
+    feedback:'Correct. Product classification depends on the BUYER and INTENDED USE, not the physical product. The same MacBook is a consumer product when purchased for personal use (student) and a business product when purchased for organizational use (law firm). This is one of the most frequently missed distinctions on exams.'
+  },
+  // SET 2: Branding & Packaging (5-9)
+  {
+    concept:'Brand Development Stages',
+    scenario:'A new organic snack brand has been advertising for six months. Most target consumers can now name the brand when asked, and they associate it with "healthy" positioning. However, most have never tried it — they haven\'t formed a preference yet.',
+    q:'Which stage of brand development best describes where this brand currently sits?',
+    opts:['Brand Awareness — consumers just became aware the brand exists','Brand Recognition — consumers can name it and associate it with healthy snacking','Brand Preference — repeat purchases have started','Brand Loyalty — consumers resist switching to competitors'],
+    ans:1,
+    feedback:'Correct. Brand Recognition means consumers can name the brand AND associate it with a category or positioning. They may even have opinions. But since they haven\'t tried it and no preference exists yet, they haven\'t reached Brand Preference. Awareness = "I\'ve heard of it." Recognition = "I know what it stands for."'
+  },
+  {
+    concept:'Single vs. Multiple Brand Strategy',
+    scenario:'A major CPG company sells three competing laundry detergents — a premium option, a value option, and a scent-focused option — under three different brand names. All three are manufactured by the same parent company but marketed completely independently.',
+    q:'This company is using which branding strategy, and what is the PRIMARY advantage of this approach?',
+    opts:['Single brand strategy — lower cost and simpler management','Multiple brand strategy — failure of one brand does not damage the others','Line extension — adding varieties to an existing successful brand','Co-branding — partnering with another company\'s brand'],
+    ans:1,
+    feedback:'Correct. P&G is the classic example — Tide, Gain, and Bounce are three separate laundry brands under one company. The key advantage: if one brand faces a quality scandal or fails, it does not damage the other brands. The downside is higher cost — each brand must be developed and maintained individually.'
+  },
+  {
+    concept:'BDI and CDI',
+    scenario:'A sports drink brand analyzes its performance in the Pacific Northwest. The CDI for sports drinks in that region is 142. The brand\'s BDI in the same region is 61.',
+    q:'What does this BDI/CDI comparison tell the brand manager?',
+    opts:['Both the category and the brand are performing well — invest heavily','The category is strong in this region but the brand is underperforming — investigate why','The brand is outperforming the category — this is a safe market','Both the category and brand are weak — avoid spending here'],
+    ans:1,
+    feedback:'Correct. High CDI (142) means the sports drink CATEGORY is strong in the Pacific Northwest — consumers there buy sports drinks more than the national average. Low BDI (61) means THIS BRAND is underperforming in that same market. The question isn\'t "should we sell here?" — the category proves there\'s demand. The question is "why aren\'t we winning our share?"'
+  },
+  {
+    concept:'Packaging Functions',
+    scenario:'Morton Salt\'s signature packaging includes a cylindrical container with a pour spout and the famous tagline "When it rains, it pours." The container and spout were redesigned specifically to address the problem of salt clumping in humid weather.',
+    q:'Which of the THREE functions of packaging does this design PRIMARILY demonstrate beyond basic protection?',
+    opts:['Identification only — the yellow box makes it recognizable on the shelf','Messaging only — the tagline communicates the product\'s benefit','Both Identification AND Messaging — the design creates shelf recognition AND communicates the benefit','Identification, Messaging, AND active product differentiation'],
+    ans:2,
+    feedback:'Correct. This is a great example of packaging doing double duty. The distinctive yellow cylindrical container with the iconic umbrella-girl image provides IDENTIFICATION (instant shelf recognition without reading the name). The pour spout design AND the tagline "When it rains, it pours" provide MESSAGING — communicating the anti-clumping benefit. Both functions work simultaneously.'
+  },
+  {
+    concept:'Product Ethics',
+    scenario:'A software company designs its smartphones so that after two years, a system update intentionally slows the processor, making the device feel sluggish and nudging consumers to purchase a newer model. The company defends this as "battery optimization."',
+    q:'Which ethics issue in product design does this scenario most directly illustrate?',
+    opts:['Inclusivity — the product doesn\'t serve all users equally','Programmed obsolescence — products are intentionally designed to degrade, forcing purchases','Fairness in competition — copying a competitor\'s design','Transparency — failing to disclose material limitations'],
+    ans:1,
+    feedback:'Correct. This is programmed obsolescence — deliberately engineering a product to lose value or performance over time to force repeat purchases. Apple faced exactly this controversy in 2017 when they admitted to throttling older iPhones via software updates. While Transparency is also partially implicated (they didn\'t disclose it), the PRIMARY ethics issue is the intentional design for failure.'
+  },
+  // SET 3: 4 I's & Quality (10-14)
+  {
+    concept:'4 I\'s of Services — Inventory',
+    scenario:'A boutique yoga studio has 20 spots in each class. On Tuesday mornings, the 9:00 AM class consistently runs with only 8 students. The studio owner considers offering a 20% discount for students who book the Tuesday 9:00 AM slot before Sunday night.',
+    q:'Which of the 4 I\'s of services is the studio responding to with this pricing strategy?',
+    opts:['Intangibility — yoga classes can\'t be touched or previewed','Inseparability — the instructor is inseparable from the class','Inconsistency — quality varies across instructors','Inventory / Perishability — empty spots represent permanently lost revenue'],
+    ans:3,
+    feedback:'Correct. Empty yoga spots that go unfilled are perishable — once 9 AM Tuesday passes with 8 students, those 12 empty spots are lost revenue forever. The discount strategy is a classic response to perishability: incentivize off-peak demand to fill capacity. Airlines, hotels, golf courses, and restaurants all use this strategy for the same reason.'
+  },
+  {
+    concept:'Service Quality — Reliability',
+    scenario:'A plumbing company advertises same-day service and charges a premium for it. When a customer calls with a burst pipe at 8 AM, they are promised a technician by noon. The technician arrives at 12:58 PM, but he is friendly, works efficiently, and fixes the pipe perfectly.',
+    q:'Despite the excellent repair work and friendly technician, this company has failed on which dimension of service quality?',
+    opts:['Assurance — the technician didn\'t project enough confidence','Responsiveness — calls took too long to answer','Reliability — the promised service time was not delivered accurately','Tangibles — the truck was not well-marked or professional-looking'],
+    ans:2,
+    feedback:'Correct. Reliability is the MOST IMPORTANT service quality dimension precisely because it is the only one about the OUTCOME — did you deliver what you promised? The technician arrived at 12:58, not by noon as promised. Regardless of how friendly or skilled he was (those are process dimensions), the core promise was broken. This is why Reliability is ranked #1.'
+  },
+  {
+    concept:'Inseparability vs. Inconsistency',
+    scenario:'A restaurant receives a 5-star review on Monday from a customer who was served by Mei, an experienced server with 4 years of tenure. On Friday, the same dishes are ordered by a different customer who is served by Darius, a new hire on his second week. Darius forgets two items and seems nervous.',
+    q:'Monday\'s experience vs. Friday\'s experience best illustrates which of the 4 I\'s?',
+    opts:['Intangibility — neither customer could evaluate the service before visiting','Inseparability — both customers experienced the food separately from the service','Inconsistency — service quality varied based on the provider and the day','Inventory — the restaurant failed to manage capacity effectively'],
+    ans:2,
+    feedback:'Correct. Inconsistency means service quality varies based on who delivers it, when, and under what conditions. Same restaurant, same menu, same kitchen — but two totally different service experiences because of the provider. The marketing response to Inconsistency is training, standardization, and supervision. Don\'t confuse this with Inseparability, which means the PROVIDER is the service (can\'t separate them).'
+  },
+  {
+    concept:'Offering Concept',
+    scenario:'A premium coworking space charges $400/month per desk — significantly more than office rent in the same neighborhood. Members explain they pay for the high-speed internet, the coffee bar, the networking events, and the energizing atmosphere, not just the desk.',
+    q:'This scenario best illustrates which concept from Chapter 6?',
+    opts:['Zone of Tolerance — members accept higher prices within a range','The Offering Concept — total value = physical space + services combined','Tangible Evidence — members evaluate the physical location as part of quality','Brand Promise — the company has made a commitment to provide a premium environment'],
+    ans:1,
+    feedback:'Correct. The Offering Concept says total customer value = product component + service component. The physical desk (product) alone doesn\'t justify $400/month. The networking events, coffee, internet, and atmosphere (services) together with the workspace create the total value that justifies the premium. Remove either component, and the offering falls apart.'
+  },
+  {
+    concept:'Zone of Tolerance',
+    scenario:'Two airline passengers experience the same 45-minute flight delay due to crew scheduling. Passenger A is a frequent business traveler who flies 100 times a year and has experienced many delays. She checks email during the delay and boards without complaint. Passenger B is a first-time flyer traveling for her daughter\'s wedding and is visibly distressed.',
+    q:'What explains the difference in their reactions?',
+    opts:['Passenger A has experienced better service quality from other airlines','The airline provided different service to each passenger','Each passenger has a different Zone of Tolerance — different adequate and desired service levels','Passenger B is reacting to Inseparability — she associates the delay with the airline brand'],
+    ans:2,
+    feedback:'Correct. Zone of Tolerance explains why two people experience the identical service and react completely differently. Passenger A\'s frequent-flyer experience has widened her zone — 45 minutes is within her "adequate" threshold. Passenger B\'s zone is very narrow because this is high-stakes and first-time; the delay falls below her adequate threshold. Same service. Different zones. Different outcomes.'
+  },
+  // SET 4: Gap Model & CREST (15-19)
+  {
+    concept:'Gap Model — Identifying the Gap',
+    scenario:'A hotel chain surveys guests and discovers they value fast, reliable Wi-Fi above almost every other amenity. The company takes the survey results seriously but never updates its operational standards or training manuals to include Wi-Fi speed guarantees or technician response times.',
+    q:'Which gap in the Gap Model has this hotel created?',
+    opts:['Gap 1 — Knowledge Gap: they don\'t know what guests want','Gap 2 — Standards Gap: they know what guests want but didn\'t build it into standards','Gap 3 — Delivery Gap: standards exist but staff can\'t execute them','Gap 4 — Communications Gap: they communicate promises they can\'t keep'],
+    ans:1,
+    feedback:'Correct. The hotel knows exactly what guests want (Wi-Fi — they surveyed them). But they failed to translate that knowledge into operational standards, training requirements, or service guarantees. That\'s Gap 2 — the Standards Gap. The fix: revise service standards and training protocols to explicitly include fast Wi-Fi reliability as a measurable performance requirement.'
+  },
+  {
+    concept:'CREST Method',
+    scenario:'A customer calls a telecom company furious that her internet has been down for 48 hours. The call center agent immediately says: "I\'m going to give you a two-day service credit right now." The customer\'s frustration increases — she feels dismissed. She ends the call still upset and posts a negative review.',
+    q:'Which step of the CREST method did the agent skip, causing the recovery to fail?',
+    opts:['Repeat — the agent never confirmed the specific problem the customer experienced','Timely — the credit was offered too quickly without a real resolution','Both Calm and Empathy — the agent jumped to Solve without acknowledging the customer\'s frustration','Solve — the two-day credit was not the right solution'],
+    ans:2,
+    feedback:'Correct. The agent skipped directly to Solve (S) without first Calming (C) the customer or using Empathy (E) statements. "I\'m going to give you a credit" can feel transactional and dismissive — as if the company is just trying to end the call. Customers need to feel HEARD before they can accept a solution. The correct sequence: Calm → Repeat → Empathy → Solve → Timely.'
+  },
+  {
+    concept:'7 P\'s of Service',
+    scenario:'A medical clinic redesigned its waiting room with comfortable chairs, soft lighting, curated artwork, soothing background music, and clear directional signage. Patient satisfaction scores improved by 23% even before they saw a doctor.',
+    q:'Which of the three service-specific P\'s does this waiting room redesign most directly represent?',
+    opts:['People — the staff training improved because of the new environment','Process — the check-in procedure was redesigned to be more efficient','Physical Evidence / Servicescape — the physical environment was redesigned to improve perceived quality','Place — the clinic changed its location to a better neighborhood'],
+    ans:2,
+    feedback:'Correct. The waiting room IS the Servicescape — the physical setting where the service begins. Every element (lighting, music, art, signage) shapes what patients perceive about the quality of care before they see a single doctor. Servicescape is a key component of Physical Evidence, one of the 3 P\'s added specifically for services. The facility\'s environment signals quality and professionalism.'
+  },
+  {
+    concept:'Brand Promise',
+    scenario:'A fast-casual restaurant chain runs ads with the tagline "Fresh. Fast. Always." Its social media is filled with farm-to-table imagery. An investigative journalist discovers that several ingredients are pre-frozen and shipped from centralized processing facilities. The story goes viral.',
+    q:'Which marketing concept has been most directly violated, and why?',
+    opts:['Packaging ethics — the menu design was misleading','The Brand Promise — the company committed to something ("Fresh. Always.") it cannot deliver','Gap 2 — Standards Gap: the company set the wrong quality standards internally','The Offering Concept — the product and service no longer align'],
+    ans:1,
+    feedback:'Correct. The Brand Promise is a commitment the company makes to consumers about what they will consistently receive. "Fresh. Fast. Always." is not just a tagline — it is a promise. When the promise conflicts with reality, trust collapses. This is distinct from the Gap Model (an operational framework) — this is about the integrity of the company\'s core commitment to customers.'
+  },
+  {
+    concept:'Gap Model — Gap 5',
+    scenario:'A luxury spa consistently receives top scores on internal quality audits and almost no complaints from staff. However, guest satisfaction surveys consistently come back at 3.5 out of 5. Guests say the experience was "fine" but not what they expected based on the online photos and pricing.',
+    q:'Which gap best explains this situation, and what is the ONLY way to close it?',
+    opts:['Gap 3 — Delivery Gap: staff are not executing the standards','Gap 4 — Communications Gap: the spa needs to set more realistic expectations in its marketing','Gap 5 — Customer Gap: guest perceptions don\'t match expectations set by marketing; closing Gaps 1–4 is the only path forward','Gap 1 — Knowledge Gap: the spa doesn\'t know what guests actually want'],
+    ans:2,
+    feedback:'Correct. Gap 5 is the Customer Gap — the difference between what guests EXPECTED and what they PERCEIVED. The spa is operationally strong (no Gap 3). But the photos and pricing set very high expectations that the actual experience doesn\'t fully meet. Gap 5 cannot be directly managed — it can only be minimized by closing Gaps 1–4, especially Gap 4 (ensure marketing accurately represents the actual experience).'
+  }
+];
+
+var scStart=0,scCount=5,scCurrent=0,scCorrect=0;
+
+function startScenarios(start,count){
+  scStart=start; scCount=count; scCurrent=0; scCorrect=0;
+  document.getElementById('sc-menu').style.display='none';
+  document.getElementById('sc-activity').classList.remove('activity-hidden');
+  document.getElementById('sc-q-wrap').style.display='block';
+  document.getElementById('sc-results').style.display='none';
+  renderScenario();
+}
+function showScMenu(){
+  document.getElementById('sc-menu').style.display='block';
+  document.getElementById('sc-activity').classList.add('activity-hidden');
+}
+function renderScenario(){
+  var sc=SCENARIOS[scStart+scCurrent];
+  document.getElementById('sc-score').textContent=scCorrect;
+  document.getElementById('sc-total').textContent=scCount;
+  document.getElementById('sc-progress').style.width=((scCurrent/scCount)*100)+'%';
+  document.getElementById('sc-label').textContent='Question '+(scCurrent+1)+' of '+scCount;
+  document.getElementById('sc-concept').textContent=sc.concept;
+  document.getElementById('sc-scenario').textContent=sc.scenario;
+  document.getElementById('sc-question').textContent=sc.q;
+  var fb=document.getElementById('sc-feedback');
+  fb.className='feedback-box'; fb.style.display='none';
+  var nx=document.getElementById('sc-next');
+  nx.className='next-btn';
+  nx.textContent=(scCurrent===scCount-1)?'See Results →':'Next Question →';
+  var ol=document.getElementById('sc-options');
+  ol.innerHTML='';
+  var letters=['A','B','C','D'];
+  sc.opts.forEach(function(opt,i){
+    var b=document.createElement('button');
+    b.className='opt-btn';
+    b.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+opt;
+    b.onclick=function(){selectScenarioAnswer(i,sc.ans,sc.feedback,b);};
+    ol.appendChild(b);
+  });
+}
+function selectScenarioAnswer(chosen,correct,feedback,btn){
+  var btns=document.querySelectorAll('#sc-options .opt-btn');
+  btns.forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct) b.classList.add('correct');
+    else if(i===chosen&&chosen!==correct) b.classList.add('wrong');
+    else b.classList.add('revealed');
+  });
+  if(chosen===correct) scCorrect++;
+  document.getElementById('sc-score').textContent=scCorrect;
+  var fb=document.getElementById('sc-feedback');
+  fb.className='feedback-box show '+(chosen===correct?'correct':'wrong');
+  fb.innerHTML='<strong>'+(chosen===correct?'✓ Correct!':'✗ Not quite.')+'</strong>'+feedback;
+  fb.style.display='block';
+  document.getElementById('sc-next').classList.add('show');
+}
+function nextScenario(){
+  scCurrent++;
+  if(scCurrent>=scCount){
+    document.getElementById('sc-q-wrap').style.display='none';
+    document.getElementById('sc-results').style.display='block';
+    var pct=Math.round((scCorrect/scCount)*100);
+    document.getElementById('sc-final-score').textContent=scCorrect+'/'+scCount;
+    var msgs=['Keep reviewing — use the Flashcards for these concepts first.','Getting there! Review the Frameworks tab for the concepts you missed.','Solid work! One more pass through the Scenarios will lock it in.','Great performance! You\'re in strong shape for the midterm.','Perfect! You\'ve mastered this set.'];
+    document.getElementById('sc-result-msg').textContent=msgs[Math.min(Math.floor(pct/25),4)];
+  } else {
+    renderScenario();
+  }
+}
+
+// ══════════════════════════════════════════
+// QUIZ DATA
+// ══════════════════════════════════════════
+var QUIZ_Qs = [
+  {concept:'Innovation',q:'Henry Ford\'s assembly line is best classified as which type of innovation?',opts:['Product innovation — a new physical object was created','Process innovation — a new way of manufacturing was created','Incremental innovation — a minor improvement to existing cars','Disruptive technology — a new scientific principle was discovered'],ans:1,fb:'Ford\'s assembly line changed HOW cars were made, not what a car was. Process innovation = new delivery/production method. The Model T was the product; the assembly line was the process.'},
+  {concept:'Product Life Cycle',q:'A product manager notices competitors are primarily competing on price, market penetration is very high, and growth has flatlined. She should recommend strategies typical of which PLC stage?',opts:['Introduction','Growth','Maturity','Decline'],ans:2,fb:'Price competition + high penetration + flat growth = Maturity. The right strategy: differentiate, steal competitor share, adjust pricing and distribution. Introduction has no growth yet; Growth is expanding rapidly; Decline is actively shrinking.'},
+  {concept:'Consumer vs. Business Products',q:'A case of bottled water purchased by a family at Costco for home use vs. the same case purchased by a restaurant for use at tables represents which concept?',opts:['Product line vs. product mix','Consumer product vs. business product — same product, different buyers','Brand loyalty vs. brand preference','Objective quality vs. perceived quality'],ans:1,fb:'Same physical product — different classification. The family\'s purchase is a consumer product (personal use). The restaurant\'s purchase is a business product (organizational use that contributes to the business\'s service). Classification depends on buyer and purpose, not the product itself.'},
+  {concept:'Branding Elements',q:'Intel\'s famous five-tone chime that plays at the end of computer ads is an example of which branding element?',opts:['Tagline','Logo','Sonic branding / sounds','Physical evidence'],ans:2,fb:'Sonic branding uses a series of tones, music, or audio signatures to reinforce brand identity. Intel\'s five-note "da-da-da-DA-da" is one of the most recognized sonic brand elements in the world. McDonald\'s "ba da ba ba baa" is another classic example.'},
+  {concept:'BDI / CDI',q:'A soft drink brand has a CDI of 115 and a BDI of 58 in the Southeast region. What should the brand manager conclude?',opts:['The category is weak but the brand is strong — monitor for category decline','The category and brand are both performing well — great region to invest','The category is strong in the Southeast but the brand is underperforming there — investigate why','Both are below average — avoid advertising in this region'],ans:2,fb:'CDI over 100 = category performs above national average in that region. BDI under 100 = your brand performs below its national average there. High CDI + Low BDI is the most actionable scenario: there\'s demand (CDI says so) but your brand isn\'t capturing it. Investigate competitive weakness, distribution gaps, or brand awareness issues.'},
+  {concept:'Product Mix',q:'Nike adding a new line of golf equipment for the first time would be best described as:',opts:['A product line extension within the athletic shoes line','Expanding the width of the product mix by adding a new category','Increasing the depth of an existing product line','A multiple brand strategy for the golf category'],ans:1,fb:'Width = number of product lines (categories). Nike already has athletic shoes, apparel, accessories. Adding GOLF EQUIPMENT is adding a brand new category — that expands the WIDTH of their product mix. If Nike had added a new golf shoe to the existing footwear line, that would be a line extension (increasing DEPTH within a line).'},
+  {concept:'Packaging',q:'A pharmaceutical company packaging its over-the-counter pain reliever with tamper-evident seals, child-resistant caps, and moisture-barrier foil wrapping is primarily fulfilling which packaging function?',opts:['Identification — making the product recognizable on the shelf','Messaging — communicating dosage instructions and warnings','Protection — safeguarding the product from damage and tampering','Competitive differentiation — standing out among similar products'],ans:2,fb:'Protection is the primary function of packaging — safeguarding the product from tampering, damage, and environmental factors. The tamper-evident seal, child-resistant cap, and moisture barrier all serve protection. Messaging (warnings, dosage) is the secondary function fulfilled by the label. Identification is also present but is not the PRIMARY purpose of these specific features.'},
+  {concept:'Brand Development',q:'A consumer says: "I only buy Tide — I\'ve tried other brands when they\'re on sale, but I always go back to Tide. It\'s just the one I trust." This consumer is at which stage of brand development?',opts:['Brand Awareness — they know Tide exists','Brand Recognition — they associate Tide with laundry','Brand Preference — they favor Tide but will consider others','Brand Loyalty — they consistently choose Tide and return even after trying competitors'],ans:3,fb:'The key phrase is "I always go back to Tide" even after trying competitors. That\'s Brand Loyalty — they\'ve been exposed to alternatives (during sales) but return to Tide. Brand Preference means they favor Tide but might switch for the right deal. Loyalty means they return to their brand even when alternatives are available and affordable.'},
+  {concept:'4 I\'s — Intangibility',q:'A law firm is redesigning its client consultation rooms with floor-to-ceiling bookshelves, professional lighting, and framed credentials on the wall. The primary marketing purpose of this redesign is to address which characteristic of services?',opts:['Inconsistency — the rooms will now look consistent across all offices','Inventory — the redesign will help fill more consultation appointments','Intangibility — the physical environment serves as a quality proxy since legal services can\'t be previewed','Inseparability — the attorney and the office environment are inseparable'],ans:2,fb:'Because legal services are intangible (you can\'t preview a legal outcome), clients use PHYSICAL CUES to judge likely quality before they receive the service. Professional bookshelves, framed degrees, and polished rooms all signal competence and expertise. This is the classic marketing response to Intangibility: make the intangible tangible through visible evidence.'},
+  {concept:'4 I\'s — Inseparability',q:'A customer receives a brilliant strategic plan from a consulting firm but felt dismissed and uncomfortable during the entire engagement because the lead consultant was condescending. The customer rates the engagement 2 out of 5. Which characteristic of services explains why the consultant\'s behavior mattered this much?',opts:['Inconsistency — the consultant delivered differently on different days','Inventory — the consulting hours were perishable','Inseparability — the consumer cannot separate the service (consulting) from the service provider (the consultant)','Intangibility — the consulting advice cannot be physically evaluated'],ans:2,fb:'Inseparability means the consumer cannot distinguish the service from the person delivering it. The strategic plan (the output) was excellent — but the way it was delivered (the relationship) was terrible. In service delivery, the EXPERIENCE of the service is inseparable from the PROVIDER of the service. Brilliant output + bad provider = negative brand experience.'},
+  {concept:'Service Quality — Reliability',q:'A friend says: "The Ritz-Carlton is amazing — they remembered my name from my last stay, the breakfast was exactly what they promised, and the concierge found last-minute theater tickets." Which service quality dimension was MOST directly demonstrated by the concierge finding the tickets?',opts:['Assurance — the concierge had expert knowledge of the theater scene','Empathy — the concierge understood how much this mattered to the guest','Reliability — the concierge delivered on a specific service promise made to the guest','Responsiveness — the concierge acted quickly to meet the request'],ans:2,fb:'Reliability = delivering the promised service accurately and dependably. If the concierge committed to finding tickets and found them, that\'s a Reliability win. Note: Responsiveness would apply if the question focused on HOW FAST they responded to the request. Assurance is about projecting competence. Empathy is about emotional connection. Reliability is about delivering on the specific promise.'},
+  {concept:'Zone of Tolerance',q:'Tipping apps at fast-food drive-through windows now prompt customers for tips BEFORE the food is received. Research shows many customers feel uncomfortable declining and tip despite feeling service was only average. This behavior is best explained by:',opts:['Inseparability — the worker IS the fast-food service','The Zone of Tolerance — customers accept adequate service levels but feel social pressure at the adequate-desired threshold','Perceived quality — customers rate quality higher after paying','Gap 4 — the restaurant set wrong expectations about tipping'],ans:1,fb:'The Zone of Tolerance explains this perfectly. Customers are receiving adequate service (not desired, but acceptable). At the adequate threshold, they don\'t feel the service warrants a tip — but social pressure from the prompt (and not wanting to seem cheap) overcomes that judgment. This is the ZOT affecting real consumer behavior: they accept adequate service but feel obligated to tip anyway.'},
+  {concept:'Offering Concept',q:'A customer explains why she pays $200/month for a premium gym instead of a $20/month gym: "The classes are better, the equipment is newer, but honestly it\'s the trainers who know my name and the community of people I\'ve met there that keep me going." Which concept does this best illustrate?',opts:['Brand Loyalty — she is unwilling to consider other gyms','The Offering Concept — total value is the combination of the facility (product) and the personal experience (service)','Perceived Quality — she perceives the premium gym as higher quality','Inseparability — she cannot separate the trainers from the gym service'],ans:1,fb:'The Offering Concept says total value = product component + service component combined. The gym equipment (product) is better, but the trainers, community, and personal connection (services) are what lock in the $200/month premium. Remove either component and the value proposition collapses. The gym doesn\'t just sell fitness equipment access — it sells a complete experience.'},
+  {concept:'Gap Model',q:'A restaurant knows its average table turn should take 60 minutes, has built this into operational standards, and trains staff on it. However, on Friday nights, host staff allow guests to linger 90+ minutes because "it feels rude to rush them," creating long wait times for the next seating. Which gap is this?',opts:['Gap 1 — Knowledge Gap: they don\'t know what customers want','Gap 2 — Standards Gap: 60-minute turn standard was never set','Gap 3 — Delivery Gap: standards exist but staff don\'t execute them','Gap 4 — Communications Gap: they told customers to expect faster tables than they provide'],ans:2,fb:'This is a textbook Gap 3 — Delivery Gap. The knowledge exists (Gap 1 closed), the standard exists — 60-minute turns (Gap 2 closed), but staff are NOT executing the standard on Friday nights (Gap 3 open). The fix: training reinforcement, coaching, supervision, and performance feedback. The standard is right; the execution is the problem.'},
+  {concept:'7 P\'s of Service',q:'After analyzing patient complaints, a dentist\'s office redesigned the check-in process: patients now complete all paperwork online before arriving, text when they\'re in the parking lot, and are called directly into the exam room — eliminating the waiting room experience entirely. Which service P does this redesign primarily address?',opts:['People — the office hired different front desk staff','Physical Evidence — they replaced the waiting room furniture','Process — the steps and sequence of how service is delivered were redesigned','Place — they moved to a more convenient location'],ans:2,fb:'Process = the defined steps, roles, and sequence of service delivery. Moving paperwork online, using text-based check-in, and bypassing the waiting room are all changes to HOW the service is delivered — the process. The office didn\'t change who delivers it (People), the physical space (Physical Evidence), or the location (Place). They redesigned the interaction sequence — that\'s Process.'},
+  {concept:'CREST',q:'A retail customer is upset that a purchase arrived damaged. The customer service rep says: "I hear that — so what happened is your package arrived with a broken corner and the item inside is cracked. I want to make sure I have that right before we move forward." Which CREST step is this?',opts:['Calm — the rep is de-escalating the customer\'s frustration','Repeat — the rep is restating the problem to confirm mutual understanding','Empathy — the rep is showing emotional connection to the customer\'s frustration','Solve — the rep is beginning the resolution process'],ans:1,fb:'This is the Repeat step (R) — restating the customer\'s problem in the rep\'s own words to confirm that both parties understand the issue the same way. This is critical: you cannot solve the right problem if you haven\'t confirmed what the problem is. "I want to make sure I have that right before we move forward" is a perfect Repeat statement.'},
+  {concept:'Brand Promise',q:'Patagonia\'s public commitment "We\'re in business to save our home planet" has led the company to donate 1% of revenue to environmental causes, repair old products instead of encouraging new purchases, and sue the US government over protected land use. This is best described as:',opts:['Co-creation — Patagonia works with customers on environmental campaigns','Brand Loyalty — Patagonia\'s customers refuse to buy competing outdoor brands','Brand Promise — Patagonia has made and consistently delivered on a visible organizational commitment','Competitive Advantage — their environmental stance gives them a cost advantage over rivals'],ans:2,fb:'A Brand Promise is not just a tagline — it is a commitment a company makes and must consistently honor through actual decisions and actions. Patagonia\'s environmental commitment shows up in every business decision: donations, repair programs, lawsuits. This is what separates a genuine brand promise from empty marketing language. The promise guides operations, not just advertising.'},
+  {concept:'Servicescape',q:'A regional bank is redesigning its branch interiors with open floor plans, no teller windows (replaced with "financial advisors" at desks), soft lighting, and coffee available in the lobby. Customer satisfaction scores improve even before service interactions begin. This improvement is most directly attributed to:',opts:['People — the bank hired friendlier tellers','Process — the bank simplified its account opening procedures','Servicescape / Physical Evidence — the physical environment signals approachability and professionalism','Reliability — the bank is now delivering on its brand promise more consistently'],ans:2,fb:'Servicescape is the physical setting where the service is produced and consumed. Every element — open floor plan (no barriers), desks instead of windows (equal standing), soft lighting (welcoming), coffee (comfort) — signals a specific type of service experience BEFORE any interaction occurs. This is why satisfaction improves even before a word is spoken: the environment sets expectations and emotional tone.'},
+  {concept:'4 I\'s — Inconsistency',q:'A major hotel chain uses standardized training scripts, mystery shoppers, and quarterly quality audits at every property. A guest staying at the brand\'s Las Vegas location gives it 5 stars. The same guest stays at the brand\'s Phoenix location six months later and gives it 3 stars. Which characteristic of services explains why this gap still exists DESPITE standardization efforts?',opts:['Intangibility — the guest can\'t predict quality before staying','Inseparability — the hotel cannot be separated from its staff','Inconsistency — human service delivery still varies despite training','Inventory — the Phoenix hotel had too many empty rooms, reducing service attention'],ans:2,fb:'Even with training, scripts, and audits — Inconsistency remains a fundamental characteristic of services. Why? Because services are delivered by PEOPLE, who vary in mood, fatigue, rapport, and circumstance on any given day. The gap between Las Vegas (5 stars) and Phoenix (3 stars) exists despite the brand\'s best efforts because human delivery is inherently variable. Standardization reduces inconsistency; it never eliminates it.'},
+  {concept:'Gap Model — Gap 4',q:'A hotel spa trains its staff to deliver exceptional 90-minute massages. The actual service is consistently excellent. However, its website advertises a "transformative, otherworldly experience" with lavish imagery that suggests a level of luxury the $85 spa does not actually provide. Guests frequently say "it was good, but not what I expected." Which gap does this represent?',opts:['Gap 1 — Knowledge: the spa doesn\'t know what guests expect from a premium spa','Gap 3 — Delivery: staff are not meeting the quality standards set internally','Gap 4 — Communications: marketing set expectations the actual service doesn\'t match','Gap 5 — Customer: expectations and perceptions don\'t align, and this is unavoidable'],ans:2,fb:'Gap 4 is the Communications Gap — the company delivers good service (Gap 3 is closed) but the marketing communications set expectations the service can\'t meet. "Transformative, otherworldly experience" with luxury imagery for an $85 spa creates an expectation mismatch. The fix: align marketing language and imagery to accurately represent the actual experience. Under-promise and over-deliver is safer than the reverse.'},
+  {concept:'Product Ethics',q:'A tech company designs earbuds with proprietary screws that only its own tools can open, making third-party repair impossible and forcing consumers to use the brand\'s $79 repair service. Consumer advocates argue this is unethical. Which product ethics principle is most directly at stake?',opts:['Inclusivity — some consumers cannot afford the repair service','Transparency — the company doesn\'t disclose repair limitations in advertising','Programmed Obsolescence — the product is designed to maximize forced repurchase and spending','AI and Data Ethics — the earbuds collect listening data'],ans:2,fb:'Programmed obsolescence in its modern form includes designing products to be difficult or impossible to repair independently, forcing consumers to pay for manufacturer repairs or buy new products. This is sometimes called "right to repair" abuse. While Inclusivity and Transparency are also partially implicated, the PRIMARY ethics concept is Programmed Obsolescence — engineering the product to maximize revenue from repairs and replacements rather than maximizing product lifespan.'},
+  {concept:'Service Recovery',q:'After a CREST recovery interaction, a customer who received poor restaurant service and was then handled well by the manager posts: "Honestly, how they handled my complaint made me a bigger fan than I was before the problem happened." This outcome best illustrates:',opts:['Zone of Tolerance — her adequate service threshold was exceeded','The service recovery paradox — effective recovery can produce stronger loyalty than if no failure occurred','Gap 5 closure — her perception now exceeds her original expectation','Inseparability — the manager IS the restaurant brand in her mind'],ans:1,fb:'The Service Recovery Paradox: research shows that customers who experience a service failure FOLLOWED BY an excellent recovery often end up more loyal than customers who never experienced a problem at all. Why? Because the recovery is a demonstration of genuine care under pressure — which is more memorable and trust-building than ordinary satisfactory service. This is why investing in CREST-quality recovery matters strategically, not just ethically.'},
+  {concept:'Brand Development',q:'A consumer stops buying her usual face wash and switches to a new brand after one bad experience — a rash from what she suspects was a formula change. She now tells friends to avoid the brand entirely. Before this, she had purchased it monthly for three years. Which brand development stage has she most clearly moved AWAY from?',opts:['Brand Awareness — she was very aware of the brand','Brand Recognition — she could no longer identify the brand on the shelf','Brand Loyalty — she had strong consistent preference and now actively rejects it','Brand Preference — she mildly preferred it and easily switched'],ans:2,fb:'Monthly purchase for three years with active recommendation to friends = Brand Loyalty. The key signal is that she now ACTIVELY WARNS others away — which is the inverse of loyalty. Moving backward from Loyalty is rare and requires a significant trust violation (like a perceived quality failure). Brand Preference is lighter commitment — you prefer it but switch fairly easily. Loyalty is deep; so is its reversal.'},
+  {concept:'7 P\'s — People',q:'A luxury car dealership hires only sales consultants with automotive engineering backgrounds, requires 200 hours of product training before their first customer interaction, and pairs new hires with senior mentors for their first 90 days. This emphasis on human capital primarily addresses which of the 7 P\'s?',opts:['Process — defining the steps of the sales interaction','Physical Evidence — sales consultants project the brand\'s image','People — who delivers the service and how they are trained defines service quality','Place — the right people in the right showroom location'],ans:2,fb:'People is one of the three service-specific P\'s added to the traditional marketing mix. Because of Inseparability (the consultant IS the service) and Inconsistency (each consultant delivers differently), who you hire and how you train them is as critical as any other marketing decision. The dealership\'s investment in engineering backgrounds, 200 hours of training, and mentorship is a direct investment in the People P — the human component of service quality.'}
+];
+
+var qzCurrent=0,qzCorrect=0;
+var qzOrder=[];
+
+function startQuiz(){
+  qzCurrent=0; qzCorrect=0;
+  qzOrder=QUIZ_Qs.map(function(_,i){return i;});
+  document.getElementById('quiz-intro').style.display='none';
+  document.getElementById('quiz-activity').classList.remove('activity-hidden');
+  document.getElementById('qz-q-wrap').style.display='block';
+  document.getElementById('qz-results').style.display='none';
+  renderQuiz();
+}
+function renderQuiz(){
+  var q=QUIZ_Qs[qzOrder[qzCurrent]];
+  document.getElementById('qz-score').textContent=qzCorrect;
+  document.getElementById('qz-total').textContent=QUIZ_Qs.length;
+  document.getElementById('qz-progress').style.width=((qzCurrent/QUIZ_Qs.length)*100)+'%';
+  document.getElementById('qz-label').textContent='Question '+(qzCurrent+1)+' of '+QUIZ_Qs.length;
+  document.getElementById('qz-concept').textContent=q.concept;
+  document.getElementById('qz-question').textContent=q.q;
+  var fb=document.getElementById('qz-feedback');
+  fb.className='feedback-box'; fb.style.display='none';
+  document.getElementById('qz-next').className='next-btn';
+  document.getElementById('qz-next').textContent=(qzCurrent===QUIZ_Qs.length-1)?'See Results →':'Next Question →';
+  var ol=document.getElementById('qz-options');
+  ol.innerHTML='';
+  var letters=['A','B','C','D'];
+  q.opts.forEach(function(opt,i){
+    var b=document.createElement('button');
+    b.className='opt-btn';
+    b.innerHTML='<span class="opt-letter">'+letters[i]+'</span>'+opt;
+    b.onclick=function(){selectQuizAnswer(i,q.ans,q.fb);};
+    ol.appendChild(b);
+  });
+}
+function selectQuizAnswer(chosen,correct,fb){
+  var btns=document.querySelectorAll('#qz-options .opt-btn');
+  btns.forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct) b.classList.add('correct');
+    else if(i===chosen&&chosen!==correct) b.classList.add('wrong');
+    else b.classList.add('revealed');
+  });
+  if(chosen===correct) qzCorrect++;
+  document.getElementById('qz-score').textContent=qzCorrect;
+  var f=document.getElementById('qz-feedback');
+  f.className='feedback-box show '+(chosen===correct?'correct':'wrong');
+  f.innerHTML='<strong>'+(chosen===correct?'✓ Correct!':'✗ Not quite.')+'</strong>'+fb;
+  f.style.display='block';
+  document.getElementById('qz-next').classList.add('show');
+}
+function nextQuiz(){
+  qzCurrent++;
+  if(qzCurrent>=QUIZ_Qs.length){
+    document.getElementById('qz-q-wrap').style.display='none';
+    document.getElementById('qz-results').style.display='block';
+    var pct=Math.round((qzCorrect/QUIZ_Qs.length)*100);
+    document.getElementById('qz-final-score').textContent=qzCorrect+'/'+QUIZ_Qs.length;
+    var msgs=['Keep at it — review the Frameworks tab and redo the Flashcards before the midterm.','You\'re building a strong foundation — focus on the sets you found hardest.','Good performance! One more pass through the Scenario sets will sharpen your exam readiness.','Strong work — you understand most of these concepts well. Review any misses in the Frameworks tab.','Outstanding! You have a thorough command of Chapters 5 and 6. You\'re ready for the midterm.'];
+    document.getElementById('qz-result-msg').textContent=msgs[Math.min(Math.floor(pct/20),4)];
+  } else {
+    renderQuiz();
+  }
+}
+
+// ══════════════════════════════════════════
+// MATCHING DATA
+// ══════════════════════════════════════════
+var MATCH_ROUNDS = [
+  {
+    title:'Round 1 — PLC Stages & Strategies',
+    pairs:[
+      {left:'Introduction Stage',right:'Build awareness, use sampling/couponing, high promo spend — may price high (skimming) or low'},
+      {left:'Growth Stage',right:'Add features, expand distribution channels, enter new geographic markets, revise messaging'},
+      {left:'Maturity Stage',right:'Steal competitor customers, redefine the target market, adjust pricing and distribution'},
+      {left:'Decline Stage',right:'Cut marketing budget, limit distribution channels, consider phasing out the product'},
+      {left:'PLC Describes',right:'A product CATEGORY over time — not a single brand or company'}
+    ]
+  },
+  {
+    title:'Round 2 — The 4 I\'s of Services',
+    pairs:[
+      {left:'Intangibility',right:'Marketing response: use reviews, testimonials, certifications, and physical evidence as quality proxies'},
+      {left:'Inseparability',right:'The consumer cannot separate the service from the person delivering it — hire and train carefully'},
+      {left:'Inconsistency',right:'Quality varies by provider and day — response: standardize, train, supervise, and monitor'},
+      {left:'Inventory / Perishability',right:'Empty airline seats at takeoff = lost revenue forever — response: dynamic pricing, overbooking, off-peak discounts'},
+      {left:'Offering Concept',right:'Total customer value = product component + service component combined'}
+    ]
+  },
+  {
+    title:'Round 3 — Gap Model (5 Gaps)',
+    pairs:[
+      {left:'Gap 1 — Knowledge Gap',right:'Provider does not know what customers want → fix: conduct marketing research and surveys'},
+      {left:'Gap 2 — Standards Gap',right:'Know customer needs but never built them into service standards → fix: process design and written standards'},
+      {left:'Gap 3 — Delivery Gap',right:'Standards exist but company fails to execute → fix: hire, train, supervise, and give performance feedback'},
+      {left:'Gap 4 — Communications Gap',right:'Good service delivered but wrong expectations set by marketing → fix: align communications to actual service'},
+      {left:'Gap 5 — Customer Gap',right:'Customer expectations do not match perceptions → only closed by minimizing Gaps 1–4'}
+    ]
+  }
+];
+
+var mSelected=null,mMatched=0,mAttempts=0;
+
+function startMatch(roundIdx){
+  var round=MATCH_ROUNDS[roundIdx];
+  mSelected=null; mMatched=0; mAttempts=0;
+  document.getElementById('match-menu').style.display='none';
+  document.getElementById('match-activity').classList.remove('activity-hidden');
+  document.getElementById('m-complete').style.display='none';
+  document.getElementById('m-matched').textContent='0';
+  document.getElementById('m-total').textContent=round.pairs.length;
+  document.getElementById('m-attempts').textContent='0';
+
+  var pairs=round.pairs.slice();
+  var rightItems=pairs.map(function(p){return p.right;});
+  // shuffle right
+  for(var i=rightItems.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=rightItems[i];rightItems[i]=rightItems[j];rightItems[j]=t;}
+
+  var lDiv=document.getElementById('m-left');
+  var rDiv=document.getElementById('m-right');
+  lDiv.innerHTML=''; rDiv.innerHTML='';
+
+  pairs.forEach(function(p){
+    var li=document.createElement('div');
+    li.className='match-item';
+    li.textContent=p.left;
+    li.dataset.value=p.left;
+    li.dataset.side='left';
+    li.onclick=function(){handleMatch(li,pairs);};
+    lDiv.appendChild(li);
+  });
+  rightItems.forEach(function(r){
+    var ri=document.createElement('div');
+    ri.className='match-item';
+    ri.textContent=r;
+    ri.dataset.value=r;
+    ri.dataset.side='right';
+    ri.onclick=function(){handleMatch(ri,pairs);};
+    rDiv.appendChild(ri);
+  });
+}
+
+function handleMatch(el,pairs){
+  if(el.classList.contains('matched')) return;
+  if(!mSelected){
+    if(mSelected) mSelected.classList.remove('selected');
+    mSelected=el;
+    el.classList.add('selected');
+  } else {
+    if(mSelected===el){mSelected.classList.remove('selected');mSelected=null;return;}
+    mAttempts++;
+    document.getElementById('m-attempts').textContent=mAttempts;
+    var leftEl=mSelected.dataset.side==='left'?mSelected:el;
+    var rightEl=mSelected.dataset.side==='right'?mSelected:el;
+    if(leftEl.dataset.side===rightEl.dataset.side){mSelected.classList.remove('selected');mSelected=el;el.classList.add('selected');el.classList.remove('selected');mSelected=el;el.classList.add('selected');return;}
+    var pair=pairs.find(function(p){return p.left===leftEl.dataset.value&&p.right===rightEl.dataset.value;});
+    if(pair){
+      leftEl.classList.remove('selected');
+      leftEl.classList.add('matched');
+      rightEl.classList.add('matched');
+      mMatched++;
+      document.getElementById('m-matched').textContent=mMatched;
+      mSelected=null;
+      if(mMatched===pairs.length){
+        setTimeout(function(){
+          document.getElementById('m-complete').style.display='block';
+          document.getElementById('m-attempts-final').textContent=mAttempts;
+          var msg=mAttempts<=pairs.length?'Perfect matching! You clearly know this framework cold.':mAttempts<=pairs.length*2?'Well done! A couple of tries but you got there.':'Keep practicing — review the Frameworks tab and try this round again.';
+          document.getElementById('m-result-msg').textContent=msg;
+        },400);
+      }
+    } else {
+      leftEl.classList.add('wrong-flash');
+      rightEl.classList.add('wrong-flash');
+      setTimeout(function(){leftEl.classList.remove('wrong-flash','selected');rightEl.classList.remove('wrong-flash','selected');},700);
+      mSelected=null;
+    }
+  }
+}
+</script>
+</body>
+</html>
