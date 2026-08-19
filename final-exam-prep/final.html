@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Final Exam Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F2B441;
+    --green: #30583F;
+    --red: #730202;
+    --charcoal: #1F2A28;
+    --off-white: #F7F4EF;
+    --light-gold: #FDF0D5;
+    --light-green: #EBF2EE;
+    --border: rgba(31,42,40,0.12);
+    --correct: #30583F;
+    --wrong: #730202;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--charcoal);
+    color: var(--off-white);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--charcoal);
+    border-bottom: 3px solid var(--gold);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .header-sub {
+    font-size: 0.72rem;
+    color: rgba(247,244,239,0.55);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .header-score {
+    text-align: right;
+  }
+
+  .score-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(247,244,239,0.5);
+  }
+
+  .score-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  /* ── Mode Selector ── */
+  .mode-bar {
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .mode-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 20px;
+    border: none;
+    background: transparent;
+    color: rgba(247,244,239,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+
+  .mode-btn:hover { color: var(--gold); }
+  .mode-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(242,180,65,0.06);
+  }
+
+  /* ── Topic Filter ── */
+  .topic-bar {
+    padding: 16px 32px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.15);
+  }
+
+  .topic-chip {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(247,244,239,0.6);
+    font-size: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .topic-chip:hover { border-color: var(--gold); color: var(--gold); }
+  .topic-chip.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--charcoal);
+    font-weight: 700;
+  }
+
+  /* ── Main Content ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+
+  /* ── Views ── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── Quiz Card ── */
+  .question-counter {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(247,244,239,0.4);
+    margin-bottom: 8px;
+  }
+
+  .topic-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .progress-bar-wrap {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .question-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--green));
+  }
+
+  .question-text {
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    color: var(--off-white);
+  }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    color: var(--off-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    line-height: 1.5;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: rgba(242,180,65,0.08);
+    transform: translateX(3px);
+  }
+
+  .option-btn:disabled { cursor: default; }
+
+  .option-letter {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-top: 1px;
+  }
+
+  .option-btn.correct {
+    border-color: var(--green);
+    background: rgba(48,88,63,0.25);
+    color: #A8D5B5;
+  }
+
+  .option-btn.correct .option-letter {
+    background: var(--green);
+    color: white;
+  }
+
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: rgba(115,2,2,0.2);
+    color: #F5A0A0;
+  }
+
+  .option-btn.wrong .option-letter {
+    background: var(--red);
+    color: white;
+  }
+
+  .option-btn.reveal-correct {
+    border-color: var(--green);
+    background: rgba(48,88,63,0.12);
+    color: #A8D5B5;
+  }
+
+  /* ── Feedback ── */
+  .feedback-box {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 16px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    display: none;
+  }
+
+  .feedback-box.show { display: block; }
+
+  .feedback-box.correct-fb {
+    background: rgba(48,88,63,0.25);
+    border: 1px solid var(--green);
+    color: #C5E8D0;
+  }
+
+  .feedback-box.wrong-fb {
+    background: rgba(115,2,2,0.2);
+    border: 1px solid rgba(115,2,2,0.5);
+    color: #F5C0C0;
+  }
+
+  .feedback-icon { font-size: 1.1rem; margin-right: 6px; }
+
+  /* ── Action Row ── */
+  .action-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .btn-primary {
+    padding: 12px 28px;
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: #e8a72e; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+  .btn-secondary {
+    padding: 12px 22px;
+    background: transparent;
+    color: rgba(247,244,239,0.6);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.35);
+    color: var(--off-white);
+  }
+
+  /* ── Flashcards ── */
+  .flashcard-wrapper {
+    perspective: 1200px;
+    margin-bottom: 24px;
+  }
+
+  .flashcard {
+    width: 100%;
+    min-height: 280px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+  }
+
+  .flashcard.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px;
+    text-align: center;
+  }
+
+  .card-front {
+    background: linear-gradient(135deg, rgba(242,180,65,0.12) 0%, rgba(48,88,63,0.08) 100%);
+    border: 1px solid rgba(242,180,65,0.3);
+  }
+
+  .card-back {
+    background: linear-gradient(135deg, rgba(48,88,63,0.2) 0%, rgba(31,42,40,0.8) 100%);
+    border: 1px solid rgba(48,88,63,0.4);
+    transform: rotateY(180deg);
+  }
+
+  .card-hint {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(247,244,239,0.35);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-term {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .card-category {
+    font-size: 0.75rem;
+    color: rgba(247,244,239,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .card-definition {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--off-white);
+  }
+
+  .fc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .fc-count {
+    font-size: 0.8rem;
+    color: rgba(247,244,239,0.4);
+    font-weight: 500;
+  }
+
+  .fc-nav-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* ── Study Guide / Reference ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .section-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+
+  .accordion-item {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.2s;
+  }
+
+  .accordion-header:hover { background: rgba(255,255,255,0.06); }
+
+  .accordion-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .accordion-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .accordion-arrow {
+    color: rgba(247,244,239,0.4);
+    transition: transform 0.25s;
+    font-size: 0.85rem;
+  }
+
+  .accordion-item.open .accordion-arrow { transform: rotate(180deg); }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .accordion-item.open .accordion-body { max-height: 2000px; }
+
+  .accordion-content {
+    padding: 20px 22px 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .key-term {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .key-term:last-child { border-bottom: none; }
+
+  .term-name {
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 180px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .term-def {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(247,244,239,0.75);
+  }
+
+  /* ── Results Screen ── */
+  .results-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .results-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(242,180,65,0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .results-grade {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .results-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: rgba(247,244,239,0.4);
+    margin-bottom: 28px;
+  }
+
+  .results-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .result-stat {
+    text-align: center;
+  }
+
+  .result-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+
+  .result-stat-num.correct-c { color: #7DC896; }
+  .result-stat-num.wrong-c { color: #E88080; }
+
+  .result-stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(247,244,239,0.4);
+    margin-top: 4px;
+  }
+
+  .results-message {
+    font-size: 1.05rem;
+    color: rgba(247,244,239,0.7);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .missed-section {
+    text-align: left;
+    margin-top: 28px;
+  }
+
+  .missed-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+
+  .missed-item {
+    background: rgba(115,2,2,0.12);
+    border: 1px solid rgba(115,2,2,0.3);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .missed-item strong {
+    color: #F5C0C0;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .missed-correct {
+    color: #A8D5B5;
+    font-size: 0.82rem;
+  }
+
+  /* ── Hover card colors per topic ── */
+  .tag-pricing { background: rgba(115,2,2,0.25); color: #F5A0A0; }
+  .tag-channels { background: rgba(48,88,63,0.25); color: #A8D5B5; }
+  .tag-imc { background: rgba(242,180,65,0.18); color: #F2B441; }
+  .tag-digital { background: rgba(48,88,63,0.35); color: #8DCBA4; }
+  .tag-analytics { background: rgba(242,180,65,0.22); color: #F2B441; }
+  .tag-global { background: rgba(115,2,2,0.2); color: #E8A0A0; }
+  .tag-ethics { background: rgba(31,42,40,0.5); color: rgba(247,244,239,0.6); }
+
+  /* ── Home Dashboard ── */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .dash-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dash-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .dash-card-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .dash-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .dash-card-desc {
+    font-size: 0.8rem;
+    color: rgba(247,244,239,0.5);
+    line-height: 1.5;
+  }
+
+  .dash-stat {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: rgba(242,180,65,0.4);
+  }
+
+  .welcome-block {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .welcome-block h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 3px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .welcome-block p {
+    color: rgba(247,244,239,0.55);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 540px;
+  }
+
+  .topic-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .topic-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .topic-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .topic-pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .topic-count {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: rgba(247,244,239,0.35);
+  }
+
+  /* responsive */
+  @media (max-width: 600px) {
+    main { padding: 20px 14px 50px; }
+    header { padding: 14px 16px; }
+    .topic-bar { padding: 12px 16px; }
+    .results-card { padding: 28px 20px; }
+    .results-grade { font-size: 4.5rem; }
+    .question-card { padding: 22px; }
+    .card-face { padding: 24px; }
+    .card-term { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <svg class="logo-mark" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 26 L14 10 L24 22 L34 6" stroke="#F2B441" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 10 L38 10" stroke="#30583F" stroke-width="3" stroke-linecap="round"/>
+      <path d="M4 36 L38 36" stroke="#730202" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="34" cy="6" r="4" fill="#F2B441"/>
+    </svg>
+    <div>
+      <div class="header-title">MKT 315</div>
+      <div class="header-sub">Final Exam Prep · Grand Canyon University · Fall 2026</div>
+    </div>
+  </div>
+  <div class="header-score">
+    <div class="score-label">Session Score</div>
+    <div class="score-val" id="headerScore">—</div>
+  </div>
+</header>
+
+<nav class="mode-bar">
+  <button class="mode-btn active" onclick="switchMode('home')" id="modeHome">🏠 Home</button>
+  <button class="mode-btn" onclick="switchMode('quiz')" id="modeQuiz">📝 Practice Quiz</button>
+  <button class="mode-btn" onclick="switchMode('flashcards')" id="modeFlash">🃏 Flashcards</button>
+  <button class="mode-btn" onclick="switchMode('guide')" id="modeGuide">📖 Study Guide</button>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<main>
+<div class="view active" id="view-home">
+  <div class="welcome-block">
+    <h1>FINAL EXAM<br>PREP TOOL</h1>
+    <p>Cumulative review across the major concepts from the second half of the course. Use Practice Quiz to test yourself, Flashcards to drill key terms, or Study Guide to review the material.</p>
+
+  <div style="margin-top:18px;padding:14px 16px;border:1px solid rgba(242,180,65,0.28);border-radius:8px;background:rgba(242,180,65,0.06);font-size:0.82rem;line-height:1.6;color:rgba(247,244,239,0.68);">
+    <strong style="color:var(--gold);">How to use this tool:</strong>
+    Treat the questions as practice. Focus on why an answer is correct, then use the Study Guide and Flashcards to strengthen weak areas. Halo remains the source of truth for official exam instructions and requirements.
+  </div>
+
+  </div>
+
+  <div style="font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:rgba(247,244,239,0.4); margin-bottom:14px;">CHOOSE YOUR STUDY MODE</div>
+
+  <div class="dashboard-grid">
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('all')">
+      <div class="dash-stat">41Q</div>
+      <div class="dash-card-icon">📝</div>
+      <div class="dash-card-title">Full Practice Quiz</div>
+      <div class="dash-card-desc">All 41 questions across every topic. Provides a cumulative practice experience.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('analytics')">
+      <div class="dash-stat">4Q</div>
+      <div class="dash-card-icon">📊</div>
+      <div class="dash-card-title">Marketing Analytics</div>
+      <div class="dash-card-desc">Chapter 13 — analytics types, process, data-driven advantage.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('digital')">
+      <div class="dash-stat">4Q</div>
+      <div class="dash-card-icon">💻</div>
+      <div class="dash-card-title">Digital Marketing</div>
+      <div class="dash-card-desc">SEO, email marketing, digital vs. traditional channels.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('imc')">
+      <div class="dash-stat">12Q</div>
+      <div class="dash-card-icon">📣</div>
+      <div class="dash-card-title">IMC & Promotion</div>
+      <div class="dash-card-desc">Advertising, sales promotion, PR, personal selling, IMC.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('pricing')">
+      <div class="dash-stat">3Q</div>
+      <div class="dash-card-icon">💰</div>
+      <div class="dash-card-title">Pricing Strategy</div>
+      <div class="dash-card-desc">Break-even, product life cycle pricing, strategies.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('channels')">
+      <div class="dash-stat">4Q</div>
+      <div class="dash-card-icon">🔗</div>
+      <div class="dash-card-title">Distribution & Channels</div>
+      <div class="dash-card-desc">Direct channels, wholesalers, intensive/exclusive distribution.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('global')">
+      <div class="dash-stat">8Q</div>
+      <div class="dash-card-icon">🌍</div>
+      <div class="dash-card-title">Global Marketing</div>
+      <div class="dash-card-desc">Transnational vs. multidomestic, Hofstede, environmental forces.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('ethics')">
+      <div class="dash-stat">3Q</div>
+      <div class="dash-card-icon">⚖️</div>
+      <div class="dash-card-title">Marketing Ethics</div>
+      <div class="dash-card-desc">Puffery, astroturfing, why ethics is controversial.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('quiz'); startQuiz('selling')">
+      <div class="dash-stat">4Q</div>
+      <div class="dash-card-icon">🤝</div>
+      <div class="dash-card-title">Personal Selling</div>
+      <div class="dash-card-desc">Sales process steps, managing selling, communication modes.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('flashcards')">
+      <div class="dash-stat">51</div>
+      <div class="dash-card-icon">🃏</div>
+      <div class="dash-card-title">Flashcard Deck</div>
+      <div class="dash-card-desc">Key terms with definitions — flip to reveal, step through the deck.</div>
+    </div>
+    <div class="dash-card" onclick="switchMode('guide')">
+      <div class="dash-card-icon">📖</div>
+      <div class="dash-card-title">Study Guide</div>
+      <div class="dash-card-desc">Organized summaries, key terms, and exam tips by topic.</div>
+    </div>
+  </div>
+
+  <div style="font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:rgba(247,244,239,0.4); margin-bottom:14px;">FINAL EXAM REVIEW TOPICS</div>
+
+  <div class="topic-overview">
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('pricing')">
+      <span class="topic-pill-dot" style="background:#730202"></span>
+      Pricing Strategy
+      <span class="topic-count">3 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('channels')">
+      <span class="topic-pill-dot" style="background:#30583F"></span>
+      Distribution Channels
+      <span class="topic-count">4 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('imc')">
+      <span class="topic-pill-dot" style="background:#F2B441"></span>
+      IMC & Promotion
+      <span class="topic-count">12 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('digital')">
+      <span class="topic-pill-dot" style="background:#5B9E78"></span>
+      Digital Marketing
+      <span class="topic-count">4 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('analytics')">
+      <span class="topic-pill-dot" style="background:#E8A030"></span>
+      Marketing Analytics
+      <span class="topic-count">4 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('global')">
+      <span class="topic-pill-dot" style="background:#8B3232"></span>
+      Global Marketing
+      <span class="topic-count">8 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('ethics')">
+      <span class="topic-pill-dot" style="background:#555"></span>
+      Marketing Ethics
+      <span class="topic-count">3 questions</span>
+    </div>
+    <div class="topic-pill" onclick="switchMode('quiz'); startQuiz('selling')">
+      <span class="topic-pill-dot" style="background:#4A7B5E"></span>
+      Personal Selling
+      <span class="topic-count">4 questions</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ QUIZ ══════════════ -->
+<div class="view" id="view-quiz">
+  <div id="quizArea">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- ══════════════ FLASHCARDS ══════════════ -->
+<div class="view" id="view-flashcards">
+  <div class="section-header">
+    <h2>KEY TERMS FLASHCARDS</h2>
+  </div>
+
+  <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;" id="fcFilter">
+    <button class="topic-chip active" onclick="filterFC('all', this)">All Terms</button>
+    <button class="topic-chip" onclick="filterFC('Analytics', this)">Analytics</button>
+    <button class="topic-chip" onclick="filterFC('Digital', this)">Digital</button>
+    <button class="topic-chip" onclick="filterFC('IMC', this)">IMC</button>
+    <button class="topic-chip" onclick="filterFC('Channels', this)">Channels</button>
+    <button class="topic-chip" onclick="filterFC('Global', this)">Global</button>
+    <button class="topic-chip" onclick="filterFC('Pricing', this)">Pricing</button>
+    <button class="topic-chip" onclick="filterFC('Selling', this)">Personal Selling</button>
+    <button class="topic-chip" onclick="filterFC('Ethics', this)">Ethics</button>
+  </div>
+
+  <div class="flashcard-wrapper" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="card-face card-front">
+        <div class="card-hint">🖱 Click card to reveal definition</div>
+        <div class="card-term" id="fcTerm">—</div>
+        <div class="card-category" id="fcCat">—</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-hint">↩ Click to flip back</div>
+        <div class="card-definition" id="fcDef">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-nav">
+    <div class="fc-count" id="fcCount">Card 1 of 51</div>
+    <div class="fc-nav-btns">
+      <button class="btn-secondary" onclick="prevCard()">← Prev</button>
+      <button class="btn-primary" onclick="nextCard()">Next →</button>
+    </div>
+  </div>
+
+  <div style="margin-top: 16px; text-align:center;">
+    <button class="btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+  </div>
+</div>
+
+<!-- ══════════════ STUDY GUIDE ══════════════ -->
+<div class="view" id="view-guide">
+  <div class="section-header">
+    <h2>STUDY GUIDE</h2>
+  </div>
+
+  <div id="guideContent">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+const ALL_QUESTIONS = [
+  // PRICING
+  { id:1, topic:'pricing', topicLabel:'Pricing', question:'The quantity at which total revenue = total cost is referred to as _____.', options:['The tipping point','The profitability point','Incremental return on investment','The break-even point','Sustainability'], correct:3, explanation:'The break-even point is where total revenue equals total cost — no profit, no loss. It is a critical pricing and planning concept.' },
+  { id:2, topic:'pricing', topicLabel:'Pricing', question:'The newer a product and the earlier it is in its life cycle…', options:['The lower the price the firm must charge.','The more competition it has.','The higher the price that can usually be charged.','The lower its production costs are.','The lower its unit variable cost is.'], correct:2, explanation:'Early in the product life cycle, competition is limited and novelty is high, allowing firms to charge premium (skimming) prices.' },
+  { id:3, topic:'pricing', topicLabel:'Pricing', question:'Which of the following is NOT a pricing strategy?', options:['Cost basis pricing','Potential pricing','Penetration pricing','Value-added pricing','Psychological pricing'], correct:1, explanation:'"Potential pricing" is not a recognized pricing strategy. Cost basis, penetration, value-added, and psychological pricing are all legitimate strategies.' },
+
+  // CHANNELS
+  { id:4, topic:'channels', topicLabel:'Distribution', question:'An intermediary that sells to other intermediaries, usually to retailers in consumer markets, is referred to as a(n) ____.', options:['Broker','Agent','Retailer','Distributor','Wholesaler'], correct:4, explanation:'Wholesalers purchase in bulk from producers and sell to retailers or other intermediaries — they do not sell directly to end consumers.' },
+  { id:5, topic:'channels', topicLabel:'Distribution', question:'A direct channel exists when…', options:['Producers and end users deal with each other on a one-on-one basis.','The producer and consumer perform numerous channel functions.','A firm reaches different buyers by employing two or more different types of channels for the same basic product.','An intermediary sells to other intermediaries, usually to retailers in consumer markets.','An agent or broker brings ultimate consumers to manufacturers.'], correct:0, explanation:'A direct channel has no intermediaries — the producer sells straight to the end user (e.g., a farmer\'s market stand, a manufacturer\'s website).' },
+  { id:6, topic:'channels', topicLabel:'Distribution', question:'Candy bars most likely would be sold using which type of target market coverage?', options:['Exclusive distribution','Direct distribution','Intensive distribution','Dual distribution','Selective distribution'], correct:2, explanation:'Convenience/impulse products like candy bars use intensive distribution — they should be available in as many outlets as possible to maximize accessibility.' },
+  { id:7, topic:'channels', topicLabel:'Distribution', question:'When one channel member believes another channel member is engaged in behavior that prevents it from achieving its goals, it is referred to as _______.', options:['Distributor dissension','Marketing channel discord','Partnership divergence','Channel conflict','Channel dissonance'], correct:3, explanation:'Channel conflict occurs when members of a distribution channel perceive that others\' actions are preventing them from achieving their goals.' },
+
+  // IMC
+  { id:8, topic:'imc', topicLabel:'IMC & Promotion', question:'In a marketing context, the acronym IMC refers to…', options:['Interactive media convergence.','Internal marketing communications.','Integrated marketing collaboration.','Integrated marketing communications.','International marketing convergence.'], correct:3, explanation:'IMC = Integrated Marketing Communications — the practice of coordinating all promotional tools to deliver a consistent, unified message.' },
+  { id:9, topic:'imc', topicLabel:'IMC & Promotion', question:'In terms of the communication process, the ________ in the Old Spice ad informed prospective customers that the antiperspirant offered more protection.', options:['Lesson','Message','Meme','Source','Feedback'], correct:1, explanation:'The message is the actual content of the communication — what is being said/conveyed to the audience.' },
+  { id:10, topic:'imc', topicLabel:'IMC & Promotion', question:'Any paid form of nonpersonal communication about an organization, product, service, or idea by an identified sponsor is referred to as _____.', options:['Publicity','Sales promotion','Advertising','Personal selling','Direct marketing'], correct:2, explanation:'Advertising is defined as paid, nonpersonal communication from an identified sponsor — this distinguishes it from PR (unpaid) and personal selling (personal).' },
+  { id:11, topic:'imc', topicLabel:'IMC & Promotion', question:'The FIRST decision in developing the promotion program is to…', options:['Set the budget.','State the mission.','Identify the target audience.','Select the appeal.','Select the media.'], correct:2, explanation:'You must know WHO you are talking to before deciding what to say or how to say it. Target audience identification is the first step.' },
+  { id:12, topic:'imc', topicLabel:'IMC & Promotion', question:'In a marketing context, all of the following are channels of communication EXCEPT which?', options:['Magazine','News release','Salesperson','Feedback','TV'], correct:3, explanation:'Feedback is a response mechanism in the communication process, not a channel used to convey a message from source to receiver.' },
+  { id:13, topic:'imc', topicLabel:'IMC & Promotion', question:'Sales tools like coupons and premiums used to support advertising and personal selling directed to ultimate consumers are referred to as…', options:['Trade-oriented sales promotions.','Manufacturers\' promotions.','Channel promotions.','Consumer-oriented sales promotions.','Reseller promotions.'], correct:3, explanation:'Consumer-oriented sales promotions are aimed directly at end consumers (coupons, samples, premiums), as opposed to trade promotions aimed at retailers/wholesalers.' },
+  { id:14, topic:'imc', topicLabel:'IMC & Promotion', question:'Taco Bell gave away millions of free Doritos Locos Tacos upon launch. This is a sales promotion technique called _________.', options:['A self-liquidating premium','A special deal','A rebate','Sampling','Product placement'], correct:3, explanation:'Sampling gives prospects a free trial of a product — it\'s especially effective for new products where trial is the barrier to purchase.' },
+  { id:15, topic:'imc', topicLabel:'IMC & Promotion', question:'During a particular period, ________ is the percentage of people within a target market that were reached by a specific ad campaign.', options:['Frequency','Qualitative value','Impact','Reach','Premium'], correct:3, explanation:'Reach measures the percentage of the target market exposed to an ad at least once. Frequency measures how many times they see it.' },
+  { id:16, topic:'imc', topicLabel:'IMC & Promotion', question:'Sales promotions can be targeted to ________.', options:['Consumers','Retailers','Wholesalers','All of the above','None of the above'], correct:3, explanation:'Sales promotions can target consumers (B2C), retailers, AND wholesalers. Trade promotions, for example, target intermediaries in the channel.' },
+  { id:17, topic:'imc', topicLabel:'IMC & Promotion', question:'What type of media refers to television and radio ONLY?', options:['Print media','Internet-based media','Broadcast media','Alternative media','Out-of-home media'], correct:2, explanation:'Broadcast media specifically refers to TV and radio — electronic signals transmitted over the air to a broad audience.' },
+  { id:18, topic:'imc', topicLabel:'IMC & Promotion', question:'What type of media refers to UNPAID communications to reach a target audience?', options:['Advertising','Social media','Public relations','Direct marketing','Personal selling'], correct:2, explanation:'Public relations relies on earned/unpaid media coverage (press releases, news stories) rather than paid advertising placements.' },
+
+  // PERSONAL SELLING
+  { id:19, topic:'selling', topicLabel:'Personal Selling', question:'Personal selling can utilize all of the following modes of communication EXCEPT which one?', options:['Video teleconferencing','Internet-enabled links between buyers and sellers','A face-to-face encounter','Over the telephone','Social networks, such as TikTok'], correct:4, explanation:'Social networks like TikTok are primarily mass media/marketing channels, not tools used in the personal selling process between buyers and sellers.' },
+  { id:20, topic:'selling', topicLabel:'Personal Selling', question:'Which of the following is a task involved in MANAGING personal selling?', options:['Identifying potential target markets','Evaluating the performance of individual salespeople','Using Salesforce input to make product modifications','Maintaining open communications between sales representatives and all other stakeholders','Designing new promotional campaigns for the purpose of generating new sales'], correct:1, explanation:'Evaluating individual salesperson performance is a core sales management task — it involves tracking quotas, activity metrics, and outcomes.' },
+  { id:21, topic:'selling', topicLabel:'Personal Selling', question:'The sales process includes all of the following steps EXCEPT ______.', options:['Prospecting','Presentation','Approach','Follow-up','Copywriting'], correct:4, explanation:'Copywriting is a marketing/advertising skill, not a step in the personal selling process. The 7 steps: Prospecting, Pre-approach, Approach, Presentation, Handling Objections, Close, Follow-up.' },
+  { id:22, topic:'selling', topicLabel:'Personal Selling', question:'The personal selling process begins with the ________ stage and ends with the ________ stage.', options:['Preapproach; close','Preapproach; presentation','Prospecting; close','Prospecting; follow-up','Approach; close'], correct:3, explanation:'The process starts with Prospecting (finding potential customers) and ends with Follow-up (ensuring satisfaction, building the relationship after the sale).' },
+
+  // DIGITAL MARKETING
+  { id:23, topic:'digital', topicLabel:'Digital Marketing', question:'What is a KEY aspect of digital marketing?', options:['Utilizing traditional advertising methods','Promoting products through digital channels','Ignoring customer feedback','Focusing solely on print media','Relying on telemarketing'], correct:1, explanation:'Digital marketing is defined by its use of digital channels (web, social, email, search, mobile) to promote products and services.' },
+  { id:24, topic:'digital', topicLabel:'Digital Marketing', question:'How is digital marketing DIFFERENT from traditional marketing?', options:['It uses only face-to-face communication.','It focuses on digital channels.','It ignores technological advances.','It limits global reach.','It reduces the importance of consumer feedback.'], correct:1, explanation:'The core distinction is the use of digital channels, which also enables greater reach, measurability, and two-way communication compared to traditional media.' },
+  { id:25, topic:'digital', topicLabel:'Digital Marketing', question:'What role does SEO play in digital marketing?', options:['Optimizes print material','Enhances verbal communication','Improves website visibility in search engines','Minimizes online presence','Reduces customer engagement'], correct:2, explanation:'SEO (Search Engine Optimization) improves a site\'s ranking in organic (unpaid) search results, increasing visibility and driving qualified traffic.' },
+  { id:26, topic:'digital', topicLabel:'Digital Marketing', question:'Email marketing is best described as…', options:['A traditional marketing method.','A form of direct digital communication.','A half-hearted marketing technique.','A non-digital channel.','An outdoor advertising method.'], correct:1, explanation:'Email marketing is a form of direct digital communication — it delivers targeted messages directly to individual recipients\' inboxes.' },
+
+  // MARKETING ANALYTICS
+  { id:27, topic:'analytics', topicLabel:'Marketing Analytics', question:'What is marketing analytics PRIMARILY concerned with?', options:['Collecting opinions from high-profile marketers','Crunching numbers and statistics exclusively','Providing critical insights for competitive advantage','Reducing the use of digital technology','Replacing traditional promotional efforts'], correct:2, explanation:'Marketing analytics is much more than number-crunching — it provides insights that enable companies to differentiate, refine strategy, and gain a competitive edge.' },
+  { id:28, topic:'analytics', topicLabel:'Marketing Analytics', question:'What does the seven-step marketing analytics process BEGIN with?', options:['Implementing solutions','Identifying the business problem','Selecting data technique','Analyzing customer feedback','Comparing with past trends'], correct:1, explanation:'Step 1 of the analytics process is always identifying the business problem — you must define the question before you can select the right analytical approach.' },
+  { id:29, topic:'analytics', topicLabel:'Marketing Analytics', question:'A significant advantage of data-driven marketing is…', options:['It limits consumer engagement.','It enhances market predictability.','It ensures consistent past performance.','It decreases analytic transparency.','It encourages static strategies.'], correct:1, explanation:'Data-driven marketing enhances market predictability by allowing marketers to forecast consumer behavior and optimize strategies proactively.' },
+  { id:30, topic:'analytics', topicLabel:'Marketing Analytics', question:'How does REAL-TIME data processing enhance marketing analytics effectiveness?', options:['By delaying decision-making processes','By reducing the ability to respond to consumer shifts','By allowing marketers to adapt strategies quickly based on immediate consumer behavior changes','By complicating data integration efforts','By minimizing the coherence of analytical models'], correct:2, explanation:'Real-time data allows immediate response to consumer behavior — marketers can pivot campaigns, adjust messaging, or personalize offers the moment signals appear.' },
+
+  // GLOBAL MARKETING
+  { id:31, topic:'global', topicLabel:'Global Marketing', question:'Why must domestic firms still consider global market conditions, even if they do not sell internationally?', options:['Domestic firms are required by law to import materials.','International firms must partner with domestic competitors.','Global supply chains and competition can impact local operations.','All domestic firms are eventually required to export goods.','Trade agreements mandate global marketing for all firms.'], correct:2, explanation:'Even purely domestic firms are affected by global supply chains, international competitors entering local markets, and global economic conditions.' },
+  { id:32, topic:'global', topicLabel:'Global Marketing', question:'What type of marketing strategy does Coca-Cola use when selling the SAME product across different countries?', options:['Regional customization strategy','Global segmentation strategy','Multidomestic marketing strategy','Transnational marketing strategy','Localization strategy'], correct:3, explanation:'Coca-Cola\'s standardized global approach is a TRANSNATIONAL strategy — the same product sold worldwide. A multidomestic strategy would adapt the product per country. Note: the correct answer in this course review is 'Transnational marketing strategy.'' },
+  { id:33, topic:'global', topicLabel:'Global Marketing', question:'Which of the following best describes a MULTIDOMESTIC marketing strategy?', options:['Offering identical branding and packaging in all countries','Selling the same products in all global markets without changes','Adjusting products to meet local consumer preferences and behaviors','Focusing solely on domestic market growth','Centralizing all marketing efforts at the company headquarters'], correct:2, explanation:'A multidomestic strategy customizes the marketing mix for each local market — adapting products, pricing, promotion, and distribution to fit local needs.' },
+  { id:34, topic:'global', topicLabel:'Global Marketing', question:'What is one of the TOP reasons firms pursue global marketing?', options:['To eliminate the need for domestic market research','To reduce the costs of production and operations','To avoid complying with local regulations','To achieve stability during economic volatility and diversify the customer base','To relocate headquarters to foreign markets'], correct:3, explanation:'Diversifying the customer base across multiple markets reduces risk — when one market slows, others may compensate, providing stability.' },
+  { id:35, topic:'global', topicLabel:'Global Marketing', question:'Which of the following is classified as a SOCIAL FORCE in a global environmental scan?', options:['Currency exchange rates','Local internet infrastructure','Government tariffs and quotas','Cultural values and customs','Competitor product pricing'], correct:3, explanation:'Cultural values and customs are a social force. Currency rates are economic forces; tariffs are regulatory/political; internet infrastructure is technological.' },
+  { id:36, topic:'global', topicLabel:'Global Marketing', question:'In a global environmental scan, evaluating how welcoming consumers are to foreign brands falls under which category?', options:['Regulatory forces','Competitive forces','Technological forces','Economic forces','Social forces'], correct:4, explanation:'Consumer attitudes toward foreign brands reflect cultural openness — a social/cultural factor in the environmental scan.' },
+  { id:37, topic:'global', topicLabel:'Global Marketing', question:'According to Hofstede\'s cultural dimensions, which type of culture emphasizes INDIVIDUAL achievement and a do-it-yourself mentality?', options:['Collectivism culture','High power distance culture','Masculine culture','Individualistic culture','Uncertainty-avoiding culture'], correct:3, explanation:'Hofstede\'s Individualism dimension contrasts cultures where individuals are self-reliant (individualistic, like the US) vs. groups take precedence (collectivist).' },
+  { id:38, topic:'global', topicLabel:'Global Marketing', question:'(Hofstede bonus) Which dimension involves individual vs. group orientation in society?', options:['Power Distance','Individualism vs. Collectivism','Masculinity vs. Femininity','Uncertainty Avoidance','Long-term vs. Short-term Orientation'], correct:1, explanation:'The Individualism vs. Collectivism dimension is one of Hofstede\'s 6 dimensions, measuring how much a culture prioritizes individual vs. group goals.' },
+
+  // ETHICS
+  { id:39, topic:'ethics', topicLabel:'Marketing Ethics', question:'In marketing, the term "puffery" refers to…', options:['False advertising that misleads consumers.','Exaggerated claims that no reasonable person would take literally.','Illegal statements about a product\'s benefits.','Paid endorsements by celebrities.','Regulatory actions by the Federal Trade Commission.'], correct:1, explanation:'Puffery is legally permitted exaggeration ("The World\'s Best Pizza!") because no reasonable person takes it literally. It differs from false advertising, which is deceptive.' },
+  { id:40, topic:'ethics', topicLabel:'Marketing Ethics', question:'In marketing, the following is an example of ASTROTURFING:', options:['Regulatory actions by the Federal Trade Commission','Exaggerated claims that no reasonable person would take literally','Paying an influencer to claim that they use your product','Paid endorsements, that are clearly stated, by celebrities on social media','Stating that a product is the greatest product ever'], correct:2, explanation:'Astroturfing is creating a fake grassroots impression — paying someone to pose as a genuine user without disclosing the paid relationship. Disclosed paid endorsements are NOT astroturfing.' },
+  { id:41, topic:'ethics', topicLabel:'Marketing Ethics', question:'Why is the concept of marketing ethics considered controversial or contradictory by some?', options:['Because marketing has no legal boundaries','Due to the historical association with manipulation and dishonesty','Because ethics and profits are always mutually exclusive','Because marketers are not subject to professional standards','Since marketing does not involve direct customer contact'], correct:1, explanation:'Marketing has historically been associated with persuasion that can shade into manipulation, creating a perception that it is inherently in tension with ethical behavior.' },
+];
+
+const FLASHCARD_DATA = [
+  { term:'Marketing Analytics', category:'Analytics', def:'Uses data, statistics, mathematics, and technology to solve marketing business problems and provide insights for operational decision-making.' },
+  { term:'Descriptive Analytics', category:'Analytics', def:'Analyzes historical data to understand and summarize past events — what has happened in a business (e.g., last quarter\'s sales by region).' },
+  { term:'Predictive Analytics', category:'Analytics', def:'Uses historical data, machine learning, and statistical models to anticipate future outcomes — predicts what is LIKELY to happen.' },
+  { term:'Prescriptive Analytics', category:'Analytics', def:'Uses simulations to identify patterns and make recommendations on future actions (e.g., Amazon\'s "You may also like…").' },
+  { term:'Cognitive Analytics', category:'Analytics', def:'Combines AI, NLP, and machine learning to interpret unstructured data (reviews, social posts) and mimic human thought processes.' },
+  { term:'Sentiment Analysis', category:'Analytics', def:'Predicts whether a given text has positive, negative, or neutral sentiment — used to gauge brand perception at scale.' },
+  { term:'Real-Time Data', category:'Analytics', def:'Data available immediately upon collection, allowing marketers to adapt strategies to the most current consumer behavior.' },
+  { term:'Audience Analysis', category:'Analytics', def:'Process of identifying and understanding the characteristics, preferences, and behaviors of a target audience (demo + psychographic).' },
+  { term:'Behavior Analysis', category:'Analytics', def:'Focuses on understanding how customers interact with a brand across touchpoints: websites, apps, social media, stores.' },
+  { term:'Acquisition Analysis', category:'Analytics', def:'Examines how effectively a company attracts new customers, assessing which channels and campaigns yield the highest ROI.' },
+  { term:'Conversion Analysis', category:'Analytics', def:'Focuses on understanding how and why customers take desired actions (purchase, sign-up) and identifying friction in the funnel.' },
+  { term:'Share of Voice (SOV)', category:'Analytics', def:'The percentage of conversations about a topic that contain the company\'s name — measures brand presence vs. competitors.' },
+  { term:'SEO', category:'Digital', def:'Search Engine Optimization — techniques to improve a website\'s ranking in organic (unpaid) search engine results.' },
+  { term:'Email Service Provider (ESP)', category:'Digital', def:'Platform enabling businesses to manage subscriber lists, design, deploy, and measure email campaigns.' },
+  { term:'Web Analytics Data', category:'Digital', def:'Shows activities of website visitors — how many, where from, what they do, where they go. Google Analytics is a key tool.' },
+  { term:'IMC', category:'IMC', def:'Integrated Marketing Communications — coordinating all promotional tools (advertising, PR, sales promotion, personal selling) to deliver a consistent message.' },
+  { term:'Advertising', category:'IMC', def:'Any paid form of nonpersonal communication about an organization, product, service, or idea by an IDENTIFIED SPONSOR.' },
+  { term:'Public Relations', category:'IMC', def:'Unpaid communications used to build and maintain positive relationships with various publics; relies on earned media.' },
+  { term:'Sales Promotion', category:'IMC', def:'Short-term incentives (coupons, samples, premiums) used to encourage purchase — can target consumers OR trade.' },
+  { term:'Reach', category:'IMC', def:'The percentage of people in a target market who are exposed to an ad campaign at least once during a given period.' },
+  { term:'Sampling', category:'IMC', def:'Sales promotion technique giving prospects a free trial of a product — especially effective for new product launches.' },
+  { term:'Puffery', category:'IMC', def:'Exaggerated advertising claims ("World\'s Best!") that no reasonable person would take literally — legally permitted.' },
+  { term:'Astroturfing', category:'IMC', def:'Creating a fake grassroots impression by paying influencers/reviewers to pose as genuine users without disclosing the paid relationship.' },
+  { term:'Wholesaler', category:'Channels', def:'An intermediary that buys from producers and sells to other intermediaries (usually retailers) — does NOT sell to end consumers.' },
+  { term:'Direct Channel', category:'Channels', def:'A distribution channel where the producer sells directly to end users with no intermediaries.' },
+  { term:'Intensive Distribution', category:'Channels', def:'Placing a product in as many outlets as possible — used for convenience/impulse goods like candy bars, beverages.' },
+  { term:'Exclusive Distribution', category:'Channels', def:'Giving a limited number of dealers exclusive rights to sell a product in a territory — used for luxury/specialty goods.' },
+  { term:'Channel Conflict', category:'Channels', def:'When one channel member believes another member\'s behavior is preventing it from achieving its goals.' },
+  { term:'Multidomestic Strategy', category:'Global', def:'Adjusting the marketing mix for each local market to meet local consumer preferences and behaviors — high local adaptation.' },
+  { term:'Transnational Strategy', category:'Global', def:'Selling the same standardized product across all global markets — balances global efficiency with some local responsiveness.' },
+  { term:'Hofstede\'s Individualism', category:'Global', def:'Cultural dimension contrasting societies where individuals are self-reliant (US, Australia) vs. group-oriented (Japan, China).' },
+  { term:'Break-Even Point', category:'Pricing', def:'The quantity at which total revenue equals total cost — the point of zero profit/loss.' },
+
+  // PRICING (expanded)
+  { term:'Penetration Pricing', category:'Pricing', def:'Setting a low initial price to quickly gain market share — the opposite of price skimming. Common for new products entering competitive markets.' },
+  { term:'Psychological Pricing', category:'Pricing', def:'Pricing designed to influence perception (e.g., $9.99 instead of $10) — taps into how consumers emotionally process price.' },
+  { term:'Price Skimming', category:'Pricing', def:'Setting a HIGH price early in the product life cycle when competition is low — capturing maximum revenue from early adopters before lowering price.' },
+  { term:'"Potential Pricing" — NOT Real', category:'Pricing', def:'A non-example used to help distinguish recognized pricing strategies. NOT a recognized pricing strategy. Real strategies: cost-based, penetration, value-added, psychological, and skimming.' },
+
+  // PERSONAL SELLING
+  { term:'7-Step Sales Process', category:'Selling', def:'Prospecting → Pre-approach → Approach → Presentation → Handling Objections → Close → Follow-up. Starts with Prospecting; ends with Follow-up.' },
+  { term:'Prospecting', category:'Selling', def:'FIRST step in personal selling — identifying potential customers who may have need, authority, and ability to buy.' },
+  { term:'Follow-Up', category:'Selling', def:'LAST step in personal selling — ensuring customer satisfaction after the sale and building toward a long-term relationship.' },
+  { term:'Copywriting — NOT a Sales Step', category:'Selling', def:'A non-example used to distinguish the steps in the selling process. Copywriting is an advertising/marketing skill, NOT one of the 7 steps in the personal selling process.' },
+  { term:'Sales Management Tasks', category:'Selling', def:'Includes: setting quotas, recruiting/training salespeople, evaluating individual performance, and maintaining communications across the organization.' },
+  { term:'Personal Selling Modes', category:'Selling', def:'Includes: face-to-face, telephone, video teleconferencing, internet-enabled links. Does NOT include mass social networks like TikTok as a selling tool.' },
+
+  // ETHICS
+  { term:'Ethics vs. Laws', category:'Ethics', def:'Ethics = relative moral standards that vary by culture and context. Laws = established rules enforced by judicial/civil means with defined consequences.' },
+  { term:'Puffery', category:'Ethics', def:'Exaggerated claims no reasonable person would take literally ("World's Best!"). LEGALLY PERMITTED in the US. NOT false advertising — false ads make specific verifiable claims.' },
+  { term:'Astroturfing', category:'Ethics', def:'Fake grassroots — paying someone to pose as a genuine user without disclosing the paid relationship. DIFFERENT from disclosed paid endorsements, which are legal.' },
+  { term:'5 Pressures Toward Unethical Behavior', category:'Ethics', def:'Personal standards · Organizational standards · Societal standards · Performance pressures · Market pressures.' },
+  { term:'Proactive CSR', category:'Ethics', def:'Firm actively seeks ways to make positive social contributions as a core strategy (e.g., Whole Foods, Bombas).' },
+  { term:'Reactive CSR', category:'Ethics', def:'Firm responds to negative impacts or does only the minimum required by law (e.g., BP oil spill cleanup).' },
+  { term:'Cause Marketing', category:'Ethics', def:'Leverages a social cause for MUTUAL BENEFIT — there IS a profit motive. Example: AmEx Statue of Liberty campaign raised $1.7M while boosting card usage 30%.' },
+  { term:'Social Marketing', category:'Ethics', def:'Aims to change behaviors for social good — NO profit motive. Example: pink ribbon breast cancer awareness campaign.' },
+  { term:'Greenwashing', category:'Ethics', def:'Presenting a false or misleading image of environmental friendliness. FTC "Green Guides" address this — The Honest Company is a textbook example.' },
+];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let currentMode = 'home';
+let quizQuestions = [];
+let currentQ = 0;
+let answered = false;
+let sessionCorrect = 0;
+let sessionTotal = 0;
+let missedQuestions = [];
+let currentFilter = 'all';
+
+let fcDeck = [...FLASHCARD_DATA];
+let fcIndex = 0;
+let fcFlipped = false;
+let fcActiveFilter = 'all';
+
+// ══════════════════════════════════════════════
+// MODE SWITCHING
+// ══════════════════════════════════════════════
+function switchMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + mode).classList.add('active');
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  const map = { home:'modeHome', quiz:'modeQuiz', flashcards:'modeFlash', guide:'modeGuide' };
+  document.getElementById(map[mode]).classList.add('active');
+  if (mode === 'guide') renderGuide();
+  if (mode === 'flashcards') renderFlashcard();
+}
+
+// ══════════════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════════════
+const TOPIC_COLORS = {
+  pricing: '#730202',
+  channels: '#30583F',
+  imc: '#D4940A',
+  digital: '#3A7A5A',
+  analytics: '#E8A030',
+  global: '#8B3232',
+  ethics: '#555',
+  selling: '#4A7B5E',
+  all: '#F2B441'
+};
+
+const TOPIC_TAG_CLASSES = {
+  pricing:'tag-pricing', channels:'tag-channels', imc:'tag-imc',
+  digital:'tag-digital', analytics:'tag-analytics', global:'tag-global',
+  ethics:'tag-ethics', selling:'tag-channels'
+};
+
+function startQuiz(filter) {
+  currentFilter = filter;
+  answered = false;
+  missedQuestions = [];
+  sessionCorrect = 0;
+  sessionTotal = 0;
+  updateScoreDisplay();
+
+  if (filter === 'all') {
+    quizQuestions = shuffle([...ALL_QUESTIONS]);
+  } else {
+    quizQuestions = shuffle(ALL_QUESTIONS.filter(q => q.topic === filter));
+  }
+
+  currentQ = 0;
+  renderQuestion();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderQuestion() {
+  const area = document.getElementById('quizArea');
+  if (currentQ >= quizQuestions.length) {
+    renderResults();
+    return;
+  }
+
+  answered = false;
+  const q = quizQuestions[currentQ];
+  const pct = Math.round((currentQ / quizQuestions.length) * 100);
+
+  const letters = ['A','B','C','D','E'];
+  const optionsHTML = q.options.map((opt, i) => `
+    <button class="option-btn" onclick="selectAnswer(${i})" id="opt-${i}">
+      <span class="option-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </button>
+  `).join('');
+
+  area.innerHTML = `
+    <div class="question-counter">Question ${currentQ + 1} of ${quizQuestions.length}</div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+    <span class="topic-badge ${TOPIC_TAG_CLASSES[q.topic] || ''}">${q.topicLabel}</span>
+    <div class="question-card">
+      <div class="question-text">${q.question}</div>
+      <div class="options-grid">${optionsHTML}</div>
+      <div class="feedback-box" id="feedbackBox"></div>
+    </div>
+    <div class="action-row">
+      <button class="btn-secondary" onclick="skipQuestion()">Skip</button>
+      <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  `;
+}
+
+function selectAnswer(chosenIdx) {
+  if (answered) return;
+  answered = true;
+
+  const q = quizQuestions[currentQ];
+  const isCorrect = chosenIdx === q.correct;
+  sessionTotal++;
+
+  if (isCorrect) {
+    sessionCorrect++;
+  } else {
+    missedQuestions.push({ q, chosen: chosenIdx });
+  }
+
+  updateScoreDisplay();
+
+  q.options.forEach((_, i) => {
+    const btn = document.getElementById('opt-' + i);
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add(isCorrect && i === chosenIdx ? 'correct' : 'reveal-correct');
+    if (i === chosenIdx && !isCorrect) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedbackBox');
+  fb.classList.add('show');
+  if (isCorrect) {
+    fb.classList.add('correct-fb');
+    fb.innerHTML = `<span class="feedback-icon">✅</span> <strong>Correct!</strong> ${q.explanation}`;
+  } else {
+    fb.classList.add('wrong-fb');
+    fb.innerHTML = `<span class="feedback-icon">❌</span> <strong>Incorrect.</strong> The correct answer is <strong>${['A','B','C','D','E'][q.correct]}) ${q.options[q.correct]}</strong>. ${q.explanation}`;
+  }
+
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion() {
+  currentQ++;
+  renderQuestion();
+}
+
+function skipQuestion() {
+  quizQuestions.push(quizQuestions[currentQ]);
+  quizQuestions.splice(currentQ, 1);
+  renderQuestion();
+}
+
+function updateScoreDisplay() {
+  if (sessionTotal === 0) {
+    document.getElementById('headerScore').textContent = '—';
+    return;
+  }
+  const pct = Math.round((sessionCorrect / sessionTotal) * 100);
+  document.getElementById('headerScore').textContent = pct + '%';
+}
+
+function renderResults() {
+  const area = document.getElementById('quizArea');
+  const total = quizQuestions.length;
+  const pct = Math.round((sessionCorrect / total) * 100);
+  const letters = ['A','B','C','D','E'];
+
+  let grade = 'A';
+  let message = '🎉 Outstanding! You\'re well-prepared for the final exam.';
+  if (pct < 90) { grade = 'B'; message = '👍 Strong work! Review the missed questions below and you\'ll be ready.'; }
+  if (pct < 80) { grade = 'C'; message = '📚 Good effort. Focus on the topics where you missed questions before the exam.'; }
+  if (pct < 70) { grade = 'D'; message = '⚠️ Needs improvement. Spend time with the Study Guide and Flashcards on the missed topics.'; }
+  if (pct < 60) { grade = 'F'; message = '🚨 Keep studying! Use the Study Guide and retake this quiz until you\'re consistently scoring 80%+.'; }
+
+  const missedHTML = missedQuestions.length > 0 ? `
+    <div class="missed-section">
+      <div class="missed-title">REVIEW THESE — Missed Questions</div>
+      ${missedQuestions.map(({ q, chosen }) => `
+        <div class="missed-item">
+          <strong>${q.question}</strong>
+          <div style="color:#F5C0C0; margin-bottom:4px;">Your answer: ${letters[chosen]}) ${q.options[chosen]}</div>
+          <div class="missed-correct">✓ Correct: ${letters[q.correct]}) ${q.options[q.correct]}</div>
+          <div style="font-size:0.8rem; color:rgba(247,244,239,0.5); margin-top:6px;">${q.explanation}</div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
+  area.innerHTML = `
+    <div class="results-card">
+      <div class="results-grade">${pct}%</div>
+      <div class="results-label">${grade} · ${sessionCorrect} of ${total} correct</div>
+      <div class="results-breakdown">
+        <div class="result-stat">
+          <div class="result-stat-num correct-c">${sessionCorrect}</div>
+          <div class="result-stat-label">Correct</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num wrong-c">${total - sessionCorrect}</div>
+          <div class="result-stat-label">Missed</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num" style="color:var(--gold)">${total}</div>
+          <div class="result-stat-label">Questions</div>
+        </div>
+      </div>
+      <div class="results-message">${message}</div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn-primary" onclick="startQuiz('${currentFilter}')">Retake Quiz</button>
+        ${missedQuestions.length > 0 ? '<button class="btn-primary" style="background:var(--red);" onclick="retryMissed()">🔁 Retry Missed (' + missedQuestions.length + ')</button>' : ''}
+        <button class="btn-secondary" onclick="startQuiz('all')">Try Full Review</button>
+        <button class="btn-secondary" onclick="switchMode('guide')">Study Guide</button>
+      </div>
+      ${missedHTML}
+    </div>
+  `;
+}
+
+function retryMissed() {
+  if (missedQuestions.length === 0) return;
+  quizQuestions = shuffle(missedQuestions.map(m => m.q));
+  missedQuestions = [];
+  currentQ = 0;
+  answered = false;
+  sessionCorrect = 0;
+  sessionTotal = 0;
+  currentFilter = 'missed';
+  renderQuestion();
+}
+
+// ══════════════════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════════════════
+function filterFC(cat, el) {
+  document.querySelectorAll('#fcFilter .topic-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  fcActiveFilter = cat;
+  fcDeck = cat === 'all' ? [...FLASHCARD_DATA] : FLASHCARD_DATA.filter(c => c.category === cat);
+  fcIndex = 0;
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  if (!fcDeck.length) return;
+  const card = fcDeck[fcIndex];
+  fcFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fcTerm').textContent = card.term;
+  document.getElementById('fcCat').textContent = card.category;
+  document.getElementById('fcDef').textContent = card.def;
+  document.getElementById('fcCount').textContent = `Card ${fcIndex + 1} of ${fcDeck.length}`;
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', fcFlipped);
+}
+
+function nextCard() {
+  fcIndex = (fcIndex + 1) % fcDeck.length;
+  renderFlashcard();
+}
+
+function prevCard() {
+  fcIndex = (fcIndex - 1 + fcDeck.length) % fcDeck.length;
+  renderFlashcard();
+}
+
+function shuffleCards() {
+  fcDeck = shuffle([...fcDeck]);
+  fcIndex = 0;
+  renderFlashcard();
+}
+
+// ══════════════════════════════════════════════
+// STUDY GUIDE
+// ══════════════════════════════════════════════
+const GUIDE_SECTIONS = [
+  {
+    title: 'Marketing Analytics (Ch. 13)',
+    color: '#E8A030',
+    content: `
+<p style="margin-bottom:14px; font-size:0.9rem; line-height:1.7; color:rgba(247,244,239,0.7);">Marketing analytics is much more than crunching numbers — it provides the <strong>critical insights</strong> companies need to differentiate products, refine processes, and uncover key performance drivers. The goal is competitive advantage through data-driven decision-making.</p>
+<p style="margin-bottom:16px; font-weight:700; font-size:0.85rem; color:var(--gold); text-transform:uppercase; letter-spacing:1px;">Four Types of Analytics</p>
+<div class="key-term"><span class="term-name">Descriptive</span><span class="term-def">Explains/summarizes PAST performance. "What happened?" — sales data, web traffic, engagement metrics.</span></div>
+<div class="key-term"><span class="term-name">Predictive</span><span class="term-def">Uses historical data + ML to forecast FUTURE outcomes. "What is likely to happen?" — churn prediction, demand forecasting.</span></div>
+<div class="key-term"><span class="term-name">Prescriptive</span><span class="term-def">Recommends ACTIONS based on simulations. "What SHOULD we do?" — Amazon's recommendation engine.</span></div>
+<div class="key-term"><span class="term-name">Cognitive</span><span class="term-def">Uses AI + NLP to interpret UNSTRUCTURED data (reviews, social posts). Sentiment analysis is a key application.</span></div>
+<p style="margin-top:18px; margin-bottom:10px; font-weight:700; font-size:0.85rem; color:var(--gold); text-transform:uppercase; letter-spacing:1px;">7-Step Analytics Process</p>
+<div style="display:flex; flex-direction:column; gap:6px;">
+${['Identify the Business Problem','Identify the Data Needed','Collect the Data','Clean/Prepare the Data','Analyze the Data','Implement Solutions','Measure Results'].map((s,i)=>`<div style="display:flex; align-items:center; gap:10px; font-size:0.88rem;"><span style="width:24px; height:24px; border-radius:50%; background:rgba(232,160,48,0.25); color:#E8A030; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem; flex-shrink:0;">${i+1}</span><span style="color:rgba(247,244,239,0.75);">${s}</span></div>`).join('')}
+</div>
+<p style="margin-top:18px; margin-bottom:10px; font-weight:700; font-size:0.85rem; color:var(--gold); text-transform:uppercase; letter-spacing:1px;">Metric Categories</p>
+<div class="key-term"><span class="term-name">Audience Analysis</span><span class="term-def">Who is interacting? Demographics, psychographics, geography.</span></div>
+<div class="key-term"><span class="term-name">Behavior Analysis</span><span class="term-def">How do they interact? Browsing, purchase frequency, touchpoints.</span></div>
+<div class="key-term"><span class="term-name">Acquisition Analysis</span><span class="term-def">How did they find us? Which channels yield the highest ROI?</span></div>
+<div class="key-term"><span class="term-name">Conversion Analysis</span><span class="term-def">Why did/didn't they buy? Funnel optimization, friction points.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(232,160,48,0.1); border-radius:8px; border-left:3px solid #E8A030; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> Question 28 asks what the 7-step process BEGINS with — always "Identify the Business Problem." Question 27 tests that analytics is about MORE than numbers — it's about competitive insight.</div>
+`
+  },
+  {
+    title: 'Digital Marketing (Ch. 11)',
+    color: '#3A7A5A',
+    content: `
+<div class="key-term"><span class="term-name">Digital Marketing</span><span class="term-def">Promoting products through digital channels — the core distinguishing feature vs. traditional marketing.</span></div>
+<div class="key-term"><span class="term-name">SEO</span><span class="term-def">Search Engine Optimization — improves website VISIBILITY in organic (unpaid) search results.</span></div>
+<div class="key-term"><span class="term-name">Email Marketing</span><span class="term-def">A form of DIRECT DIGITAL COMMUNICATION — targeted, measurable, and typically managed through an ESP.</span></div>
+<div class="key-term"><span class="term-name">Web Analytics</span><span class="term-def">Tracks website visitor activity: number of visitors, source, behavior on-site, exit points. Google Analytics is the dominant tool.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(58,122,90,0.15); border-radius:8px; border-left:3px solid #3A7A5A; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> Two key distinctions: (1) Digital vs. Traditional = channel type. (2) Email = direct digital communication, NOT traditional or non-digital.</div>
+`
+  },
+  {
+    title: 'IMC & Promotion Mix',
+    color: '#D4940A',
+    content: `
+<p style="margin-bottom:14px; font-size:0.9rem; line-height:1.7; color:rgba(247,244,239,0.7);">IMC = Integrated Marketing Communications. The <strong>first decision</strong> in any promotion program is always: <strong>Identify the target audience.</strong></p>
+<div class="key-term"><span class="term-name">Advertising</span><span class="term-def">Paid + nonpersonal + identified sponsor. TV, print, digital display.</span></div>
+<div class="key-term"><span class="term-name">Public Relations</span><span class="term-def">UNPAID communications — earned media, press releases, publicity. This is the "unpaid" option in questions.</span></div>
+<div class="key-term"><span class="term-name">Sales Promotion</span><span class="term-def">Short-term incentives targeting CONSUMERS (coupons, samples) OR TRADE (retailer/wholesaler discounts). "All of the above" answer.</span></div>
+<div class="key-term"><span class="term-name">Personal Selling</span><span class="term-def">Face-to-face / person-to-person communication. Process: Prospecting → Preapproach → Approach → Presentation → Objections → Close → Follow-up.</span></div>
+<div class="key-term"><span class="term-name">Reach vs. Frequency</span><span class="term-def">Reach = % of TARGET MARKET exposed at least once. Frequency = how many times they see it.</span></div>
+<div class="key-term"><span class="term-name">Broadcast Media</span><span class="term-def">TV AND radio only — not print, not digital, not outdoor.</span></div>
+<div class="key-term"><span class="term-name">Sampling</span><span class="term-def">Giving prospects a FREE TRIAL — the Taco Bell Doritos Locos Tacos giveaway example.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(212,148,10,0.12); border-radius:8px; border-left:3px solid #D4940A; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> "Feedback" is NOT a communication channel — it's a response mechanism. TikTok is NOT a personal selling mode. The personal selling process starts with Prospecting and ENDS with Follow-up.</div>
+`
+  },
+  {
+    title: 'Pricing Strategy',
+    color: '#730202',
+    content: `
+<div class="key-term"><span class="term-name">Break-Even Point</span><span class="term-def">Where total revenue = total cost. The point of zero profit — not the "tipping point" or "profitability point."</span></div>
+<div class="key-term"><span class="term-name">Product Life Cycle Pricing</span><span class="term-def">New products early in the life cycle can command HIGHER prices (less competition, novelty value = price skimming opportunity).</span></div>
+<div class="key-term"><span class="term-name">NOT a Strategy</span><span class="term-def">"Potential pricing" is the fake option. Real strategies: cost-based, penetration, value-added, psychological, skimming.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(115,2,2,0.15); border-radius:8px; border-left:3px solid #730202; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> The most frequently missed pricing question is "which is NOT a strategy" — the answer is always <strong>Potential pricing</strong>.</div>
+`
+  },
+  {
+    title: 'Distribution Channels',
+    color: '#30583F',
+    content: `
+<div class="key-term"><span class="term-name">Wholesaler</span><span class="term-def">Sells to OTHER INTERMEDIARIES (usually retailers) — NOT to end consumers. This distinguishes them from retailers.</span></div>
+<div class="key-term"><span class="term-name">Direct Channel</span><span class="term-def">Producer deals DIRECTLY with end user. No intermediaries. Examples: Dell computers, farmer\'s markets.</span></div>
+<div class="key-term"><span class="term-name">Intensive Distribution</span><span class="term-def">Maximum number of outlets — for CONVENIENCE goods (candy bars, sodas, gum). You want it available everywhere.</span></div>
+<div class="key-term"><span class="term-name">Exclusive Distribution</span><span class="term-def">Limited outlets, exclusive rights — for LUXURY or specialty goods (Rolex, luxury cars).</span></div>
+<div class="key-term"><span class="term-name">Channel Conflict</span><span class="term-def">When a channel member believes another is PREVENTING it from achieving its goals. Not "dissonance" or "discord."</span></div>
+`
+  },
+  {
+    title: 'Global Marketing',
+    color: '#8B3232',
+    content: `
+<div class="key-term"><span class="term-name">Why Global Matters Domestically</span><span class="term-def">Global supply chains and international competition affect local operations — even purely domestic firms are impacted.</span></div>
+<div class="key-term"><span class="term-name">Global (Transnational) Strategy</span><span class="term-def">Same standardized product worldwide — Coca-Cola's core product. Emphasizes global efficiency.</span></div>
+<div class="key-term"><span class="term-name">Multidomestic Strategy</span><span class="term-def">Adjusts products and marketing to fit LOCAL consumer preferences in each market.</span></div>
+<div class="key-term"><span class="term-name">Top Reason for Global Marketing</span><span class="term-def">Achieve stability + diversify the customer base — reduces risk when one market underperforms.</span></div>
+<div class="key-term"><span class="term-name">Social Forces (PEST)</span><span class="term-def">Cultural values and customs = SOCIAL. Currency = economic. Tariffs = regulatory. Internet infrastructure = technological.</span></div>
+<div class="key-term"><span class="term-name">Hofstede's Dimensions</span><span class="term-def">Individualism (self vs. group) · Power Distance · Masculinity/Femininity · Uncertainty Avoidance · Long-term Orientation · Indulgence. Individualistic cultures emphasize self-reliance and do-it-yourself mentality.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(139,50,50,0.15); border-radius:8px; border-left:3px solid #8B3232; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> The Coca-Cola question is tricky — their standardized global approach is TRANSNATIONAL, not multidomestic. "Consumer openness to foreign brands" is a SOCIAL force, not competitive.</div>
+`
+  },
+  {
+    title: 'Personal Selling',
+    color: '#4A7B5E',
+    content: `
+<p style="margin-bottom:14px; font-size:0.9rem; line-height:1.7; color:rgba(247,244,239,0.7);">Personal selling is the only promotional mix element that involves <strong>direct person-to-person communication</strong>. Knowing the exact steps and what does NOT belong is key for the exam.</p>
+<div class="key-term"><span class="term-name">7-Step Sales Process</span><span class="term-def">Prospecting → Pre-approach → Approach → Presentation → Handling Objections → Close → Follow-up</span></div>
+<div class="key-term"><span class="term-name">Starts With / Ends With</span><span class="term-def">STARTS: Prospecting (finding potential buyers) · ENDS: Follow-up (post-sale satisfaction and relationship building)</span></div>
+<div class="key-term"><span class="term-name">NOT a Step: Copywriting</span><span class="term-def">Copywriting = advertising skill. It is the non-example in the "all of the following EXCEPT" question.</span></div>
+<div class="key-term"><span class="term-name">Modes of Communication</span><span class="term-def">Includes: face-to-face, telephone, video teleconferencing, internet-enabled links. Does NOT include mass social networks like TikTok.</span></div>
+<div class="key-term"><span class="term-name">Sales Management Tasks</span><span class="term-def">Recruiting, training, setting quotas, <strong>evaluating individual salesperson performance</strong> (the key distinction), and coordinating communications.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(74,123,94,0.15); border-radius:8px; border-left:3px solid #4A7B5E; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tips:</strong> (1) The process ENDS with Follow-up — not Close. (2) Managing personal selling = evaluating individual salespeople, not designing ad campaigns or modifying products. (3) TikTok is a marketing channel, not a personal selling mode.</div>
+`
+  },
+  {
+    title: 'Marketing Ethics',
+    color: '#666',
+    content: `
+<div class="key-term"><span class="term-name">Puffery</span><span class="term-def">Exaggerated claims ("World's Best!") that no reasonable person would take literally. LEGALLY PERMITTED. ≠ false advertising.</span></div>
+<div class="key-term"><span class="term-name">Astroturfing</span><span class="term-def">Fake grassroots — paying influencers to pretend they genuinely use/recommend your product WITHOUT disclosing the relationship. Disclosed paid endorsements are NOT astroturfing.</span></div>
+<div class="key-term"><span class="term-name">Why Ethics is Controversial</span><span class="term-def">Historical association between marketing and manipulation/dishonesty creates a perception that the two are in tension.</span></div>
+<div style="margin-top:16px; padding:14px; background:rgba(100,100,100,0.12); border-radius:8px; border-left:3px solid #666; font-size:0.85rem; color:rgba(247,244,239,0.7);">💡 <strong>Study tip:</strong> The key distinction in the astroturfing question is DISCLOSURE. Paying an influencer is fine if disclosed — paying them to PRETEND is astroturfing.</div>
+<p style="margin-top:20px; margin-bottom:10px; font-weight:700; font-size:0.85rem; color:#aaa; text-transform:uppercase; letter-spacing:1px;">📌 Beyond the Exam — For Your Benchmark Assignment</p>
+<div class="key-term"><span class="term-name">5 Pressures Toward Unethical Behavior</span><span class="term-def">Personal standards · Organizational standards · Societal standards · Performance pressures · Market pressures. Relevant when evaluating a brand's ethics in your presentation.</span></div>
+<div class="key-term"><span class="term-name">Proactive CSR</span><span class="term-def">Firm actively seeks social contributions as part of its strategy (Whole Foods, Bombas). Evaluate whether your brand leads with values.</span></div>
+<div class="key-term"><span class="term-name">Reactive CSR</span><span class="term-def">Firm responds to damage or does the legal minimum (BP oil spill). Watch for greenwashing — false environmental claims.</span></div>
+<div class="key-term"><span class="term-name">Triple Bottom Line</span><span class="term-def">People + Planet + Profit. A truly sustainable brand performs on all three dimensions — not just financial.</span></div>
+<div class="key-term"><span class="term-name">Cause Marketing</span><span class="term-def">Mutual benefit — brand AND cause gain (AmEx + Statue of Liberty). Profit motive exists. Different from pure social marketing.</span></div>
+<div class="key-term"><span class="term-name">Christian Worldview Integration</span><span class="term-def">Assess whether the company's marketing practices reflect dignity, honesty, and stewardship. Does the brand "do no harm"? Does it treat customers as trusted partners or as targets?</span></div>
+`
+  }
+];
+
+function renderGuide() {
+  const container = document.getElementById('guideContent');
+  container.innerHTML = GUIDE_SECTIONS.map((s, i) => `
+    <div class="accordion-item" id="acc-${i}">
+      <div class="accordion-header" onclick="toggleAccordion(${i})">
+        <div class="accordion-title">
+          <span class="accordion-dot" style="background:${s.color}"></span>
+          ${s.title}
+        </div>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-body">
+        <div class="accordion-content">${s.content}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAccordion(i) {
+  const item = document.getElementById('acc-' + i);
+  item.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+renderFlashcard();
+renderGuide();
+</script>
+</body>
+</html>
