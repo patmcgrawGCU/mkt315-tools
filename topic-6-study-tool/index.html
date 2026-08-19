@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MKT 315 — Topic 6: IMC & Promotional Strategy Study Tool</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A2B5E;
+  --navy-deep:#0D1A3D;
+  --teal:#0D7C74;
+  --teal-lt:#E6F4F3;
+  --gold:#D4A017;
+  --gold-lt:#FDF6E3;
+  --gold-mid:#F0DC9A;
+  --white:#FFFFFF;
+  --off-white:#F4F6FB;
+  --gray-lt:#EDF2F7;
+  --gray-mid:#8A9BB0;
+  --gray-dk:#4A5568;
+  --text:#1A202C;
+  --correct:#166534;
+  --correct-bg:#DCFCE7;
+  --wrong:#991B1B;
+  --wrong-bg:#FEE2E2;
+  --radius:12px;
+  --shadow:0 4px 20px rgba(26,43,94,.12);
+  --shadow-sm:0 2px 8px rgba(26,43,94,.08);
+}
+body{font-family:'Georgia',serif;background:var(--off-white);color:var(--text);min-height:100vh;line-height:1.6}
+.site-header{background:var(--navy-deep);color:var(--white);padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:20px 32px 16px;gap:16px;flex-wrap:wrap}
+.course-label{font-family:'Arial',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.header-title{font-size:26px;font-weight:normal;color:var(--white);line-height:1.2}
+.header-title strong{font-size:30px;display:block;margin-bottom:2px}
+.gcu-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:10px;background:rgba(255,255,255,.1);color:#AABBDD;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15)}
+.header-sub{padding:0 32px 16px;font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-mid);display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.header-sub span{display:flex;align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block}
+.nav-bar{background:var(--white);border-bottom:2px solid #E2E8F0;display:flex;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.nav-bar::-webkit-scrollbar{height:3px}
+.nav-bar::-webkit-scrollbar-thumb{background:#ccc}
+.nav-btn{padding:0 24px;height:56px;border:none;background:transparent;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;color:var(--gray-dk);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.nav-btn:hover{color:var(--navy);background:#F8FAFF}
+.nav-btn.active{color:var(--navy);border-bottom-color:var(--gold)}
+.tab-icon{font-size:16px}
+.panel{display:none;padding:32px;max-width:1000px;margin:0 auto}
+.panel.active{display:block}
+.section-hero{background:var(--navy);border-radius:var(--radius);padding:28px 32px;margin-bottom:28px;color:var(--white)}
+.section-hero h2{font-size:24px;margin-bottom:6px}
+.section-hero p{font-family:'Arial',sans-serif;font-size:14px;color:#AABBDD;line-height:1.5}
+.session-pill{display:inline-block;background:var(--gold);color:var(--navy-deep);font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.module-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:28px}
+.module-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.module-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.module-card.active-card{border-color:var(--navy)}
+.module-header{padding:18px 20px 14px;display:flex;align-items:center;gap:14px}
+.module-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.module-icon.fc{background:#E8EDF8}
+.module-icon.sc{background:#E6F4F3}
+.module-icon.qz{background:var(--gold-lt)}
+.module-icon.mt{background:#F0E8F4}
+.module-meta h3{font-size:16px;font-family:'Arial',sans-serif;font-weight:700;color:var(--navy);margin-bottom:2px}
+.module-meta p{font-family:'Arial',sans-serif;font-size:12px;color:var(--gray-mid)}
+.module-body{padding:0 20px 18px;font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-dk)}
+.start-btn{display:inline-block;background:var(--navy);color:var(--white);border:none;padding:9px 20px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:10px}
+.start-btn:hover{background:var(--navy-deep)}
+.start-btn.teal{background:var(--teal)}
+.start-btn.teal:hover{background:#0A5E57}
+.start-btn.gold{background:var(--gold);color:var(--navy-deep)}
+.start-btn.gold:hover{background:#B8880F}
+.activity-wrap{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;margin-bottom:28px}
+.activity-hidden{display:none}
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.progress-bar-track{flex:1;height:8px;background:var(--gray-lt);border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:var(--navy);border-radius:4px;transition:width .4s ease}
+.progress-label{font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-mid);white-space:nowrap}
+.flashcard-scene{width:100%;height:280px;perspective:1200px;cursor:pointer;margin-bottom:20px}
+.flashcard-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.flashcard-inner.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}
+.flashcard-front{background:var(--navy);color:var(--white)}
+.flashcard-back{background:var(--gold-lt);border:2px solid var(--gold-mid);transform:rotateY(180deg);color:var(--text)}
+.card-label{font-family:'Arial',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.card-term{font-size:22px;font-weight:bold;line-height:1.3;margin-bottom:8px}
+.card-def{font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;color:var(--gray-dk)}
+.card-example{font-family:'Arial',sans-serif;font-size:13px;color:var(--teal);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--gold-mid)}
+.flip-hint{font-family:'Arial',sans-serif;font-size:12px;color:var(--gray-mid);text-align:center;margin-bottom:16px}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:16px}
+.card-nav button{background:var(--navy);color:var(--white);border:none;padding:10px 22px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+.card-nav button:hover{background:var(--navy-deep)}
+.card-nav button:disabled{background:var(--gray-lt);color:var(--gray-mid);cursor:not-allowed}
+.card-counter{font-family:'Arial',sans-serif;font-size:14px;color:var(--gray-dk);font-weight:600;min-width:70px;text-align:center}
+.question-text{font-size:17px;font-weight:bold;line-height:1.5;margin-bottom:6px;color:var(--navy-deep)}
+.scenario-box{background:var(--gray-lt);border-left:4px solid var(--teal);padding:14px 18px;border-radius:0 8px 8px 0;font-family:'Arial',sans-serif;font-size:14px;color:var(--gray-dk);margin-bottom:18px;line-height:1.6}
+.concept-tag{display:inline-block;background:var(--teal-lt);color:var(--teal);font-family:'Arial',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:14px;letter-spacing:.5px}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.opt-btn{background:var(--off-white);border:2px solid #E2E8F0;border-radius:10px;padding:13px 16px;font-family:'Arial',sans-serif;font-size:14px;color:var(--text);text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;line-height:1.4}
+.opt-btn:hover:not(:disabled){background:#EDF2F7;border-color:var(--navy)}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-btn.correct{background:var(--correct-bg);border-color:var(--correct);color:var(--correct)}
+.opt-btn.wrong{background:var(--wrong-bg);border-color:var(--wrong);color:var(--wrong)}
+.opt-btn.revealed{background:#F0F4FF;border-color:var(--navy)}
+.opt-letter{width:24px;height:24px;border-radius:50%;background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.opt-btn.correct .opt-letter{background:var(--correct)}
+.opt-btn.wrong .opt-letter{background:var(--wrong)}
+.opt-btn.revealed .opt-letter{background:var(--navy)}
+.feedback-box{border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;line-height:1.6;margin-bottom:20px;display:none}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:var(--correct-bg);border:1px solid #86EFAC;color:var(--correct)}
+.feedback-box.wrong{background:var(--wrong-bg);border:1px solid #FCA5A5;color:var(--wrong)}
+.feedback-box strong{display:block;margin-bottom:4px;font-size:15px}
+.next-btn{background:var(--navy);color:var(--white);border:none;padding:11px 28px;border-radius:8px;font-family:'Arial',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:none}
+.next-btn.show{display:inline-block}
+.next-btn:hover{background:var(--navy-deep)}
+.score-display{font-family:'Arial',sans-serif;font-size:15px;color:var(--gray-dk);font-weight:600;text-align:right;margin-bottom:16px}
+.score-display span{color:var(--navy)}
+.results-box{text-align:center;padding:32px 24px}
+.results-score{font-size:60px;font-weight:bold;color:var(--navy);line-height:1;margin-bottom:8px}
+.results-label{font-family:'Arial',sans-serif;font-size:16px;color:var(--gray-dk);margin-bottom:20px}
+.results-msg{font-size:16px;color:var(--text);margin-bottom:24px;line-height:1.6}
+.reset-btn{background:var(--teal);color:var(--white);border:none;padding:12px 30px;border-radius:8px;font-family:'Arial',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s}
+.reset-btn:hover{background:#0A5E57}
+.match-intro{font-family:'Arial',sans-serif;font-size:14px;color:var(--gray-dk);margin-bottom:20px;line-height:1.6}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.match-col-label{font-family:'Arial',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-mid);margin-bottom:10px}
+.match-items{display:flex;flex-direction:column;gap:8px}
+.match-item{background:var(--off-white);border:2px solid #E2E8F0;border-radius:10px;padding:11px 14px;font-family:'Arial',sans-serif;font-size:14px;cursor:pointer;transition:all .2s;color:var(--text)}
+.match-item:hover{background:var(--gray-lt);border-color:var(--navy)}
+.match-item.selected{background:#E8EDF8;border-color:var(--navy);color:var(--navy);font-weight:600}
+.match-item.matched{background:var(--correct-bg);border-color:var(--correct);color:var(--correct);cursor:default}
+.match-item.wrong-flash{background:var(--wrong-bg);border-color:var(--wrong)}
+.match-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;font-family:'Arial',sans-serif;font-size:14px;color:var(--gray-dk)}
+.match-score-row span{font-weight:700;color:var(--navy)}
+.terms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:28px}
+.term-card{background:var(--white);border-radius:10px;border-left:4px solid var(--navy);padding:14px 16px;box-shadow:var(--shadow-sm)}
+.term-card .t-word{font-size:15px;font-weight:bold;color:var(--navy);margin-bottom:6px}
+.term-card .t-def{font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-dk);line-height:1.5}
+.term-card.ch-ch9{border-left-color:#0D7C74}
+.term-card.ch-ch10{border-left-color:#1A2B5E}
+.term-card.ch-ch12{border-left-color:#D4A017}
+.info-section{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:24px 28px;margin-bottom:24px}
+.info-section h3{font-size:18px;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.info-section h3 .icon{width:32px;height:32px;background:var(--navy);color:var(--white);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.info-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.info-chip{background:var(--off-white);border-radius:8px;padding:12px 14px;font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-dk)}
+.info-chip strong{display:block;color:var(--navy);font-size:14px;margin-bottom:3px}
+.tip-banner{background:var(--gold-lt);border:1px solid var(--gold-mid);border-radius:10px;padding:14px 18px;font-family:'Arial',sans-serif;font-size:14px;color:var(--gray-dk);margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;line-height:1.5}
+.tip-banner .tip-icon{font-size:18px;flex-shrink:0}
+.back-btn{background:transparent;border:2px solid #E2E8F0;color:var(--gray-dk);padding:8px 16px;border-radius:8px;font-family:'Arial',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-bottom:24px}
+.back-btn:hover{border-color:var(--navy);color:var(--navy)}
+.site-footer{text-align:center;padding:24px 32px;font-family:'Arial',sans-serif;font-size:12px;color:var(--gray-mid);background:var(--white);border-top:1px solid #E2E8F0;margin-top:40px}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter-btn{font-family:'Arial',sans-serif;font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;border:2px solid #E2E8F0;background:var(--white);color:var(--gray-dk);cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.step-list{counter-reset:step;display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.step-item{display:flex;gap:14px;align-items:flex-start;background:var(--off-white);border-radius:10px;padding:14px 16px}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--white);font-family:'Arial',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-content strong{display:block;font-family:'Arial',sans-serif;font-size:14px;color:var(--navy);margin-bottom:2px}
+.step-content span{font-family:'Arial',sans-serif;font-size:13px;color:var(--gray-dk)}
+.ch-legend{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.ch-dot{display:flex;align-items:center;gap:6px;font-family:'Arial',sans-serif;font-size:12px;color:var(--gray-dk)}
+.ch-dot-circle{width:12px;height:12px;border-radius:50%}
+@media(max-width:640px){
+  .panel{padding:16px}
+  .header-top{padding:16px}
+  .match-grid{grid-template-columns:1fr}
+  .module-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="course-label">MKT 315 · Introduction to Marketing · Topic 6</div>
+      <div class="header-title">
+        <strong>IMC &amp; Promotional Strategy</strong>
+        Interactive Study Tool
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="gcu-badge">Grand Canyon University · Fall 2026</div>
+    </div>
+  </div>
+  <div class="header-sub">
+    <span><span class="dot"></span> Chapters 9, 10 &amp; 12</span>
+    <span><span class="dot"></span> Weeks 11–12 · Classes 21–24</span>
+    <span><span class="dot"></span> 6 Modules · 90+ Questions</span>
+    <span><span class="dot"></span> Promotion Memo · Check Halo for due date</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="showPanel('home')" id="btn-home"><span class="tab-icon">🏠</span> Start Here</button>
+  <button class="nav-btn" onclick="showPanel('terms')" id="btn-terms"><span class="tab-icon">📖</span> Key Terms</button>
+  <button class="nav-btn" onclick="showPanel('flashcards')" id="btn-flashcards"><span class="tab-icon">🃏</span> Flashcards</button>
+  <button class="nav-btn" onclick="showPanel('scenarios')" id="btn-scenarios"><span class="tab-icon">💡</span> Scenarios</button>
+  <button class="nav-btn" onclick="showPanel('quiz')" id="btn-quiz"><span class="tab-icon">✅</span> Quiz</button>
+  <button class="nav-btn" onclick="showPanel('matching')" id="btn-matching"><span class="tab-icon">🔗</span> Matching</button>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="panel active" id="panel-home">
+  <div class="section-hero">
+    <div class="session-pill">Topic 6 · Chapters 9, 10 &amp; 12</div>
+    <h2>IMC &amp; Promotional Strategy: Your Study Hub</h2>
+    <p>Covers IMC and the communication process (Ch 9), the promotional mix, budgeting, and push/pull strategy (Ch 10), and personal selling and sales management (Ch 12). Use the modules throughout Topic 6 to review Classes 21–24 and prepare for the Promotion Memo.</p>
+  </div>
+  <div class="tip-banner">
+    <span class="tip-icon">📥</span>
+    <span><strong>How to use this tool:</strong> Use this interactive tool throughout Topic 6. Start with Key Terms, move to Flashcards, then use Scenarios, the Quiz, and Matching activities to practice applying the concepts from Classes 21–24.</span>
+  </div>
+
+  <div class="module-row">
+    <div class="module-card" onclick="showPanel('terms')">
+      <div class="module-header"><div class="module-icon fc">📖</div><div class="module-meta"><h3>Key Terms</h3><p>48 definitions · Chapters 9, 10 &amp; 12</p></div></div>
+      <div class="module-body">All vocabulary sorted by chapter. Filter by Ch 9 (IMC), Ch 10 (Promotion), or Ch 12 (Selling).</div>
+      <div class="module-body"><button class="start-btn" onclick="showPanel('terms')">Browse Terms</button></div>
+    </div>
+    <div class="module-card" onclick="showPanel('flashcards')">
+      <div class="module-header"><div class="module-icon fc">🃏</div><div class="module-meta"><h3>Flashcards</h3><p>32 cards · flip to reveal</p></div></div>
+      <div class="module-body">Term on front, definition + real-world example on back. Great for the six-step selling process and promotional mix elements.</div>
+      <div class="module-body"><button class="start-btn" onclick="showPanel('flashcards')">Start Flashcards</button></div>
+    </div>
+    <div class="module-card" onclick="showPanel('scenarios')">
+      <div class="module-header"><div class="module-icon sc">💡</div><div class="module-meta"><h3>Scenarios</h3><p>10 applied cases · conceptual rewrites</p></div></div>
+      <div class="module-body">Read a real-world situation and identify the concept — designed to test application rather than simple memorization.</div>
+      <div class="module-body"><button class="start-btn teal" onclick="showPanel('scenarios')">Work Scenarios</button></div>
+    </div>
+    <div class="module-card" onclick="showPanel('quiz')">
+      <div class="module-header"><div class="module-icon qz">✅</div><div class="module-meta"><h3>Practice Quiz</h3><p>30 questions · scored</p></div></div>
+      <div class="module-body">Multiple-choice across all three chapters. Immediate feedback with explanations. Track your score.</div>
+      <div class="module-body"><button class="start-btn gold" onclick="showPanel('quiz')">Take Quiz</button></div>
+    </div>
+    <div class="module-card" onclick="showPanel('matching')">
+      <div class="module-header"><div class="module-icon mt">🔗</div><div class="module-meta"><h3>Matching Game</h3><p>2 sets · terms &amp; definitions</p></div></div>
+      <div class="module-body">Match promotional mix elements, selling steps, and compensation models to their descriptions. Great for quick recall.</div>
+      <div class="module-body"><button class="start-btn" style="background:var(--teal)" onclick="showPanel('matching')">Play Matching</button></div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="icon">🗺️</span> Topic 6 Content Map</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Ch 9 — IMC</strong>Communication process, encoding/decoding, noise, feedback, promotional tools as unified system</div>
+      <div class="info-chip"><strong>Ch 10 Pt 1 — Promo Mix</strong>6 elements (advertising, sales promotion, PR, direct marketing, personal selling, digital), AIDA, Information Processing</div>
+      <div class="info-chip"><strong>Ch 10 Pt 2 — Strategy</strong>4 budget methods (preferred: Objective &amp; Task), push vs. pull, IMC integration, traditional vs. digital media</div>
+      <div class="info-chip"><strong>Ch 12 Pt 1 — Selling</strong>EKB model, order-taking vs. order-getting, 6-step process, MAD leads, 3 selling styles</div>
+      <div class="info-chip"><strong>Ch 12 Pt 2 — Management</strong>3 team structures, recruiting (EQ &gt; product knowledge), 3 compensation models, KPIs, emerging trends</div>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3><span class="icon">⚡</span> High-Priority Topic 6 Concepts</h3>
+    <div class="info-row">
+      <div class="info-chip"><strong>Preferred Budget Method</strong>Objective &amp; Task — starts with strategy, not finances. Know WHY it's preferred over the other three.</div>
+      <div class="info-chip"><strong>Six-Step Selling Process</strong>Prospecting → Pre-approach → Approach → Presentation → Close → Follow-Up. Know all six in order.</div>
+      <div class="info-chip"><strong>IMC Definition</strong>NOT just "using multiple channels." It's a unified, consistent message across all channels.</div>
+      <div class="info-chip"><strong>Compensation Ethics</strong>Commission-only creates ethical risks (aggressive tactics, revenue over customer fit). Hybrid = preferred for most B2B.</div>
+      <div class="info-chip"><strong>Push vs. Pull</strong>Push = promote to channel partners. Pull = promote to consumers. Most large brands use both.</div>
+      <div class="info-chip"><strong>MAD Framework</strong>Qualified lead = Money (resources) + Authority (decision power) + Desire (genuine want).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KEY TERMS ══ -->
+<div class="panel" id="panel-terms">
+  <div class="section-hero">
+    <div class="session-pill">Key Terms</div>
+    <h2>Vocabulary — Chapters 9, 10 &amp; 12</h2>
+    <p>48 key terms organized by chapter. Use the filter buttons to focus your study.</p>
+  </div>
+  <div class="ch-legend">
+    <div class="ch-dot"><div class="ch-dot-circle" style="background:#0D7C74"></div> Ch 9 — IMC</div>
+    <div class="ch-dot"><div class="ch-dot-circle" style="background:#1A2B5E"></div> Ch 10 — Promotion</div>
+    <div class="ch-dot"><div class="ch-dot-circle" style="background:#D4A017"></div> Ch 12 — Selling &amp; Sales Mgmt</div>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterTerms('all',this)">All Chapters</button>
+    <button class="filter-btn" onclick="filterTerms('ch-ch9',this)">Ch 9 — IMC</button>
+    <button class="filter-btn" onclick="filterTerms('ch-ch10',this)">Ch 10 — Promotion</button>
+    <button class="filter-btn" onclick="filterTerms('ch-ch12',this)">Ch 12 — Selling</button>
+  </div>
+  <div class="terms-grid" id="terms-grid">
+    <!-- Ch 9 -->
+    <div class="term-card ch-ch9"><div class="t-word">Integrated Marketing Communications (IMC)</div><div class="t-def">A strategic approach to coordinating all marketing communications to ensure consistency of message and complementary use of promotional tools across all channels.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Communication Process</div><div class="t-def">The path a message travels from Source → Encoding → Message → Channel → Decoding → Receiver, with noise potentially disrupting any stage and feedback completing the loop.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Encoding</div><div class="t-def">The first step in communication — converting ideas into words, pictures, symbols, or other elements that can be transmitted to a target audience.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Decoding</div><div class="t-def">The process by which the receiver interprets and makes sense of the message sent by the source.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Noise</div><div class="t-def">Any personal or environmental interference — competing ads, distractions, cultural misinterpretation — that prevents a marketing message from being received or understood correctly.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Feedback</div><div class="t-def">The receiver's response to a message, which flows back to the source. In digital marketing, this includes click-through rates, purchases, and social media engagement.</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Retargeting</div><div class="t-def">A type of online advertising that targets consumers based on their previous internet activities (e.g., showing ads for products a user previously viewed).</div></div>
+    <div class="term-card ch-ch9"><div class="t-word">Promotional Tools</div><div class="t-def">The six elements of the promotional mix (advertising, sales promotion, personal selling, direct marketing, public relations, digital marketing) used together for greater impact.</div></div>
+    <!-- Ch 10 -->
+    <div class="term-card ch-ch10"><div class="t-word">Promotion</div><div class="t-def">All marketing communications that inform and persuade consumers to purchase products and services, including advertising, digital marketing, PR, direct marketing, personal selling, and sales promotion.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Promotional Mix</div><div class="t-def">The six marketing communication tools: advertising, sales promotion, public relations, direct marketing, personal selling, and digital marketing.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Promotional Objectives</div><div class="t-def">The goals that guide a brand's communication choices — to inform, remind, engage, or entertain consumers based on their stage in the buying process.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Primary Demand</div><div class="t-def">Promotion designed to create demand for a product category as a whole (e.g., "Got Milk?" promotes all milk, not a specific brand).</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Selective Demand</div><div class="t-def">Promotion aimed at building preference for a specific brand within a product category (e.g., a Lucerne dairy ad promoting its milk over competitors).</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">AIDA Model</div><div class="t-def">A framework showing how consumers move from Awareness → Interest → Desire → Action when exposed to promotional messages.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Information Processing Model</div><div class="t-def">Views the consumer as a problem solver moving through stages: Exposure → Attention → Comprehension → Yielding → Retention → Behavior. Retention is a distinguishing feature of this model.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Sales Promotion</div><div class="t-def">A promotional tool using incentives (coupons, contests, loyalty programs, flash sales) designed to create an immediate and measurable consumer response.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Trade-Oriented Sales Promotion</div><div class="t-def">Sales promotions aimed at wholesalers and retailers (e.g., slotting fees, promotional allowances) to move products through the distribution channel.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Consumer-Oriented Sales Promotion</div><div class="t-def">Sales promotions directed at end consumers (e.g., coupons, BOGO offers, sweepstakes) to drive immediate purchase behavior.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Public Relations (PR)</div><div class="t-def">A promotional tool that aims to improve an organization's image or sway public attitudes through earned media, press releases, events, and community engagement.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Direct Marketing</div><div class="t-def">A promotional method that communicates directly with target customers through mail, email, telemarketing, or digital channels to generate a specific measurable response.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Push Strategy</div><div class="t-def">A promotional approach that targets channel partners (wholesalers, retailers) to push products toward consumers through trade promotions, slotting fees, and sales training.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Pull Strategy</div><div class="t-def">A promotional approach that promotes directly to consumers, creating demand that "pulls" products through the distribution channel. Uses advertising, social media, and loyalty programs.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Percentage of Sales (Budget)</div><div class="t-def">A budgeting method that allocates a fixed percentage of past or projected sales revenue to promotion. Simple but assumes promotion follows sales rather than driving them.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Competitive Parity (Budget)</div><div class="t-def">A budgeting method that matches competitors' promotional spending levels. Prevents competitive disadvantage but ignores your own unique objectives.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">All-You-Can-Afford (Budget)</div><div class="t-def">A budgeting method that allocates whatever funds remain after other expenses. Treats promotion as optional rather than strategic.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Objective &amp; Task (Budget)</div><div class="t-def">The PREFERRED budgeting method. Define objectives → identify required tasks → estimate costs. Strategic and defensible because it starts with goals, not finances.</div></div>
+    <div class="term-card ch-ch10"><div class="t-word">Flash Sale</div><div class="t-def">A promotional strategy offering significant discounts on select products for a very short period to create urgency and drive immediate purchases.</div></div>
+    <!-- Ch 12 -->
+    <div class="term-card ch-ch12"><div class="t-word">Personal Selling</div><div class="t-def">A form of promotion in which a salesperson engages a prospective customer directly for the purpose of completing a transaction. The only two-way, real-time promotional mix element.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">EKB Model</div><div class="t-def">Engel-Kollat-Blackwell model of consumer decision-making with five stages: Need Recognition → Information Search → Evaluation of Alternatives → Purchase Decision → Post-Purchase Evaluation.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Order-Taking</div><div class="t-def">Sales made through straightforward transactions where little persuasion is needed — the customer has already decided to purchase (e.g., fast food cashier, call center order processor).</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Order-Getting</div><div class="t-def">Proactive sales where the salesperson initiates and creates demand by seeking out customers who may not yet recognize a need (e.g., B2B enterprise sales rep, real estate agent).</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Prospecting</div><div class="t-def">Step 1 of the selling process — continuously generating leads to fill the sales funnel. A qualified lead meets the MAD criteria: Money, Authority, Desire.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">MAD Framework</div><div class="t-def">A lead qualification tool: Money (financial resources to purchase), Authority (decision-making power), Desire (genuine want or need for the product).</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Preapproach</div><div class="t-def">Step 2 — gathering information about a prospect before making contact. Includes reviewing CRM data for existing customers and researching new prospects via LinkedIn, industry publications.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Approach</div><div class="t-def">Step 3 — the first real contact with a prospect (in person, video, or phone). The goal is to make a positive first impression and assess readiness to move to the presentation stage.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Presentation</div><div class="t-def">Step 4 — identifying customer needs and demonstrating how the product meets them. Includes handling objections using needs-satisfaction, formula, or stimulus-response approaches.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Needs-Satisfaction Selling</div><div class="t-def">A selling style that personalizes the presentation around the specific customer's needs and usage patterns — most common in consultative B2B sales.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Formula Selling</div><div class="t-def">A selling style that follows a predictable script or pattern. Common objections have rehearsed responses. Effective when products and objections are standard and predictable.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Stimulus–Response Selling</div><div class="t-def">A selling style in which the salesperson adjusts the presentation in real time based on the customer's reactions, body language, and verbal responses. Requires high emotional intelligence.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Close</div><div class="t-def">Step 5 — asking the customer for their business. Without asking, no commitment is secured. Closing finalizes terms, confirms the purchase, processes payment, and arranges delivery.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Follow-Up</div><div class="t-def">Step 6 — confirming that the customer received the product and it meets expectations. Builds trust, addresses service issues, and creates opportunities for repeat business and referrals.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Sales Funnel</div><div class="t-def">The collection of leads being worked by the sales team — from initial prospects down through qualified leads, opportunities, and closed sales.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Sales Management</div><div class="t-def">The strategic leadership of a sales team encompassing planning, recruiting, training, compensation design, leadership/coaching, and results measurement.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Geographic Structure</div><div class="t-def">A sales team organized by region or territory. Pros: local expertise, less travel. Con: reps must sell all products, limiting product depth.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Product/Service Structure</div><div class="t-def">A sales team organized by specific product or service line. Pros: deep technical expertise. Con: same customer may deal with multiple reps.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Customer Structure</div><div class="t-def">Also called account-based structure. Sales reps aligned by customer type or industry vertical. Pros: strong relationship focus. Con: reps need broad product knowledge.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Behavioral Evaluation</div><div class="t-def">Reviewing a salesperson based on HOW they sell (process adherence, relationship quality, ethics) rather than purely on quota attainment or revenue numbers.</div></div>
+    <div class="term-card ch-ch12"><div class="t-word">Account Management Policies</div><div class="t-def">Rules governing how customers are engaged — covering territory ownership, escalation protocols, contact frequency, pricing authority, and data handling.</div></div>
+  </div>
+</div>
+
+<!-- ══ FLASHCARDS ══ -->
+<div class="panel" id="panel-flashcards">
+  <div class="section-hero">
+    <div class="session-pill">Flashcards</div>
+    <h2>32 Cards — Flip to Reveal</h2>
+    <p>Click any card to flip it. Navigate with the arrows. Great for memorizing the six-step process, promotional mix elements, and compensation models.</p>
+  </div>
+  <div class="activity-wrap">
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="fc-bar" style="width:3%"></div></div>
+      <div class="progress-label" id="fc-progress">1 / 32</div>
+    </div>
+    <p class="flip-hint">👆 Click the card to flip it</p>
+    <div class="flashcard-scene" onclick="flipCard()">
+      <div class="flashcard-inner" id="fc-inner">
+        <div class="flashcard-front">
+          <div class="card-label">Term</div>
+          <div class="card-term" id="fc-term"></div>
+          <div style="font-family:'Arial',sans-serif;font-size:12px;opacity:.5;margin-top:12px">tap to flip</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="card-label">Definition</div>
+          <div class="card-def" id="fc-def"></div>
+          <div class="card-example" id="fc-ex"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button onclick="fcNav(-1)" id="fc-prev">← Prev</button>
+      <div class="card-counter" id="fc-counter">1 / 32</div>
+      <button onclick="fcNav(1)" id="fc-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCENARIOS ══ -->
+<div class="panel" id="panel-scenarios">
+  <div class="section-hero">
+    <div class="session-pill">Applied Scenarios</div>
+    <h2>10 Real-World Cases</h2>
+    <p>Each scenario describes a situation. You identify which concept applies — to practice conceptual understanding and application rather than memorization.</p>
+  </div>
+  <div class="activity-wrap" id="sc-wrap">
+    <div class="score-display">Score: <span id="sc-score">0</span> / <span id="sc-total">10</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="sc-bar" style="width:0%"></div></div>
+      <div class="progress-label" id="sc-progress">Question 1 of 10</div>
+    </div>
+    <div id="sc-question-area"></div>
+  </div>
+  <div class="activity-wrap activity-hidden" id="sc-results">
+    <div class="results-box">
+      <div class="results-score" id="sc-final-score"></div>
+      <div class="results-label">out of 10 scenarios</div>
+      <div class="results-msg" id="sc-final-msg"></div>
+      <button class="reset-btn" onclick="resetScenarios()">Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div class="panel" id="panel-quiz">
+  <div class="section-hero">
+    <div class="session-pill">Practice Quiz</div>
+    <h2>30 Questions — All Chapters</h2>
+    <p>Multiple-choice across Chapters 9, 10, and 12. Get immediate feedback and explanations. Track your total score.</p>
+  </div>
+  <div class="activity-wrap" id="quiz-wrap">
+    <div class="score-display">Score: <span id="qz-score">0</span> / <span id="qz-total">30</span></div>
+    <div class="progress-row">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="qz-bar" style="width:0%"></div></div>
+      <div class="progress-label" id="qz-progress">Question 1 of 30</div>
+    </div>
+    <div id="qz-question-area"></div>
+  </div>
+  <div class="activity-wrap activity-hidden" id="quiz-results">
+    <div class="results-box">
+      <div class="results-score" id="qz-final-score"></div>
+      <div class="results-label">out of 30 questions</div>
+      <div class="results-msg" id="qz-final-msg"></div>
+      <button class="reset-btn" onclick="resetQuiz()">Retake Quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MATCHING ══ -->
+<div class="panel" id="panel-matching">
+  <div class="section-hero">
+    <div class="session-pill">Matching Game</div>
+    <h2>Match Terms to Descriptions</h2>
+    <p>Select a term on the left, then its match on the right. Two separate sets to complete.</p>
+  </div>
+  <div class="activity-wrap">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="loadMatch(0,this)">Set 1: Promo Mix &amp; Process</button>
+      <button class="filter-btn" onclick="loadMatch(1,this)">Set 2: Sales &amp; Management</button>
+    </div>
+    <div class="match-score-row">Matched: <span id="mt-score">0</span> / <span id="mt-total">8</span></div>
+    <div class="match-grid">
+      <div>
+        <div class="match-col-label">Terms</div>
+        <div class="match-items" id="mt-left"></div>
+      </div>
+      <div>
+        <div class="match-col-label">Descriptions</div>
+        <div class="match-items" id="mt-right"></div>
+      </div>
+    </div>
+    <div id="mt-complete" style="display:none" class="tip-banner"><span class="tip-icon">🎉</span><span><strong>Set complete!</strong> All pairs matched. Try the next set or retake this one.</span></div>
+    <button class="reset-btn" onclick="resetMatch()" style="margin-top:12px">Reset Set</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  MKT 315 · Introduction to Marketing · Topic 6 Study Tool · Grand Canyon University · Fall 2026 · Chapters 9, 10 &amp; 12
+</footer>
+
+<script>
+// ── PANEL NAV ────────────────────────────────────────────────────────
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
+  if(id==='flashcards') renderFC();
+  if(id==='scenarios'){renderSC();updateSCDisplay();}
+  if(id==='quiz'){renderQZ();updateQZDisplay();}
+  if(id==='matching'){loadMatch(0,document.querySelector('.filter-btn'));}
+}
+
+// ── TERMS FILTER ─────────────────────────────────────────────────────
+function filterTerms(cls, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#terms-grid .term-card').forEach(c=>{
+    c.style.display=(cls==='all'||c.classList.contains(cls))?'block':'none';
+  });
+}
+
+// ── FLASHCARD DATA ───────────────────────────────────────────────────
+const fcCards=[
+  {t:'Integrated Marketing Communications (IMC)',d:'Coordinating ALL promotional tools to deliver one consistent, unified message across every channel — not just using multiple channels, but ensuring they all say the same thing.',ex:'Spotify Wrapped: the same "Spotify knows you" message appears across social, email, PR, and in-app — all at once.'},
+  {t:'The Communication Process',d:'Source → Encoding → Message → Channel → Decoding → Receiver, with Noise disrupting any stage and Feedback completing the loop.',ex:'A brand (source) creates a TV ad (encoding/message) that airs on NBC (channel), which a viewer interprets (decoding) while distracted by their phone (noise).'},
+  {t:'Noise in Communication',d:'Any interference — competing ads, distractions, cultural misinterpretation, or poor channel choice — that prevents a message from being received or understood correctly.',ex:'A student scrolling Instagram while watching TV is experiencing two sources of noise simultaneously.'},
+  {t:'Promotional Mix (6 Elements)',d:'Advertising, Sales Promotion, Public Relations, Direct Marketing, Personal Selling, and Digital Marketing — the six tools marketers combine to communicate with target audiences.',ex:'Nike uses all six: TV ads, loyalty promotions, PR events, email campaigns, in-store reps, and social media.'},
+  {t:'AIDA Model',d:'Awareness → Interest → Desire → Action. A sequential model showing how promotional messages move consumers toward a purchase decision.',ex:'A Spotify ad creates Awareness, the features build Interest, the free trial builds Desire, and the sign-up button drives Action.'},
+  {t:'Primary vs. Selective Demand',d:'Primary demand = promote the whole category (e.g., "drink more milk"). Selective demand = promote YOUR brand within the category (e.g., "choose Lucerne milk").',ex:'Lay\'s Super Bowl ads are selective demand — they don\'t promote chips in general, they promote Lay\'s specifically.'},
+  {t:'Objective & Task Budget Method',d:'The PREFERRED approach: define your objectives, identify the tasks needed to achieve them, then estimate the cost. Starts with strategy, not finances.',ex:'"We need 40% brand awareness in 6 months — that requires X media buys and Y influencer campaigns, costing $Z."'},
+  {t:'Percentage of Sales Budget Method',d:'Allocate a fixed percentage of past or forecasted revenue to promotion. Simple but assumes promotion follows sales rather than driving them.',ex:'A company spends 5% of last year\'s $10M revenue = $500K promotional budget, regardless of this year\'s goals.'},
+  {t:'Push Strategy',d:'Promote to channel partners (wholesalers, retailers) who then push the product to consumers. Uses trade promotions, slotting fees, and sales training.',ex:'A new beverage brand pays Walmart a slotting fee to get premium shelf placement before consumers ever see an ad.'},
+  {t:'Pull Strategy',d:'Promote directly to consumers to create demand that "pulls" the product through the distribution channel. Uses advertising, social media, loyalty programs.',ex:'Nike\'s massive consumer campaigns create such strong demand that retailers MUST stock the product.'},
+  {t:'Sales Promotion',d:'A promotional tool using incentives (coupons, contests, flash sales, loyalty programs) designed to generate an immediate and measurable consumer response.',ex:'A 24-hour flash sale at ASOS creates urgency — customers act now because the discount disappears tonight.'},
+  {t:'Trade vs. Consumer-Oriented Promo',d:'Trade-oriented targets channel partners with incentives like slotting fees and promotional allowances. Consumer-oriented targets end buyers with coupons, sweepstakes, and BOGO deals.',ex:'A CPG brand runs BOTH simultaneously: slotting fees for Kroger (trade) and a coupon campaign for shoppers (consumer).'},
+  {t:'EKB Consumer Behavior Model',d:'Five-stage decision process: Need Recognition → Information Search → Evaluation of Alternatives → Purchase Decision → Post-Purchase Evaluation.',ex:'Buying a laptop: Recognize you need one → research online → compare MacBook vs. Dell → purchase → wonder if you chose right (cognitive dissonance).'},
+  {t:'Order-Taking vs. Order-Getting',d:'Order-taking: customer already decided to buy; salesperson facilitates (cashier, call center). Order-getting: salesperson proactively creates demand through persuasion and trust-building.',ex:'A Starbucks barista = order-taker. A Salesforce enterprise account rep = order-getter.'},
+  {t:'The Six-Step Selling Process',d:'Prospecting → Pre-approach → Approach → Presentation → Close → Follow-Up. Every step builds on the previous one — skip any and the whole sale weakens.',ex:'A real estate agent: finds leads (prospecting), researches buyers (pre-approach), first showing (approach), walks the house (presentation), asks for offer (close), checks in post-move (follow-up).'},
+  {t:'MAD Framework (Lead Qualification)',d:'Money = financial resources to purchase. Authority = decision-making power. Desire = genuine want or need. A lead must meet all three to be worth pursuing.',ex:'A startup CEO loves your CRM software (Desire ✓) but has no budget (Money ✗) and needs board approval (Authority ✗) — NOT a qualified lead yet.'},
+  {t:'Pre-approach vs. Approach',d:'Pre-approach = research BEFORE any contact (CRM data, LinkedIn, industry research). Approach = first actual contact with the prospect (phone, video, in-person).',ex:'Pre-approach: reading a prospect\'s LinkedIn and annual report the night before. Approach: the opening handshake on meeting day.'},
+  {t:'Needs-Satisfaction Selling',d:'A selling style that personalizes the entire presentation to the specific customer\'s needs, usage patterns, and preferences. Requires deep listening and questioning.',ex:'A cellular rep asks about your data habits, travel frequency, and budget before recommending any plan.'},
+  {t:'Formula Selling',d:'A selling style that follows a predictable pattern or script. Works when products and objections are standard and repetitive — the salesperson masters and polishes the presentation.',ex:'A timeshare presentation: the same pitch, the same objections ("too expensive"), the same scripted responses — every time.'},
+  {t:'Stimulus-Response Selling',d:'A selling style where the salesperson adjusts in real time based on the customer\'s reactions, body language, and verbal responses. Requires high emotional intelligence.',ex:'A car dealership rep who pivots from sports car models to family SUVs when the customer mentions kids.'},
+  {t:'Close (Step 5)',d:'Asking the customer for their business. Without asking, no commitment is secured. Closing is NOT manipulative when it follows proper qualification and a presentation that genuinely fits.',ex:'"Based on everything we\'ve discussed, are you ready to move forward with the Professional plan today?"'},
+  {t:'Follow-Up (Step 6)',d:'Post-sale contact to confirm the product was received and meets expectations. Builds trust, addresses service issues, and creates opportunities for referrals and repeat business.',ex:'A financial advisor who calls 30 days after setting up a new account to check in — this is what turns one sale into a lifelong client.'},
+  {t:'Sales Management Functions',d:'Planning (set objectives), Recruiting (hire talent), Training (build skills), Compensation (incentivize performance), Leadership (coach), Results (measure KPIs).',ex:'A VP of Sales who sets Q3 quotas, hires three new reps, runs a two-week onboarding, designs a hybrid pay plan, and reviews dashboards weekly.'},
+  {t:'Three Sales Team Structures',d:'Geographic: organized by territory. Product/Service: organized by product line. Customer: organized by account type or industry vertical.',ex:'A national pharma company uses product structure (reps specialize by drug type) while a regional insurance firm uses geographic structure.'},
+  {t:'Salary-Only Compensation',d:'Fixed pay regardless of sales performance. Focuses team on non-revenue metrics (satisfaction, loyalty) but may reduce individual revenue motivation.',ex:'A customer success manager at a SaaS company paid salary only — their job is retention, not new sales.'},
+  {t:'Commission-Only Compensation',d:'Pay based entirely on sales made. Maximizes revenue motivation but creates ethical risks (aggressive tactics, prioritizing commission over customer fit).',ex:'Real estate agents and independent insurance brokers often work commission-only — high risk, high potential reward.'},
+  {t:'Hybrid Compensation Model',d:'Combines a base salary with performance-based incentives. Balances stability and motivation. Can include satisfaction bonuses, expense bonuses, and team incentives.',ex:'A B2B software rep with a $60K base salary + 15% commission on new deals — motivated to sell without the income volatility of commission-only.'},
+  {t:'Behavioral Evaluation',d:'Reviewing salespeople based on HOW they sell — process adherence, relationship quality, ethics — rather than only on quota numbers.',ex:'A sales manager who reviews call recordings to assess whether reps are listening actively and handling objections ethically, not just counting closed deals.'},
+  {t:'Sales KPIs — Quantitative',d:'Revenue, close rate, orders by type, contribution margin, pipeline value, average deal size and cycle length — measurable numbers on a sales dashboard.',ex:'A dashboard showing Rep A closed 24% of leads at an average deal size of $18K with a 47-day cycle.'},
+  {t:'Sales KPIs — Qualitative',d:'Customer satisfaction (NPS), customer retention rate, behavioral evaluation scores, coaching frequency, 360-degree feedback, ethics/compliance indicators.',ex:'A NPS score of 68 from Rep A\'s accounts — high quota AND high satisfaction = true performance success.'},
+  {t:'Emerging Sales Trends',d:'AI real-time analytics (Gong, Chorus), Emotional Intelligence (EI) over product knowledge, team-based incentives, Customer Lifetime Value metrics, virtual/hybrid selling.',ex:'Deloitte (2023) found EI increasingly differentiates top sales performers as AI handles information transfer.'},
+  {t:'Account Management Policies',d:'Rules governing customer engagement: territory ownership, escalation protocols, contact frequency, pricing authority, and CRM data handling.',ex:'A policy that requires all client contacts to be logged in Salesforce within 24 hours — protecting the company\'s relationships if a rep leaves.'},
+];
+
+let fcIdx=0, fcFlipped=false;
+function renderFC(){
+  showFCard();
+}
+function showFCard(){
+  const c=fcCards[fcIdx];
+  document.getElementById('fc-term').textContent=c.t;
+  document.getElementById('fc-def').textContent=c.d;
+  document.getElementById('fc-ex').textContent='Example: '+c.ex;
+  const inner=document.getElementById('fc-inner');
+  inner.classList.remove('flipped');
+  fcFlipped=false;
+  document.getElementById('fc-progress').textContent=(fcIdx+1)+' / '+fcCards.length;
+  document.getElementById('fc-counter').textContent=(fcIdx+1)+' / '+fcCards.length;
+  document.getElementById('fc-bar').style.width=(((fcIdx+1)/fcCards.length)*100)+'%';
+  document.getElementById('fc-prev').disabled=fcIdx===0;
+  document.getElementById('fc-next').disabled=fcIdx===fcCards.length-1;
+}
+function flipCard(){
+  fcFlipped=!fcFlipped;
+  document.getElementById('fc-inner').classList.toggle('flipped',fcFlipped);
+}
+function fcNav(dir){
+  fcIdx=Math.max(0,Math.min(fcCards.length-1,fcIdx+dir));
+  showFCard();
+}
+
+// ── SCENARIOS ────────────────────────────────────────────────────────
+const scenarios=[
+  {
+    tag:'Ch 9 — IMC',
+    scenario:'A student notices that a national fast-food chain\'s TikTok ads use a playful, irreverent tone, while their TV commercials are formal and corporate, and their in-store signage uses completely different taglines. Despite running promotions on all three channels, customers seem confused about the brand\'s identity.',
+    q:'What core IMC principle is this brand violating?',
+    opts:['They are using too many promotional mix elements simultaneously','Their promotions lack a specific target audience','Their messaging is not consistent and unified across all channels','Their promotional budget is allocated incorrectly'],
+    ans:2,
+    feedback:'IMC requires a consistent, unified message across all channels — not just using multiple channels. A brand that runs different tones and messages on different platforms is failing at integration, which creates brand confusion rather than brand equity.'
+  },
+  {
+    tag:'Ch 9 — Communication Process',
+    scenario:'A financial services company airs a radio ad during rush hour for a complex investment product. Drivers are focused on traffic and the ad uses industry jargon that most listeners don\'t understand. The brand later learns that few listeners recalled the message.',
+    q:'Which TWO elements of the communication process failed most clearly in this situation?',
+    opts:['Source and encoding — the brand is untrustworthy','Noise and decoding — driver distractions interrupted reception, and jargon prevented understanding','Channel and feedback — radio is outdated and they had no way to measure response','Message and receiver — the financial product is too complicated to promote'],
+    ans:1,
+    feedback:'Two failure points are at work: Noise (driver distraction = environmental interference) and Decoding (jargon = the receiver couldn\'t interpret the message). Channel choice contributed too, but the core failures are noise and decoding.'
+  },
+  {
+    tag:'Ch 10 — Promotional Mix',
+    scenario:'A regional athletic apparel brand sends personalized emails to past customers with curated product recommendations based on their purchase history. Each email links to a landing page with a 15% discount that expires in 48 hours.',
+    q:'Which two promotional mix elements is this brand primarily using?',
+    opts:['Advertising and public relations','Direct marketing and sales promotion','Personal selling and digital marketing','Public relations and advertising'],
+    ans:1,
+    feedback:'The personalized email = Direct Marketing (communicating individually to existing customers). The 48-hour expiring discount = Sales Promotion (incentive for immediate response). This combination is textbook direct marketing + sales promotion integration.'
+  },
+  {
+    tag:'Ch 10 — Budget Methods',
+    scenario:'A startup clothing brand is preparing its first-year promotional budget. The CEO says, "Let\'s figure out exactly what we need to accomplish — get 25% awareness among college women in three cities — then map out the ads, influencers, and events it would take, and budget for all of that." The CFO replies, "Why not just match what our biggest competitor spends?"',
+    q:'The CEO is advocating for which budget method, and why is it generally preferred?',
+    opts:['All-you-can-afford, because it protects margins during the startup phase','Competitive parity, because matching competitors prevents market share loss','Objective and task, because it starts with strategic goals and works backward to cost','Percentage of sales, because it links spending directly to revenue'],
+    ans:2,
+    feedback:'The CEO describes the Objective and Task method: define objectives → identify required tasks → estimate costs. It\'s preferred because it\'s the ONLY method that starts with strategy (what do we need to accomplish?) rather than working backward from available money.'
+  },
+  {
+    tag:'Ch 10 — Push vs. Pull',
+    scenario:'A new plant-based snack company wants to get its products onto Whole Foods shelves. They offer Whole Foods a promotional allowance, provide in-store display materials, and train Whole Foods staff on the product\'s nutritional benefits. Meanwhile, they have NOT run any consumer advertising yet.',
+    q:'What promotional strategy is this brand using, and who is the target of their promotion?',
+    opts:['Pull strategy — targeting consumers to create demand that retailers must respond to','Push strategy — targeting the channel partner (Whole Foods) to move product toward consumers','IMC strategy — coordinating multiple channels simultaneously','A trade-oriented pull strategy — using trade promotions to create consumer awareness'],
+    ans:1,
+    feedback:'This is a classic Push Strategy. The brand is promoting to the channel partner (Whole Foods) using trade promotions and training to get shelf placement — before any consumer-facing promotion has begun. Push = promote through the channel.'
+  },
+  {
+    tag:'Ch 12 — EKB & Selling',
+    scenario:'A software sales rep is meeting with a prospect who has been researching project management tools for weeks. The prospect says, "I\'ve narrowed it down to your product and two competitors. Your pricing seems competitive, but I\'m concerned about integration with our existing tools." The rep spends most of the meeting addressing the integration concern with live demos.',
+    q:'Which stage of the EKB model is this prospect in, and what is the salesperson\'s correct role at this stage?',
+    opts:['Need Recognition — help the prospect articulate what they need','Information Search — provide product reviews and case studies','Evaluation of Alternatives — demonstrate superiority over competitors and address objections proactively','Purchase Decision — close the sale by finalizing terms'],
+    ans:2,
+    feedback:'The prospect has narrowed to three options = Evaluation of Alternatives stage. At this stage, the salesperson\'s role is to demonstrate how their product is superior and proactively address objections — exactly what the rep did with the integration demo.'
+  },
+  {
+    tag:'Ch 12 — Selling Process',
+    scenario:'A B2B sales rep at a cloud storage company receives a referral for a logistics firm. Before making any contact, she reviews the firm\'s LinkedIn page, reads their recent press releases about supply chain expansion, checks CRM for any prior interactions, and prepares a tailored pitch focused on their stated growth challenges.',
+    q:'Which step of the six-step selling process is the rep performing, and what distinguishes it from the next step?',
+    opts:['Prospecting — she is qualifying whether the referral meets MAD criteria','Pre-approach — she is gathering intelligence BEFORE making first contact; Approach is the first contact itself','Approach — she is establishing a positive first impression with the prospect','Presentation — she is building her product demonstration around customer needs'],
+    ans:1,
+    feedback:'This is Pre-approach (Step 2): gathering information before any contact is made. The key distinction from Approach (Step 3) is that pre-approach happens entirely offline and internally — no prospect interaction has occurred yet. Approach = first actual contact.'
+  },
+  {
+    tag:'Ch 12 — Selling Styles',
+    scenario:'A technology sales rep is demonstrating a new CRM platform. Mid-demo, the prospect leans forward when the reporting dashboards appear, so the rep shifts the entire remaining presentation to focus on analytics and reporting features. When the prospect mentions a concern about implementation complexity, the rep immediately pivots to showing the onboarding support team\'s credentials.',
+    q:'Which selling style is this rep using, and what does it require?',
+    opts:['Formula selling — she is following a standard script for handling common objections','Needs-satisfaction selling — she is matching the product to stated customer preferences','Stimulus-response selling — she is adjusting in real time based on the prospect\'s reactions and signals','Order-getting — she is proactively creating demand for a product the customer didn\'t know they needed'],
+    ans:2,
+    feedback:'This is Stimulus-Response Selling: the rep detects customer reactions (leaning forward at dashboards) and adjusts the presentation in real time. This style requires the highest emotional intelligence and reading-the-room ability of the three selling styles.'
+  },
+  {
+    tag:'Ch 12 — Compensation',
+    scenario:'A sales manager at a healthcare technology company is designing a compensation plan for a team selling patient scheduling software. The sales cycles are long (3-6 months), relationships with hospital administrators are critical, and the company wants reps to prioritize account health over short-term deals.',
+    q:'Which compensation model best fits this situation and why?',
+    opts:['Commission-only, because it maximizes individual revenue motivation during long sales cycles','Salary-only, because it removes all performance incentives during the long relationship-building phase','Hybrid (base + commission), because it provides stability during long cycles while still incentivizing performance and can include satisfaction metrics','Percentage of quota, because it simplifies administration in a complex B2B environment'],
+    ans:2,
+    feedback:'Hybrid is the best fit: base salary provides stability during long 3-6 month cycles (commission-only would create income anxiety and potentially rushed tactics), while commission and satisfaction bonuses still align rep behavior with both revenue and account health goals. Commission-only would likely produce ethical pressure to rush or oversell.'
+  },
+  {
+    tag:'Ch 12 — Sales Management',
+    scenario:'A sales manager is reviewing performance data. Rep A has 115% of quota and $2.1M in revenue. Rep B has 92% of quota and $1.7M in revenue. However, Rep A\'s customer satisfaction scores are in the bottom 20% of the team, while Rep B\'s NPS is the highest on the team and has generated four referrals this quarter.',
+    q:'What does this scenario illustrate about sales performance measurement?',
+    opts:['Rep A is clearly the better performer because quota attainment is the primary measure of success','Rep B is underperforming and should be placed on a performance improvement plan','A complete evaluation requires both quantitative KPIs (quota, revenue) and qualitative metrics (satisfaction, referrals) — Rep A may be selling unethically or harming long-term account value','Both reps are performing adequately; compensation models are the real issue here'],
+    ans:2,
+    feedback:'This illustrates the need for both quantitative (revenue, quota) AND qualitative (NPS, referrals) KPIs. Rep A\'s numbers look strong, but low satisfaction scores and zero referrals may signal aggressive or unethical tactics that damage long-term customer relationships — exactly what behavioral evaluation is designed to detect.'
+  },
+];
+
+let scIdx=0, scScore=0, scAnswered=false;
+function renderSC(){
+  document.getElementById('sc-total').textContent=scenarios.length;
+}
+function updateSCDisplay(){
+  if(scIdx>=scenarios.length){showSCResults();return;}
+  const s=scenarios[scIdx];
+  document.getElementById('sc-progress').textContent='Question '+(scIdx+1)+' of '+scenarios.length;
+  document.getElementById('sc-bar').style.width=((scIdx/scenarios.length)*100)+'%';
+  scAnswered=false;
+  let html=`<div class="concept-tag">${s.tag}</div>
+  <div class="scenario-box">${s.scenario}</div>
+  <div class="question-text">${s.q}</div>
+  <div class="options-list">`;
+  const letters=['A','B','C','D'];
+  s.opts.forEach((o,i)=>{
+    html+=`<button class="opt-btn" onclick="answerSC(${i})" id="sc-opt-${i}"><span class="opt-letter">${letters[i]}</span>${o}</button>`;
+  });
+  html+=`</div><div class="feedback-box" id="sc-fb"></div>
+  <button class="next-btn" id="sc-next" onclick="nextSC()">Next Scenario →</button>`;
+  document.getElementById('sc-question-area').innerHTML=html;
+}
+function answerSC(idx){
+  if(scAnswered)return;
+  scAnswered=true;
+  const s=scenarios[scIdx];
+  const correct=idx===s.ans;
+  if(correct)scScore++;
+  document.getElementById('sc-score').textContent=scScore;
+  const letters=['A','B','C','D'];
+  s.opts.forEach((_,i)=>{
+    const btn=document.getElementById('sc-opt-'+i);
+    btn.disabled=true;
+    if(i===s.ans)btn.classList.add('correct');
+    else if(i===idx&&!correct)btn.classList.add('wrong');
+    else btn.classList.add('revealed');
+  });
+  const fb=document.getElementById('sc-fb');
+  fb.className='feedback-box '+(correct?'correct':'wrong')+' show';
+  fb.innerHTML=`<strong>${correct?'✓ Correct!':'✗ Not quite.'}</strong>${s.feedback}`;
+  const nb=document.getElementById('sc-next');
+  nb.classList.add('show');
+  nb.textContent=scIdx<scenarios.length-1?'Next Scenario →':'See Results';
+}
+function nextSC(){
+  scIdx++;
+  if(scIdx>=scenarios.length){showSCResults();}
+  else{updateSCDisplay();}
+}
+function showSCResults(){
+  document.getElementById('sc-wrap').classList.add('activity-hidden');
+  document.getElementById('sc-results').classList.remove('activity-hidden');
+  document.getElementById('sc-final-score').textContent=scScore+'/'+scenarios.length;
+  const pct=Math.round((scScore/scenarios.length)*100);
+  let msg='';
+  if(pct>=90)msg='Outstanding! You have a strong applied understanding of all three chapters.';
+  else if(pct>=70)msg='Good work. Review the scenarios you missed and their feedback before moving on.';
+  else msg='Keep practicing. Focus on the chapters where you missed questions — review the Key Terms and Flashcards for those areas.';
+  document.getElementById('sc-final-msg').textContent=msg;
+}
+function resetScenarios(){
+  scIdx=0;scScore=0;scAnswered=false;
+  document.getElementById('sc-score').textContent=0;
+  document.getElementById('sc-wrap').classList.remove('activity-hidden');
+  document.getElementById('sc-results').classList.add('activity-hidden');
+  updateSCDisplay();
+}
+
+// ── QUIZ DATA ────────────────────────────────────────────────────────
+const quizQs=[
+  {tag:'Ch 9',q:'The goal of Integrated Marketing Communications (IMC) is best described as:',opts:['Using as many promotional channels as possible to reach the widest audience','Ensuring all marketing communication tools deliver a consistent, unified message across all customer touchpoints','Spending equal amounts across advertising, digital, and public relations','Combining advertising and sales promotion to drive immediate purchases'],ans:1,fb:'IMC is about coordination and consistency — one unified message, not just channel volume. Using multiple channels with inconsistent messages is NOT IMC.'},
+  {tag:'Ch 9',q:'A consumer sees a TV ad for a new smartphone but is simultaneously distracted by a phone notification and misinterprets the ad\'s tagline as making a different claim than intended. Which two elements of the communication process explain these failures?',opts:['Source and encoding','Feedback and receiver','Noise and decoding','Channel and message'],ans:2,fb:'Noise = the phone notification disrupting message reception. Decoding failure = the consumer misinterpreted the tagline. Two separate breakdowns in the same exposure.'},
+  {tag:'Ch 9',q:'In digital marketing, the feedback loop in the communication process is most powerfully represented by:',opts:['Customer satisfaction survey scores submitted six months after purchase','Real-time data including click-through rates, social engagement, and conversion tracking','Annual brand awareness surveys conducted by the marketing research team','The number of broadcast media placements per quarter'],ans:1,fb:'Digital marketing has transformed feedback into near-real-time data. Click rates, conversions, and engagement give brands immediate signals to adjust encoding, channel, and message.'},
+  {tag:'Ch 10',q:'A dairy brand runs an ad campaign called "Drink More Milk" that promotes milk consumption in general rather than its specific brand. This is an example of:',opts:['Selective demand promotion','Trade-oriented sales promotion','Primary demand promotion','Pull strategy promotion'],ans:2,fb:'Primary demand = building demand for the product CATEGORY (milk) rather than for a specific brand. The contrast is selective demand, which promotes one brand over others.'},
+  {tag:'Ch 10',q:'The Information Processing Model differs from the AIDA model most significantly because it includes:',opts:['Awareness and desire as sequential stages','The concept of retention — meaning consumers store information for later use in purchase decisions','The role of channel partners in distributing the promotional message','Primary vs. selective demand objectives'],ans:1,fb:'The Information Processing Model\'s distinguishing feature is retention — it assumes consumers store information from ads and recall it later when making a purchase. AIDA doesn\'t include retention.'},
+  {tag:'Ch 10',q:'A cosmetics brand offers retailers a promotional allowance and provides dedicated in-store display units to feature their holiday collection. This is best classified as:',opts:['Consumer-oriented sales promotion','Trade-oriented sales promotion','Direct marketing','Pull strategy advertising'],ans:1,fb:'Trade-oriented sales promotion targets channel partners (retailers), not end consumers. Promotional allowances and in-store display support are classic trade promotion tools.'},
+  {tag:'Ch 10',q:'Which promotional budget method is MOST preferred by marketing professionals, and why?',opts:['All-you-can-afford, because it protects business cash flow','Competitive parity, because it prevents competitors from gaining share','Percentage of sales, because it ties spending directly to business performance','Objective and task, because it starts with strategic goals and calculates the cost to achieve them'],ans:3,fb:'Objective and Task is preferred because it\'s the only method that starts with strategy: define what you need to accomplish → identify required tasks → estimate costs. All other methods work backward from finances rather than from objectives.'},
+  {tag:'Ch 10',q:'A luxury car brand focuses all its promotional spending on reaching consumers directly through national TV campaigns, social media influencer partnerships, and premium content marketing. Which strategy does this represent, and what is its goal?',opts:['Push strategy — the goal is to convince retailers to stock the vehicle','Pull strategy — the goal is to create strong consumer demand that dealers must respond to','Trade-oriented promotion — the goal is to train dealer staff on the vehicle\'s features','Primary demand promotion — the goal is to increase overall luxury car purchases'],ans:1,fb:'Pull strategy promotes DIRECTLY to consumers to build demand that "pulls" product through the channel. Dealers are compelled to stock and display the brand because their customers are asking for it.'},
+  {tag:'Ch 10',q:'A company sets its promotional budget each year at 6% of the previous year\'s revenue. The primary weakness of this method is:',opts:['It ignores competitive spending levels in the market','It assumes promotion follows sales rather than drives them — good years mean more budget when less may be needed; bad years mean less when more is needed','It is too complex to calculate accurately for most organizations','It doesn\'t account for seasonal variations in consumer demand'],ans:1,fb:'The percentage of sales method assumes a reactive relationship: promotion responds to sales. But promotion DRIVES sales — so this method inverts the logic. It also creates a procyclical problem: big budgets when things are already good, small budgets when growth is most needed.'},
+  {tag:'Ch 10',q:'Which factor affecting promotional mix selection explains why Salesforce uses personal selling extensively while Coca-Cola relies almost exclusively on advertising and sales promotion?',opts:['Seasonality — Salesforce has non-seasonal demand while Coca-Cola spikes in summer','Target market size — Salesforce targets a larger audience than Coca-Cola','Nature of the product — Salesforce sells complex, high-cost enterprise software requiring consultative sales; Coca-Cola sells a low-cost commodity','Push vs. pull strategy — Salesforce uses push while Coca-Cola uses pull'],ans:2,fb:'The nature of the product is the key factor. Complex, high-cost, customizable products require personal selling because consumers need guidance, education, and relationship trust. Commodity products reach mass markets more efficiently through advertising.'},
+  {tag:'Ch 12',q:'Personal selling is described as the most important promotional mix element when:',opts:['The target market is very large and geographically dispersed','The product is complex, high-cost, or requires customization, and when one-to-one communication is needed','The promotional budget is limited and mass media is too expensive','The company is in the introduction stage of the product life cycle'],ans:1,fb:'Personal selling excels when products are complex, expensive, or require customization — because only one-to-one communication allows the salesperson to listen, adapt, and respond to individual needs in real time.'},
+  {tag:'Ch 12',q:'A customer calls a home improvement store to order a specific tool they saw in a flyer. The employee processes the order without any persuasion. This scenario illustrates:',opts:['Order-getting, because the customer was influenced by the store\'s promotional flyer','Order-taking, because the customer had already decided to purchase and the employee facilitated the transaction','Needs-satisfaction selling, because the employee matched the product to the customer\'s stated need','Formula selling, because the employee followed a standard transaction process'],ans:1,fb:'Order-taking occurs when the customer has already decided to buy and the salesperson simply processes the transaction. No persuasion or demand creation is involved — the customer initiated with purchase intent.'},
+  {tag:'Ch 12',q:'A qualified lead in the sales context is one that meets the MAD criteria. Which scenario describes a lead that is NOT fully qualified?',opts:['A hospital CFO who has requested a demo of your medical software and has an approved IT budget for Q3','A mid-size marketing agency director interested in your project management tool but requires board approval before any purchase','A national retail chain buyer who attended your trade show booth, has budget authority, and expressed clear interest in your product line','A Fortune 500 procurement manager with an approved vendor list who has added your company and is requesting pricing'],ans:1,fb:'The agency director is missing the A in MAD — Authority. They cannot make the purchase decision independently. Without all three criteria (Money ✓, Authority ✗, Desire ✓), this lead is not fully qualified and pursuing them at full investment is premature.'},
+  {tag:'Ch 12',q:'A salesperson learns from a CRM record that an existing client\'s contract expires in 60 days, reviews their usage data showing they\'ve expanded their team by 40%, and prepares an enterprise upgrade proposal before scheduling a call. This activity best represents:',opts:['Prospecting — generating a new lead from the existing account','Pre-approach — gathering intelligence to tailor the upcoming conversation','Approach — making initial contact to assess readiness for the upgrade discussion','Presentation — preparing the product demonstration for the upgrade proposal'],ans:1,fb:'Pre-approach (Step 2) is gathering information BEFORE making any contact. The salesperson is reviewing CRM data and usage analytics to personalize the conversation — no prospect contact has occurred yet.'},
+  {tag:'Ch 12',q:'During a presentation, a salesperson notices the prospect\'s body language becomes more engaged when discussing analytics dashboards. The rep immediately expands on reporting features and spends less time on other capabilities. This selling style is:',opts:['Needs-satisfaction selling','Formula selling','Stimulus-response selling','Consultative selling'],ans:2,fb:'Stimulus-Response Selling: the salesperson adjusts the presentation in real time based on the customer\'s visible reactions (engaged body language at dashboards = stimulus → pivot to more analytics content = response). Requires high emotional intelligence.'},
+  {tag:'Ch 12',q:'A sales rep completes a successful product demonstration and the prospect says, "This looks great, I need to think about it." What should the rep do at this point, according to the six-step selling process?',opts:['End the meeting professionally and wait for the prospect to reach out','Ask for the sale — without asking, no commitment is secured, even after a strong presentation','Move back to the presentation stage to address any remaining concerns','Begin the pre-approach for the follow-up visit'],ans:1,fb:'Step 5 — Close — requires asking for the sale. "I need to think about it" is a soft objection, not a firm no. A skilled closer acknowledges the concern, addresses it, and still asks for the business. Without asking, the process remains incomplete.'},
+  {tag:'Ch 12',q:'Why does the textbook describe follow-up as an essential step rather than an optional courtesy?',opts:['Because it is required by most B2B sales contracts and service level agreements','Because post-sale contact is the primary mechanism for building repeat business, generating referrals, and maximizing customer lifetime value','Because it gives the sales manager data for the quarterly performance report','Because regulatory compliance requires documentation of all customer interactions'],ans:1,fb:'Follow-up (Step 6) is the engine of long-term sales success. It costs 5-7x more to acquire a new customer than to retain one. Follow-up builds the trust that converts one-time buyers into repeat customers and referral sources — dramatically increasing lifetime value.'},
+  {tag:'Ch 12',q:'A pharma company organizes its sales team so that one set of reps sells cardiovascular drugs and a separate team sells oncology drugs — even though both teams may call on the same physicians. This structure is:',opts:['Geographic structure — organized by physician location and territory','Customer structure — organized by physician specialty type','Product/Service structure — organized by the product line each rep sells','Account-based structure — organized by the most valuable physician practices'],ans:2,fb:'Product/Service Structure: reps specialize in specific product or service lines. The trade-off shown here is the con of this structure — multiple reps calling on the same customer, which can create coordination challenges and customer confusion.'},
+  {tag:'Ch 12',q:'A sales manager designing a compensation plan is considering commission-only for a team selling to first-time homebuyers. Which is the most significant risk of this approach in this context?',opts:['It will make it difficult to attract experienced real estate agents to the team','Commission-only may incentivize reps to push buyers toward homes at the top of their budget or unsuitable properties rather than the best fit for their needs','It will reduce the team\'s ability to hit quarterly revenue targets','It requires more complex administration than salary-only models'],ans:1,fb:'Commission-only creates ethical risk: when income depends entirely on closing deals, there\'s financial pressure to sell rather than to serve. In real estate, this could mean steering buyers toward more expensive properties or pressuring them to move faster than is wise — prioritizing commission over customer fit.'},
+  {tag:'Ch 12',q:'A sales manager evaluates her team using both quota attainment data AND customer NPS scores, behavioral evaluation observations from call monitoring, and referral generation rates. This approach reflects:',opts:['Competitive parity analysis applied to individual sales performance','A complete performance dashboard using both quantitative and qualitative metrics','An account management policy designed to reduce territory overlap','Sales force recruiting criteria applied retroactively to existing team members'],ans:1,fb:'The textbook is explicit: sales dashboards should include BOTH quantitative metrics (revenue, close rate, quota) AND qualitative metrics (customer surveys, retention, behavioral evaluation). Using only numbers misses the "how" of selling — which is what behavioral evaluation captures.'},
+  {tag:'Ch 10',q:'Spotify used a 30-day free Premium trial during its market entry phase. Which stage of the Innovation Adoption process does this tactic directly address?',opts:['Awareness — exposing new consumers to the Spotify brand for the first time','Evaluation — reducing risk so consumers can compare Spotify to alternatives with no financial commitment','Adoption — converting existing free users to paying subscribers','Trial — encouraging existing subscribers to try Spotify Wrapped features'],ans:1,fb:'The 30-day trial targets the Evaluation stage: consumers have heard of Spotify (Awareness) and now must assess whether it\'s better than iTunes, Pandora, and piracy. A free trial removes financial risk, making honest evaluation possible.'},
+  {tag:'Ch 9',q:'According to the textbook, an individual may receive up to how many marketing messages per day?',opts:['1,000','5,000','10,000','25,000'],ans:2,fb:'The textbook cites up to 10,000 messages per day — underscoring why IMC\'s goal of a consistent, unified message is critical. Brands must cut through enormous noise with clarity and repetition.'},
+  {tag:'Ch 12',q:'The Deloitte (2023) research cited in the textbook argues that sales training should prioritize:',opts:['Detailed product knowledge and technical specifications above all else','Emotional intelligence, active listening, and personalized customer engagement over product-focused training','Quota-setting methodologies and territory management systems','AI-powered CRM tools and sales automation platforms'],ans:1,fb:'Deloitte (2023) found that training focused on emotional intelligence, active listening, and personalized engagement outperforms traditional product-focused training. The reason: AI can handle information transfer — humans must deliver empathy and relationship skills.'},
+  {tag:'Ch 12',q:'"Behavioral Evaluation" as described in the textbook refers to:',opts:['Measuring a rep\'s performance strictly by comparing quota attainment to the team average','Reviewing a sales professional using a relationship-based assessment rather than sales results only','Tracking customer behavior data using CRM analytics and predictive modeling','Evaluating the behavioral economics principles used in a rep\'s sales presentations'],ans:1,fb:'The textbook\'s key term: behavioral evaluation = reviewing the salesperson by using a "behavioral relationship review" rather than relying solely on sales results. It assesses HOW they sell, not just HOW MUCH.'},
+  {tag:'Ch 10',q:'Which statement most accurately distinguishes traditional media from digital media in a promotional context?',opts:['Traditional media is always more expensive than digital media and should be avoided for small brands','Traditional media offers mass reach and high credibility but limited targeting precision and measurability; digital media offers precise targeting and real-time measurement but faces ad fatigue and algorithm dependence','Traditional media is only effective for B2C brands; digital media is more effective for B2B','Traditional media generates more immediate sales response than digital media in most categories'],ans:1,fb:'Traditional media advantages: mass reach, high credibility (TV, print), strong emotional impact. Weaknesses: limited targeting, hard to measure ROI, high cost. Digital advantages: precise targeting, real-time measurement, interactive. Weaknesses: ad fatigue, trust challenges, algorithm dependence. Both have strategic roles.'},
+  {tag:'Ch 12',q:'Account Management Policies serve which primary purpose in a sales organization?',opts:['They define the promotional budget allocation for each customer account','They establish rules governing how customers are engaged — preventing internal conflict and protecting customer relationships through clear territory ownership, contact frequency, and escalation protocols','They specify the commission rates and incentive structures for the sales compensation plan','They outline the recruiting criteria and hiring process for adding new sales team members'],ans:1,fb:'Account management policies govern the ENGAGEMENT rules: who owns which accounts, how often to contact, who escalates issues, what discounts are authorized, and how data is maintained. Without these rules, internal rep competition and inconsistent customer experiences undermine team performance.'},
+  {tag:'Ch 12',q:'A customer structure sales team organization is also known as:',opts:['Geographic structure','Territory-based structure','Account-based structure','Product-line structure'],ans:2,fb:'Customer structure = account-based structure. Reps are aligned by customer type, size, or industry vertical — not by geography or product line. This is also the basis of Account-Based Marketing (ABM), which focuses resources on high-value customer relationships.'},
+  {tag:'Ch 10',q:'The promotional mix element that uses incentives like slotting fees and promotional allowances aimed at wholesalers and retailers specifically is called:',opts:['Consumer-oriented sales promotion','Trade-oriented sales promotion','Direct marketing','Public relations'],ans:1,fb:'Trade-oriented sales promotion targets channel partners (wholesalers, retailers) with incentives to move merchandise through the channel. Consumer-oriented promotions target end buyers. Both often run simultaneously.'},
+  {tag:'Ch 12',q:'Sales management involves three interrelated processes. Which of the following best describes the "Evaluation and Control" process?',opts:['Recruiting and selecting salespeople, then creating training programs to prepare them','Developing the strategic sales action plan, account profiles, and territory assignments','Monitoring and assessing sales team performance through behavioral analysis, cost analysis, sales analysis, and KPI measurement','Designing compensation and incentive programs to drive specific strategic initiatives'],ans:2,fb:'The Evaluation and Control process focuses on monitoring performance: behavioral analysis (how are reps selling?), cost analysis (are we spending efficiently?), sales analysis (are we hitting objectives?), and KPI tracking. This closes the loop on strategy implementation.'},
+  {tag:'Ch 9',q:'Which statement about the promotional mix elements is most accurate according to the textbook?',opts:['Each element is distinct and should be used independently to avoid message confusion','The diversity of methods and forms permits flexibility — and combining elements improves effectiveness, such as using advertising to announce a sales promotion to a mass audience','Digital marketing has replaced all traditional elements of the promotional mix','Personal selling is the most cost-effective element for brands with large target markets'],ans:1,fb:'The textbook explicitly states that the diversity of methods "permits flexibility" AND that "marketing managers can combine methods to improve effectiveness" — using advertising to announce a sales promotion being the cited example. The elements are designed to work together, not independently.'},
+  {tag:'Ch 12',q:'Which of the following best represents an emerging trend in sales compensation, as described in the Chapter 12 textbook?',opts:['Moving all sales teams to salary-only models to eliminate ethical risks from commission structures','Eliminating the sales funnel concept in favor of direct customer-to-product matching','AI-powered performance tracking systems that measure factors including customer satisfaction and sales ethics, in addition to traditional revenue metrics','Replacing human salespeople with automated chatbots in all B2B selling contexts'],ans:2,fb:'The textbook specifically describes AI-powered performance tracking as an emerging compensation strategy — platforms that measure customer satisfaction, sales ethics, and other behavioral factors alongside revenue. This reflects the shift toward LTV metrics and team-based incentives over pure revenue measurement.'},
+];
+
+let qzIdx=0, qzScore=0, qzAnswered=false;
+function renderQZ(){
+  document.getElementById('qz-total').textContent=quizQs.length;
+}
+function updateQZDisplay(){
+  if(qzIdx>=quizQs.length){showQZResults();return;}
+  const q=quizQs[qzIdx];
+  document.getElementById('qz-progress').textContent='Question '+(qzIdx+1)+' of '+quizQs.length;
+  document.getElementById('qz-bar').style.width=((qzIdx/quizQs.length)*100)+'%';
+  qzAnswered=false;
+  let html=`<div class="concept-tag">${q.tag}</div>
+  <div class="question-text">${q.q}</div>
+  <div class="options-list">`;
+  const letters=['A','B','C','D'];
+  q.opts.forEach((o,i)=>{
+    html+=`<button class="opt-btn" onclick="answerQZ(${i})" id="qz-opt-${i}"><span class="opt-letter">${letters[i]}</span>${o}</button>`;
+  });
+  html+=`</div><div class="feedback-box" id="qz-fb"></div>
+  <button class="next-btn" id="qz-next" onclick="nextQZ()">Next Question →</button>`;
+  document.getElementById('qz-question-area').innerHTML=html;
+}
+function answerQZ(idx){
+  if(qzAnswered)return;
+  qzAnswered=true;
+  const q=quizQs[qzIdx];
+  const correct=idx===q.ans;
+  if(correct)qzScore++;
+  document.getElementById('qz-score').textContent=qzScore;
+  const letters=['A','B','C','D'];
+  q.opts.forEach((_,i)=>{
+    const btn=document.getElementById('qz-opt-'+i);
+    btn.disabled=true;
+    if(i===q.ans)btn.classList.add('correct');
+    else if(i===idx&&!correct)btn.classList.add('wrong');
+    else btn.classList.add('revealed');
+  });
+  const fb=document.getElementById('qz-fb');
+  fb.className='feedback-box '+(correct?'correct':'wrong')+' show';
+  fb.innerHTML=`<strong>${correct?'✓ Correct!':'✗ Not quite.'}</strong>${q.fb}`;
+  const nb=document.getElementById('qz-next');
+  nb.classList.add('show');
+  nb.textContent=qzIdx<quizQs.length-1?'Next Question →':'See Final Score';
+}
+function nextQZ(){
+  qzIdx++;
+  if(qzIdx>=quizQs.length)showQZResults();
+  else updateQZDisplay();
+}
+function showQZResults(){
+  document.getElementById('quiz-wrap').classList.add('activity-hidden');
+  document.getElementById('quiz-results').classList.remove('activity-hidden');
+  document.getElementById('qz-final-score').textContent=qzScore+'/'+quizQs.length;
+  const pct=Math.round((qzScore/quizQs.length)*100);
+  let msg='';
+  if(pct>=90)msg='Excellent! You have a strong command of IMC, Promotion, and Sales content. Focus on any areas you missed.';
+  else if(pct>=70)msg='Good foundation. Review feedback on any wrong answers and use the Flashcards to reinforce weak areas.';
+  else msg='More review needed. Start with Key Terms, then Flashcards, then retake the quiz. Pay special attention to the six-step selling process and budget methods.';
+  document.getElementById('qz-final-msg').textContent=msg;
+}
+function resetQuiz(){
+  qzIdx=0;qzScore=0;qzAnswered=false;
+  document.getElementById('qz-score').textContent=0;
+  document.getElementById('quiz-wrap').classList.remove('activity-hidden');
+  document.getElementById('quiz-results').classList.add('activity-hidden');
+  updateQZDisplay();
+}
+
+// ── MATCHING DATA ────────────────────────────────────────────────────
+const matchSets=[
+  {
+    pairs:[
+      {term:'Advertising',def:'Paid, non-personal mass communication — TV, radio, print, digital banners — to reach a broad audience'},
+      {term:'Sales Promotion',def:'Short-term incentives (coupons, flash sales, contests) designed to stimulate an immediate purchase response'},
+      {term:'Public Relations',def:'Earned media and reputation management — press releases, events, community outreach — to improve brand image'},
+      {term:'Direct Marketing',def:'Personalized one-to-one communication — email, mail, telemarketing — targeting specific individuals for a measurable response'},
+      {term:'Personal Selling',def:'Two-way, real-time communication between a salesperson and a prospect for the purpose of completing a transaction'},
+      {term:'Digital Marketing',def:'Online promotion through social media, SEO, search ads, influencers, and content marketing'},
+      {term:'Push Strategy',def:'Promoting to channel partners (retailers, wholesalers) to move product toward consumers using trade promotions'},
+      {term:'Pull Strategy',def:'Promoting directly to consumers to create demand that pulls product through the channel'},
+    ]
+  },
+  {
+    pairs:[
+      {term:'Prospecting',def:'Generating qualified leads (MAD: Money, Authority, Desire) to fill the sales funnel'},
+      {term:'Pre-approach',def:'Gathering intelligence about a prospect BEFORE making any contact — CRM data, LinkedIn research'},
+      {term:'Approach',def:'First real contact with the prospect — in person, video, or phone — to create a positive impression'},
+      {term:'Presentation',def:'Demonstrating how the product meets the customer\'s needs and handling objections'},
+      {term:'Close',def:'Asking for the sale — without asking, no commitment is secured'},
+      {term:'Follow-Up',def:'Post-sale contact to confirm satisfaction, build trust, and generate referrals'},
+      {term:'Geographic Structure',def:'Sales team organized by region or territory — strong local expertise, reduced travel'},
+      {term:'Behavioral Evaluation',def:'Reviewing salespeople based on HOW they sell, not just on quota numbers'},
+    ]
+  }
+];
+
+let mtCurrent=0, mtSelected={left:null,right:null}, mtMatched=0, mtPairs=[];
+function loadMatch(idx, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  mtCurrent=idx;
+  mtMatched=0;
+  mtSelected={left:null,right:null};
+  document.getElementById('mt-complete').style.display='none';
+  const set=matchSets[idx];
+  mtPairs=JSON.parse(JSON.stringify(set.pairs));
+  document.getElementById('mt-score').textContent=0;
+  document.getElementById('mt-total').textContent=mtPairs.length;
+  const rights=[...mtPairs].sort(()=>Math.random()-.5);
+  let leftHTML='',rightHTML='';
+  mtPairs.forEach((p,i)=>{
+    leftHTML+=`<div class="match-item" id="mt-L-${i}" onclick="selectMatch('left',${i},'${escQ(p.term)}')">${p.term}</div>`;
+  });
+  rights.forEach((p,i)=>{
+    const origIdx=mtPairs.findIndex(x=>x.def===p.def);
+    rightHTML+=`<div class="match-item" id="mt-R-${origIdx}" onclick="selectMatch('right',${origIdx},'${escQ(p.def)}')">${p.def}</div>`;
+  });
+  document.getElementById('mt-left').innerHTML=leftHTML;
+  document.getElementById('mt-right').innerHTML=rightHTML;
+}
+function escQ(s){return s.replace(/'/g,"\\'");}
+function selectMatch(side,idx,val){
+  const el=document.getElementById('mt-'+(side==='left'?'L':'R')+'-'+idx);
+  if(el.classList.contains('matched'))return;
+  if(side==='left'){
+    if(mtSelected.left!==null){
+      const prev=document.getElementById('mt-L-'+mtSelected.left);
+      if(prev)prev.classList.remove('selected');
+    }
+    mtSelected.left=idx;
+    el.classList.add('selected');
+  } else {
+    if(mtSelected.right!==null){
+      const prev=document.getElementById('mt-R-'+mtSelected.right);
+      if(prev)prev.classList.remove('selected');
+    }
+    mtSelected.right=idx;
+    el.classList.add('selected');
+  }
+  if(mtSelected.left!==null && mtSelected.right!==null){
+    checkMatch();
+  }
+}
+function checkMatch(){
+  const li=mtSelected.left, ri=mtSelected.right;
+  const lEl=document.getElementById('mt-L-'+li);
+  const rEl=document.getElementById('mt-R-'+ri);
+  if(li===ri){
+    lEl.classList.remove('selected');rEl.classList.remove('selected');
+    lEl.classList.add('matched');rEl.classList.add('matched');
+    mtMatched++;
+    document.getElementById('mt-score').textContent=mtMatched;
+    if(mtMatched===mtPairs.length){
+      document.getElementById('mt-complete').style.display='flex';
+    }
+  } else {
+    lEl.classList.add('wrong-flash');rEl.classList.add('wrong-flash');
+    setTimeout(()=>{
+      lEl.classList.remove('selected','wrong-flash');
+      rEl.classList.remove('selected','wrong-flash');
+    },600);
+  }
+  mtSelected={left:null,right:null};
+}
+function resetMatch(){
+  loadMatch(mtCurrent, document.querySelectorAll('.filter-btn')[mtCurrent]);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+renderFC();
+renderSC();
+updateSCDisplay();
+renderQZ();
+updateQZDisplay();
+</script>
+</body>
+</html>
